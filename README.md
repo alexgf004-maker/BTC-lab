@@ -1,4 +1,4 @@
-# scalping-lab
+# BTC-lab
 
 Investigación rigurosa (y didáctica) de estrategias de scalping en Binance USDⓈ-M Futures,
 con el objetivo final de ejecutarlas de forma automática.
