@@ -55,3 +55,23 @@ def resample(df: pd.DataFrame, rule: str) -> pd.DataFrame:
     agg = {"open": "first", "high": "max", "low": "min", "close": "last",
            "volume": "sum", "quote_volume": "sum", "count": "sum", "taker_buy_volume": "sum"}
     return df.resample(rule, label="left", closed="left").agg(agg).dropna()
+
+
+FUNDING = ROOT / "data" / "funding"
+
+
+def load_funding(symbol: str) -> pd.Series:
+    """Tasa de funding por pago (fracción), indexada por hora UTC del pago."""
+    parts = []
+    for f in sorted(FUNDING.glob(f"{symbol}-fundingRate-*.zip")):
+        with zipfile.ZipFile(f) as z:
+            raw = z.read(z.namelist()[0])
+        hdr = 0 if raw[:1].isalpha() else None
+        d = pd.read_csv(io.BytesIO(raw), header=hdr)
+        d.columns = ["calc_time", "interval_h", "rate"][: d.shape[1]] if hdr is None else d.columns
+        d = d.rename(columns={"last_funding_rate": "rate"})
+        parts.append(d[["calc_time", "rate"]])
+    d = pd.concat(parts)
+    s = pd.Series(d["rate"].astype(float).to_numpy(),
+                  index=pd.to_datetime(d["calc_time"], unit="ms", utc=True)).sort_index()
+    return s[~s.index.duplicated()]
