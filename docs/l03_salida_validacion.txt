@@ -1,0 +1,36 @@
+
+=== LARGOS FUERA DE MUESTRA (2024-01 → 2026-10) {'N': 120, 'm': 5.0} ===
+                      serie  trades  win_rate   E_R    PF  total_R
+                 estrategia     211     0.398 0.394 2.193   83.067
+control (azar en tendencia)    1986     0.331 0.107 1.319  211.693
+        variante 50% en +1R     211     0.441 0.237 1.733   49.913
+Por año:
+      trades  win_rate   E_R    PF  total_R
+year                                       
+2024  91.000     0.407 0.585 2.747   53.204
+2025  60.000     0.450 0.425 2.356   25.512
+2026  60.000     0.333 0.073 1.214    4.350
+Por activo:
+          trades  win_rate   E_R    PF  total_R
+symbol                                         
+ADAUSDT   18.000     0.389 0.117 1.425    2.106
+AVAXUSDT  15.000     0.533 0.570 3.355    8.551
+BNBUSDT   27.000     0.444 0.310 1.814    8.371
+BTCUSDT   28.000     0.357 0.250 1.779    6.992
+DOGEUSDT  20.000     0.350 0.398 2.066    7.956
+ETHUSDT   22.000     0.409 0.345 1.926    7.588
+LINKUSDT  25.000     0.360 0.030 1.090    0.759
+LTCUSDT   17.000     0.353 0.042 1.114    0.710
+SOLUSDT   22.000     0.500 0.221 1.955    4.872
+XRPUSDT   17.000     0.294 2.068 6.523   35.161
+Duración mediana: 6.7 días | R percentiles 10/50/90: {0.1: -0.83, 0.5: -0.25, 0.9: 2.23} | mejor trade 30.8R | peor -1.0R
+Dependencia de los grandes: el 10 % mejor de trades aporta 109R de un total de 83R
+
+--- Robustez fuera de muestra ---
+E = 0.394R, IC 95% bootstrap [0.103, 0.779], P(E<=0) = 0.0010
+Sin XRP: 194 trades, E 0.247R, PF 1.76
+Sin los 1 mejores trades: E 0.249R, PF 1.75
+Sin los 3 mejores trades: E 0.186R, PF 1.56
+Sin los 5 mejores trades: E 0.131R, PF 1.39
+Sin los 10 mejores trades: E 0.026R, PF 1.08
+Posiciones abiertas simultáneas: máx 10, media ponderada en el tiempo ~3.7
