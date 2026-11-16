@@ -19,7 +19,8 @@ from .swing import SwingCosts
 
 def simulate(df: pd.DataFrame, side: np.ndarray, m: float, funding: pd.Series | None = None,
              costs: SwingCosts = SwingCosts(), bar: pd.Timedelta = pd.Timedelta("4h"),
-             partial: tuple[float, float] | None = None, one_at_a_time: bool = True) -> pd.DataFrame:
+             partial: tuple[float, float] | None = None, one_at_a_time: bool = True,
+             pyramid_at: float | None = None) -> pd.DataFrame:
     o, h, l, c = (df[k].to_numpy() for k in ("open", "high", "low", "close"))
     a = df["atr"].to_numpy()
     t, t_ns = df.index, df.index.as_unit("ns").asi8
@@ -37,6 +38,7 @@ def simulate(df: pd.DataFrame, side: np.ndarray, m: float, funding: pd.Series | 
         stop = entry - d * R
         ext = entry
         p_done, p_r = False, 0.0
+        add_k, add_R = -1, np.nan       # piramidación: vela de entrada del añadido y su riesgo
         exit_px, k = None, j
         for k in range(j, n):
             if k > j and (o[k] - stop) * d <= 0:
@@ -51,6 +53,11 @@ def simulate(df: pd.DataFrame, side: np.ndarray, m: float, funding: pd.Series | 
             ext = max(ext, h[k]) if d == 1 else min(ext, l[k])
             new = ext - d * m * a[k]
             stop = max(stop, new) if d == 1 else min(stop, new)
+            if pyramid_at and add_k < 0 and k > j and k + 1 < n and \
+                    ((h[k] if d == 1 else l[k]) - (entry + d * pyramid_at * R)) * d >= 0:
+                r2 = d * (o[k + 1] - stop)
+                if r2 > 0:
+                    add_k, add_R = k + 1, r2
         if exit_px is None:          # sigue abierta al final de los datos: cerrar al último cierre
             exit_px, k = c[n - 1], n - 1
         fee_in = entry * (costs.taker + costs.slip)
@@ -66,8 +73,18 @@ def simulate(df: pd.DataFrame, side: np.ndarray, m: float, funding: pd.Series | 
             r_net = f * (p_r - (fee_in + fund) / R) + (1 - f) * r_full
         else:
             r_net = r_full
+        add = (pd.NaT, np.nan, np.nan, np.nan)
+        if add_k > 0 and add_k <= k:
+            e2 = o[add_k]
+            f2 = 0.0
+            if funding is not None:
+                fa2 = np.searchsorted(f_t, t_ns[add_k], side="right")
+                f2 = d * (f_cum[fb] - f_cum[fa2]) * e2
+            r2 = (d * (exit_px - e2) - e2 * (costs.taker + costs.slip) - exit_px * (costs.taker + costs.slip) - f2) / add_R
+            add = (t[add_k], e2, add_R, r2)
         rows.append((t[i], t[j], t[k] + bar, d, entry, exit_px, R, k - j + 1,
-                     d * (exit_px - entry) / R, r_net, p_done))
+                     d * (exit_px - entry) / R, r_net, p_done, *add))
         busy = k
     return pd.DataFrame(rows, columns=["signal_time", "entry_time", "exit_time", "side", "entry", "exit",
-                                       "R", "bars", "r_gross", "r_net", "partial_hit"])
+                                       "R", "bars", "r_gross", "r_net", "partial_hit",
+                                       "add_time", "add_entry", "add_R", "add_r_net"])

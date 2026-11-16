@@ -37,3 +37,27 @@ Variantes, **cada una con un parámetro fijado de antemano por la literatura o p
 **Combinación:** se unen todas las adoptadas; la combinación debe mejorar también a V0 en las dos mitades.
 **Examen final (15 activos nuevos, una vez):** combinación frente a V0. Aprobación: Sharpe > V0, PF ≥ 1,3,
 y **Deflated Sharpe ≥ 0,90** contando todas las pruebas hechas desde la Lección 2.
+
+## 3. Resultados en desarrollo (10 activos) — `l05_salida_desarrollo.txt`
+
+Cordura: V0 reproduce exactamente la Lección 4 (CAGR 36,9 %, DD 25,5 %). ✅
+
+| Variante | Sharpe 20-23 | Sharpe 24-26 | MAR 20-23 | MAR 24-26 | DD máx. | Win rate | Veredicto |
+|---|---|---|---|---|---|---|---|
+| V0 base | 1,59 | 1,11 | 2,07 | 1,00 | 25,5 % | 40 % | referencia |
+| V1 conjunto de periodos | 1,47 | 0,97 | 1,94 | 0,80 | 18,8 % | 39 % | rechazada |
+| V2 régimen BTC | 1,57 | 1,22 | 2,53 | 0,91 | 29,8 % | 41 % | rechazada |
+| V3 filtro de funding | **1,67** | **1,15** | **2,31** | **1,06** | 23,8 % | 41 % | **adoptada** |
+| V4 objetivo de volatilidad | 1,72 | 0,98 | 2,13 | 0,81 | 29,6 % | 40 % | rechazada |
+| V5 piramidación | **1,65** | **1,20** | **2,77** | **1,17** | 30,8 % | 42 % | **adoptada** |
+| **Combinada (V3 + V5)** | **1,73** | **1,22** | **3,03** | **1,18** | 29,3 % | **44 %** | supera a V0 en ambas |
+
+Observaciones:
+- **V1 (la idea central del artículo) no mejora aquí:** los periodos cortos (5–10 días) diluyen la ventaja con
+  más ruido y más costes. En nuestros datos manda la tendencia larga, coherente con la literatura reciente
+  ("las tendencias cortas se han debilitado").
+- V2 y V4 ayudan en una mitad y empeoran en la otra → por la regla, rechazadas. Así se evita adoptar suerte.
+- La piramidación sube el CAGR pero también el DD: añade riesgo justo cuando la tendencia está confirmada.
+- El filtro de funding evita entrar cuando los largos están saturados: menos trades, mejor calidad.
+
+**Congelada:** `l05_config_congelada.json` = filtro de funding + piramidación. Commit ANTES del examen.

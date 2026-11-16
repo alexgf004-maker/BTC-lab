@@ -1,0 +1,10 @@
+{
+ "cfg": {
+  "ensemble": false,
+  "btc_regime": false,
+  "funding_filter": true,
+  "vol_target": false,
+  "pyramid": true
+ },
+ "supera_V0": true
+}

@@ -1,0 +1,35 @@
+  V0 base                2020-2023  Sharpe  1.59 | CAGR  45.7% | DD 22.1% | MAR  2.07 | trades  311 | WR  40% | PF 2.66
+  V0 base                2024-2026  Sharpe  1.11 | CAGR  25.6% | DD 25.5% | MAR  1.00 | trades  214 | WR  40% | PF 2.14
+  V0 base                total      Sharpe  1.40 | CAGR  36.9% | DD 25.5% | MAR  1.45 | trades  525 | WR  40% | PF 2.45
+
+  V1 conjunto periodos   2020-2023  Sharpe  1.47 | CAGR  31.4% | DD 16.2% | MAR  1.94 | trades 2064 | WR  39% | PF 2.58
+  V1 conjunto periodos   2024-2026  Sharpe  0.97 | CAGR  15.0% | DD 18.8% | MAR  0.80 | trades 1446 | WR  39% | PF 1.85
+  V1 conjunto periodos   total      Sharpe  1.28 | CAGR  24.3% | DD 18.8% | MAR  1.29 | trades 3510 | WR  39% | PF 2.28
+
+  V2 régimen BTC         2020-2023  Sharpe  1.57 | CAGR  40.1% | DD 15.8% | MAR  2.53 | trades  232 | WR  41% | PF 3.02
+  V2 régimen BTC         2024-2026  Sharpe  1.22 | CAGR  27.0% | DD 29.8% | MAR  0.91 | trades  180 | WR  41% | PF 2.38
+  V2 régimen BTC         total      Sharpe  1.43 | CAGR  34.5% | DD 29.8% | MAR  1.16 | trades  412 | WR  41% | PF 2.74
+
+  V3 filtro funding      2020-2023  Sharpe  1.67 | CAGR  41.8% | DD 18.1% | MAR  2.31 | trades  247 | WR  42% | PF 3.08
+  V3 filtro funding      2024-2026  Sharpe  1.15 | CAGR  25.2% | DD 23.8% | MAR  1.06 | trades  199 | WR  41% | PF 2.23
+  V3 filtro funding      total      Sharpe  1.46 | CAGR  34.6% | DD 23.8% | MAR  1.45 | trades  446 | WR  41% | PF 2.69
+
+  V4 objetivo vol        2020-2023  Sharpe  1.72 | CAGR  61.4% | DD 28.9% | MAR  2.13 | trades  311 | WR  40% | PF 2.66
+  V4 objetivo vol        2024-2026  Sharpe  0.98 | CAGR  24.1% | DD 29.6% | MAR  0.81 | trades  214 | WR  40% | PF 2.14
+  V4 objetivo vol        total      Sharpe  1.44 | CAGR  44.7% | DD 29.6% | MAR  1.51 | trades  525 | WR  40% | PF 2.45
+
+  V5 piramidación        2020-2023  Sharpe  1.65 | CAGR  68.9% | DD 24.8% | MAR  2.77 | trades  389 | WR  42% | PF 3.03
+  V5 piramidación        2024-2026  Sharpe  1.20 | CAGR  35.9% | DD 30.8% | MAR  1.17 | trades  261 | WR  41% | PF 2.37
+  V5 piramidación        total      Sharpe  1.48 | CAGR  54.2% | DD 30.8% | MAR  1.76 | trades  650 | WR  42% | PF 2.77
+
+V1 conjunto periodos: rechazada
+V2 régimen BTC: rechazada
+V3 filtro funding: ADOPTADA
+V4 objetivo vol: rechazada
+V5 piramidación: ADOPTADA
+
+Combinación de las adoptadas: {'ensemble': False, 'btc_regime': False, 'funding_filter': True, 'vol_target': False, 'pyramid': True}
+  combinada              2020-2023  Sharpe  1.73 | CAGR  62.8% | DD 20.7% | MAR  3.03 | trades  307 | WR  45% | PF 3.60
+  combinada              2024-2026  Sharpe  1.22 | CAGR  34.7% | DD 29.3% | MAR  1.18 | trades  244 | WR  43% | PF 2.44
+  combinada              total      Sharpe  1.53 | CAGR  50.4% | DD 29.3% | MAR  1.72 | trades  551 | WR  44% | PF 3.07
+Combinación supera a V0 en ambas mitades: True

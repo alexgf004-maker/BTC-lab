@@ -42,3 +42,15 @@ def test_trend_trailing_sube_y_no_mira_futuro():
     assert len(t) == 1
     # el stop se ha ido subiendo: sale muy por encima de la entrada (100) y por debajo del máximo
     assert t.exit[0] == 120 and t.r_gross[0] > 6   # gap 130->120: sale a la apertura
+
+
+def test_piramidacion_entra_tras_2R_y_sale_con_la_principal():
+    from sclab import trend
+    p = [100] * 20 + list(np.linspace(100, 130, 30)) + [130, 120, 110, 100]
+    df = bars(p)
+    df["atr"] = 1.0
+    side = np.zeros(len(df), int); side[19] = 1
+    t = trend.simulate(df, side, m=3, costs=swing.SwingCosts(0, 0, 0), pyramid_at=2.0)
+    assert pd.notna(t.add_time[0]) and t.add_time[0] > t.entry_time[0]
+    assert t.add_entry[0] >= 106 - 1e-9            # +2R con R = 3
+    assert abs(t.add_r_net[0] - (t.exit[0] - t.add_entry[0]) / t.add_R[0]) < 1e-9
