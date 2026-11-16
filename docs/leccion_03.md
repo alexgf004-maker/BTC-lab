@@ -28,3 +28,25 @@ y dejar correr el resto. Mide cuánta esperanza cuesta subir el win rate.
 
 **Aprobación fuera de muestra:** PF neto ≥ 1,3; ≥ 300 trades (sumando activos); E > control;
 E > 0 en la mayoría de activos y años.
+
+## 2. Resultados en muestra (2020-2023) — `l03_salida_diseno.txt`
+
+**Largos:** las 16 combinaciones de la rejilla ganan; PF entre 1,08 y 2,67. Mejora con stops más anchos (m)
+y rupturas más largas (N). Elegida por la regla pre-registrada: **N = 120 (20 días), m = 5**.
+
+| | Trades | Win rate | E neta | PF |
+|---|---|---|---|---|
+| Estrategia | 311 | 40 % | **+0,57R** | **2,66** |
+| Control (azar en tendencia, mismas salidas) | 2693 | 37 % | +0,35R | 2,18 |
+| Variante 50 % en +1R | 311 | 46 % | +0,32R | 1,98 |
+
+- Supera al control: la ruptura **sí** añade valor sobre el azar. Pero el control también gana mucho:
+  gran parte de la ventaja está en la **salida** (dejar correr con un stop dinámico).
+- 2021 aporta 122 de los 177R; 2022 (bajista) −0,17R. 8 de 10 activos positivos.
+- Perfil típico de tendencia: trade mediano −0,33R; el 10 % mejor aporta más que el total.
+- Cerrar el 50 % en +1R sube el win rate del 40 % al 46 %, pero **reduce la esperanza un 44 %**.
+- Aviso: el óptimo está en el borde de la rejilla (m = 5). No ampliamos la rejilla para no sobreajustar.
+
+**Cortos:** la combinación elegida (N = 120, m = 2) tiene PF 1,26 < 1,3 → **rechazados en muestra**. No se validan fuera de muestra.
+
+**Congelado:** `l03_parametros_congelados.json` = LARGOS N = 120, m = 5. Se commitea ANTES de mirar 2024-2026.
