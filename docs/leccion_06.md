@@ -64,3 +64,28 @@ Se informa siempre del **win rate** (S1/S3 por trade; S2 por semana).
 - **Límite de S3:** solo está invertido el 27 % del tiempo y en 2024-26 rinde un 2,9 % anual: el funding alto es ahora raro.
 
 **Congeladas para el examen:** S1 y S3 tal cual (parámetros de la sección 2 + simulación de liquidaciones).
+
+## 5. Examen (32 activos nunca usados, top 10 point-in-time, ejecutado UNA vez) — `l06_salida_examen.txt`
+
+| Estrategia | Sharpe 20-23 | Sharpe 24-26 | Sharpe total | CAGR | DD máx. | Win rate | PF | Deflated Sharpe | Veredicto |
+|---|---|---|---|---|---|---|---|---|---|
+| S1 tendencia | 0,51 | 0,37 | 0,46 | 7,2 % | 22,2 % | 35 % | 1,32 | 0,08 | ❌ |
+| **S3 carry de funding** | **5,20** | **1,84** | **4,06** | 10,6 % | **3,0 %** | **83 %** | **20,8** | **1,00** | ✅ **APROBADA** |
+| (S2 informativo) momentum largo-corto | 0,16 | 0,42 | 0,31 | 2,4 % | 73 % | 48 % | 1,12 | — | — |
+
+## 6. Conclusiones
+1. **Primera estrategia que supera todos los filtros: el carry de funding.** Win rate del 83 %, PF > 20, DD del 3 %
+   en activos nunca vistos, y significativa incluso descontando 342 pruebas (DSR ≈ 1,00).
+   Su ventaja tiene una causa económica clara: los especuladores pagan por estar apalancados en largo.
+2. **Limitaciones del carry:** rinde poco (10,6 % anual en el examen, 2,9 % en 2024-26), está invertido solo el ~26 % del
+   tiempo y depende de que vuelvan las fases de euforia. Riesgos operativos: liquidación de la pata corta en subidas
+   bruscas (21 simuladas), el riesgo del exchange (todo el capital en Binance) y la ejecución simultánea de las dos patas.
+3. **La tendencia solo funciona en los activos grandes:** en las altcoins menores del examen, Sharpe 0,46 y no significativa.
+   Encaja con la literatura (el momentum es más fuerte en las monedas grandes).
+4. **El momentum relativo semanal no sobrevive a costes reales** con un universo realista.
+
+## 7. Siguiente paso propuesto
+- Núcleo **carry** (neutral al mercado, alto win rate) + **tendencia solo en BTC y ETH**, para rentabilizar el capital ocioso.
+- Ajustes operativos que solo reducen costes o riesgo (no son nuevos parámetros de señal): apalancamiento ≤ 2x, entradas maker,
+  comisiones con BNB.
+- Cualquier cambio de umbrales se validará **hacia delante** (testnet/real pequeño), porque ya no quedan datos sin ver.

@@ -1,0 +1,25 @@
+
+######## EXAMEN: 32 activos, universo point-in-time top 10 ########
+  carry: liquidaciones simuladas 21, reequilibrios 76
+  S1 tendencia               2020-2023  Sharpe  0.51 | CAGR   8.4% | DD 22.2% | MAR  0.38 | trades 298 | WR 0.34 | PF 1.34
+  S1 tendencia               2024-2026  Sharpe  0.37 | CAGR   5.3% | DD 17.5% | MAR  0.30 | trades 190 | WR 0.36 | PF 1.29
+  S1 tendencia               total      Sharpe  0.46 | CAGR   7.2% | DD 22.2% | MAR  0.33 | trades 488 | WR 0.35 | PF 1.32
+
+  S2a momentum largo         2020-2023  Sharpe  0.29 | CAGR -29.8% | DD 98.3% | MAR -0.30 | semanas 163 | WR 0.46 | PF 1.11 | rotación 0.94
+  S2a momentum largo         2024-2026  Sharpe  0.36 | CAGR -22.9% | DD 93.4% | MAR -0.25 | semanas 147 | WR 0.44 | PF 1.18 | rotación 0.94
+  S2a momentum largo         total      Sharpe  0.31 | CAGR -27.4% | DD 98.9% | MAR -0.28 | semanas 310 | WR 0.45 | PF 1.14 | rotación 0.94
+
+  S2b momentum largo-corto   2020-2023  Sharpe  0.16 | CAGR  -5.1% | DD 66.4% | MAR -0.08 | semanas 163 | WR 0.48 | PF 1.02 | rotación 1.01
+  S2b momentum largo-corto   2024-2026  Sharpe  0.42 | CAGR   9.9% | DD 73.2% | MAR  0.14 | semanas 147 | WR 0.48 | PF 1.26 | rotación 1.01
+  S2b momentum largo-corto   total      Sharpe  0.31 | CAGR   2.4% | DD 73.2% | MAR  0.03 | semanas 310 | WR 0.48 | PF 1.12 | rotación 1.01
+
+    control: mercado         2020-2023  Sharpe  0.45 | CAGR  -6.8% | DD 94.9% | MAR -0.07 | semanas 163 | WR 0.53 | PF 1.19 | rotación 0.09
+    control: mercado         2024-2026  Sharpe -0.12 | CAGR -40.9% | DD 92.6% | MAR -0.44 | semanas 147 | WR 0.46 | PF 0.95 | rotación 0.09
+    control: mercado         total      Sharpe  0.19 | CAGR -25.5% | DD 98.5% | MAR -0.26 | semanas 310 | WR 0.50 | PF 1.08 | rotación 0.09
+
+  S3 carry funding           2020-2023  Sharpe  5.20 | CAGR  16.7% | DD  0.7% | MAR 23.05 | episodios 51 | WR 0.82 | PF 160.12 | días_med 29.33 | ocupación 0.26
+  S3 carry funding           2024-2026  Sharpe  1.84 | CAGR   2.9% | DD  3.0% | MAR  0.96 | episodios 8 | WR 0.88 | PF 1.76 | días_med 48.83 | ocupación 0.26
+  S3 carry funding           total      Sharpe  4.06 | CAGR  10.6% | DD  3.0% | MAR  3.55 | episodios 59 | WR 0.83 | PF 20.78 | días_med 30.00 | ocupación 0.26
+
+S1 tendencia: Sharpe 0.46 | PF 1.32 | WR 35% | DSR 0.076 -> NO aprobada
+S3 carry funding: Sharpe 4.06 | PF 20.78 | WR 83% | DSR 1.000 -> APROBADA
