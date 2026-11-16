@@ -19,7 +19,7 @@ from .swing import SwingCosts
 
 def simulate(df: pd.DataFrame, side: np.ndarray, m: float, funding: pd.Series | None = None,
              costs: SwingCosts = SwingCosts(), bar: pd.Timedelta = pd.Timedelta("4h"),
-             partial: tuple[float, float] | None = None) -> pd.DataFrame:
+             partial: tuple[float, float] | None = None, one_at_a_time: bool = True) -> pd.DataFrame:
     o, h, l, c = (df[k].to_numpy() for k in ("open", "high", "low", "close"))
     a = df["atr"].to_numpy()
     t, t_ns = df.index, df.index.as_unit("ns").asi8
@@ -29,7 +29,7 @@ def simulate(df: pd.DataFrame, side: np.ndarray, m: float, funding: pd.Series | 
         f_cum = np.concatenate([[0.0], np.cumsum(funding.to_numpy())])
     rows, busy = [], -1
     for i in np.flatnonzero(side != 0):
-        if i <= busy or i + 1 >= n or not (a[i] > 0):
+        if (one_at_a_time and i <= busy) or i + 1 >= n or not (a[i] > 0):
             continue
         d, j = int(side[i]), i + 1
         entry = o[j]
@@ -66,8 +66,8 @@ def simulate(df: pd.DataFrame, side: np.ndarray, m: float, funding: pd.Series | 
             r_net = f * (p_r - (fee_in + fund) / R) + (1 - f) * r_full
         else:
             r_net = r_full
-        rows.append((t[i], t[k] + bar, d, entry, exit_px, k - j + 1,
+        rows.append((t[i], t[j], t[k] + bar, d, entry, exit_px, R, k - j + 1,
                      d * (exit_px - entry) / R, r_net, p_done))
         busy = k
-    return pd.DataFrame(rows, columns=["signal_time", "exit_time", "side", "entry", "exit",
-                                       "bars", "r_gross", "r_net", "partial_hit"])
+    return pd.DataFrame(rows, columns=["signal_time", "entry_time", "exit_time", "side", "entry", "exit",
+                                       "R", "bars", "r_gross", "r_net", "partial_hit"])
