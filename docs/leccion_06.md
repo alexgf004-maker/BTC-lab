@@ -42,3 +42,25 @@ Control de S2a: el universo entero a partes iguales.
 **Desarrollo** (2020-2023 y 2024-2026 por separado): Sharpe > 0 en ambas mitades, Sharpe total ≥ 1,0 y PF ≥ 1,3.
 **Examen** (solo las que pasen): Sharpe ≥ 0,5, PF ≥ 1,3 y **Deflated Sharpe ≥ 0,90** con todas las pruebas acumuladas.
 Se informa siempre del **win rate** (S1/S3 por trade; S2 por semana).
+
+## 4. Resultados en desarrollo (57 activos, universo point-in-time top 20) — `l06_salida_desarrollo.txt`
+
+| Estrategia | Sharpe 20-23 | Sharpe 24-26 | Sharpe total | CAGR | DD máx. | Win rate | PF | Veredicto |
+|---|---|---|---|---|---|---|---|---|
+| S1 tendencia | 1,30 | 0,64 | 1,07 | 30,3 % | 29,3 % | 37 % | 1,78 | ✅ pasa |
+| S2a momentum largo | 1,18 | 0,28 | 0,81 | 41,4 % | **87,4 %** | 49 % (sem.) | 1,36 | ❌ |
+| S2b momentum largo-corto | 1,03 | 0,33 | 0,79 | 25,1 % | 35,2 % | 51 % (sem.) | 1,35 | ❌ |
+| control: mercado a partes iguales | 0,90 | 0,14 | 0,58 | 16,3 % | 86,0 % | 50 % | 1,25 | — |
+| **S3 carry de funding** | **5,69** | **2,79** | **4,58** | 12,7 % | **0,9 %** | **82 %** | **170** | ✅ pasa |
+
+- **S1 con el universo realista:** Sharpe 1,07 (frente a 1,40 con el universo sesgado de la Lección 4). Esta es la expectativa honesta.
+- **S2:** el momentum relativo supera al mercado, pero no llega al Sharpe 1,0 y se debilita mucho en 2024-26. El largo sin
+  cobertura sufre caídas del 87 %. Rechazado.
+- **S3, auditoría:** el beneficio viene del funding (+6,8 % por episodio sobre el nocional), no de la base (+0,1 %); costes 0,4 %.
+  El PF altísimo se debe a que las pérdidas son minúsculas (solo comisiones cuando el funding se apaga pronto).
+  **Corrección de modelo:** se detectó un salto del +49,5 % en 8h, que liquidaría la pata corta a 3x. Se añadió una simulación
+  conservadora de liquidaciones (máximo intravela > +30 % → penalización del 1,5 % + reabrir): 29 liquidaciones en 56 episodios.
+  En real se usará un **apalancamiento ≤ 2x** en la pata corta.
+- **Límite de S3:** solo está invertido el 27 % del tiempo y en 2024-26 rinde un 2,9 % anual: el funding alto es ahora raro.
+
+**Congeladas para el examen:** S1 y S3 tal cual (parámetros de la sección 2 + simulación de liquidaciones).
