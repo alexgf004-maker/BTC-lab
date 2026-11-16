@@ -34,3 +34,20 @@ es más ancho en %, así que el coste en R baja a la mitad.
 4. **Ventana principal: 13:00–17:00 UTC** (14:00–18:00 en España peninsular en invierno).
 5. Objetivo de coste: **c ≤ 0,2R**. Con RR 1:1 eso exige un win rate ≥ 60 % para no perder.
 6. Riesgo de la orden limit: si no se ejecuta, se pierde la entrada (y suele ser la mejor). Habrá que medir la tasa de ejecución.
+
+## Lección 1b — Horizontes más largos (`lecciones/leccion_01b_horizontes.py`)
+
+Coste en R con stop = 1 ATR14, entrada maker y stop taker:
+
+| | 5m | 15m | 1h | 4h | 1d |
+|---|---|---|---|---|---|
+| BTC | 0,57R | 0,30R | 0,14R | **0,07R** | 0,03R |
+| ETH | 0,41R | 0,22R | 0,10R | **0,05R** | 0,02R |
+| SOL | 0,35R | 0,19R | 0,09R | **0,04R** | 0,02R |
+
+Funding medio (largo) nov-2025 → oct-2026: BTC 3,5 %/año, ETH 2,5 %/año, SOL ≈ 0.
+Para un swing de 3 días son ~0,03 % (≈0,02R en 4h): despreciable.
+
+**Conclusión:** pasar de 5m a 4h divide el coste por 8–10. El swing en 1h–4h es donde
+una ventaja pequeña puede sobrevivir. Precio: menos trades por activo → hace falta
+más historia (desde 2020) y una cesta de varios activos para llegar a ≥300 trades.

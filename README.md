@@ -3,7 +3,7 @@
 Investigación rigurosa (y didáctica) de estrategias de scalping en Binance USDⓈ-M Futures,
 con el objetivo final de ejecutarlas de forma automática.
 
-## Método (no se salta ninguna fase)
+## Método (no se salta ninguna fase) — horizonte: scalping, intradía o swing, lo que tenga ventaja
 1. Mercado y costes reales  ← **Lección 1 (hecha)**
 2. Hipótesis de ventaja (por qué debería funcionar)
 3. Reglas 100 % mecánicas
