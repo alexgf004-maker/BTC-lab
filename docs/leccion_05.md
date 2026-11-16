@@ -61,3 +61,31 @@ Observaciones:
 - El filtro de funding evita entrar cuando los largos están saturados: menos trades, mejor calidad.
 
 **Congelada:** `l05_config_congelada.json` = filtro de funding + piramidación. Commit ANTES del examen.
+
+## 4. Examen final: 15 activos nunca usados (ejecutado UNA vez) — `l05_salida_examen.txt`
+
+| | Sharpe 20-23 | Sharpe 24-26 | Sharpe total | CAGR | DD máx. | PF | Win rate | Deflated Sharpe |
+|---|---|---|---|---|---|---|---|---|
+| V0 base | 0,47 | 0,84 | 0,64 | 14,5 % | 43,0 % | 1,60 | 34 % | 0,16 |
+| Congelada (funding + piramidación) | 0,32 | 1,02 | 0,66 | 16,5 % | 46,0 % | 1,79 | 34 % | 0,16 |
+
+Criterios: Sharpe > V0 ✅ (por muy poco) · PF ≥ 1,3 ✅ · **Deflated Sharpe ≥ 0,90 ❌ (0,16)**.
+
+## 5. Veredicto: EXAMEN NO SUPERADO. Lo más importante aprendido hasta ahora
+
+1. **La ventaja existe, pero es mucho menor de lo que creíamos.** Con activos nuevos, el Sharpe cae de 1,40 a ~0,65
+   y el DD sube del 26 % al 43–46 %. El PF sigue > 1,6, así que no es cero, pero con 337 pruebas acumuladas
+   no se puede distinguir con seguridad de la suerte (DSR 0,16; t ≈ 1,7).
+2. **Causa principal: sesgo de supervivencia en el universo de desarrollo.** Los 10 activos originales se eligieron
+   por ser grandes HOY, es decir, los que tuvieron las mejores tendencias en el pasado. Los 15 nuevos son los grandes
+   de 2021, muchos de los cuales se hundieron (LUNA, FTT, EOS, MATIC): eso es lo que un bot real habría encontrado.
+3. **Las mejoras V3 + V5 no se confirman:** ayudan en 2024-26 y empeoran en 2020-23. No se adoptan para operar.
+4. La estrategia depende mucho de pocos activos (XLM aporta casi todo en el examen).
+5. El conjunto de reserva ya está gastado: **la única prueba limpia que queda es el futuro** (testnet o real con poco).
+
+## 6. Siguiente paso propuesto (Lección 6)
+- Universo **en tiempo real ("point-in-time")**: cada mes, los K perpetuos más líquidos según el volumen de los 30
+  días anteriores, incluidos los que luego desaparecen, como hace el artículo de Zarattini et al. Es la forma correcta de
+  estimar qué ganaría un bot real y elimina el sesgo que nos engañó.
+- Expectativa realista y riesgo coherente con ella (probablemente 0,5–1 % por trade).
+- Prueba hacia delante en testnet como validación final, con criterios fijados de antemano.

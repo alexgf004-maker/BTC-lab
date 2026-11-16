@@ -122,3 +122,40 @@ if __name__ == "__main__":
         pd.DataFrame({k: v.resample("1D").last() for k, v in curves.items()}).to_csv(ROOT / "docs/l05_curvas_desarrollo.csv")
         json.dump({k: {h: {kk: float(vv) for kk, vv in m.items()} for h, m in v.items()} for k, v in results.items()},
                   open(ROOT / "docs/l05_resultados_desarrollo.json", "w"), indent=1)
+
+    if fase == "examen":
+        from sclab.stats_tests import deflated_sharpe
+        from leccion_03_tendencia import GRID
+        cfg = Cfg(**json.load(open(CONGELADA))["cfg"])
+        # Varianza del Sharpe entre pruebas: rejilla de la Lección 3 como cartera en desarrollo (conservador)
+        dev = {s: prepare(s) for s in DEV}
+        closes = {s: df["close"] for s, (df, _) in dev.items()}
+        srs = []
+        import itertools
+        for n_, m_ in itertools.product(*GRID.values()):
+            c = []
+            for s, (df, fund) in dev.items():
+                t = trend.simulate(df, signals(df, n_, 1), m_, fund, bar=BAR, one_at_a_time=False); t["symbol"] = s; c.append(t)
+            cv, _, _ = portfolio.run(pd.concat(c), closes, RISK)
+            d = cv.resample("1D").last().pct_change().dropna(); srs.append(d.mean() / d.std())
+        var_sr = float(np.var(srs, ddof=1))
+        N_TRIALS = 200 + 32 + 18 + 80 + 7
+        hold = {}
+        for s in HOLDOUT:
+            hold[s] = prepare(s)
+        print(f"Examen en {len(hold)} activos nuevos: {', '.join(hold)}")
+        out = {}
+        for name, c in [("V0 base", Cfg()), ("CONGELADA", cfg)]:
+            res, curve, tk = evaluate(hold, c, btc_ok)
+            show(name, res); print()
+            d = curve.resample("1D").last().pct_change().dropna().to_numpy()
+            ds = deflated_sharpe(d, N_TRIALS, var_sr)
+            print(f"  {name}: lev máx {res['total']['lev_max']:.1f}x | Deflated Sharpe = {ds['DSR']:.3f} "
+                  f"(SR diario {ds['SR_diario']:.3f} frente a {ds['SR0_azar']:.3f} esperable por azar con {N_TRIALS} pruebas)")
+            print("  Por activo (beneficio en fracción del capital inicial):", tk.groupby("symbol").pnl.sum().round(3).sort_values().to_dict(), "\n")
+            out[name] = (res, ds, tk)
+        r, ds, tk = out["CONGELADA"]
+        r0 = out["V0 base"][0]
+        print("CRITERIOS: Sharpe > V0:", r["total"]["sharpe"] > r0["total"]["sharpe"],
+              "| PF >= 1,3:", r["total"]["PF"] >= 1.3, "| DSR >= 0,90:", ds["DSR"] >= 0.90)
+        tk.to_csv(ROOT / "docs/l05_examen_trades.csv", index=False)

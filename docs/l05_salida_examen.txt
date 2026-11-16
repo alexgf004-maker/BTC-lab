@@ -1,0 +1,16 @@
+Examen en 15 activos nuevos: DOTUSDT, LUNAUSDT, MATICUSDT, ATOMUSDT, TRXUSDT, ETCUSDT, BCHUSDT, FILUSDT, UNIUSDT, AAVEUSDT, EOSUSDT, XLMUSDT, ALGOUSDT, NEARUSDT, FTTUSDT
+  V0 base                2020-2023  Sharpe  0.47 | CAGR   9.3% | DD 38.5% | MAR  0.24 | trades  382 | WR  35% | PF 1.30
+  V0 base                2024-2026  Sharpe  0.84 | CAGR  22.8% | DD 25.9% | MAR  0.88 | trades  246 | WR  33% | PF 2.08
+  V0 base                total      Sharpe  0.64 | CAGR  14.5% | DD 43.0% | MAR  0.34 | trades  628 | WR  34% | PF 1.60
+
+  V0 base: lev máx 1.6x | Deflated Sharpe = 0.155 (SR diario 0.033 frente a 0.053 esperable por azar con 337 pruebas)
+  Por activo (beneficio en fracción del capital inicial): {'UNIUSDT': -0.125, 'EOSUSDT': -0.117, 'DOTUSDT': -0.116, 'ATOMUSDT': -0.113, 'BCHUSDT': -0.088, 'FTTUSDT': -0.041, 'AAVEUSDT': 0.012, 'LUNAUSDT': 0.076, 'MATICUSDT': 0.105, 'NEARUSDT': 0.197, 'FILUSDT': 0.199, 'TRXUSDT': 0.259, 'ETCUSDT': 0.261, 'ALGOUSDT': 0.272, 'XLMUSDT': 0.742} 
+
+  CONGELADA              2020-2023  Sharpe  0.32 | CAGR   4.9% | DD 41.0% | MAR  0.12 | trades  356 | WR  35% | PF 1.18
+  CONGELADA              2024-2026  Sharpe  1.02 | CAGR  35.7% | DD 30.6% | MAR  1.17 | trades  271 | WR  34% | PF 2.61
+  CONGELADA              total      Sharpe  0.66 | CAGR  16.5% | DD 46.0% | MAR  0.36 | trades  627 | WR  34% | PF 1.79
+
+  CONGELADA: lev máx 2.0x | Deflated Sharpe = 0.156 (SR diario 0.034 frente a 0.053 esperable por azar con 337 pruebas)
+  Por activo (beneficio en fracción del capital inicial): {'BCHUSDT': -0.215, 'DOTUSDT': -0.188, 'UNIUSDT': -0.079, 'ATOMUSDT': -0.077, 'EOSUSDT': -0.074, 'FTTUSDT': -0.036, 'MATICUSDT': 0.011, 'AAVEUSDT': 0.035, 'FILUSDT': 0.062, 'LUNAUSDT': 0.12, 'ETCUSDT': 0.133, 'NEARUSDT': 0.26, 'TRXUSDT': 0.267, 'ALGOUSDT': 0.493, 'XLMUSDT': 1.133} 
+
+CRITERIOS: Sharpe > V0: True | PF >= 1,3: True | DSR >= 0,90: False
