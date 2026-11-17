@@ -1,0 +1,21 @@
+M2 — ADELANTO DE BTC SOBRE ALTCOINS (1 min)
+
+Correlación de la rentabilidad de la altcoin en el minuto t+1 con la de BTC en el minuto t (descriptivo):
+  ETHUSDT: -0.013  (simultánea: +0.80)
+  SOLUSDT: -0.006  (simultánea: +0.73)
+  BNBUSDT: +0.009  (simultánea: +0.68)
+  XRPUSDT: +0.013  (simultánea: +0.62)
+  DOGEUSDT: +0.015  (simultánea: +0.66)
+  ADAUSDT: +0.018  (simultánea: +0.65)
+  AVAXUSDT: +0.023  (simultánea: +0.63)
+  LINKUSDT: +0.015  (simultánea: +0.68)
+  LTCUSDT: +0.023  (simultánea: +0.60)
+  DOTUSDT: +0.024  (simultánea: +0.60)
+
+Minutos con |BTC| >= 0,30 %: 7413 (2024: 3554, 2025-26: 3859)
+  N=1 min, desarrollo 2024: n 3554 | bruto +0.009% | neto -0.131% | t neto -18.2 | acierto neto 26%
+  N=1 min, EXAMEN 2025-26: n 3859 | bruto +0.017% | neto -0.123% | t neto -10.6 | acierto neto 26%
+  N=3 min, desarrollo 2024: n 3554 | bruto +0.030% | neto -0.110% | t neto -9.0 | acierto neto 35%
+  N=3 min, EXAMEN 2025-26: n 3859 | bruto +0.054% | neto -0.086% | t neto -3.8 | acierto neto 34%
+  N=5 min, desarrollo 2024: n 3554 | bruto +0.031% | neto -0.109% | t neto -8.0 | acierto neto 38%
+  N=5 min, EXAMEN 2025-26: n 3859 | bruto +0.052% | neto -0.088% | t neto -3.3 | acierto neto 36%

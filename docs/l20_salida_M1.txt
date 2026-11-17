@@ -1,0 +1,27 @@
+M1 — DESEQUILIBRIO DEL LIBRO: IC combinado de 5 monedas (observaciones no solapadas)
+
+  dobi1    15m: desarrollo IC +0.0256 (z +12.6) *BH* | examen IC +0.0186 (z +10.5)
+  dobi1   240m: desarrollo IC -0.0044 (z  -0.5)      | examen IC +0.0071 (z  +1.0)
+  dobi1     5m: desarrollo IC +0.0231 (z +19.7) *BH* | examen IC +0.0165 (z +16.1)
+  dobi1    60m: desarrollo IC +0.0189 (z  +4.6) *BH* | examen IC +0.0091 (z  +2.6)
+  obi1     15m: desarrollo IC +0.0422 (z +20.8) *BH* | examen IC +0.0247 (z +14.0)
+  obi1    240m: desarrollo IC +0.0242 (z  +3.0) *BH* | examen IC +0.0123 (z  +1.7)
+  obi1      5m: desarrollo IC +0.0343 (z +29.3) *BH* | examen IC +0.0215 (z +21.1)
+  obi1     60m: desarrollo IC +0.0428 (z +10.5) *BH* | examen IC +0.0190 (z  +5.4)
+  obi5     15m: desarrollo IC +0.0287 (z +14.1) *BH* | examen IC +0.0175 (z  +9.9)
+  obi5    240m: desarrollo IC +0.0365 (z  +4.5) *BH* | examen IC +0.0213 (z  +3.0)
+  obi5      5m: desarrollo IC +0.0203 (z +17.3) *BH* | examen IC +0.0132 (z +12.9)
+  obi5     60m: desarrollo IC +0.0421 (z +10.4) *BH* | examen IC +0.0221 (z  +6.2)
+
+Regla del decil extremo (posición = signo de la variable en su decil extremo de desarrollo), resultado en el EXAMEN, neto:
+  dobi1 15m: trades 42878 | bruto +0.013% (aprox.) | neto -0.107% | t -47.1 | acierto 35%
+  dobi1 5m: trades 128345 | bruto +0.011% (aprox.) | neto -0.109% | t -138.7 | acierto 26%
+  dobi1 60m: trades 10710 | bruto +0.015% (aprox.) | neto -0.105% | t -11.8 | acierto 43%
+  obi1 15m: trades 61300 | bruto +0.012% (aprox.) | neto -0.108% | t -62.5 | acierto 33%
+  obi1 240m: trades 3839 | bruto -0.010% (aprox.) | neto -0.130% | t -5.2 | acierto 47%
+  obi1 5m: trades 184611 | bruto +0.011% (aprox.) | neto -0.109% | t -158.1 | acierto 22%
+  obi1 60m: trades 15248 | bruto +0.007% (aprox.) | neto -0.113% | t -17.4 | acierto 41%
+  obi5 15m: trades 87620 | bruto +0.006% (aprox.) | neto -0.114% | t -79.1 | acierto 32%
+  obi5 240m: trades 5495 | bruto +0.017% (aprox.) | neto -0.103% | t -5.0 | acierto 46%
+  obi5 5m: trades 263242 | bruto +0.004% (aprox.) | neto -0.116% | t -211.3 | acierto 21%
+  obi5 60m: trades 22032 | bruto +0.015% (aprox.) | neto -0.105% | t -19.4 | acierto 41%
