@@ -5,7 +5,7 @@ set -euo pipefail
 REPO="https://github.com/alexgf004-maker/BTC-lab.git"
 DIR=/opt/btclab
 id btclab &>/dev/null || useradd --system --create-home --home-dir /var/lib/btclab --shell /usr/sbin/nologin btclab
-apt-get install -y -q python3-venv git >/dev/null
+apt-get update -q >/dev/null && DEBIAN_FRONTEND=noninteractive apt-get install -y -q python3-venv git curl >/dev/null
 if [ -d "$DIR/.git" ]; then sudo -u btclab git -C "$DIR" pull -q; else git clone -q "$REPO" "$DIR" && chown -R btclab:btclab "$DIR"; fi
 sudo -u btclab python3 -m venv "$DIR/.venv"
 sudo -u btclab "$DIR/.venv/bin/pip" install -q -r "$DIR/requirements.txt" pytest
