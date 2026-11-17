@@ -1,5 +1,7 @@
 # BTC-lab
 
+**Resumen de toda la investigación: [docs/INFORME_FINAL.md](docs/INFORME_FINAL.md)**
+
 Investigación rigurosa (y didáctica) de estrategias de scalping en Binance USDⓈ-M Futures,
 con el objetivo final de ejecutarlas de forma automática.
 
