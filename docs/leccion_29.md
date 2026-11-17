@@ -30,3 +30,11 @@ Al final del día se cierra a mercado (taker 0,05 % + medio diferencial). Comisi
 (b) solo el primer toque de cada moneda en cada día UTC. Mismo filtro para los niveles placebo.
 **Criterio R1:** esperanza neta > 0 con t ≥ 3 agrupando por día en el examen (482 monedas nuevas) y positiva en desarrollo, y mayor que en placebo.
 Pruebas nuevas: 2 (M1, R1); M2 es medición.
+
+## 1b. Pre-registro adicional (escrito tras ver M1 y M2, antes de calcular M3)
+M1 pierde antes de comisiones incluso con 1 ms de latencia (medición informativa): cotizar siempre al final de la cola del mejor precio
+significa que te ejecutan cuando la cola se agota, que es justo cuando el precio va a atravesarte.
+**M3 — Creador de mercado que se retira del lado peligroso** usando el hallazgo de la Lección 20 (el desequilibrio del libro predice el
+siguiente movimiento): desequilibrio I = cantidad en la mejor compra / (cantidad en la mejor compra + cantidad en la mejor venta).
+No se cotiza la compra si I < 0,30 (presión vendedora) ni la venta si I > 0,70. Todo lo demás como M1 (200 ms de latencia).
+Mismos días y monedas. Criterio igual que M1 (neto diario > 0 con t ≥ 3 en el examen, en las tres monedas, maker 0,02 %).
