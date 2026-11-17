@@ -9,6 +9,7 @@ User=btclab
 WorkingDirectory=/opt/btclab
 EnvironmentFile=/etc/btclab/entorno
 ExecStart=/opt/btclab/.venv/bin/python -m bot.main --config bot/config.yaml
+ExecStopPost=/bin/bash /opt/btclab/deploy/alerta_caida.sh
 Restart=always
 RestartSec=60
 Nice=5

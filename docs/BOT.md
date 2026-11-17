@@ -96,6 +96,13 @@ región permitida (y cumplir la normativa de tu país).
 El bot se niega a arrancar si encuentra un estado de otro modo (por ejemplo, de una prueba en paper).
 Si una pata de una cobertura falla, deshace la otra. Si una orden no llega al mínimo de Binance, la omite y lo anota.
 
+## 5d. Panel web de monitoreo
+`sudo bash /opt/btclab/deploy/instalar_panel.sh` instala una página de **solo lectura** con capital, curva, bloques, posiciones y
+últimos eventos. HTTPS con certificado gratuito y automático (dirección `https://<ip-con-guiones>.sslip.io`) y contraseña generada
+por el instalador (`sudo cat /etc/btclab/panel_contrasena`). El panel escucha solo en 127.0.0.1; Caddy pone el HTTPS y la contraseña delante.
+Vigilancia: si el bot se detiene por un fallo, systemd avisa por Telegram (`deploy/alerta_caida.sh`, máx. un aviso cada 30 min);
+y si el servicio no está activo o lleva más de 2 h 15 min sin completar un ciclo, el panel avisa (y vuelve a avisar al recuperarse).
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

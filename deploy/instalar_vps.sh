@@ -25,6 +25,8 @@ chmod 600 /etc/btclab/entorno; chown root:root /etc/btclab/entorno
 (cd "$DIR" && sudo -u btclab .venv/bin/python -m pytest -q tests) || { echo "❌ Las pruebas fallan: no se instala el servicio."; exit 1; }
 cp "$DIR/deploy/btclab-bot.service" /etc/systemd/system/btclab-bot.service
 systemctl daemon-reload
+if systemctl is-active --quiet btclab-bot; then systemctl restart btclab-bot && echo "🔄 Bot reiniciado con la versión nueva."; fi
+if systemctl is-active --quiet btclab-panel; then cp "$DIR/deploy/btclab-panel.service" /etc/systemd/system/ && systemctl daemon-reload && systemctl restart btclab-panel; fi
 echo
 echo "✅ Instalado en $DIR (usuario btclab, servicio btclab-bot). Aún NO está arrancado."
 echo "   1) Revisa la configuración:      sudo -u btclab nano $DIR/bot/config.yaml   (modo: paper)"

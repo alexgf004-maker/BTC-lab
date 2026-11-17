@@ -79,6 +79,24 @@ def equity(state):
     return sum(s["balance"] for s in state.d["sleeves"].values())
 
 
+def record_cycle(cfg, state, status):
+    """Deja constancia de cada ciclo (para el panel web): hora real del ciclo y curva de capital."""
+    import csv
+    import json
+    from datetime import datetime, timezone
+    wall = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    state.d["ultimo_ciclo"] = wall
+    state.d["ultimo_estado"] = status
+    f = Path(cfg["estado"]).parent / "capital.csv"
+    new = not f.exists()
+    with open(f, "a", newline="") as fh:
+        w = csv.writer(fh)
+        if new:
+            w.writerow(["ts", "capital", "caida", "bloques"])
+        w.writerow([wall, round(equity(state), 4), round(state.d.get("drawdown", 0), 6),
+                    json.dumps({k: round(v["balance"], 4) for k, v in state.d["sleeves"].items()})])
+
+
 def daily_summary(state, journal, now):
     if now.hour != 8 or state.d.get("ultimo_resumen") == str(now.date()):
         return
@@ -122,6 +140,7 @@ def cycle(cfg, client, market, broker, state, journal, strategies, guard):
             journal.log(key, "error", detail=str(e)[:200])
         state.save()                                         # tras cada bloque: un fallo no deshace lo ya hecho
     daily_summary(state, journal, now)
+    record_cycle(cfg, state, status)
     state.save()
     log.info("ciclo %s | capital %.2f | caída %.1f %% | %s", now, equity(state), 100 * state.d.get("drawdown", 0), status)
 

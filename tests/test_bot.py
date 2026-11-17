@@ -178,3 +178,18 @@ def test_trend_detects_exchange_stop_by_order(tmp_path):
             return {"status": "FILLED", "avgPrice": "61000"}
     b = ExchangeBroker.__new__(ExchangeBroker); b.c = C()
     assert b.stop_filled("BTCUSDT") == 61000.0
+
+
+def test_panel_render(tmp_path):
+    import json as _j
+    from bot import panel
+    st = {"sleeves": {"D_tendencia": {"balance": 2400.0, "positions": {"BTCUSDT": {"side": 1, "qty": 0.01, "entry": 60000.0, "stop": 55000.0}},
+                                      "closed": 1}}, "drawdown": 0.02, "ultimo_ciclo": "2026-01-01T00:00:00+00:00"}
+    (tmp_path / "estado.json").write_text(_j.dumps(st))
+    (tmp_path / "diario.csv").write_text("ts,modo,bloque,evento,symbol,lado,cantidad,precio,detalle\n2026-01-01T00:00:00+00:00,paper,x,error,,,,,<script>\n")
+    cfg = {"modo": "paper", "capital": 10000, "estado": str(tmp_path / "estado.json"), "diario": str(tmp_path / "diario.csv"),
+           "bloques": {"D_tendencia": {"fraccion": 0.25}}}
+    s = panel.snapshot(cfg)
+    assert s["health"][0] == "bad"                      # el ciclo es antiguo (o no hay servicio)
+    h = panel.render(s)
+    assert "BTCUSDT" in h and "<script>" not in h and "&lt;script&gt;" in h

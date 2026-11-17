@@ -1,0 +1,20 @@
+[Unit]
+Description=Panel web de solo lectura de BTC-lab
+After=network-online.target
+
+[Service]
+Type=simple
+User=btclab
+WorkingDirectory=/opt/btclab
+EnvironmentFile=/etc/btclab/entorno
+ExecStart=/opt/btclab/.venv/bin/python -m bot.panel --config bot/config.yaml --puerto 8090
+Restart=always
+RestartSec=30
+MemoryMax=300M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
