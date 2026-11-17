@@ -1,0 +1,5 @@
+W3 EXAMEN — mechas sin stop, 482 criptos nuevas, top 30 point-in-time, 0,25 % de riesgo
+   Sharpe 1.13 | CAGR 11.5% | DD 11.4% | trades 3000 | WR 77% | PF 1.28 | E +0.091R | mitades (corte 2023-11): +39.2% / +37.0%
+   por año: {2020: 0.005, 2021: 0.134, 2022: -0.025, 2023: 0.363, 2024: 0.084, 2025: 0.023, 2026: 0.135} | meses positivos 66% | peor mes -8.7% | peor día -7.6% | peor trade -23.8R
+   salidas: {'tp': 0.74, 'time': 0.26} | monedas operadas: 273
+   Deflated Sharpe 0.584 -> NO aprobada
