@@ -1,0 +1,21 @@
+BLOQUE A carry: {'sharpe': np.float64(4.771), 'CAGR': np.float64(0.126), 'maxDD': np.float64(0.01), 'MAR': np.float64(12.595)} | episodios 53 | WR 79% | PF 318.1 | liquidaciones 1 | ocupación 28%
+BLOQUE B tendencia BTC/ETH (riesgo 5 % del bloque): {'sharpe': np.float64(1.05), 'CAGR': np.float64(0.33), 'maxDD': np.float64(0.339), 'MAR': np.float64(0.975)} | trades 120 | WR 41% | PF 2.26 | apal. máx. del bloque 3.0x
+Correlación mensual carry-tendencia: 0.07
+
+CARTERA COMBINADA (80 % carry / 20 % tendencia):
+riesgo tendencia sharpe  CAGR maxDD  MAR meses_pos peor_mes
+            0.5%   3.20 14.3%  4.0% 3.58     51.9%    -1.0%
+            1.0%   2.33 18.4%  7.8% 2.36     53.2%    -2.0%
+            2.0%   1.79 26.0% 14.9% 1.74     43.0%    -3.8%
+
+Elección (mayor CAGR con DD ≤ 20 %): 2.0%
+
+Rentabilidad por año:
+                          carry (bloque) combinada 0.5% combinada 1.0% combinada 2.0%
+2020-12-31 00:00:00+00:00          17.1%          24.3%          35.4%          58.2%
+2021-12-31 00:00:00+00:00          67.5%          57.4%          63.0%          73.9%
+2022-12-31 00:00:00+00:00           0.1%          -1.7%          -3.4%          -6.7%
+2023-12-31 00:00:00+00:00           2.6%          11.2%          20.1%          37.1%
+2024-12-31 00:00:00+00:00           9.5%          12.1%          16.2%          23.7%
+2025-12-31 00:00:00+00:00           0.0%           2.7%           5.4%          10.7%
+2026-12-31 00:00:00+00:00           0.0%          -0.7%          -1.4%          -3.0%
