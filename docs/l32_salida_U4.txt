@@ -1,0 +1,14 @@
+monedas: 176
+monedas por mes: mediana 60 | emisión 90 d mediana del tercio alto 13.5 % / bajo 0.4 %
+
+=== desarrollo 2021-2023
+corto tercio alto  / largo BTC: anual  -61.4 % | Sharpe -0.99 | DD  79.6 % | meses + 47 % | peor mes -76.5 %
+corto tercio medio / largo BTC: anual  -37.3 % | Sharpe -0.78 | DD  52.6 % | meses + 53 % | peor mes -51.9 %
+corto tercio bajo  / largo BTC: anual  -49.1 % | Sharpe -0.88 | DD  65.4 % | meses + 42 % | peor mes -67.4 %
+
+=== EXAMEN 2024-2026
+corto tercio alto  / largo BTC: anual  +35.0 % | Sharpe  1.30 | DD  21.7 % | meses + 65 % | peor mes -16.8 %
+corto tercio medio / largo BTC: anual  +26.3 % | Sharpe  1.16 | DD  19.2 % | meses + 74 % | peor mes -19.2 %
+corto tercio bajo  / largo BTC: anual  +10.7 % | Sharpe  0.62 | DD  17.2 % | meses + 65 % | peor mes -13.6 %
+
+por año (tercio alto): {2021: '-93%', 2022: '+12%', 2023: '-23%', 2024: '+19%', 2025: '+81%', 2026: '+9%'}

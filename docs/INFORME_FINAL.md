@@ -63,13 +63,14 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (20 pruebas más; ≈ 440 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (22 pruebas más; ≈ 442 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
 | 28 Carry entre familias | Funding de USDT frente a USDC y COIN-M de la misma moneda | Rechazado: el diferencial es pequeño, cambia de signo y los costes se lo comen. El perpetuo USDT es el que paga MENOS. |
 | 29 Scalping de verdad | Creador de mercado tick a tick con cola conservadora (y con señal del libro), números redondos | Rechazado: la selección adversa (0,7–1,5 pb) supera el diferencial (1–2 pb) incluso con 1 ms y comisión 0. Scalping descartado por los dos lados. |
 | 30 Opciones | Prima de volatilidad (Deribit 2019–2026) con iron condors y spreads de put, semanales y mensuales | La prima existe (+5 pts en 2023–26) pero está en las colas que el seguro devuelve: todas las estructuras con riesgo limitado pierden. |
+| 32 Desbloqueos de tokens | Calendarios de DefiLlama (1 384 eventos, 89 monedas): corto antes del desbloqueo y factor de emisión | La emisión pesa (−1 a −3 % extra antes de grandes desbloqueos; las monedas con emisión caen siempre frente a BTC), pero no mejora lo que ya hace B: el corto puntual no llega a t ≥ 3 y el permanente se hunde en 2021. |
 | 31 Mejoras de la cartera | Hold inteligente como quinto bloque; filtro de temporada de altcoins para B | Ninguna mejora: el hold es redundante con D y el filtro llega tarde. |
 
 **Conclusión de la segunda ampliación:** la cartera actual (A, E, B, D + F en pequeño) sigue siendo la mejor combinación encontrada.

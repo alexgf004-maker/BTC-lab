@@ -1,0 +1,2 @@
+(i) equipo/inversores ≥1 %: 7 % de las operaciones coinciden con un corto de B en la misma moneda | resultado medio con B +9.41 % (n 33) | sin B +1.77 % (n 462)
+placebo: 5 % de las operaciones coinciden con un corto de B en la misma moneda | resultado medio con B +4.77 % (n 11) | sin B +1.68 % (n 211)

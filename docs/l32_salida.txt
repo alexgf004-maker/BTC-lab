@@ -1,0 +1,62 @@
+emparejamientos descartados por precio o sin circulante: 22
+eventos líquidos: 1384 | monedas 89 | {'(i) equipo/inversores ≥1 %': 647, '(iii) equipo/inversores 0,1–1 %': 497, '(ii) ecosistema ≥1 %': 240}
+
+===== U1 DESARROLLO (antes de 2024): rentabilidad anormal (altcoin/BTC)
+  (i) equipo/inversores ≥1 %
+     [T-30,T-8]                                n   137 | media  -4.21 % | mediana  -6.90 % | t (semanas) -1.79 | positivas   40 %
+     [T-7,T-1]                                 n   139 | media  -2.06 % | mediana  -2.36 % | t (semanas) -1.45 | positivas   37 %
+     [T,T+6]                                   n   139 | media  -1.76 % | mediana  -2.46 % | t (semanas) -1.43 | positivas   35 %
+     [T+7,T+30]                                n   139 | media  +2.04 % | mediana  -2.80 % | t (semanas) +0.70 | positivas   42 %
+  (ii) ecosistema ≥1 %
+     [T-30,T-8]                                n    29 | media  +0.87 % | mediana  -0.37 % | t (semanas) +0.29 | positivas   48 %
+     [T-7,T-1]                                 n    30 | media  -0.48 % | mediana  -2.96 % | t (semanas) -0.29 | positivas   40 %
+     [T,T+6]                                   n    30 | media  +5.10 % | mediana  -2.53 % | t (semanas) +0.84 | positivas   47 %
+     [T+7,T+30]                                n    30 | media +11.32 % | mediana  +2.20 % | t (semanas) +1.79 | positivas   53 %
+  (iii) equipo/inversores 0,1–1 %
+     [T-30,T-8]                                n   147 | media  -2.63 % | mediana  -4.42 % | t (semanas) -1.10 | positivas   41 %
+     [T-7,T-1]                                 n   147 | media  -0.80 % | mediana  -2.20 % | t (semanas) -0.65 | positivas   40 %
+     [T,T+6]                                   n   147 | media  -0.75 % | mediana  -1.96 % | t (semanas) -0.47 | positivas   43 %
+     [T+7,T+30]                                n   147 | media  -1.11 % | mediana  -3.82 % | t (semanas) -0.83 | positivas   43 %
+  placebo
+     [T-30,T-8]                                n    84 | media  -0.07 % | mediana  -3.55 % | t (semanas) -0.71 | positivas   45 %
+     [T-7,T-1]                                 n    84 | media  +0.70 % | mediana  +0.23 % | t (semanas) +0.20 | positivas   50 %
+     [T,T+6]                                   n    84 | media  +0.73 % | mediana  -1.05 % | t (semanas) -0.10 | positivas   45 %
+     [T+7,T+30]                                n    84 | media  -3.19 % | mediana  -5.31 % | t (semanas) -1.33 | positivas   39 %
+
+===== U1 EXAMEN (2024 → 2026-10): rentabilidad anormal (altcoin/BTC)
+  (i) equipo/inversores ≥1 %
+     [T-30,T-8]                                n   507 | media  -5.91 % | mediana  -7.46 % | t (semanas) -3.54 | positivas   34 %
+     [T-7,T-1]                                 n   508 | media  -3.33 % | mediana  -3.28 % | t (semanas) -4.75 | positivas   37 %
+     [T,T+6]                                   n   508 | media  -2.86 % | mediana  -3.60 % | t (semanas) -2.02 | positivas   38 %
+     [T+7,T+30]                                n   498 | media  -8.21 % | mediana  -9.64 % | t (semanas) -5.95 | positivas   31 %
+  (ii) ecosistema ≥1 %
+     [T-30,T-8]                                n   201 | media  -7.62 % | mediana  -9.28 % | t (semanas) -3.13 | positivas   34 %
+     [T-7,T-1]                                 n   210 | media  -5.37 % | mediana  -4.07 % | t (semanas) -3.51 | positivas   40 %
+     [T,T+6]                                   n   210 | media  -2.22 % | mediana  -3.06 % | t (semanas) -1.49 | positivas   38 %
+     [T+7,T+30]                                n   208 | media  -9.16 % | mediana -11.05 % | t (semanas) -4.98 | positivas   34 %
+  (iii) equipo/inversores 0,1–1 %
+     [T-30,T-8]                                n   348 | media  -9.26 % | mediana  -9.94 % | t (semanas) -3.65 | positivas   30 %
+     [T-7,T-1]                                 n   350 | media  -4.26 % | mediana  -4.08 % | t (semanas) -5.01 | positivas   31 %
+     [T,T+6]                                   n   350 | media  -2.23 % | mediana  -2.40 % | t (semanas) -1.82 | positivas   39 %
+     [T+7,T+30]                                n   348 | media  -9.06 % | mediana  -9.45 % | t (semanas) -5.79 | positivas   31 %
+  placebo
+     [T-30,T-8]                                n   355 | media  -2.80 % | mediana  -5.61 % | t (semanas) -3.34 | positivas   44 %
+     [T-7,T-1]                                 n   355 | media  -2.13 % | mediana  -2.51 % | t (semanas) -3.32 | positivas   40 %
+     [T,T+6]                                   n   355 | media  -1.85 % | mediana  -2.35 % | t (semanas) -2.93 | positivas   41 %
+     [T+7,T+30]                                n   334 | media  -7.42 % | mediana  -8.29 % | t (semanas) -4.36 | positivas   32 %
+
+===== U2 corto altcoin / largo BTC de T−7 a T+3 (neto de costes y funding)
+desarrollo (i) equipo/inversores ≥1 %          n   139 | media  +1.22 % | mediana  +3.06 % | t (semanas) +0.45 | positivas   62 %
+desarrollo placebo                             n    68 | media  -4.24 % | mediana  +0.33 % | t (semanas) -1.32 | positivas   50 %
+desarrollo (ii) ecosistema ≥1 %                n    30 | media  -9.86 % | mediana  +3.73 % | t (semanas) -1.47 | positivas   53 %
+desarrollo (iii) equipo/inversores 0,1–1 %     n   109 | media  -0.68 % | mediana  +2.24 % | t (semanas) -0.79 | positivas   56 %
+EXAMEN     (i) equipo/inversores ≥1 %          n   495 | media  +2.28 % | mediana  +4.98 % | t (semanas) +2.30 | positivas   66 %
+EXAMEN     placebo                             n   222 | media  +1.83 % | mediana  +3.50 % | t (semanas) +1.35 | positivas   61 %
+EXAMEN     (ii) ecosistema ≥1 %                n   208 | media  +3.29 % | mediana  +5.02 % | t (semanas) +1.94 | positivas   66 %
+EXAMEN     (iii) equipo/inversores 0,1–1 %     n   243 | media  +2.24 % | mediana  +4.47 % | t (semanas) +2.83 | positivas   67 %
+
+Por tamaño (grupo i, todo el periodo):
+  s en [1%, 0.02)                              n   234 | media  +1.58 % | mediana  +3.50 % | t (semanas) +1.00 | positivas   62 %
+  s en [2%, 0.05)                              n   252 | media  +1.54 % | mediana  +3.53 % | t (semanas) +2.91 | positivas   64 %
+  s en [5%, ∞)                                 n   148 | media  +3.63 % | mediana  +7.57 % | t (semanas) +1.96 | positivas   70 %
+Por año (grupo i): {2020: '+2.78% (n 2)', 2021: '-2.62% (n 15)', 2022: '+0.91% (n 40)', 2023: '+2.03% (n 82)', 2024: '+3.66% (n 147)', 2025: '+3.70% (n 201)', 2026: '-1.05% (n 147)'}
