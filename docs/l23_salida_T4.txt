@@ -1,0 +1,16 @@
+T4 — PRIMA DEL PERPETUO FRENTE AL ÍNDICE (|prima| >= 0,5 %, convergencia con cobertura en spot)
+
+  DESARROLLO (203 monedas): n 6548 | neto medio +0.645% | mediana +0.247% | t +17.83 | t por día +17.98 | WR 70% | PF 5.38
+     convergencia bruta media +0.697% | funding +0.339% | prima media al entrar 0.96% | horas medianas 3
+     perpetuo barato (largo perp / corto spot): n 3765 | neto +1.053% | WR 76%
+     perpetuo caro (largo spot / corto perp): n 2783 | neto +0.093% | WR 62%
+     por año: {2020: {'count': 849, 'mean': 0.0021}, 2021: {'count': 2548, 'mean': 0.0069}, 2022: {'count': 934, 'mean': 0.0053}, 2023: {'count': 948, 'mean': 0.0062}, 2024: {'count': 358, 'mean': 0.0064}, 2025: {'count': 455, 'mean': 0.0095}, 2026: {'count': 456, 'mean': 0.012}}
+  -> criba: PASA
+
+  EXAMEN (172 monedas): n 2647 | neto medio +1.443% | mediana +0.570% | t +17.97 | t por día +12.43 | WR 85% | PF 8.87
+     convergencia bruta media +0.879% | funding +0.974% | prima media al entrar 1.14% | horas medianas 5
+     perpetuo barato (largo perp / corto spot): n 2289 | neto +1.690% | WR 89%
+     perpetuo caro (largo spot / corto perp): n 358 | neto -0.134% | WR 56%
+     por año: {2020: {'count': 39, 'mean': 0.0045}, 2021: {'count': 367, 'mean': 0.009}, 2022: {'count': 39, 'mean': 0.009}, 2023: {'count': 201, 'mean': 0.0116}, 2024: {'count': 310, 'mean': 0.0081}, 2025: {'count': 939, 'mean': 0.0174}, 2026: {'count': 752, 'mean': 0.0175}}
+  -> EXAMEN: PASA
+

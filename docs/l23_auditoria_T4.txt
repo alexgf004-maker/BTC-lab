@@ -1,0 +1,16 @@
+
+DESARROLLO
+  entrada a la hora siguiente (cierre) | perp barato (exige spot prestado): n 3661 | neto +0.512% (t +13.4) | WR 46% | convergencia +0.487% | funding +0.424% | prima al entrar 0.61% (señal 1.11%)
+  entrada a la hora siguiente (cierre) | perp caro (sin préstamo): n 2719 | neto -0.135% (t -3.3) | WR 46% | convergencia +0.063% | funding +0.182% | prima al entrar 0.45% (señal 0.74%)
+  entrada 2 h después | perp barato (exige spot prestado): n 3567 | neto +0.347% (t +10.4) | WR 38% | convergencia +0.324% | funding +0.420% | prima al entrar 0.46% (señal 1.12%)
+  entrada 2 h después | perp caro (sin préstamo): n 2664 | neto -0.035% (t -1.3) | WR 41% | convergencia +0.162% | funding +0.183% | prima al entrar 0.30% (señal 0.74%)
+  entrada a la APERTURA de la hora siguiente | perp barato (exige spot prestado): n 3765 | neto +1.009% (t +15.0) | WR 75% | convergencia +0.975% | funding +0.434% | prima al entrar 1.12% (señal 1.12%)
+  entrada a la APERTURA de la hora siguiente | perp caro (sin préstamo): n 2775 | neto +0.083% (t +3.7) | WR 61% | convergencia +0.251% | funding +0.212% | prima al entrar 0.74% (señal 0.74%)
+
+EXAMEN
+  entrada a la hora siguiente (cierre) | perp barato (exige spot prestado): n 2220 | neto +1.325% (t +15.7) | WR 67% | convergencia +0.654% | funding +1.084% | prima al entrar 0.88% (señal 1.20%)
+  entrada a la hora siguiente (cierre) | perp caro (sin préstamo): n 348 | neto -0.483% (t -2.1) | WR 37% | convergencia -0.258% | funding +0.155% | prima al entrar 0.46% (señal 0.70%)
+  entrada 2 h después | perp barato (exige spot prestado): n 2157 | neto +1.183% (t +13.2) | WR 60% | convergencia +0.525% | funding +1.070% | prima al entrar 0.78% (señal 1.19%)
+  entrada 2 h después | perp caro (sin préstamo): n 330 | neto -0.267% (t -1.3) | WR 35% | convergencia -0.043% | funding +0.156% | prima al entrar 0.28% (señal 0.71%)
+  entrada a la APERTURA de la hora siguiente | perp barato (exige spot prestado): n 2289 | neto +1.666% (t +19.3) | WR 88% | convergencia +0.982% | funding +1.098% | prima al entrar 1.21% (señal 1.21%)
+  entrada a la APERTURA de la hora siguiente | perp caro (sin préstamo): n 356 | neto -0.149% (t -0.8) | WR 53% | convergencia +0.048% | funding +0.183% | prima al entrar 0.71% (señal 0.71%)

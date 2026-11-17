@@ -1,0 +1,12 @@
+T3 — CHOQUE CONTRA EL TECHO DEL FUNDING: 326 monedas (primer choque de cada una)
+
+Descriptivo (mediana): rentabilidad frente a BTC / funding acumulado tras el cambio
+  tasa negativa (cortos pagan), n=177: 1h: precio -0.2%, funding -0.3% | 24h: precio -8.9%, funding -5.0% | 72h: precio -10.9%, funding -8.0% | 7d: precio -18.0%, funding -10.6%
+  tasa positiva (largos pagan), n=101: 1h: precio -0.1%, funding +0.0% | 24h: precio -2.3%, funding +0.0% | 72h: precio -4.3%, funding +0.0% | 7d: precio -11.3%, funding +0.2%
+
+  DESARROLLO operación (lado que cobra, 72 h, cubierta): n 163 | media +2.67% | mediana -2.10% | t +0.98 | WR 44% | PF 1.38 | stops 28 | funding cobrado medio +4.98%
+     largos (tasa negativa): n 85 | media +5.86% | WR 36%
+     cortos (tasa positiva): n 78 | media -0.81% | WR 51%
+  -> criba: no pasa
+
+  EXAMEN: no se ejecuta (no pasó la criba)

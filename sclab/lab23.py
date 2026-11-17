@@ -39,3 +39,27 @@ def weekend_obs(sym):
 
 def btc_window(t_a, t_b, btc):
     return np.log(btc.get(t_b, np.nan) / btc.get(t_a, np.nan))
+
+
+def hedged_trade(sym, t_entry, hours, side, btc, fbtc, stop=0.30, leg=0.0028):
+    """side=+1: largo moneda / corto BTC; −1: corto moneda / largo BTC. Stop si se mueve `stop` en contra frente a BTC (con extremos horarios)."""
+    h = data.load(sym, "1h")
+    c = h["close"][h.index >= t_entry]
+    if len(c) < 3:
+        return None
+    t0 = c.index[0]; end = t0 + pd.Timedelta(hours=hours)
+    seg = c[c.index <= end]; b = btc.reindex(seg.index).ffill()
+    adverse = (h["low"] if side == 1 else h["high"]).reindex(seg.index)
+    rel_adv = (adverse / seg.iloc[0]) / (b / b.iloc[0]) - 1
+    hit = (rel_adv * side <= -stop)
+    if hit.iloc[1:].any():
+        t1 = hit.iloc[1:].idxmax(); r_rel = -stop; stopped = True
+    else:
+        t1 = seg.index[-1]; r_rel = side * ((seg.iloc[-1] / seg.iloc[0]) / (b.iloc[-1] / b.iloc[0]) - 1); stopped = False
+    try:
+        f = data.load_funding(sym); fa = float(f[(f.index > t0) & (f.index <= t1)].sum())
+    except Exception:
+        fa = 0.0
+    fb = float(fbtc[(fbtc.index > t0) & (fbtc.index <= t1)].sum())
+    net = r_rel - side * fa + side * fb - leg
+    return {"symbol": sym, "entry": t0, "exit": t1, "ret": net, "stopped": stopped, "funding": -side * fa}
