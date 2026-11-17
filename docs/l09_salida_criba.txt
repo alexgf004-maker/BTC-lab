@@ -1,0 +1,10 @@
+CRIBA — desarrollo: 35 monedas con datos de HL, top 10 point-in-time, 2023-06 → 2026-10
+
+X1 spot Binance + corto HL   Sharpe  7.96 | CAGR  15.8% | DD  0.4% | episodios  71 | WR  65% | PF  54.19 | liquidaciones 1
+    2023-06→2024: rentabilidad +53.3% | ocupación  66%
+    2025→2026-10: rentabilidad  +7.6% | ocupación  42%
+X2 perp Binance + corto HL   Sharpe  3.75 | CAGR   8.2% | DD  2.4% | episodios 192 | WR  44% | PF   4.41 | liquidaciones 5
+    2023-06→2024: rentabilidad +33.4% | ocupación  58%
+    2025→2026-10: rentabilidad  -1.9% | ocupación  25%
+
+Pasan la criba: ['X1 spot Binance + corto HL']

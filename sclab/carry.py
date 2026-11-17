@@ -13,9 +13,12 @@ REBAL_COST = 2 * (PERP_FEE + SLIP)                  # cerrar y reabrir la pata d
 
 def simulate(perp: dict, spot: dict, funding: dict, members: dict, enter=0.0003, exit_=0.00005,
              max_pos=5, slot=0.20, notional_frac=0.75, rebal_move=0.20, highs: dict | None = None,
-             liq_move=0.30, liq_penalty=0.015):
+             liq_move=0.30, liq_penalty=0.015, leg_cost=LEG_COST, rebal_cost=REBAL_COST,
+             start="2020-03-01", Hgrid: pd.DataFrame | None = None, Lgrid: pd.DataFrame | None = None):
+    """Hgrid/Lgrid: máximos/mínimos ya alineados a la rejilla de 8h (si se dan, sustituyen a `highs`).
+    Con Lgrid la posición tiene dos patas apalancadas: también se liquida/reequilibra en caídas."""
     """perp/spot: {sym: Serie de cierres 1h}; funding: {sym: Serie de pagos}. Paso de decisión: 8h."""
-    grid = pd.date_range(pd.Timestamp("2020-03-01", tz="UTC"), max(s.index[-1] for s in perp.values()), freq="8h")
+    grid = pd.date_range(pd.Timestamp(start, tz="UTC"), max(s.index[-1] for s in perp.values()), freq="8h")
     syms = [s for s in perp if s in spot and s in funding]
     P = pd.DataFrame({s: perp[s].reindex(grid, method="ffill", limit=8) for s in syms})
     S = pd.DataFrame({s: spot[s].reindex(grid, method="ffill", limit=8) for s in syms})
@@ -24,7 +27,10 @@ def simulate(perp: dict, spot: dict, funding: dict, members: dict, enter=0.0003,
     F3 = F.rolling(9, min_periods=9).sum() / 9
     # máximo intravela del perpetuo en cada tramo de 8h (para detectar liquidaciones de la pata corta)
     H = pd.DataFrame({s: (highs[s] if highs else perp[s]).groupby(highs[s].index.floor("8h") + pd.Timedelta("8h") if highs else perp[s].index.floor("8h") + pd.Timedelta("8h")).max().reindex(grid) for s in syms})
+    if Hgrid is not None:
+        H = Hgrid.reindex(index=grid, columns=syms)
     Hn = H.to_numpy()
+    Ln = Lgrid.reindex(index=grid, columns=syms).to_numpy() if Lgrid is not None else None
     member = pd.DataFrame({s: is_member(members, s, grid) for s in syms}, index=grid)
     equity, cash_eq = 1.0, []
     pos, episodes = {}, []
@@ -45,11 +51,13 @@ def simulate(perp: dict, spot: dict, funding: dict, members: dict, enter=0.0003,
             p["last_s"], p["last_p"] = ps, pp
             if np.isfinite(Hn[g, i]) and Hn[g, i] > p["ref"] * (1 + liq_move):
                 # liquidación de la pata corta: penalización + reabrir la cobertura
-                c = p["notional"] * (liq_penalty + REBAL_COST); p["pnl"] -= c; equity -= c; p["ref"] = pp; p["liq"] += 1
-            elif pp > p["ref"] * (1 + rebal_move):
-                c = p["notional"] * REBAL_COST; p["pnl"] -= c; equity -= c; p["ref"] = pp; p["rebal"] += 1
+                c = p["notional"] * (liq_penalty + rebal_cost); p["pnl"] -= c; equity -= c; p["ref"] = pp; p["liq"] += 1
+            elif Ln is not None and np.isfinite(Ln[g, i]) and Ln[g, i] < p["ref"] * (1 - liq_move):
+                c = p["notional"] * (liq_penalty + rebal_cost); p["pnl"] -= c; equity -= c; p["ref"] = pp; p["liq"] += 1
+            elif pp > p["ref"] * (1 + rebal_move) or (Ln is not None and pp < p["ref"] * (1 - rebal_move)):
+                c = p["notional"] * rebal_cost; p["pnl"] -= c; equity -= c; p["ref"] = pp; p["rebal"] += 1
             if force or not (F3n[g, i] > exit_):
-                c = p["notional"] * LEG_COST; p["pnl"] -= c; equity -= c
+                c = p["notional"] * leg_cost; p["pnl"] -= c; equity -= c
                 episodes.append({"symbol": s, "entry": p["t0"], "exit": grid[g], "pnl": p["pnl"],
                                  "ret_on_notional": p["pnl"] / p["notional"], "rebal": p["rebal"], "liq": p["liq"]})
                 del pos[s]
@@ -60,7 +68,7 @@ def simulate(perp: dict, spot: dict, funding: dict, members: dict, enter=0.0003,
             for _, s in sorted(cand, reverse=True)[: max_pos - len(pos)]:
                 i = col[s]
                 notional = equity * slot * notional_frac
-                c = notional * LEG_COST; equity -= c
+                c = notional * leg_cost; equity -= c
                 pos[s] = {"t0": grid[g], "notional": notional, "pnl": -c, "entry_p": Pn[g, i], "entry_s": Sn[g, i], "ref": Pn[g, i],
                           "last_s": Sn[g, i], "last_p": Pn[g, i], "rebal": 0, "liq": 0}
         cash_eq.append((grid[g], equity, len(pos)))

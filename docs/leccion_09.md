@@ -30,3 +30,16 @@ transferencias entre exchanges para reequilibrar márgenes y liquidez real en HL
 **H10 — Corto en nuevos listados cubierto con BTC: examen confirmatorio único.**
 Falló la criba de la Lección 8 por tamaño de muestra (36 trades, t = 1,8). Se examina UNA vez, con las mismas reglas, en los 129
 símbolos nuevos (que esta hipótesis no ha tocado). Aprobación a nivel de trade: n ≥ 50, media > 0 con **t ≥ 3**, PF ≥ 1,3.
+
+## 2. H10 — Examen confirmatorio en 129 símbolos nuevos (una vez) — `l09_salida_h10.txt`
+
+| n | Win rate | Media | Mediana | t | PF | Stops (−100 %) | Peor |
+|---|---|---|---|---|---|---|---|
+| 127 | **72 %** | +9,9 % | +25,0 % | **2,13** | 1,56 | 30 | −110 % |
+
+Por año de listado (trades, media): 2020: 12, +35 % · 2021: 30, +15 % · 2022: 13, +20 % · 2023: 35, +4 % · 2024: 35, −1 % · 2025: 2.
+Cartera con el 5 % por trade: Sharpe 0,85, CAGR 9,8 %, DD 28,8 %, hasta 15 posiciones a la vez.
+
+**Veredicto: NO aprobada** (t = 2,13 < 3). El efecto existe (los listados nuevos caen frente a BTC en el 72 % de los casos),
+pero uno de cada cuatro trades acaba en stop con pérdida total, y **la ventaja ha desaparecido en 2023-24**.
+Otro ejemplo de win rate alto con cola de pérdidas grande.

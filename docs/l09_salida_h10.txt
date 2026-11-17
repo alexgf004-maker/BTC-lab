@@ -1,0 +1,5 @@
+H10 examen: n 127 | WR 72% | media +9.9% | mediana +25.0% | t 2.13 | PF 1.56 | stops 30 | peor -110%
+por año: [[12.0, 0.35, 0.83], [30.0, 0.15, 0.8], [13.0, 0.2, 0.92], [35.0, 0.04, 0.69], [35.0, -0.01, 0.6], [2.0, 0.2, 0.5]] [np.int32(2020), np.int32(2021), np.int32(2022), np.int32(2023), np.int32(2024), np.int32(2025)]
+cartera (5 % por trade): Sharpe 0.85 | CAGR 9.8% | DD 28.8%
+posiciones simultáneas máx.: 15
+VEREDICTO: NO aprobada
