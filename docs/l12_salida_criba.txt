@@ -1,0 +1,62 @@
+N1 tendencia relativa alt/BTC
+   Sharpe 1.35 | CAGR 59.7% | DD 40.1% | n 2590 | WR 40% | PF 1.40 | mitades (corte 2023-06): +1743.5% / +32.6%
+   por año: {2020: 1.587, 2021: 1.691, 2022: 1.561, 2023: 0.423, 2024: 0.195, 2025: 0.021, 2026: -0.21} | {'apal_max': 6.347376191001573}
+
+   -> PASA la criba
+
+N2 cesta contra la volatilidad
+   Sharpe 1.12 | CAGR 27.1% | DD 32.3% | n 76 | WR 62% | PF 2.65 | mitades (corte 2023-09): +236.4% / +35.6%
+   por año: {2020: 0.599, 2021: 0.21, 2022: 0.556, 2023: -0.058, 2024: 0.388, 2025: 0.217, 2026: -0.048} | {'rotacion_media': 0.808828788178375, 'largo_medio': 0.499325323076136, 'corto_medio': 0.3705299594460795}
+
+   -> no pasa
+
+Traceback (most recent call last):
+  File "/home/user/btc-lab/lecciones/leccion_12_derivadas.py", line 51, in <module>
+    daily, tr, extra = run(c, fase)
+                       ~~~^^^^^^^^^
+  File "/home/user/btc-lab/lecciones/leccion_12_derivadas.py", line 32, in run
+    return lab12.n4_deleverage_rebound(DIV["desarrollo_57"] if dev else DIV["resto_161"])
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/btc-lab/sclab/lab12.py", line 129, in n4_deleverage_rebound
+    oi = pd.read_parquet(p)["sum_open_interest"].replace(0, np.nan).reindex(c.index)
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/series.py", line 5525, in reindex
+    return super().reindex(
+           ~~~~~~~~~~~~~~~^
+        index=index,
+        ^^^^^^^^^^^^
+    ...<5 lines>...
+        copy=copy,
+        ^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/generic.py", line 5464, in reindex
+    return self._reindex_axes(
+           ~~~~~~~~~~~~~~~~~~^
+        axes, level, limit, tolerance, method, fill_value
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).__finalize__(self, method="reindex")
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/generic.py", line 5486, in _reindex_axes
+    new_index, indexer = ax.reindex(
+                         ~~~~~~~~~~^
+        labels, level=level, limit=limit, tolerance=tolerance, method=method
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/indexes/base.py", line 4253, in reindex
+    raise ValueError("cannot reindex on an axis with duplicate labels")
+ValueError: cannot reindex on an axis with duplicate labels
+N4 rebote tras purga
+   Sharpe 0.74 | CAGR 9.7% | DD 15.8% | n 301 | WR 66% | PF 2.26 | mitades (corte 2023-10): +23.1% / +43.3%
+   por año: {2020: -0.002, 2021: 0.182, 2022: -0.101, 2023: 0.204, 2024: 0.169, 2025: 0.181, 2026: 0.002} | {'simultaneas_max': 19}
+
+   -> no pasa
+
+Pasan la criba hasta ahora: []
+N3 captura del pago de funding
+   Sharpe -2.69 | CAGR -28.9% | DD 90.1% | n 6429 | WR 41% | PF 0.73 | mitades (corte 2023-06): -69.0% / -68.0%
+   por año: {2020: -0.239, 2021: -0.563, 2022: -0.1, 2023: -0.068, 2024: -0.254, 2025: -0.2, 2026: -0.404} | {'eventos': 10926, 'tasa_media': 0.0024049224629324544, 'precio_medio': -0.0027617246724659724, 'bruto_medio': -0.0003568022095335178, 'neto_medio': -0.002356802209533518, 't_neto': -14.641369364178587, 'sharpe_costes_dobles': -5.342291161590571, 'positivas': -0.0030033268580903676, 'negativas': -0.0015171227112079492, 'perfil': {-60: -0.00235, -30: -0.00074, -10: -0.00033, -2: 0.0, 0: -0.00303, 1: -0.00299, 2: -0.00283, 5: -0.00239, 15: -0.00276, 30: -0.00286, 60: -0.00265}, 'tramos(n, neto, WR)': {'>=0.10%': (10926, -0.002356802209533518, 0.39822441881749954), '>=0.25%': (2614, -0.002987951640473164, 0.3894414690130069), '>=0.50%': (780, -0.0033129356922963586, 0.3935897435897436), '>=1.00%': (229, -0.002733230368140656, 0.4192139737991266)}}
+
+   -> no pasa
+
+Pasan la criba hasta ahora: []

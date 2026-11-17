@@ -1,0 +1,7 @@
+N1 tendencia relativa alt/BTC
+   Sharpe 0.89 | CAGR 30.7% | DD 42.6% | n 2502 | WR 39% | PF 1.26 | mitades (corte 2023-06): +366.1% / +30.0%
+   por año: {2020: 0.99, 2021: -0.064, 2022: 0.594, 2023: 0.509, 2024: 0.545, 2025: 0.39, 2026: -0.37} | {'apal_max': 4.433860283903811}
+
+   Deflated Sharpe 0.354 -> NO aprobada
+   ratio al alza (largo alt / corto BTC): n 932, WR 32%, E +0.017R, PF 1.04
+   ratio a la baja (corto alt / largo BTC): n 1570, WR 44%, E +0.138R, PF 1.43
