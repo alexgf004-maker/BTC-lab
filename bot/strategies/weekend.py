@@ -16,10 +16,10 @@ class Weekend:
         self.sl = state.sleeve(NAME, cfg["capital"])
 
     def due(self, now):
-        return (now.dayofweek == 6 and now.hour == 21) or (now.dayofweek == 0 and now.hour == 3)
+        return (now.day_of_week == 6 and now.hour == 21) or (now.day_of_week == 0 and now.hour == 3)
 
     def run(self, now):
-        if now.dayofweek == 0:
+        if now.day_of_week == 0:
             for sym, pos in list(self.sl["positions"].items()):
                 f = self.b.execute(sym, -pos["qty"], "perp", tag="F")
                 px = f.price if f.price == f.price else self.m.price(sym)
