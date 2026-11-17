@@ -54,3 +54,16 @@ def test_piramidacion_entra_tras_2R_y_sale_con_la_principal():
     assert pd.notna(t.add_time[0]) and t.add_time[0] > t.entry_time[0]
     assert t.add_entry[0] >= 106 - 1e-9            # +2R con R = 3
     assert abs(t.add_r_net[0] - (t.exit[0] - t.add_entry[0]) / t.add_R[0]) < 1e-9
+
+
+def test_scalp_limit_exige_atravesar_y_stop_gana_al_objetivo():
+    from sclab import scalp
+    idx = pd.date_range("2024-01-01", periods=6, freq="1min", tz="UTC")
+    m1 = pd.DataFrame({"open": 100.0, "high": 100.05, "low": 99.95, "close": 100.0}, index=idx)
+    order = pd.DataFrame([{"pos": 1, "side": 1, "kind": "limit", "limit": 99.9, "stop": 99.4, "tp": 100.4, "valid": 2, "exit_pos": 5}])
+    m1.iloc[1, m1.columns.get_loc("low")] = 99.9                 # toca el nivel pero no lo atraviesa
+    assert len(scalp.execute(m1, order)[0]) == 0
+    m1.iloc[2, m1.columns.get_loc("low")] = 99.8                 # lo atraviesa: ejecutada
+    m1.iloc[3, m1.columns.get_loc("low")] = 99.3; m1.iloc[3, m1.columns.get_loc("high")] = 100.6   # toca stop y objetivo
+    tr, sent = scalp.execute(m1, order)
+    assert sent == 1 and len(tr) == 1 and tr.reason[0] == "sl" and tr.r_net[0] < -1

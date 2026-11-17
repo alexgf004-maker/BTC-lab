@@ -1,0 +1,23 @@
+CRIBA — BTCUSDT, ETHUSDT, SOLUSDT, BNBUSDT, XRPUSDT, DOGEUSDT — 2024-01 → 2026-10
+
+C1 reversión al VWAP
+   órdenes 17671 | ejecutadas 16633 (94%) | stop medio 2.27% | duración mediana 60 min
+   BRUTO: E -0.025R, WR 53%, PF 0.87   →   NETO: E -0.088R, WR 47%, PF 0.61, t -23.68
+   mitades: -0.079R / -0.097R | activos positivos 0/6 | salidas {'time': 0.87, 'sl': 0.1, 'tp': 0.03}
+
+C2 ruptura apertura EE. UU.
+   órdenes 4947 | ejecutadas 4947 (100%) | stop medio 0.96% | duración mediana 82 min
+   BRUTO: E -0.001R, WR 43%, PF 1.00   →   NETO: E -0.182R, WR 40%, PF 0.72, t -11.09
+   mitades: -0.176R / -0.189R | activos positivos 0/6 | salidas {'sl': 0.5, 'tp': 0.31, 'time': 0.19}
+
+C3 continuación de flujo
+   órdenes 14406 | ejecutadas 13592 (94%) | stop medio 0.46% | duración mediana 22 min
+   BRUTO: E -0.043R, WR 47%, PF 0.91   →   NETO: E -0.229R, WR 43%, PF 0.61, t -27.70
+   mitades: -0.218R / -0.237R | activos positivos 0/6 | salidas {'sl': 0.4, 'tp': 0.37, 'time': 0.23}
+
+C4 barrido de liquidez
+   órdenes 18121 | ejecutadas 17450 (96%) | stop medio 0.63% | duración mediana 20 min
+   BRUTO: E -0.062R, WR 40%, PF 0.89   →   NETO: E -0.225R, WR 38%, PF 0.68, t -24.75
+   mitades: -0.221R / -0.230R | activos positivos 0/6 | salidas {'sl': 0.57, 'tp': 0.31, 'time': 0.12}
+
+Pasan la criba: []

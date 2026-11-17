@@ -41,3 +41,34 @@ Objetivo: 1,5R. Máximo 120 min.
 **Examen:** esperanza neta > 0 con t ≥ 3, PF ≥ 1,2 y Deflated Sharpe ≥ 0,90 (354 + 4 pruebas), con un 0,25 % de riesgo por trade.
 Se informa siempre de: trades, tasa de ejecución de las órdenes limit, win rate, y resultado BRUTO (sin costes) para ver
 cuánto se llevan las comisiones.
+
+## 3. Criba (BTC, ETH, SOL, BNB, XRP, DOGE; 2024-01 → 2026-10) — `l10_salida_criba.txt`
+
+| Hipótesis | Órdenes | Ejecutadas | Stop medio | Duración | E BRUTA | E NETA | Win rate neto | PF neto | t | Activos positivos |
+|---|---|---|---|---|---|---|---|---|---|---|
+| C1 reversión al VWAP | 17 671 | 94 % | 2,27 % | 60 min | −0,025R | **−0,088R** | 47 % | 0,61 | −23,7 | 0 de 6 |
+| C2 ruptura de la apertura de EE. UU. | 4 947 | 100 % | 0,96 % | 82 min | −0,001R | **−0,182R** | 40 % | 0,72 | −11,1 | 0 de 6 |
+| C3 continuación de flujo | 14 406 | 94 % | 0,46 % | 22 min | −0,043R | **−0,229R** | 43 % | 0,61 | −27,7 | 0 de 6 |
+| C4 barrido de liquidez | 18 121 | 96 % | 0,63 % | 20 min | −0,062R | **−0,225R** | 38 % | 0,68 | −24,8 | 0 de 6 |
+
+**Ninguna pasa la criba. No se ejecuta el examen.** Pierden en las dos mitades del periodo y en los 6 activos.
+
+## 4. Por qué pierden (lo que enseña esta lección)
+1. **Ni siquiera hay ventaja antes de costes:** la esperanza bruta es cero o negativa en las cuatro. No es solo un problema
+   de comisiones: estas señales, públicas y conocidas, no predicen el precio a 20–80 minutos.
+2. **Los costes rematan:** entre 0,06R y 0,19R por trade, incluso con entrada maker.
+3. **Selección adversa de las órdenes limit** (medido en BTC, ETH y SOL, rentabilidad a 60 min desde el precio de la orden):
+
+   | | Órdenes NO ejecutadas | Órdenes ejecutadas |
+   |---|---|---|
+   | C3 continuación de flujo | **+0,88R** (426) | −0,03R (7 344) |
+   | C4 barrido de liquidez | **+0,95R** (352) | −0,06R (9 207) |
+
+   La orden limit se queda sin ejecutar justo cuando el precio se va a tu favor sin volver, y se ejecuta cuando viene contra ti.
+   El 5 % de órdenes que se pierden eran las ganadoras. Es el coste oculto de "entrar con limit para pagar menos comisión".
+4. Con t entre −11 y −28 sobre 5 000–17 000 trades, el resultado es concluyente: no es mala suerte.
+
+## 5. Veredicto sobre el scalping
+Con señales basadas en velas (VWAP, rangos, volumen, flujo agresivo) y comisiones de minorista, el scalping en cripto
+**no tiene ventaja**: confirma con pruebas reales el cálculo de costes de la Lección 1. Quien gana en esa escala son creadores de
+mercado con comisiones negativas o casi nulas, colocación junto al servidor del exchange y modelos sobre el libro de órdenes.
