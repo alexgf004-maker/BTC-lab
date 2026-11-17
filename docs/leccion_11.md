@@ -41,3 +41,53 @@ Modelos: (1) regresión ridge; (2) LightGBM (300 árboles, profundidad 4, tasa 0
 **Criterios (rendimiento fuera de muestra, neto):** Sharpe ≥ 1,0, positivo en al menos el 75 % de los años de prueba y
 Deflated Sharpe ≥ 0,90 con 358 + 16 pruebas (2 modelos × 2 juegos × 2 carteras × 2 horizontes).
 Una sola ejecución: no se ajusta nada después de ver los resultados.
+
+## 2. Resultados — `l11_salida.txt`, `l11_ic.csv`, `l11_modelos.csv`
+
+Panel: 161 monedas, 1,73 millones de velas de 4h; 357 614 dentro del universo point-in-time (2020-03 → 2026-10).
+Cobertura de los datos de posicionamiento: 2 % en 2020, 12 % en 2021, 77 % en 2022 y ≥ 95 % desde 2023.
+
+### Paso A — Capacidad predictiva individual (135 pruebas)
+**100 de 135 son significativas** tras Benjamini-Hochberg al 5 %, y 98 mantienen el signo en las dos mitades del periodo.
+Las más fuertes (IC a 24h, t):
+
+| Variable | IC | t | Lectura |
+|---|---|---|---|
+| Correlación con BTC a 30d | +0,079 | +13,8 | las monedas que se mueven con BTC rinden más que las "independientes" |
+| Volatilidad a 30d / 7d / 1d | −0,089 / −0,085 / −0,071 | −12,7 / −12,3 / −11,1 | **anomalía de baja volatilidad**: las más volátiles rinden peor |
+| Mayor subida de 4h en 7d | −0,072 | −11,8 | efecto "lotería": tras un pelotazo, peor rentabilidad |
+| Iliquidez (Amihud) | −0,057 | −9,9 | las menos líquidas rinden peor |
+| Interés abierto / volumen | +0,064 | +9,3 | única variable de posicionamiento con fuerza |
+| Rentabilidad a 4h y 8h (horizonte 4h) | −0,044 | −19 | reversión de muy corto plazo |
+
+El resto del posicionamiento aporta poco: los ratios largos/cortos y sus cambios no son significativos o rozan el umbral.
+El momentum de 3 a 60 días no es significativo entre monedas (coherente con la Lección 6).
+
+### Paso B — Modelos combinados, validación hacia delante, neto de costes y funding
+| Juego | Cartera | Horizonte | Modelo | Sharpe bruto | Sharpe neto | CAGR | DD máx. | Años + | DSR |
+|---|---|---|---|---|---|---|---|---|---|
+| A | neutral | 24h | ridge / lgbm | 0,73 / 0,83 | 0,09 / 0,08 | −3 % | 56–62 % | 50 % | 0,01 |
+| A | neutral | 72h | ridge / lgbm | 0,91 / 0,95 | 0,64 / 0,58 | 14–17 % | 29–43 % | 50–67 % | 0,15–0,18 |
+| A | direccional | 24h | ridge / lgbm | 0,64 / 0,68 | 0,52 / 0,54 | 14–15 % | 61–69 % | 67 % | 0,11 |
+| A | direccional | 72h | ridge / lgbm | −0,05 / 0,22 | −0,01 / 0,22 | negativo | 65–86 % | 50–67 % | ≤ 0,03 |
+| B | neutral | 24h | ridge / lgbm | 0,86 / 1,06 | 0,06 / 0,17 | ≈ 0 % | 53–62 % | 40 % | ≤ 0,03 |
+| B | neutral | 72h | ridge / lgbm | 0,49 / 1,15 | 0,13 / 0,66 | −1 / +16 % | 40–47 % | 40–60 % | ≤ 0,22 |
+| B | direccional | 24h | ridge | 1,41 | 1,17 | 50 % | 38,6 % | 80 % | 0,63 |
+| B | direccional | 24h | lgbm | 1,24 | 1,02 | 49 % | 63,1 % | 60 % | 0,50 |
+| **B** | **direccional** | **72h** | **ridge** | 1,40 | **1,37** | 58 % | 35,3 % | 80 % | **0,78** |
+| B | direccional | 72h | lgbm | 0,50 | 0,42 | 9 % | 50,3 % | 80 % | 0,09 |
+
+**Ninguno de los 16 supera los tres criterios** (Sharpe ≥ 1,0, ≥ 75 % de años positivos y Deflated Sharpe ≥ 0,90).
+
+## 3. Conclusiones
+1. **Predecir no es lo mismo que ganar.** Hay 98 señales estadísticamente reales y estables, pero al operarlas en una cartera
+   neutral el Sharpe neto queda entre 0,1 y 0,7. Motivos: (a) los costes de rotar el 70–80 % de la cartera en cada rebalanceo;
+   (b) las señales fuertes obligan a ponerse corto en las monedas más volátiles e ilíquidas, que de vez en cuando suben un 100 %
+   y pagan funding; (c) una correlación de rangos del 5–9 % es pequeña frente a la dispersión de las rentabilidades.
+2. **El mejor candidato: modelo direccional lineal con datos de posicionamiento, a 72h.** Sharpe neto 1,37, 4 de 5 años positivos
+   (2022 +75 %, 2023 −17 %, 2024 +103 %, 2025 +59 %, 2026 +37 %, sumas simples), win rate por periodo del 54 %, PF 1,48.
+   Pero: Deflated Sharpe 0,78 (< 0,90), caída máxima del 35 %, y su versión con LightGBM cae a Sharpe 0,42 (poco robusto al modelo).
+   El mismo modelo sin posicionamiento, en los mismos años, rinde parecido: gran parte del resultado es la ventana 2022–2026.
+   **Estado: candidato a prueba hacia delante, no aprobado.**
+3. Los datos de posicionamiento aportan poco: solo interés abierto / volumen tiene fuerza.
+4. Tras 374 pruebas, el carry de funding sigue siendo la única ventaja aprobada.

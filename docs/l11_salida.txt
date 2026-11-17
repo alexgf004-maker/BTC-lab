@@ -1,0 +1,69 @@
+Panel: 1,730,932 filas, 161 monedas; en el universo: 357,614 filas, 2020-03-01 → 2026-10-31
+Cobertura de datos de posicionamiento por año: {2020: 0.02, 2021: 0.12, 2022: 0.77, 2023: 0.99, 2024: 0.99, 2025: 0.98, 2026: 0.95}
+
+PASO A — 135 pruebas (variable × horizonte). Significativas tras Benjamini-Hochberg al 5 %: 100; además estables en las dos mitades: 98
+
+Horizonte 4h: las 12 variables con mayor |t|
+    variable      IC     t       p IC_1a_mitad IC_2a_mitad  significativa  estable
+      ret_8h -0.0446 -19.6 1.6e-85     -0.0586     -0.0309           True     True
+      ret_4h -0.0436 -19.1 2.3e-81     -0.0567     -0.0308           True     True
+    corr_30d +0.0439 +18.9 2.2e-79     +0.0484     +0.0396           True     True
+ dist_min_7d -0.0445 -18.7 2.5e-78     -0.0482     -0.0409           True     True
+     vol_30d -0.0499 -17.4 3.6e-68     -0.0519     -0.0480           True     True
+      vol_7d -0.0493 -17.1 3.2e-65     -0.0517     -0.0470           True     True
+  max_ret_7d -0.0424 -16.7 1.6e-62     -0.0452     -0.0396           True     True
+       rango -0.0452 -16.4 1.9e-60     -0.0444     -0.0459           True     True
+dist_min_30d -0.0376 -16.2 5.9e-59     -0.0418     -0.0335           True     True
+     ret_24h -0.0363 -15.6 1.3e-54     -0.0451     -0.0277           True     True
+dist_min_90d -0.0366 -15.4 2.1e-53     -0.0415     -0.0319           True     True
+      vol_1d -0.0385 -14.4 2.7e-47     -0.0368     -0.0402           True     True
+
+Horizonte 24h: las 12 variables con mayor |t|
+        variable      IC     t       p IC_1a_mitad IC_2a_mitad  significativa  estable
+        corr_30d +0.0791 +13.8 2.0e-43     +0.0903     +0.0681           True     True
+         vol_30d -0.0892 -12.7 8.5e-37     -0.0938     -0.0848           True     True
+          vol_7d -0.0854 -12.3 5.2e-35     -0.0936     -0.0775           True     True
+           rango -0.0791 -12.1 1.7e-33     -0.0794     -0.0788           True     True
+      max_ret_7d -0.0724 -11.8 2.2e-32     -0.0796     -0.0653           True     True
+          vol_1d -0.0714 -11.1 1.0e-28     -0.0715     -0.0713           True     True
+     dist_min_7d -0.0574 -10.0 1.9e-23     -0.0566     -0.0582           True     True
+       amihud_7d -0.0570  -9.9 6.6e-23     -0.0452     -0.0685           True     True
+    dist_min_90d -0.0566  -9.5 1.6e-21     -0.0635     -0.0500           True     True
+oi_sobre_volumen +0.0642  +9.3 1.6e-20     +0.0892     +0.0522           True     True
+    dist_min_30d -0.0514  -8.9 5.6e-19     -0.0541     -0.0487           True     True
+    dist_max_30d +0.0433  +6.8 7.7e-12     +0.0433     +0.0433           True     True
+
+Horizonte 72h: las 12 variables con mayor |t|
+        variable      IC     t       p IC_1a_mitad IC_2a_mitad  significativa  estable
+        corr_30d +0.0964 +10.2 2.2e-24     +0.1018     +0.0911           True     True
+         vol_30d -0.1087  -9.0 2.9e-19     -0.1058     -0.1114           True     True
+          vol_7d -0.1039  -9.0 3.1e-19     -0.1130     -0.0951           True     True
+      max_ret_7d -0.0892  -8.9 7.0e-19     -0.1003     -0.0782           True     True
+           rango -0.0861  -7.9 1.9e-15     -0.0894     -0.0829           True     True
+          vol_1d -0.0795  -7.4 1.1e-13     -0.0777     -0.0813           True     True
+       amihud_7d -0.0720  -7.1 1.7e-12     -0.0493     -0.0942           True     True
+    dist_max_30d +0.0711  +6.4 1.3e-10     +0.0718     +0.0703           True     True
+oi_sobre_volumen +0.0745  +6.4 2.0e-10     +0.1123     +0.0565           True     True
+    dist_max_90d +0.0689  +6.2 6.2e-10     +0.0747     +0.0633           True     True
+    dist_min_90d -0.0591  -6.0 1.6e-09     -0.0609     -0.0574           True     True
+     dist_min_7d -0.0556  -5.8 5.0e-09     -0.0611     -0.0502           True     True
+
+PASO B — modelos con validación hacia delante (neto de costes y funding)
+A neutral 24h ridge          Sharpe bruto  0.73 | neto  0.09 | CAGR  -2.7% | DD 56.2% | años + 50% | rotación 0.72 | DSR 0.01 | no
+A neutral 24h lgbm           Sharpe bruto  0.83 | neto  0.08 | CAGR  -2.8% | DD 61.9% | años + 50% | rotación 0.77 | DSR 0.01 | no
+A neutral 72h ridge          Sharpe bruto  0.91 | neto  0.64 | CAGR  16.6% | DD 43.0% | años + 50% | rotación 0.73 | DSR 0.18 | no
+A neutral 72h lgbm           Sharpe bruto  0.95 | neto  0.58 | CAGR  14.0% | DD 28.5% | años + 67% | rotación 0.78 | DSR 0.15 | no
+A direccional 24h ridge      Sharpe bruto  0.64 | neto  0.52 | CAGR  14.4% | DD 68.8% | años + 67% | rotación 0.49 | DSR 0.11 | no
+A direccional 24h lgbm       Sharpe bruto  0.68 | neto  0.54 | CAGR  15.3% | DD 61.3% | años + 67% | rotación 0.53 | DSR 0.12 | no
+A direccional 72h ridge      Sharpe bruto -0.05 | neto -0.01 | CAGR -11.4% | DD 85.8% | años + 67% | rotación 0.47 | DSR 0.01 | no
+A direccional 72h lgbm       Sharpe bruto  0.22 | neto  0.22 | CAGR  -2.9% | DD 64.5% | años + 50% | rotación 0.56 | DSR 0.03 | no
+B neutral 24h ridge          Sharpe bruto  0.86 | neto  0.06 | CAGR  -3.4% | DD 62.3% | años + 40% | rotación 0.79 | DSR 0.02 | no
+B neutral 24h lgbm           Sharpe bruto  1.06 | neto  0.17 | CAGR   0.4% | DD 52.5% | años + 40% | rotación 0.79 | DSR 0.03 | no
+B neutral 72h ridge          Sharpe bruto  0.49 | neto  0.13 | CAGR  -1.3% | DD 46.7% | años + 40% | rotación 0.84 | DSR 0.02 | no
+B neutral 72h lgbm           Sharpe bruto  1.15 | neto  0.66 | CAGR  16.4% | DD 39.8% | años + 60% | rotación 0.81 | DSR 0.22 | no
+B direccional 24h ridge      Sharpe bruto  1.41 | neto  1.17 | CAGR  50.3% | DD 38.6% | años + 80% | rotación 0.50 | DSR 0.63 | no
+B direccional 24h lgbm       Sharpe bruto  1.24 | neto  1.02 | CAGR  49.2% | DD 63.1% | años + 60% | rotación 0.53 | DSR 0.50 | no
+B direccional 72h ridge      Sharpe bruto  1.40 | neto  1.37 | CAGR  57.9% | DD 35.3% | años + 80% | rotación 0.47 | DSR 0.78 | no
+B direccional 72h lgbm       Sharpe bruto  0.50 | neto  0.42 | CAGR   9.0% | DD 50.3% | años + 80% | rotación 0.57 | DSR 0.09 | no
+
+Rentabilidad neta por año de los que aprueban:
