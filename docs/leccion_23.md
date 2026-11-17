@@ -49,3 +49,21 @@ Mismos criterios que la criba y el examen de la Lección 17.
 A las 13:00 del lunes los perpetuos ya han incorporado esa información: la reacción debe medirse el domingo por la noche.
 *Ventanas:* W = viernes 21:00 → domingo 21:00; R = domingo 21:00 → lunes 03:00. Activos de EE. UU. (no Asia, no materias primas).
 Misma regla y criterio que T1, misma división por activo. Cuenta como prueba adicional.
+
+### Resultado de T1b — `l23_salida_T1b.txt`, `l23_auditoria_T1b.txt`
+| | Activos | Corr(W, R) | Pendiente | Operaciones | Neto por operación | t (por fin de semana) | Acierto |
+|---|---|---|---|---|---|---|---|
+| Desarrollo | 59 | −0,39 | −0,56 | 434 | +1,24 % | +2,66 | 61 % |
+| **Examen** | 53 | **−0,45** | −0,55 | 358 | **+0,99 %** | **+3,64** | 63 % |
+**T1b APROBADA (exploratoria).** El movimiento de fin de semana de los perpetuos de acciones y ETFs de EE. UU. revierte en torno a un 55 %.
+
+**Auditoría:**
+- Precio de cierre: +1,17 % (t 2,86); precio medio ponderado por volumen: +1,11 % (t 3,65) → no es rebote de un precio aislado.
+- Entrada 1 / 2 / 3 h más tarde: +1,03 % / +0,87 % / +0,72 % → la ventaja dura horas.
+- Costes de 0,3 %: +0,96 % (t 2,46); de 0,5 %: +0,76 % (t 1,78).
+- La reversión se concentra entre el lunes 00:00 y 03:00 UTC (pendiente −0,37), con la sesión asiática y los futuros de EE. UU. ya abiertos.
+- Cortos (fin de semana al alza): +0,77 %, 58 % de acierto; largos (a la baja): +1,80 %, 67 % → no es un sesgo direccional.
+- 95 de 105 activos positivos; ETFs apalancados +1,72 %, resto +1,08 %. Sin los 3 mejores fines de semana: +0,50 % (t 2,40).
+- **Límites:** solo ~29 fines de semana (2026); volumen en la hora de entrada: mediana 52 k$, p25 9 k$ → **capacidad muy pequeña**
+  (operaciones de pocos miles de dólares por activo). Mecanismo plausible: el fin de semana el precio lo fijan traders sin cobertura;
+  al reabrir los mercados de referencia, los creadores de mercado devuelven el precio a su valor.

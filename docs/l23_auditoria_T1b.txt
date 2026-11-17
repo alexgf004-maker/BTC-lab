@@ -1,0 +1,31 @@
+BASE (ambos conjuntos): 112 activos | operaciones 792 | neto +1.122% | t +3.01 | corr -0.412
+
+1) ¿Rebote de precios ilíquidos? Cambiar el precio usado y retrasar la entrada:
+   precio = cierre de la hora: operaciones 764 | neto +1.167% | t +2.86 | corr -0.393
+   precio = medio ponderado por volumen: operaciones 793 | neto +1.108% | t +3.65 | corr -0.426
+   entrada 1 h más tarde (dom 22:00): operaciones 792 | neto +1.025% | t +3.19 | corr -0.397
+   entrada 2 h más tarde (dom 23:00): operaciones 792 | neto +0.872% | t +3.06 | corr -0.388
+   entrada 3 h más tarde (lun 00:00): operaciones 792 | neto +0.724% | t +2.05 | corr -0.373
+
+2) Costes más altos:
+   coste 0.3%: neto +0.962% | t +2.46
+   coste 0.5%: neto +0.762% | t +1.78
+
+3) ¿Dónde ocurre la reversión? (pendiente de R sobre W por tramo horario desde el dom 21:00)
+   SUN 21:00 → SUN 22:00: pendiente -0.066
+   SUN 22:00 → SUN 23:00: pendiente -0.075
+   SUN 23:00 → MON 00:00: pendiente -0.048
+   MON 00:00 → MON 03:00: pendiente -0.369
+   MON 03:00 → MON 13:00: pendiente -0.037
+   MON 13:00 → MON 16:00: pendiente +0.005
+
+4) Largos frente a cortos (¿es solo un sesgo direccional?):
+   W > 0 → corto: n 520 | neto +0.768% | acierto 58%
+   W < 0 → largo: n 272 | neto +1.799% | acierto 67%
+
+5) Concentración:
+   fines de semana: 29 | positivos 59% | sin los 3 mejores: media +0.500% (t +2.40) | mejores: {Timestamp('2026-08-31 00:00:00+0000', tz='UTC'): 0.0246, Timestamp('2026-09-28 00:00:00+0000', tz='UTC'): 0.0444, Timestamp('2026-10-19 00:00:00+0000', tz='UTC'): 0.0551}
+   activos con resultado positivo: 95 de 105 | ETFs apalancados (SOXL, SOXS, TQQQ, SQQQ, TSLL, NVDL, MSTU, TZA, TMF, UVXY): +1.717% | resto +1.080%
+
+6) Liquidez en la ventana de entrada (dom 21:00) y tamaño del movimiento:
+   volumen en la hora de entrada: mediana 52 k$ | p25 9 k$ | |W| mediano 1.73%

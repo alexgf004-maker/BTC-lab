@@ -1,0 +1,8 @@
+T1b — PERPETUOS DE EE. UU.: W = vie 21:00 → dom 21:00; R = dom 21:00 → lun 03:00 (reapertura de los futuros CME)
+
+  DESARROLLO: 59 activos | obs 1143 | corr(W,R) -0.394 | operaciones 434 en 28 fines de semana | neto por operación +1.235% | por fin de semana +0.951% (t +2.66) | acierto 61%
+     pendiente R sobre W: -0.564 (−1 = reversión total, 0 = ninguna)
+  EXAMEN: 53 activos | obs 1114 | corr(W,R) -0.446 | operaciones 358 en 29 fines de semana | neto por operación +0.985% | por fin de semana +0.844% (t +3.64) | acierto 63%
+     pendiente R sobre W: -0.548 (−1 = reversión total, 0 = ninguna)
+
+  -> T1b: APROBADA (exploratoria)
