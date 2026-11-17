@@ -1,6 +1,7 @@
 # Copia este fichero a config.yaml y ajústalo. Las claves de la API NUNCA van aquí: se leen de
 # las variables de entorno BINANCE_API_KEY y BINANCE_API_SECRET.
 modo: paper            # paper (simulado con datos reales) | testnet | live
+fuente_datos: live     # solo en paper: live (datos reales) | testnet
 capital: 10000         # USDT de la cuenta (en paper: capital simulado)
 estado: datos_bot/estado.json
 diario: datos_bot/diario.csv
@@ -10,10 +11,10 @@ riesgo:
   parar_caida: 0.25    # el bot se detiene si cae un 25 %
   apalancamiento_max: 3.0
 
-bloques:               # fracción del capital de cada bloque (validado: 1/4 cada uno de A, B, D, E)
-  A_carry:          {activo: true,  fraccion: 0.25, enter: 0.00015, exit: 0.00005, slots: 4, slot: 0.25, notional_frac: 0.6667, K: 20}
-  E_carry_inverso:  {activo: true,  fraccion: 0.25, enter: 0.00015, exit: 0.00005, slots: 4, slot: 0.25, notional_frac: 0.6667, K: 30,
+bloques:               # fracción del capital de cada bloque (validado: 1/4 cada uno de A, B, D, E; F toma un 5 %)
+  A_carry:          {activo: true,  fraccion: 0.2375, enter: 0.00015, exit: 0.00005, slots: 4, slot: 0.25, notional_frac: 0.6667, K: 20}
+  E_carry_inverso:  {activo: true,  fraccion: 0.2375, enter: 0.00015, exit: 0.00005, slots: 4, slot: 0.25, notional_frac: 0.6667, K: 30,
                      min_spot_vol: 5000000, borrow_apr_max: 1.5}
-  B_corto_alt_btc:  {activo: true,  fraccion: 0.25, N: 120, m: 5.0, risk: 0.01, max_pos: 10, K: 30}
-  D_tendencia:      {activo: true,  fraccion: 0.25, N: 120, m: 5.0, risk: 0.05, symbols: [BTCUSDT, ETHUSDT]}
+  B_corto_alt_btc:  {activo: true,  fraccion: 0.2375, N: 120, m: 5.0, risk: 0.01, max_pos: 10, K: 30}
+  D_tendencia:      {activo: true,  fraccion: 0.2375, N: 120, m: 5.0, risk: 0.05, symbols: [BTCUSDT, ETHUSDT]}
   F_fin_de_semana:  {activo: true,  fraccion: 0.05, threshold: 0.01, per_trade_usd: 100, max_frac_per_trade: 0.10}   # candidata: tamaño pequeño

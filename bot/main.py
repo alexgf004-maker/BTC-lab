@@ -31,7 +31,8 @@ log = logging.getLogger("bot")
 
 def build(cfg):
     mode = cfg["modo"]
-    client = Binance("live" if mode in ("paper", "live") else "testnet")
+    # fuente de los datos de mercado: en paper se usan los reales salvo que se indique "testnet" (útil donde la API real está bloqueada)
+    client = Binance(cfg.get("fuente_datos", "live") if mode == "paper" else ("live" if mode == "live" else "testnet"))
     market = LiveMarket(client)
     broker = PaperBroker(market) if mode == "paper" else ExchangeBroker(client)
     state, journal = State(cfg["estado"]), Journal(cfg["diario"], mode)

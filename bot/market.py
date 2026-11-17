@@ -74,11 +74,22 @@ class LiveMarket:
     def __init__(self, client):
         self.c = client
         self.now = pd.Timestamp.now(tz="UTC").floor("1h")
+        self._cache = {}
 
     def refresh_clock(self):
         self.now = pd.Timestamp.now(tz="UTC").floor("1h")
+        self._cache = {}                         # la caché solo vale dentro de un ciclo
 
     def candles(self, sym, lookback_hours=24 * 400):
+        key = (sym, self.now)
+        hit = self._cache.get(key)
+        if hit is not None and hit[0] >= lookback_hours:
+            return hit[1][hit[1].index >= self.now - pd.Timedelta(hours=lookback_hours)]
+        df = self._fetch(sym, lookback_hours)
+        self._cache[key] = (lookback_hours, df)
+        return df
+
+    def _fetch(self, sym, lookback_hours):
         end = int(self.now.timestamp() * 1000) - 1
         start = int((self.now - pd.Timedelta(hours=lookback_hours)).timestamp() * 1000)
         rows = []
