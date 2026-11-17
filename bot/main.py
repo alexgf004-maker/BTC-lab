@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import logging.handlers
 import time
 from pathlib import Path
 
@@ -134,7 +135,8 @@ def main():
     cfg = yaml.safe_load(open(a.config))
     Path(cfg["estado"]).parent.mkdir(parents=True, exist_ok=True)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-                        handlers=[logging.StreamHandler(), logging.FileHandler(Path(cfg["estado"]).parent / "bot.log")])
+                        handlers=[logging.StreamHandler(), logging.handlers.RotatingFileHandler(Path(cfg["estado"]).parent / "bot.log",
+                                                                                          maxBytes=5_000_000, backupCount=5)])
     client, market, broker, state, journal, strategies = build(cfg)
     guard = RiskGuard(state, cfg["riesgo"]["revisar_caida"], cfg["riesgo"]["parar_caida"], cfg["riesgo"]["apalancamiento_max"])
     if a.status:

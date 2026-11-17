@@ -62,6 +62,24 @@ Recibirás: arranque, cada entrada y salida, errores, reajustes de margen, descu
 | 3. Real pequeño | `live` | 1–3 meses | ejecución real, préstamo para el carry inverso, deslizamiento; capital que puedas permitirte perder |
 | 4. Escalar | `live` | — | solo si el real se parece a lo esperado (≈ 15–20 % anual, caídas ≈ 10 %) |
 
+## 5b. Instalación en un VPS (junto a otros servicios)
+El bot se instala en `/opt/btclab` con su propio usuario (`btclab`), su propio entorno de Python y su propio servicio (`btclab-bot`):
+no toca ningún otro proyecto del VPS ni usa puertos.
+```bash
+git clone https://github.com/alexgf004-maker/BTC-lab.git /tmp/btclab && cd /tmp/btclab
+bash deploy/comprobar_vps.sh          # 1) ¿Binance permite operar desde aquí? ¿Python, memoria, reloj?
+sudo bash deploy/instalar_vps.sh      # 2) instala (sin arrancar)
+sudo -u btclab nano /opt/btclab/bot/config.yaml      # 3) modo: paper para empezar
+sudo nano /etc/btclab/entorno                        # 4) Telegram (y más adelante las claves); permisos 600
+sudo systemctl enable --now btclab-bot               # 5) arrancar y que arranque solo al reiniciar el VPS
+sudo journalctl -u btclab-bot -f                     # ver lo que hace en directo
+sudo -u btclab /opt/btclab/.venv/bin/python -m bot.main --config /opt/btclab/bot/config.yaml --status
+```
+Actualizar: `sudo bash /opt/btclab/deploy/instalar_vps.sh && sudo systemctl restart btclab-bot` (conserva `config.yaml`, el estado y el entorno).
+Parar: `sudo systemctl stop btclab-bot`. El servicio limita la memoria a 1,5 GB y solo puede escribir en `/opt/btclab`.
+Si `comprobar_vps.sh` muestra **BLOQUEADO (451)**, Binance no permite operar desde la región del VPS: hace falta otro VPS en una
+región permitida (y cumplir la normativa de tu país).
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

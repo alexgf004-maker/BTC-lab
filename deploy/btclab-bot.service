@@ -1,0 +1,24 @@
+[Unit]
+Description=Bot de trading BTC-lab
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=btclab
+WorkingDirectory=/opt/btclab
+EnvironmentFile=/etc/btclab/entorno
+ExecStart=/opt/btclab/.venv/bin/python -m bot.main --config bot/config.yaml
+Restart=always
+RestartSec=60
+Nice=5
+MemoryMax=1500M
+# endurecimiento: el bot solo puede escribir en su propia carpeta
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/btclab
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
