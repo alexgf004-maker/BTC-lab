@@ -1,0 +1,27 @@
+A escalado: anual 3.5 %
+
+=== I1  correlación diaria H3–D: 0.45 | mensual: 0.57
+--- 2020-03-01 → 2022-12-31
+(a) base 1/4             Sharpe  2.36 | anual  +37.4 % | DD   7.5 % | peor mes  -3.3 %
+(b) base + H3, 1/5       Sharpe  2.18 | anual  +36.0 % | DD  10.6 % | peor mes  -5.1 %
+(c) H3 en lugar de D     Sharpe  2.27 | anual  +33.7 % | DD  10.8 % | peor mes  -6.3 %
+--- 2023-01-01 → 2026-10-31
+(a) base 1/4             Sharpe  1.78 | anual  +26.8 % | DD   8.2 % | peor mes  -4.2 %
+(b) base + H3, 1/5       Sharpe  1.88 | anual  +28.6 % | DD   9.2 % | peor mes  -4.2 %
+(c) H3 en lugar de D     Sharpe  1.84 | anual  +25.5 % | DD   9.8 % | peor mes  -5.4 %
+--- 2020-03-01 → 2026-10-31
+(a) base 1/4             Sharpe  2.03 | anual  +31.2 % | DD   8.2 % | peor mes  -4.2 %
+(b) base + H3, 1/5       Sharpe  2.01 | anual  +31.7 % | DD  10.6 % | peor mes  -5.1 %
+(c) H3 en lugar de D     Sharpe  2.02 | anual  +29.0 % | DD  10.8 % | peor mes  -6.3 %
+
+=== I2  índice de temporada de altcoins: % de días > 0,75: 12.2 % | por año: {2020: '14%', 2021: '25%', 2022: '13%', 2023: '2%', 2024: '11%', 2025: '11%', 2026: '9%'}
+--- 2020-03-01 → 2022-12-31
+B sin filtro   Sharpe  1.56 | anual  +71.0 % | DD  30.4 % | peor mes -10.6 % | trades 765
+B con filtro   Sharpe  1.43 | anual  +58.7 % | DD  34.8 % | peor mes -10.6 % | trades 692
+--- 2023-01-01 → 2026-10-31
+B sin filtro   Sharpe  0.82 | anual  +28.4 % | DD  33.8 % | peor mes -16.5 % | trades 1326
+B con filtro   Sharpe  0.87 | anual  +30.5 % | DD  33.6 % | peor mes -16.5 % | trades 1270
+--- 2020-03-01 → 2026-10-31
+B sin filtro   Sharpe  1.13 | anual  +45.0 % | DD  33.8 % | peor mes -16.5 % | trades 2091
+B con filtro   Sharpe  1.09 | anual  +41.8 % | DD  34.8 % | peor mes -16.5 % | trades 1962
+por año sin/con: {2020: '+114/+103%', 2021: '-18/-29%', 2022: '+160/+156%', 2023: '+40/+40%', 2024: '+97/+109%', 2025: '+30/+32%', 2026: '-27/-28%'}

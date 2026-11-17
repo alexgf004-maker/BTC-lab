@@ -51,7 +51,8 @@ def _run_portfolio(cands, closes, risk, max_pos=10):
 
 
 # ------------------------------------------------------------------ S1 debilidad relativa (lado corto de N1)
-def s1_relative_weakness(symbols, K=20, N=120, m=5.0, risk=0.01, max_pos=10, cost_mult=1.0, min_vol=0.0, no_funding=False):
+def s1_relative_weakness(symbols, K=20, N=120, m=5.0, risk=0.01, max_pos=10, cost_mult=1.0, min_vol=0.0, no_funding=False,
+                         entry_ok=None):
     btc = data.load("BTCUSDT", "1h")["close"]; f_btc = _funding("BTCUSDT")
     vol = universe.daily_volume(symbols)
     members = universe.monthly_members(vol, K)
@@ -79,6 +80,8 @@ def s1_relative_weakness(symbols, K=20, N=120, m=5.0, risk=0.01, max_pos=10, cos
             continue
         t["symbol"] = s
         t = t[is_member(members, s, pd.DatetimeIndex(t.entry_time))]
+        if entry_ok is not None:                      # filtro opcional de entrada (Lección 31)
+            t = t[entry_ok(pd.DatetimeIndex(t.entry_time))]
         cands.append(t); closes[s] = df["close"]
     return _run_portfolio(pd.concat(cands, ignore_index=True), closes, risk, max_pos)
 
@@ -104,6 +107,8 @@ def s2_bear_trend(symbols, K=20, N=120, m=5.0, risk=0.01, max_pos=10):
             continue
         t["symbol"] = s
         t = t[is_member(members, s, pd.DatetimeIndex(t.entry_time))]
+        if entry_ok is not None:                      # filtro opcional de entrada (Lección 31)
+            t = t[entry_ok(pd.DatetimeIndex(t.entry_time))]
         cands.append(t); closes[s] = df["close"]
     return _run_portfolio(pd.concat(cands, ignore_index=True), closes, risk, max_pos)
 
