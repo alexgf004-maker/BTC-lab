@@ -1,0 +1,7 @@
+W1 EXAMEN (161 monedas): Sharpe 1.24 | CAGR 19.5% | DD 12.9% | n 3123 | WR 68% | PF 1.26 | mitades (corte 2023-08): +93.3% / +64.4%
+por año: {2020: 0.103, 2021: 0.488, 2022: 0.041, 2023: 0.305, 2024: 0.014, 2025: 0.097, 2026: 0.281}
+{'candidatas': 4376, 'tomadas': 3123, 'salidas': {'tp': 0.67, 'sl': 0.29, 'time': 0.05}, 'distancia_media': 0.061811661472388105, 'apal_max': 1.4575125795888393, 'E_R': 0.07947072017527301}
+agrupando por día: 666 días, E +0.139R, t 6.49
+Deflated Sharpe 0.691 -> NO aprobada
+Sensibilidad al deslizamiento en los stops (E por trade en R): {'+0.0R peor': 0.079, '+0.1R peor': 0.051, '+0.2R peor': 0.022, '+0.3R peor': -0.007}
+meses positivos 62% | peor mes -9.2% | peor día -9.5%

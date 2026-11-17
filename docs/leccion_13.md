@@ -32,3 +32,57 @@ o si MVRV < 1,0 (valor profundo, aunque la tendencia sea bajista); en otro caso,
 *Comparación:* comprar y mantener, y solo tendencia (precio > media de 200 días).
 *Periodos:* 2011–2019 (referencia) y **2020–2026 (prueba)**. Se aprueba como filtro si en 2020–2026 mejora a la vez el Sharpe y la caída
 máxima frente a solo tendencia. *Aviso:* hay muy pocos ciclos (3–4): la evidencia estadística es débil por construcción.
+
+## 2. Resultados
+
+### W1 — Pescar las mechas — `l13_salida_W1_examen.txt`, `l13_salida_W1_auditoria_completa.txt`
+| | Sharpe | CAGR | DD máx. | Trades | Win rate | PF | E por trade | Años positivos |
+|---|---|---|---|---|---|---|---|---|
+| Diseño (57 monedas) | 1,38 | 25,4 % | 16,8 % | 4134 | 68 % | 1,26 | +0,079R | 6 de 7 |
+| Examen (161 monedas) | 1,24 | 19,5 % | 12,9 % | 3123 | 68 % | 1,26 | +0,079R | 7 de 7 |
+
+- **Desviación declarada del protocolo:** la criba exigía PF ≥ 1,30 y dio 1,26; se llevó a examen de todos modos, sin cambiar los criterios del examen.
+- **Examen: NO aprobada** (PF 1,26 < 1,30; Deflated Sharpe 0,69 < 0,90).
+- Réplica casi exacta entre dos conjuntos independientes (E, win rate, PF y reparto de salidas idénticos); agrupando por día, t = 8,4 y 6,5.
+- Salidas: 67 % objetivo, 29 % stop, 4 % tiempo. Distancia media de la orden: 4,6–6,2 % bajo el precio. Duración mediana: 35 min.
+
+**Auditoría de ejecución: los 7256 trades repetidos minuto a minuto**
+| Cómo se ejecuta el stop | E por trade | Win rate | PF |
+|---|---|---|---|
+| Simulación original (1h) | +0,079R | 68 % | 1,26 |
+| 1 min, al precio exacto del stop | +0,068R | 71 % | 1,25 |
+| 1 min, a mitad del recorrido del minuto | +0,034R | 71 % | 1,11 |
+| 1 min, al mínimo del minuto (peor caso) | 0,000R | 71 % | 1,00 |
+
+La simulación de 1h era correcta, pero **toda la ventaja depende de cómo se ejecuten los stops**: en plena cascada, un stop a mercado
+se desliza de media hasta 0,26R en el peor caso. Valor realista: entre 0 y +0,07R por trade (≈ 0 a +20 % anual con 0,5 % de riesgo).
+**Estado: ventaja real pero fina; candidata a medirse en real con tamaño mínimo** (el deslizamiento real de los stops solo se conoce operando).
+
+### B1 — Carry con futuros trimestrales — `l13_salida_B1.txt`
+| Umbral de base anual | CAGR sobre el capital | DD máx. a mercado | Trades | Todos positivos | Tiempo invertido |
+|---|---|---|---|---|---|
+| 5 % | 4,5 % | 3,7 % | 34 | sí | 77 % |
+| **8 %** | **4,0 %** | 3,7 % | 25 | **sí (25 de 25)** | 50 % |
+| 12 % | 3,3 % | 3,7 % | 19 | sí | 33 % |
+
+Por año (umbral 8 %): 2021 +7,9 %, 2022 +1,3 %, 2023 +1,2 %, 2024 +9,9 %, 2025 +3,3 %, 2026 0 %.
+Base anualizada media disponible: 2021 19 %, 2022 2 %, 2023 6 %, 2024 13 %, 2025 7 %, **2026 3–4 %**.
+**Funciona como arbitraje (nunca pierde al vencimiento) pero rinde poco, y no resuelve 2026:** la prima de apalancamiento está baja
+en todos los instrumentos (perpetuos de Binance, de Hyperliquid y trimestrales). Útil como alternativa de menor riesgo operativo al carry con perpetuos.
+
+### C1 — Valoración en cadena + tendencia (BTC diario desde 2010) — `l13_salida_C1.txt`
+| 2020–2026 (prueba) | CAGR | Sharpe | DD máx. |
+|---|---|---|---|
+| Comprar y mantener | 41,7 % | 0,89 | 77 % |
+| Solo tendencia (media de 200 días) | 34,5 % | 0,91 | 62 % |
+| C1 tendencia + MVRV | 41,9 % | 1,00 | 68 % |
+
+Mejora el Sharpe pero empeora la caída máxima → **no aprobada** como filtro (se exigían ambas). En 2011–2019 fue peor que solo tendencia.
+El MVRV no ha superado 3,5 desde 2021 y solo bajó de 1,0 en 2022: muy pocos episodios para concluir nada.
+
+## 3. Conclusiones
+1. Ninguna de las tres queda aprobada (384 pruebas acumuladas).
+2. **W1 es el mejor candidato no relacionado con el carry de todo el proyecto**: se replica con exactitud, tiene causa económica
+   (dar liquidez a liquidaciones forzadas) y win rate del 68–71 %. Su rentabilidad real depende de un único dato que ningún backtest
+   puede dar: el deslizamiento de los stops en una cascada.
+3. La prima de carry está baja en todo el mercado en 2026; ningún instrumento la recupera.

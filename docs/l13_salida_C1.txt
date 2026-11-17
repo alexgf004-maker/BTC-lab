@@ -1,0 +1,15 @@
+C1 — BTC diario 2010-07-18 → 2026-11-16 (5966 días). MVRV actual: 1.21
+
+2011–2019 (referencia)
+   comprar y mantener           CAGR  118.5% | Sharpe 1.30 | DD máx. 93% | tiempo invertido 100% | cambios 0
+   solo tendencia (media 200d)  CAGR  125.6% | Sharpe 1.41 | DD máx. 86% | tiempo invertido 64% | cambios 47
+   C1 tendencia + MVRV          CAGR   90.9% | Sharpe 1.22 | DD máx. 82% | tiempo invertido 78% | cambios 86
+2020–2026 (prueba)
+   comprar y mantener           CAGR   41.7% | Sharpe 0.89 | DD máx. 77% | tiempo invertido 100% | cambios 0
+   solo tendencia (media 200d)  CAGR   34.5% | Sharpe 0.91 | DD máx. 62% | tiempo invertido 59% | cambios 57
+   C1 tendencia + MVRV          CAGR   41.9% | Sharpe 1.00 | DD máx. 68% | tiempo invertido 65% | cambios 81
+
+Días con MVRV > 3,5 por año: {2010: 133, 2011: 95, 2013: 57, 2017: 24, 2021: 25}
+Días con MVRV < 1,0 por año: {2011: 113, 2012: 39, 2014: 20, 2015: 284, 2018: 43, 2019: 91, 2020: 6, 2022: 167, 2023: 12}
+2020–2026: días en que C1 está dentro y la tendencia fuera: 185 | al revés: 25
+rentabilidad de BTC en esos días 'valor profundo' (suma): +51.4%

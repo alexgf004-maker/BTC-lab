@@ -1,0 +1,7 @@
+AUDITORÍA MINUTO A MINUTO — 12 monedas grandes, 2024-01 → 2026-10: 1430 trades
+  stop ideal (al precio del stop):        E +0.012R | WR 68% | PF 1.04
+  stop pesimista (mínimo del minuto):     E -0.081R | WR 68% | PF 0.80
+  salidas: {'tp': 0.66, 'sl': 0.3, 'time': 0.04} | duración mediana: 35 min | deslizamiento medio en stops: 0.313 R
+  pesimista agrupado por día: 263 días, t 2.75
+  por año (pesimista): {2024: {'count': 562, 'mean': -0.132}, 2025: {'count': 405, 'mean': -0.046}, 2026: {'count': 463, 'mean': -0.049}}
+  simulación de 1h, mismas monedas y fechas: n 1145 | E +0.041R | WR 67% | PF 1.13

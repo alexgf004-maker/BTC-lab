@@ -1,0 +1,24 @@
+AUDITORÍA COMPLETA DE W1: 7256 trades repetidos minuto a minuto
+
+TODOS (n=7256)
+   simulación de 1h (original):          E +0.079R | WR 68% | PF 1.26
+   1 minuto, stop al precio exacto:      E +0.068R | WR 71% | PF 1.25
+   1 minuto, stop a mitad del minuto:    E +0.034R | WR 71% | PF 1.11
+   1 minuto, stop al mínimo del minuto:  E -0.000R | WR 71% | PF 1.00
+diseño (57 monedas) (n=4133)
+   simulación de 1h (original):          E +0.078R | WR 68% | PF 1.25
+   1 minuto, stop al precio exacto:      E +0.072R | WR 71% | PF 1.26
+   1 minuto, stop a mitad del minuto:    E +0.037R | WR 71% | PF 1.12
+   1 minuto, stop al mínimo del minuto:  E +0.003R | WR 71% | PF 1.01
+examen (161 monedas) (n=3123)
+   simulación de 1h (original):          E +0.079R | WR 68% | PF 1.26
+   1 minuto, stop al precio exacto:      E +0.063R | WR 70% | PF 1.22
+   1 minuto, stop a mitad del minuto:    E +0.030R | WR 70% | PF 1.09
+   1 minuto, stop al mínimo del minuto:  E -0.004R | WR 70% | PF 0.99
+
+salidas (1 min): {'tp': 0.7, 'sl': 0.26, 'time': 0.04} | deslizamiento medio de los stops: 0.258 R
+por año, stop a mitad del minuto: {2020: {'count': 876, 'mean': 0.051}, 2021: {'count': 1005, 'mean': 0.087}, 2022: {'count': 1121, 'mean': -0.018}, 2023: {'count': 1505, 'mean': 0.053}, 2024: {'count': 1032, 'mean': -0.016}, 2025: {'count': 769, 'mean': 0.015}, 2026: {'count': 948, 'mean': 0.064}}
+por año, stop exacto: {2020: 0.094, 2021: 0.112, 2022: 0.003, 2023: 0.092, 2024: 0.031, 2025: 0.045, 2026: 0.099}
+12 grandes: n 2697 | exacto +0.064R | mitad +0.030R | mínimo -0.004R
+resto: n 4559 | exacto +0.071R | mitad +0.036R | mínimo +0.002R
+stop a mitad, agrupado por día: 992 días, E +0.106R, t 6.01
