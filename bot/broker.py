@@ -50,6 +50,15 @@ class ExchangeBroker:
     def __init__(self, client, dry_run=False):
         self.c, self.dry = client, dry_run
 
+    def transfer(self, asset, amount, kind):
+        if self.dry or amount <= 0:
+            return None
+        try:
+            return self.c.transfer(asset, amount, kind)
+        except Exception as e:
+            log.error("transferencia %s %.2f %s fallida: %s", kind, amount, asset, e)
+            return None
+
     def position_qty(self, symbol):
         for p in self.c.positions():
             if p["symbol"] == symbol:

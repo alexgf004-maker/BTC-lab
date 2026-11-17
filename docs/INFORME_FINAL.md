@@ -55,3 +55,9 @@ movimiento revierte ≈ 55 % al reabrir los futuros el domingo por la noche. Cor
 semana (t 3,4), 95 de 105 activos positivos. El efecto NO existe entre semana (cuando sí pueden cubrirse) → mecanismo confirmado.
 Límites: 29 fines de semana de historia y capacidad moderada. **Candidata a quinta pieza, a operar en pequeño.**
 La prima del perpetuo frente al índice (Lección 23) mejora el momento de entrada del carry inverso; no es una pieza aparte.
+
+## 8. Corrección al construir el bot (paridad con el backtest)
+El backtest del carry normal suponía margen ilimitado para la pata corta. Con el capital real del bloque, en las grandes subidas no
+alcanza y hay que reducir: **rentabilidad ejecutable +3,6 % anual (no +15,9 %)**. El carry inverso se confirma (+2,6 % frente a +2,8 % por episodio).
+Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual histórico, caída máxima 9,5 %; con descuento +13,6 % anual.**
+10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).

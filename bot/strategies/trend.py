@@ -44,6 +44,8 @@ class Trend:
                 self._open(sym, float(m * last["atr"]), now, risk)
 
     def _open(self, sym, R, now, risk):
+        if sym in self.st.d.get("bloqueados", {}) or ("BTCUSDT" in self.st.d.get("bloqueados", {}) and self.name.startswith("B")):
+            return
         if not (R > 0):
             return
         px = self.m.price(sym)

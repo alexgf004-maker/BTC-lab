@@ -175,6 +175,21 @@ class Binance:
     def margin_borrow_repay(self, asset, amount, kind):            # kind: "BORROW" | "REPAY"
         return self._request("POST", "spot", "/sapi/v1/margin/borrow-repay", {"asset": asset, "amount": amount, "type": kind, "isIsolated": "FALSE"}, signed=True)
 
+    def spot_balances(self):
+        a = self._request("GET", "spot", "/api/v3/account", {"omitZeroBalances": "true"}, signed=True)
+        return {b["asset"]: float(b["free"]) + float(b["locked"]) for b in a["balances"]}
+
+    def margin_account(self):
+        a = self._request("GET", "spot", "/sapi/v1/margin/account", signed=True)
+        return {"nivel": float(a.get("marginLevel", 999)),
+                "activos": {x["asset"]: {"libre": float(x["free"]), "prestado": float(x["borrowed"]), "interes": float(x["interest"]),
+                                         "neto": float(x["netAsset"])} for x in a["userAssets"]}}
+
+    def transfer(self, asset, amount, kind):
+        """Transferencia INTERNA entre cuentas propias (no es una retirada). kind: MAIN_UMFUTURE, UMFUTURE_MAIN,
+        MARGIN_UMFUTURE, UMFUTURE_MARGIN, MAIN_MARGIN, MARGIN_MAIN. Requiere el permiso de transferencia universal en la clave."""
+        return self._request("POST", "spot", "/sapi/v1/asset/transfer", {"type": kind, "asset": asset, "amount": f"{amount:.4f}"}, signed=True)
+
     def margin_order(self, symbol, side, qty, client_id=None, side_effect="NO_SIDE_EFFECT"):
         p = {"symbol": symbol, "side": side, "type": "MARKET", "quantity": f"{qty:.10f}".rstrip("0").rstrip("."), "sideEffectType": side_effect}
         if client_id: p["newClientOrderId"] = client_id[:36]

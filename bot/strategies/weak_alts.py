@@ -67,6 +67,8 @@ class WeakAlts:
                     self.sl["pending"][sym] = {"R": float(m * last["atr"]), "signal_bar": str(df.index[-1])}
 
     def _open(self, sym, R, ratio_px, now, risk, entry_bar):
+        if sym in self.st.d.get("bloqueados", {}) or ("BTCUSDT" in self.st.d.get("bloqueados", {}) and self.name.startswith("B")):
+            return
         if not (R > 0):
             return
         units = risk * self.sl["balance"] / R                    # unidades de ratio

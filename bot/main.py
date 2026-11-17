@@ -18,6 +18,8 @@ from .binance import Binance
 from .broker import ExchangeBroker, PaperBroker
 from .journal import Journal
 from .market import LiveMarket
+from .notify import Telegram
+from .reconcile import futures_margin_guard, reconcile
 from .risk import RiskGuard
 from .state import State
 from .strategies.carry import Carry
@@ -35,7 +37,7 @@ def build(cfg):
     client = Binance(cfg.get("fuente_datos", "live") if mode == "paper" else ("live" if mode == "live" else "testnet"))
     market = LiveMarket(client)
     broker = PaperBroker(market) if mode == "paper" else ExchangeBroker(client)
-    state, journal = State(cfg["estado"]), Journal(cfg["diario"], mode)
+    state, journal = State(cfg["estado"]), Journal(cfg["diario"], mode, Telegram(prefix=f"BTC-lab {mode}"))
     uni = LiveUniverse(client)
     total = cfg["capital"]
     B = cfg["bloques"]
@@ -76,10 +78,33 @@ def equity(state):
     return sum(s["balance"] for s in state.d["sleeves"].values())
 
 
+def daily_summary(state, journal, now):
+    if now.hour != 8 or state.d.get("ultimo_resumen") == str(now.date()):
+        return
+    lines = [f"capital {equity(state):,.2f} | caída {100 * state.d.get('drawdown', 0):.1f} %"]
+    for k, s in state.d["sleeves"].items():
+        lines.append(f"{k}: {s['balance']:,.2f} | abiertas {len(s['positions'])} | cerradas {s['closed']}")
+    if state.d.get("bloqueados"):
+        lines.append(f"bloqueados: {list(state.d['bloqueados'])}")
+    journal.log("cartera", "resumen", detail=" · ".join(lines))
+    state.d["ultimo_resumen"] = str(now.date())
+
+
 def cycle(cfg, client, market, broker, state, journal, strategies, guard):
     market.refresh_clock()
     now = market.now
+    if cfg["modo"] in ("testnet", "live"):
+        try:
+            reconcile(state, client, journal, broker, check_spot=(cfg["modo"] == "live"))
+            if cfg["modo"] == "live":
+                futures_margin_guard(client, journal)
+        except Exception as e:
+            log.exception("comprobación con el exchange fallida: %s", e)
+            journal.log("cartera", "error", detail=f"comprobación con el exchange: {str(e)[:150]}")
     status = guard.update(equity(state))
+    if status == "revisar" and state.d.get("aviso_revisar") != str(now.date()):
+        journal.log("cartera", "revisar", detail=f"caída {100 * state.d.get('drawdown', 0):.1f} % desde el máximo")
+        state.d["aviso_revisar"] = str(now.date())
     if status == "parar":
         journal.log("cartera", "detenido", detail=f"caída {state.d.get('drawdown', 0):.1%}")
         state.save(); return
@@ -95,6 +120,8 @@ def cycle(cfg, client, market, broker, state, journal, strategies, guard):
             log.exception("error en %s: %s", key, e)
             journal.log(key, "error", detail=str(e)[:200])
         state.save()                                         # tras cada bloque: un fallo no deshace lo ya hecho
+    daily_summary(state, journal, now)
+    state.save()
     log.info("ciclo %s | capital %.2f | caída %.1f %% | %s", now, equity(state), 100 * state.d.get("drawdown", 0), status)
 
 
@@ -115,6 +142,8 @@ def main():
             print(f"{k}: saldo {s['balance']:.2f} | posiciones {list(s['positions'])} | operaciones cerradas {s['closed']}")
         return
     log.info("modo %s | bloques activos: %s", cfg["modo"], [type(s).__name__ for s in strategies])
+    journal.log("cartera", "arranque", detail=f"modo {cfg['modo']} · bloques {[s.name for s in strategies]} · capital {equity(state):,.2f}"
+                + (" · avisos de Telegram activos" if journal.notifier.enabled else " · Telegram no configurado"))
     while True:
         cycle(cfg, client, market, broker, state, journal, strategies, guard)
         if a.once:

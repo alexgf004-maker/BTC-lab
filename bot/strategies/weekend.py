@@ -33,6 +33,8 @@ class Weekend:
         fri = now - pd.Timedelta("2D")                      # viernes 21:00
         per_trade, th = self.cfg.get("per_trade_usd", 500.0), self.cfg.get("threshold", 0.01)
         for sym in self.symbols_fn():
+            if sym in self.st.d.get("bloqueados", {}):
+                continue
             c = self.m.candles(sym, 60)
             if fri not in c.index or len(c) < 10:
                 continue

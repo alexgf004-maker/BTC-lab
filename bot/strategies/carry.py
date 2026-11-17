@@ -42,9 +42,8 @@ class Carry:
             if self.dir == -1:
                 pos["funding"] -= pos["notional"] * self.borrow_rate_fn(sym) * max((now - pd.Timestamp(pos["last_accrual"])) / pd.Timedelta("8h"), 0)
             pos["last_accrual"] = str(now + pd.Timedelta("1min"))   # evita contar dos veces el pago que llega ms después de la hora
-            if pp > 0 and (pp / pos["ref"] - 1) * self.dir >= self.cfg.get("rebal_move", 0.20):
-                pos["rebal"] += 1; pos["ref"] = pp
-                self.j.log(self.name, "reequilibrar_margen", sym, "", "", pp, "mover margen a la pata corta", ts=str(now))
+            if pp > 0 and abs(pp / pos["ref"] - 1) >= self.cfg.get("rebal_move", 0.20):
+                self._rebalance(sym, pos, pp, now)
             y = self._yield3d(sym, now)
             if not (y > exit_) or not (pp > 0):
                 self._close(sym, pos, now, f"rendimiento {y:.5%}")
@@ -62,7 +61,51 @@ class Carry:
         for y, sym in sorted(cands, reverse=True)[:free]:
             self._open(sym, y, now, self.sl["balance"] * slot_frac * nfrac)
 
+    def _free_cash(self):
+        nf = self.cfg.get("notional_frac", 2 / 3)
+        used = sum(p["notional"] / nf + p.get("margen_extra", 0.0) for p in self.sl["positions"].values())
+        return self.sl["balance"] - used
+
+    def _rebalance(self, sym, pos, pp, now):
+        """El precio se ha movido ≥ 20 % desde la referencia. La pata que pierde necesita margen.
+        1) Si el bloque tiene USDT libres (lo normal: el carry está parado la mayor parte del tiempo), se traspasan a la cuenta
+           que los necesita SIN tocar las patas → igual que el backtest validado.
+        2) Si no hay reserva suficiente, se reducen las dos patas en la fracción que devuelve el nocional a su valor y se traspasan
+           los USDT liberados. Más seguro, pero cobra menos funding.
+        Los traspasos son internos entre cuentas propias (nunca retiradas). En simulación solo se registra."""
+        up = pp > pos["ref"]
+        if self.dir == 1 and not up:
+            pos["ref"] = pp; return                              # A: si baja, el corto gana y el spot no tiene apalancamiento
+        amount = abs(pos["qty"] * (pp - pos["ref"]))
+        kind_from_main = "MAIN_UMFUTURE" if (self.dir == 1 or not up) else "MAIN_MARGIN"
+        tr = getattr(self.b, "transfer", None)
+        if self._free_cash() >= amount:
+            moved = tr("USDT", amount, kind_from_main) if tr else None
+            pos["margen_extra"] = pos.get("margen_extra", 0.0) + amount
+            pos["ref"] = pp; pos["rebal"] += 1
+            self.j.log(self.name, "margen_transferido" if moved else "reequilibrar_margen", sym, kind_from_main, "", pp,
+                       f"precio {'al alza' if up else 'a la baja'} ≥ 20 %: traspaso de {amount:.2f} USDT de la reserva del bloque"
+                       + ("" if moved or tr is None else " — FALLÓ, revisar"), ts=str(now))
+            return
+        f = 1 - (pos["ref"] / pp if up else pp / pos["ref"])
+        dq = f * pos["qty"]
+        if self.dir == 1:
+            trades, kind = [("spot", -1), ("perp", +1)], "MAIN_UMFUTURE"
+        else:
+            trades, kind = ([("margin", +1), ("perp", -1)], "MARGIN_UMFUTURE") if not up else ([("perp", -1), ("margin", +1)], "UMFUTURE_MARGIN")
+        ok = True
+        for leg, sign in trades:
+            fl = self.b.execute(sym, sign * dq, leg, tag=self.name[0] + "r")
+            ok &= fl.ok or fl.msg == "simulacro"
+        moved = tr("USDT", amount, kind) if (tr and ok) else None
+        pos["qty"] -= dq; pos["ref"] = pp; pos["rebal"] += 1
+        self.j.log(self.name, "margen_insuficiente", sym, kind, round(dq, 8), pp,
+                   f"sin reserva: reducción de las dos patas un {f:.1%} y traspaso de {amount:.2f} USDT"
+                   + ("" if moved or tr is None else " — FALLÓ, revisar"), ts=str(now))
+
     def _open(self, sym, y, now, notional):
+        if sym in self.st.d.get("bloqueados", {}):
+            return
         sp, pp = self.m.spot_price(sym), self.m.price(sym)
         if not (sp > 0 and pp > 0):
             return
