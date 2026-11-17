@@ -1,0 +1,16 @@
+
+=== DESARROLLO (140 monedas)
+real     todos los toques                   n  82442 | E -0.051R (t op. -14.5) | acierto 48.5 % | por día E +0.073 t +8.7 (2433 días)
+real     días tranquilos                    n  39826 | E -0.091R (t op. -18.0) | acierto 46.8 % | por día E +0.056 t +5.1 (2281 días)
+real     tranquilos + primer toque del día  n  20469 | E -0.048R (t op. -6.8) | acierto 49.1 % | por día E +0.034 t +2.8 (2281 días)
+placebo  todos los toques                   n  83258 | E -0.032R (t op. -9.2) | acierto 49.5 % | por día E +0.089 t +10.7 (2431 días)
+placebo  días tranquilos                    n  40140 | E -0.067R (t op. -13.2) | acierto 48.0 % | por día E +0.069 t +6.5 (2277 días)
+placebo  tranquilos + primer toque del día  n  20547 | E -0.020R (t op. -2.9) | acierto 50.5 % | por día E +0.050 t +4.2 (2277 días)
+
+=== EXAMEN (306 monedas)
+real     todos los toques                   n 103743 | E -0.063R (t op. -20.1) | acierto 47.7 % | por día E +0.066 t +7.7 (2163 días)
+real     días tranquilos                    n  49793 | E -0.070R (t op. -15.4) | acierto 47.6 % | por día E +0.050 t +4.7 (2023 días)
+real     tranquilos + primer toque del día  n  21625 | E -0.013R (t op. -1.9) | acierto 50.5 % | por día E +0.035 t +2.9 (2023 días)
+placebo  todos los toques                   n 104905 | E -0.054R (t op. -17.4) | acierto 48.2 % | por día E +0.077 t +9.1 (2162 días)
+placebo  días tranquilos                    n  50287 | E -0.060R (t op. -13.3) | acierto 48.1 % | por día E +0.069 t +6.5 (2027 días)
+placebo  tranquilos + primer toque del día  n  21733 | E +0.008R (t op. +1.2) | acierto 51.6 % | por día E +0.058 t +4.9 (2027 días)
