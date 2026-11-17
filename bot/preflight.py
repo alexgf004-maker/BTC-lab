@@ -106,9 +106,12 @@ def main():
             else "la clave NO está restringida por IP: restríngela a la IP del VPS")
         rep(OK if r.get("enableFutures") else FAIL, "permiso de futuros" + ("" if r.get("enableFutures") else " DESACTIVADO"))
         if need_spot:
-            for k, txt in (("enableSpotAndMarginTrading", "trading spot y margen"), ("enableMargin", "margen (préstamos)"),
-                           ("permitsUniversalTransfer", "transferencia universal entre cuentas propias")):
-                rep(OK if r.get(k) else FAIL, txt + ("" if r.get(k) else " DESACTIVADO (lo necesitan los bloques A/E)"))
+            perms = [("enableSpotAndMarginTrading", "trading spot y margen", "A/E"),
+                     ("permitsUniversalTransfer", "transferencia universal entre cuentas propias", "A/E")]
+            if cfg["bloques"]["E_carry_inverso"]["activo"]:
+                perms.append(("enableMargin", "préstamo y reembolso de margen", "E"))
+            for k, txt, who in perms:
+                rep(OK if r.get(k) else FAIL, txt + ("" if r.get(k) else f" DESACTIVADO (lo necesita el bloque {who})"))
 
     # 2) modo de posición
     try:
