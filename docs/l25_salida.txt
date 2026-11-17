@@ -1,0 +1,53 @@
+U1/U2 — ETFs APALANCADOS FRENTE A SU SUBYACENTE
+
+U1 fin de semana (entrada dom 21:00, salida lun 16:00): observaciones 100 en 18 periodos | |D| medio 0.31% | pendiente del cierre de D: -0.79 (−1 = se cierra entera)
+   1.ª mitad: periodos 6 | neto medio +0.289% (t +1.84) | positivos 83%
+   2.ª mitad: periodos 6 | neto medio +0.050% (t +0.83) | positivos 50%
+   operaciones 16 | neto por operación +0.114% | acierto 69% | por par: {'KORUUSDT': 0.0029, 'NVDLUSDT': 0.0023, 'SOXLUSDT': 0.0019, 'SQQQUSDT': -0.0004, 'TQQQUSDT': -0.0011, 'TSLLUSDT': 0.0001, 'TZAUSDT': 0.0011}
+
+  variante: entrada lun 13:00: observaciones 100 en 18 periodos | |D| medio 0.17% | pendiente del cierre de D: -0.22 (−1 = se cierra entera)
+   1.ª mitad: periodos 1 | neto medio -0.413% (t +nan) | positivos 0%
+   2.ª mitad: periodos 1 | neto medio -0.274% (t +nan) | positivos 0%
+   operaciones 3 | neto por operación -0.367% | acierto 0% | por par: {'KORUUSDT': -0.0029, 'TQQQUSDT': -0.0054, 'TZAUSDT': -0.0027}
+
+U2 noches entre semana (21:00 → 07:00, salida 15:00): observaciones 422 en 76 periodos | |D| medio 0.19% | pendiente del cierre de D: +1.91 (−1 = se cierra entera)
+   1.ª mitad: periodos 10 | neto medio -8.004% (t -0.97) | positivos 20%
+   2.ª mitad: periodos 10 | neto medio -0.328% (t -1.70) | positivos 20%
+   operaciones 29 | neto por operación -3.098% | acierto 21% | por par: {'KORUUSDT': -0.0632, 'MSTUUSDT': -0.0072, 'NVDLUSDT': -0.0084, 'SOXLUSDT': -0.0028, 'SQQQUSDT': -0.0072, 'TQQQUSDT': -0.0131, 'TSLLUSDT': -0.0049, 'TZAUSDT': -0.0037}
+
+  -> U1: NO aprobada | U2: NO aprobada
+
+
+U3 — EL 'HUECO DEL CME' EN BTC Y ETH
+
+BTCUSDT: 356 fines de semana
+  2020–2022: pendiente R sobre W -0.16 | fade |W|≥2 %: n 60, neto +0.243% (t +0.29), acierto 47% | 'hueco rellenado' en 5 días: fin de semana 60% vs base martes–jueves 41% (movimientos ≥ 2 %)
+  2023–2026: pendiente R sobre W +0.20 | fade |W|≥2 %: n 34, neto -1.192% (t -1.61), acierto 35% | 'hueco rellenado' en 5 días: fin de semana 53% vs base martes–jueves 38% (movimientos ≥ 2 %)
+
+ETHUSDT: 356 fines de semana
+  2020–2022: pendiente R sobre W -0.01 | fade |W|≥2 %: n 91, neto +0.517% (t +0.79), acierto 51% | 'hueco rellenado' en 5 días: fin de semana 70% vs base martes–jueves 56% (movimientos ≥ 2 %)
+  2023–2026: pendiente R sobre W +0.02 | fade |W|≥2 %: n 61, neto -0.383% (t -0.68), acierto 48% | 'hueco rellenado' en 5 días: fin de semana 54% vs base martes–jueves 40% (movimientos ≥ 2 %)
+
+U3 — ¿EL 'RELLENO DEL HUECO' ES UNA ILUSIÓN POR LA VOLATILIDAD?
+
+BTCUSDT: probabilidad de rellenar en 5 días según el tamaño del movimiento RELATIVO a la volatilidad siguiente (solo |W| ≥ 2 %)
+                     mean                count       
+tipo        fin de semana martes fin de semana martes
+tramo_z                                              
+(0.0, 0.25]          0.60   1.00            10      1
+(0.25, 0.5]          0.58   0.57            43     37
+(0.5, 0.75]          0.68   0.50            22     60
+(0.75, 1.0]          0.33   0.41            12     56
+(1.0, 5.0]           0.57   0.11             7     47
+  volatilidad siguiente media: tras fin de semana 9.3% | tras martes 6.8% | z medio: fin de semana 0.54, martes 0.83
+
+ETHUSDT: probabilidad de rellenar en 5 días según el tamaño del movimiento RELATIVO a la volatilidad siguiente (solo |W| ≥ 2 %)
+                     mean                count       
+tipo        fin de semana martes fin de semana martes
+tramo_z                                              
+(0.0, 0.25]          0.73   0.56            15      9
+(0.25, 0.5]          0.77   0.75            66     64
+(0.5, 0.75]          0.60   0.48            40     67
+(0.75, 1.0]          0.35   0.43            23     51
+(1.0, 5.0]           0.38   0.18             8     55
+  volatilidad siguiente media: tras fin de semana 10.6% | tras martes 8.6% | z medio: fin de semana 0.54, martes 0.76
