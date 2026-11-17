@@ -1,0 +1,21 @@
+G1 — GRID NEUTRAL (velas de 1m, 2020-01 → 2026-10)
+   escalón 0.5% BTCUSDT  CAGR -25.1% | Sharpe -0.70 | DD 89.4% | mitades -80.2% / -30.1% | {'ejecuciones': 107528, 'salidas_de_rango': 213}
+   escalón 0.5% ETHUSDT  CAGR -61.8% | Sharpe -1.25 | DD 99.9% | mitades -99.3% / -79.9% | {'ejecuciones': 177605, 'salidas_de_rango': 403}
+   escalón 0.5% 50/50    CAGR -32.2% | Sharpe -0.84 | DD 94.5% | mitades -89.8% / -31.8%
+      por año: {2020: -0.682, 2021: -0.595, 2022: -0.25, 2023: 0.012, 2024: -0.381, 2025: 0.2, 2026: -0.035}
+   escalón 0.3% BTCUSDT  CAGR -51.9% | Sharpe -1.15 | DD 99.4% | mitades -96.7% / -79.5% | {'ejecuciones': 223830, 'salidas_de_rango': 223}
+   escalón 0.3% ETHUSDT  CAGR -84.8% | Sharpe -1.75 | DD 100.0% | mitades -100.0% / -93.2% | {'ejecuciones': 361415, 'salidas_de_rango': 417}
+   escalón 0.3% 50/50    CAGR -56.6% | Sharpe -1.22 | DD 99.7% | mitades -98.4% / -79.5%
+   escalón 1.0% BTCUSDT  CAGR  -9.5% | Sharpe -0.52 | DD 54.6% | mitades -47.0% / -4.9% | {'ejecuciones': 28783, 'salidas_de_rango': 244}
+   escalón 1.0% ETHUSDT  CAGR -29.7% | Sharpe -0.98 | DD 91.7% | mitades -86.5% / -32.8% | {'ejecuciones': 47854, 'salidas_de_rango': 448}
+   escalón 1.0% 50/50    CAGR -16.3% | Sharpe -0.85 | DD 72.6% | mitades -66.8% / -10.5%
+
+V1 — PRIMA DE VOLATILIDAD (índice BVOL de Binance a 30 días)
+   BTC: 2023-06-20 → 2026-10-01 | implícita media 51.2 | realizada media 43.9 | prima media +7.2 puntos | días con prima positiva 75%
+      por año (prima media): {2023: 9.9, 2024: 8.8, 2025: 8.5, 2026: 1.6}
+      venta mensual de straddle (n=39): media +0.09% del nocional | meses ganadores 69% | PF 1.03 | peor mes -35.1% | mejor +13.8% | Sharpe anualizado 0.03
+      tramos diarios (n=1173, solapados): media +0.35% | ganadores 64% | peor -49.3%
+   ETH: 2023-06-20 → 2026-10-01 | implícita media 65.4 | realizada media 61.5 | prima media +3.9 puntos | días con prima positiva 64%
+      por año (prima media): {2023: 6.8, 2024: 6.4, 2025: -0.4, 2026: 4.1}
+      venta mensual de straddle (n=39): media -0.62% del nocional | meses ganadores 59% | PF 0.89 | peor mes -38.6% | mejor +16.1% | Sharpe anualizado -0.15
+      tramos diarios (n=1173, solapados): media -1.10% | ganadores 57% | peor -56.2%

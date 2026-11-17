@@ -1,0 +1,19 @@
+W1-R — ROBUSTEZ A LA PROFUNDIDAD DE LA ORDEN (todas las candidatas, 218 monedas, simulación de 1h)
+  3σ: n  43215 | distancia media 3.3% | WR 63% | E -0.007R | PF 0.98 | stops 36% | t por día 14.9
+  4σ: n  19152 | distancia media 4.4% | WR 63% | E -0.001R | PF 1.00 | stops 35% | t por día 13.4
+  5σ: n  10336 | distancia media 5.4% | WR 64% | E +0.017R | PF 1.05 | stops 34% | t por día 9.7
+  6σ: n   6284 | distancia media 6.5% | WR 64% | E +0.019R | PF 1.05 | stops 33% | t por día 8.0
+  7σ: n   4188 | distancia media 7.6% | WR 64% | E +0.031R | PF 1.09 | stops 32% | t por día 7.7
+
+W2 — VENDER LAS MECHAS HACIA ARRIBA
+  criba (57): Sharpe -1.38 | CAGR -16.9% | DD 72.4% | n 3938 | WR 61% | PF 0.84 | E -0.060R | mitades -34.1% / -55.7% | peor trade -1.1R | t por día 0.1
+     por año: {2020: -0.042, 2021: -0.195, 2022: -0.089, 2023: -0.16, 2024: -0.203, 2025: -0.305, 2026: -0.107} | salidas: {'tp': 0.61, 'sl': 0.37, 'time': 0.03}
+  -> no pasa la criba
+
+W3 — W1 SIN STOP A MERCADO (comparación de diseño; monedas ya vistas)
+  diseño (57): Sharpe 2.51 | CAGR 76.7% | DD 24.9% | n 3664 | WR 81% | PF 1.99 | E +0.216R | mitades +640.6% / +494.4% | peor trade -8.3R | t por día 10.3
+     por año: {2020: 1.018, 2021: 1.581, 2022: 0.165, 2023: 1.323, 2024: 0.637, 2025: 0.209, 2026: 0.578} | salidas: {'tp': 0.78, 'time': 0.22}
+     peor día -24.1% | peor mes -15.4% | 5 peores trades (R): [-8.3, -7.3, -7.1, -6.9, -6.5]
+  examen (161): Sharpe 2.01 | CAGR 48.2% | DD 29.0% | n 2818 | WR 80% | PF 1.81 | E +0.190R | mitades +358.5% / +180.9% | peor trade -6.2R | t por día 6.8
+     por año: {2020: 0.486, 2021: 1.097, 2022: 0.1, 2023: 0.787, 2024: 0.366, 2025: 0.025, 2026: 0.501} | salidas: {'tp': 0.77, 'time': 0.23}
+     peor día -29.0% | peor mes -20.2% | 5 peores trades (R): [-6.2, -5.9, -5.8, -5.8, -5.2]

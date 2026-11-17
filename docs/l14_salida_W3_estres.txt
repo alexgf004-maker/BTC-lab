@@ -1,0 +1,22 @@
+W3 — PRUEBAS DE ESTRÉS (sin stop; salida en el objetivo o a las 24 h)
+
+1) Robustez a la profundidad (todas las candidatas, 218 monedas):
+   3σ: n  43215 | WR 84% | E +0.147R | PF 1.44 | peor -26.8R
+   4σ: n  19152 | WR 82% | E +0.173R | PF 1.60 | peor -19.8R
+   5σ: n  10336 | WR 81% | E +0.207R | PF 1.82 | peor -10.9R
+   6σ: n   6284 | WR 80% | E +0.230R | PF 2.02 | peor -8.9R
+   7σ: n   4188 | WR 81% | E +0.270R | PF 2.41 | peor -7.5R
+
+2) Cartera con distintos tamaños, y caída medida en los MÍNIMOS de cada hora (peor caso intrahorario):
+   diseño (57) riesgo nominal 0.50%: CAGR  76.7% | Sharpe 2.51 | DD (cierres) 24.9% | DD en mínimos 68.0% | peor día -24.1% | meses + 82% | exposición máx. 2.7x
+   diseño (57) riesgo nominal 0.25%: CAGR  33.8% | Sharpe 2.52 | DD (cierres) 12.5% | DD en mínimos 34.2% | peor día -12.0% | meses + 82% | exposición máx. 1.2x
+   diseño (57) riesgo nominal 0.10%: CAGR  12.5% | Sharpe 2.53 | DD (cierres)  5.0% | DD en mínimos 13.7% | peor día  -4.8% | meses + 82% | exposición máx. 0.5x
+   examen (161) riesgo nominal 0.50%: CAGR  48.2% | Sharpe 2.01 | DD (cierres) 29.0% | DD en mínimos 80.9% | peor día -29.0% | meses + 81% | exposición máx. 1.5x
+   examen (161) riesgo nominal 0.25%: CAGR  22.3% | Sharpe 2.02 | DD (cierres) 14.5% | DD en mínimos 40.5% | peor día -14.5% | meses + 81% | exposición máx. 0.7x
+   examen (161) riesgo nominal 0.10%: CAGR   8.5% | Sharpe 2.02 | DD (cierres)  5.8% | DD en mínimos 16.2% | peor día  -5.8% | meses + 81% | exposición máx. 0.3x
+   5 peores días (examen, 0,10 %): {'2025-10-10': -0.058, '2022-11-08': -0.022, '2022-11-09': -0.019, '2022-01-21': -0.016, '2023-06-10': -0.014}
+   2021-05-19: candidatas 156 | E +0.78R | WR 83% | peor -2.1R
+   2022-05-11: candidatas 115 | E -0.19R | WR 83% | peor -6.2R
+   2022-11-08: candidatas 134 | E -1.74R | WR 46% | peor -10.9R
+   2024-08-05: candidatas 126 | E +0.34R | WR 88% | peor -2.2R
+   2025-10-10: candidatas 154 | E -2.18R | WR 40% | peor -8.4R
