@@ -1,0 +1,30 @@
+
+=== BTC Binance 2018-03-06 → 2021-12-31
+hold       Sharpe  0.89 | CAGR   46.6 % | DD  70.0 % | x   4.31 | peor mes  -36.6 %
+vol        Sharpe  0.87 | CAGR   33.8 % | DD  53.3 % | x   3.04 | peor mes  -32.6 % | mejora Sharpe -0.02 (P≤0 0.53) | DD menor
+ma200      Sharpe  0.69 | CAGR   25.3 % | DD  64.2 % | x   2.37 | peor mes  -41.8 % | mejora Sharpe -0.20 (P≤0 0.73) | DD menor
+vol+ma200  Sharpe  0.85 | CAGR   24.9 % | DD  45.1 % | x   2.34 | peor mes  -23.9 % | mejora Sharpe -0.04 (P≤0 0.57) | DD menor
+
+=== ETH Binance 2018-03-06 → 2021-12-31
+hold       Sharpe  0.91 | CAGR   48.4 % | DD  89.8 % | x   4.52 | peor mes  -42.8 %
+vol        Sharpe  0.91 | CAGR   36.3 % | DD  68.2 % | x   3.27 | peor mes  -31.5 % | mejora Sharpe +0.01 (P≤0 0.49) | DD menor
+ma200      Sharpe  0.98 | CAGR   55.7 % | DD  73.8 % | x   5.43 | peor mes  -50.4 % | mejora Sharpe +0.07 (P≤0 0.46) | DD menor
+vol+ma200  Sharpe  1.22 | CAGR   44.4 % | DD  40.5 % | x   4.08 | peor mes  -21.6 % | mejora Sharpe +0.31 (P≤0 0.24) | DD menor
+
+=== BTC Coin Metrics 2013-01-01 → 2021-12-31
+hold       Sharpe  1.49 | CAGR  147.5 % | DD  84.5 % | x3477.15 | peor mes  -37.0 %
+vol        Sharpe  1.56 | CAGR   84.2 % | DD  63.8 % | x 244.13 | peor mes  -32.4 % | mejora Sharpe +0.06 (P≤0 0.34) | DD menor
+ma200      Sharpe  1.51 | CAGR  131.5 % | DD  71.0 % | x1900.90 | peor mes  -40.8 % | mejora Sharpe +0.02 (P≤0 0.48) | DD menor
+vol+ma200  Sharpe  1.74 | CAGR   78.8 % | DD  48.5 % | x 186.66 | peor mes  -23.0 % | mejora Sharpe +0.24 (P≤0 0.18) | DD menor
+
+=== BTC Coin Metrics 2013-01-01 → 2017-08-31
+hold       Sharpe  1.85 | CAGR  252.5 % | DD  84.5 % | x 355.58 | peor mes  -34.8 %
+vol        Sharpe  1.98 | CAGR  126.5 % | DD  63.8 % | x  45.23 | peor mes  -25.4 % | mejora Sharpe +0.13 (P≤0 0.31) | DD menor
+ma200      Sharpe  1.97 | CAGR  259.8 % | DD  71.0 % | x 391.53 | peor mes  -34.8 % | mejora Sharpe +0.12 (P≤0 0.27) | DD menor
+vol+ma200  Sharpe  2.28 | CAGR  132.8 % | DD  48.5 % | x  51.36 | peor mes  -23.0 % | mejora Sharpe +0.43 (P≤0 0.12) | DD menor
+
+=== BTC Coin Metrics 2022-01-01 → 2026-10-31
+hold       Sharpe  0.45 | CAGR   10.6 % | DD  66.9 % | x   1.63 | peor mes  -39.3 %
+vol        Sharpe  0.51 | CAGR   13.0 % | DD  55.9 % | x   1.81 | peor mes  -23.7 % | mejora Sharpe +0.05 (P≤0 0.30) | DD menor
+ma200      Sharpe  0.89 | CAGR   27.2 % | DD  31.9 % | x   3.20 | peor mes  -17.6 % | mejora Sharpe +0.43 (P≤0 0.12) | DD menor
+vol+ma200  Sharpe  0.90 | CAGR   24.3 % | DD  24.6 % | x   2.86 | peor mes  -16.4 % | mejora Sharpe +0.45 (P≤0 0.11) | DD menor

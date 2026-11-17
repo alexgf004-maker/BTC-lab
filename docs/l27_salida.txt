@@ -1,0 +1,47 @@
+Primer día: {'BTC': '2017-08-17', 'ETH': '2017-08-17'}
+/home/user/btc-lab/lecciones/leccion_27_hold.py:74: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  for m, g in rets.groupby(rets.index.to_period("M")):
+/home/user/btc-lab/lecciones/leccion_27_hold.py:74: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  for m, g in rets.groupby(rets.index.to_period("M")):
+
+=== DESARROLLO 2017-09-01 → 2021-12-31
+BTC   hold       Sharpe  1.06 | CAGR   68.4 % | DD  83.2 % | x   9.56 | peor mes  -36.6 %
+BTC   vol        Sharpe  1.10 | CAGR   48.2 % | DD  58.8 % | x   5.49 | peor mes  -32.6 % | mejora Sharpe +0.05 (P≤0 0.42) | DD menor
+BTC   ma200      Sharpe  0.62 | CAGR   19.9 % | DD  64.2 % | x   2.20 | peor mes  -41.8 % | mejora Sharpe -0.44 (P≤0 0.85) | DD menor
+BTC   vol+ma200  Sharpe  0.79 | CAGR   21.0 % | DD  45.1 % | x   2.29 | peor mes  -23.9 % | mejora Sharpe -0.27 (P≤0 0.73) | DD menor
+ETH   hold       Sharpe  1.03 | CAGR   68.0 % | DD  94.0 % | x   9.46 | peor mes  -53.8 %
+ETH   vol        Sharpe  1.11 | CAGR   48.5 % | DD  72.6 % | x   5.55 | peor mes  -31.5 % | mejora Sharpe +0.08 (P≤0 0.34) | DD menor
+ETH   ma200      Sharpe  0.90 | CAGR   45.6 % | DD  73.8 % | x   5.09 | peor mes  -50.4 % | mejora Sharpe -0.13 (P≤0 0.65) | DD menor
+ETH   vol+ma200  Sharpe  1.13 | CAGR   37.7 % | DD  40.5 % | x   3.99 | peor mes  -21.6 % | mejora Sharpe +0.10 (P≤0 0.44) | DD menor
+50/50 hold       Sharpe  1.13 | CAGR   80.5 % | DD  87.4 % | x  12.91 | peor mes  -43.4 %
+50/50 vol        Sharpe  1.19 | CAGR   51.1 % | DD  64.3 % | x   5.98 | peor mes  -32.0 % | mejora Sharpe +0.07 (P≤0 0.36) | DD menor
+50/50 ma200      Sharpe  0.87 | CAGR   38.6 % | DD  62.2 % | x   4.11 | peor mes  -36.0 % | mejora Sharpe -0.26 (P≤0 0.75) | DD menor
+50/50 vol+ma200  Sharpe  1.08 | CAGR   30.9 % | DD  39.4 % | x   3.21 | peor mes  -14.6 % | mejora Sharpe -0.04 (P≤0 0.57) | DD menor
+
+=== EXAMEN 2022-01-01 → 2026-10-31
+BTC   hold       Sharpe  0.45 | CAGR   10.6 % | DD  66.9 % | x   1.63 | peor mes  -37.3 %
+BTC   vol        Sharpe  0.51 | CAGR   13.0 % | DD  55.3 % | x   1.80 | peor mes  -22.3 % | mejora Sharpe +0.05 (P≤0 0.29) | DD menor
+BTC   ma200      Sharpe  0.90 | CAGR   27.7 % | DD  31.9 % | x   3.25 | peor mes  -17.7 % | mejora Sharpe +0.44 (P≤0 0.12) | DD menor
+BTC   vol+ma200  Sharpe  0.92 | CAGR   24.9 % | DD  24.9 % | x   2.92 | peor mes  -16.5 % | mejora Sharpe +0.47 (P≤0 0.10) | DD menor
+ETH   hold       Sharpe  0.19 | CAGR  -10.1 % | DD  74.0 % | x   0.60 | peor mes  -44.8 %
+ETH   vol        Sharpe  0.25 | CAGR    1.5 % | DD  58.0 % | x   1.08 | peor mes  -21.3 % | mejora Sharpe +0.07 (P≤0 0.32) | DD menor
+ETH   ma200      Sharpe  0.49 | CAGR   12.6 % | DD  38.6 % | x   1.77 | peor mes  -22.6 % | mejora Sharpe +0.31 (P≤0 0.18) | DD menor
+ETH   vol+ma200  Sharpe  0.59 | CAGR   13.9 % | DD  29.7 % | x   1.88 | peor mes  -15.7 % | mejora Sharpe +0.41 (P≤0 0.13) | DD menor
+50/50 hold       Sharpe  0.31 | CAGR    1.5 % | DD  68.2 % | x   1.08 | peor mes  -41.1 %
+50/50 vol        Sharpe  0.39 | CAGR    7.9 % | DD  53.9 % | x   1.44 | peor mes  -21.4 % | mejora Sharpe +0.08 (P≤0 0.25) | DD menor
+50/50 ma200      Sharpe  0.74 | CAGR   21.1 % | DD  29.6 % | x   2.52 | peor mes  -16.1 % | mejora Sharpe +0.42 (P≤0 0.09) | DD menor
+50/50 vol+ma200  Sharpe  0.82 | CAGR   20.0 % | DD  21.9 % | x   2.41 | peor mes  -12.3 % | mejora Sharpe +0.51 (P≤0 0.05) | DD menor
+
+=== H6 DCA (12 compras mensuales) frente a todo de golpe, BTC
+a 12 meses: DCA mejor en 36 % de los inicios | mediana DCA x1.31 golpe x1.57 | peor DCA x0.45 peor golpe x0.28
+a 24 meses: DCA mejor en 36 % de los inicios | mediana DCA x1.97 golpe x1.93 | peor DCA x0.38 peor golpe x0.48
+
+Miembros (muestra): {'2020-03-01': ['BCHUSDT', 'BTCUSDT', 'ETHUSDT'], '2021-03-01': ['ADAUSDT', 'BCHUSDT', 'BNBUSDT', 'BTCUSDT', 'DOGEUSDT', 'DOTUSDT', 'ETHUSDT', 'LINKUSDT', 'LTCUSDT', 'XRPUSDT'], '2022-03-01': ['1000SHIBUSDT', 'ADAUSDT', 'AVAXUSDT', 'BTCUSDT', 'ETHUSDT', 'GALAUSDT', 'LUNAUSDT', 'SANDUSDT', 'SOLUSDT', 'XRPUSDT'], '2023-03-01': ['APTUSDT', 'BNBUSDT', 'BTCUSDT', 'DOGEUSDT', 'DYDXUSDT', 'ETHUSDT', 'FILUSDT', 'MATICUSDT', 'OPUSDT', 'SOLUSDT'], '2024-03-01': ['BTCUSDT', 'DOGEUSDT', 'ETHUSDT', 'FILUSDT', 'LINKUSDT', 'ORDIUSDT', 'SOLUSDT', 'SUIUSDT', 'WLDUSDT', 'XRPUSDT'], '2025-03-01': ['1000PEPEUSDT', 'ADAUSDT', 'BNBUSDT', 'BTCUSDT', 'DOGEUSDT', 'ETHUSDT', 'LTCUSDT', 'SOLUSDT', 'SUIUSDT', 'XRPUSDT'], '2026-03-01': ['1000PEPEUSDT', 'BNBUSDT', 'BTCUSDT', 'DOGEUSDT', 'ETHUSDT', 'HYPEUSDT', 'RIVERUSDT', 'SOLUSDT', 'XRPUSDT', 'ZECUSDT']}
+
+=== H5 DESARROLLO
+índice top-10  Sharpe  0.27 | CAGR  -22.0 % | DD  93.7 % | x   0.49 | peor mes  -41.5 %
+BTC perpetuo   Sharpe  0.48 | CAGR    6.8 % | DD  79.2 % | x   1.20 | peor mes  -37.5 %
+
+=== H5 EXAMEN
+índice top-10  Sharpe  0.81 | CAGR   41.8 % | DD  65.6 % | x   3.81 | peor mes  -34.8 %
+BTC perpetuo   Sharpe  0.93 | CAGR   38.2 % | DD  53.9 % | x   3.45 | peor mes  -20.6 %
