@@ -1,0 +1,16 @@
+
+===== E1 =====
+  desarrollo — rentabilidad acumulada frente a BTC (media / mediana), por día relativo al evento:
+    -7d: -0.3%/-1.9% | -3d: -6.8%/-10.2% | -1d: -8.1%/-8.2% | +0d: +0.0%/+0.0% | +1d: -4.5%/-8.7% | +3d: -5.6%/-4.6% | +7d: -8.5%/-11.2% | +14d: -12.5%/-14.3% | +30d: -12.6%/-25.1% | +60d: -24.6%/-37.0%
+  desarrollo — operación (corto alt + largo BTC, 14 días): n 33 | media -5.07% | mediana +6.60% | t -0.87 | WR 61% | PF 0.68 | stops 9 | peor -60% | funding alt medio -4.75%
+    por año: {2024: {'count': 2, 'mean': -0.108}, 2025: {'count': 22, 'mean': -0.056}, 2026: {'count': 9, 'mean': -0.026}}
+  -> criba: no pasa
+  examen: no se ejecuta (no pasó la criba)
+
+===== E2 =====
+  desarrollo — rentabilidad acumulada frente a BTC (media / mediana), por día relativo al evento:
+    +1d: -0.3%/-1.9% | +3d: -3.6%/-6.1% | +7d: -4.1%/-10.5% | +14d: -0.9%/-11.6% | +30d: -7.7%/-19.7% | +60d: -10.0%/-26.9% | +90d: -12.6%/-32.7%
+  desarrollo — operación (corto alt + largo BTC, 30 días): n 127 | media +5.81% | mediana +19.55% | t +1.66 | WR 69% | PF 1.42 | stops 29 | peor -73% | funding alt medio +0.62%
+    por año: {2020: {'count': 27, 'mean': 0.044}, 2021: {'count': 24, 'mean': -0.053}, 2022: {'count': 12, 'mean': 0.13}, 2023: {'count': 37, 'mean': 0.077}, 2024: {'count': 19, 'mean': 0.123}, 2025: {'count': 8, 'mean': 0.09}}
+  -> criba: no pasa
+  examen: no se ejecuta (no pasó la criba)
