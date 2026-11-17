@@ -25,3 +25,14 @@ Una posición por moneda a la vez. Costes 0,28 % por operación (dos patas, entr
 **Periodos:** desarrollo = eventos antes de 2024-01-01; **examen = 2024-01-01 → 2026-10-20** (una vez).
 **Criterio U2:** rentabilidad neta media > 0 con t ≥ 3 agrupando por semana en el examen, positiva en desarrollo y mejor que el placebo.
 **U3 (informativo):** solapamiento con el bloque B y correlación con su resultado. Pruebas nuevas: 1 (U2); U1 es medición.
+
+## 2b. Pre-registro adicional (tras ver U1–U3, antes de calcular U4)
+U1–U3 sugieren que la caída no está ligada al día del desbloqueo: las mismas monedas pierden frente a BTC también en fechas al azar
+(placebo +1,8 % por operación de 10 días en el examen) y casi nunca coinciden con los cortos del bloque B (7 %).
+**U4 — Factor de emisión (cesta neutral, reequilibrio mensual).** Cada inicio de mes, para los tokens con perpetuo líquido (volumen medio
+de 30 días ≥ 5 M$): emisión programada E = circulante dentro de 90 días / circulante hoy − 1 (según el calendario, conocido de antemano).
+**Corto en el tercio con más emisión y largo en BTC** (pesos iguales, mismo nocional total en cada lado). Control: el tercio con menos emisión.
+Costes 0,14 % por unidad de nocional que rota en cada pata + funding real. **Desarrollo 2021-01 → 2023-12; examen 2024-01 → 2026-10.**
+**Contaminación declarada:** el comportamiento medio de estas monedas en 2024–2026 ya se ha visto en el placebo; el examen no es limpio.
+Si sale positiva, se considera **candidata a seguimiento en tiempo real** (simulado), no aprobada.
+Criterio: Sharpe del tercio alto > 1 en los dos periodos **y** mayor que el del tercio bajo (la emisión debe explicar la diferencia).
