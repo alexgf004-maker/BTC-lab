@@ -1,0 +1,10 @@
+
+=== DESARROLLO: 140 monedas ===
+                 toques reales  toques placebo rebote real rebote placebo rebote dif. rebote z continua real continua placebo continua dif. continua z E rebote (R) t operación t por día d medio
+familia                                                                                                                                                                                          
+dia_anterior             43386           44415       47.9%          50.0%       -2.2%     -7.1         50.3%            50.6%         -0.1%       -0.5       -0.070       -14.5      -3.7    3.0%
+giro_1d                   4087            4095       39.6%          42.6%       -2.9%     -2.8         54.0%            52.9%         +1.1%       +1.1       -0.236       -15.3      -3.6    3.4%
+giro_1h                  27200           27252       42.7%          46.9%       -4.2%    -11.2         53.2%            52.6%         +0.6%       +1.6       -0.176       -29.0      -3.2    3.0%
+redondo_fino             82442           83258       48.5%          49.5%       -1.3%     -5.0         50.1%            50.4%         -0.6%       -2.1       -0.051       -14.5      +8.7   25.1%
+redondo_grueso           16301           16620       47.5%          49.8%       -1.6%     -2.3         50.4%            50.3%         -0.2%       -0.2       -0.072        -9.1      +3.6   25.6%
+semana_anterior           6078            6149       41.7%          44.4%       -3.1%     -4.0         53.0%            53.5%         +0.2%       +0.3       -0.196       -15.3      -3.4    3.1%

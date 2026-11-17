@@ -25,3 +25,25 @@ Se compara real frente a placebo (diferencia y prueba de proporciones).
 comisión maker 0,02 % en la entrada y el objetivo, y taker + deslizamiento en el stop.
 **Datos:** desarrollo = 218 monedas antiguas (top 20 point-in-time), 2020-03 → 2026-10; examen = 482 nuevas (top 30). Una vez.
 **Criterio:** diferencia real − placebo > 0 con z ≥ 3 en desarrollo y z ≥ 3 en examen; para operar, además, esperanza neta > 0 con t ≥ 3 en el examen.
+
+## 2. Resultados de desarrollo (140 monedas que estuvieron en el top 20) — `l26_salida_desarrollo.txt`
+| Familia | Toques reales | Rebote real | Rebote placebo | Diferencia (z por moneda-mes) |
+|---|---|---|---|---|
+| Giros de 1 h | 27 200 | 42,7 % | 46,9 % | **−4,2 % (−11,2)** |
+| Día anterior | 43 386 | 47,9 % | 50,0 % | −2,2 % (−7,1) |
+| Semana anterior | 6 078 | 41,7 % | 44,4 % | −3,1 % (−4,0) |
+| Giros diarios | 4 087 | 39,6 % | 42,6 % | −2,9 % (−2,8) |
+| Redondos finos / gruesos | 82 442 / 16 301 | 48,5 % / 47,5 % | 49,5 % / 49,8 % | −1,3 % (−5,0) / −1,6 % (−2,3) |
+La continuación tras cruzar un nivel es igual que en los placebos (diferencias de −0,6 % a +1,1 %, no significativas).
+
+**Hallazgo: los soportes y resistencias reales se ROMPEN más que los niveles placebo** (lo contrario del análisis técnico clásico).
+Coherente con la segunda parte del mecanismo de Osler: los stops (y en cripto, las liquidaciones) se acumulan detrás de los niveles visibles,
+y el precio los atraviesa para ejecutarlos. La hipótesis pre-registrada (rebote mayor que el placebo) queda **rechazada** en todas las familias.
+
+## 3. Hipótesis NUEVA (registrada después de ver el desarrollo): operar la ruptura en el primer toque
+Al tocar un nivel por primera vez: entrada en el sentido de la RUPTURA (vender en un soporte, comprar en una resistencia) a mercado en el
+nivel (taker + deslizamiento 0,07 %); objetivo a d = 2 ATR más allá (limit, maker 0,02 %); stop a d en contra (taker 0,07 %). Vela de toque:
+si alcanza el stop, cuenta como pérdida aunque también alcance el objetivo (conservador). Máximo 168 h.
+Se compara con la misma operación en los niveles placebo. **Solo en el EXAMEN (482 criptos nuevas), una vez.**
+Criterio: esperanza neta > 0 con t ≥ 3 agrupando por día **y** mayor que en los placebos.
+Familias: giros de 1 h, día anterior, semana anterior (las de mayor diferencia). Se excluyen niveles ≤ 0 y eventos con d > 20 % del nivel.
