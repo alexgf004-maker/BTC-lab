@@ -24,3 +24,23 @@ calcula en USD sin modelar la convexidad del contrato inverso ni el colateral en
 **Criterio (en cada X por separado):** en el examen, rentabilidad neta > 0 con t ≥ 3 (rentabilidades diarias de la cartera) y Sharpe ≥ 1,5;
 y positiva en desarrollo. Se informa qué parte viene del funding y qué parte del diferencial de precio, y la rentabilidad sin costes.
 Pruebas nuevas: 2.
+
+## 2. Resultados — `l28_salida.txt`
+| | Neto anual | t | Sharpe | Funding cobrado | Diferencial de precio | Costes | Entradas |
+|---|---|---|---|---|---|---|---|
+| X1 USDT/USDC desarrollo | −2,9 % | −4,3 | −3,8 | +3,6 %/año | −0,1 % | 6,4 % | 145 |
+| **X1 USDT/USDC examen** | **−1,3 %** | −1,7 | −1,3 | +6,1 %/año | +1,0 % | 8,4 % | 239 |
+| X2 USDT/COIN-M desarrollo | −5,0 % | 0,1 | 0,1 | +10,8 %/año | −2,6 % | 13,2 % | 415 |
+| **X2 USDT/COIN-M examen** | **−5,2 %** | −0,1 | −0,0 | +14,4 %/año | −10,3 % | 9,2 % | 365 |
+
+**Las dos se rechazan.**
+- **El mecanismo era el contrario al esperado:** el funding del perpetuo USDT es en general MÁS BAJO que el del USDC y el COIN-M
+  (mediana −1,1 a −2,5 % anual; solo el 11–29 % de los pares al revés). Hay más creadores de mercado y arbitrajistas en el USDT, y su prima
+  está más ajustada; los libros pequeños (USDC, COIN-M) son los que se desvían.
+- **El diferencial existe pero es pequeño y cambia de signo a menudo:** la regla lo cobra (+6 % a +14 % anual en bruto), pero entra y
+  sale demasiadas veces y los costes de cuatro órdenes por ciclo se lo comen.
+- **COIN-M:** los perpetuos inversos poco líquidos tienen precios que se separan del USDT durante días (−10 % anual por el diferencial de
+  precio en el examen y caídas del 34–59 %): el "neutral al mercado" no lo es tanto cuando una pata es poco líquida.
+- Confirma una regla general de toda la investigación: **las primas entre mercados de Binance que se pueden cubrir al instante son
+  demasiado pequeñas para costes de taker.** Solo sobreviven las primas que pagan por un riesgo o una restricción (carry spot-perpetuo,
+  carry inverso con préstamo).
