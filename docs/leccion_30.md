@@ -28,3 +28,10 @@ opciones que vencen el viernes siguiente (7 días):
 **Periodos:** desarrollo 2019-01 → 2022-12; **examen 2023-01 → 2026-11** (una vez).
 **Criterio:** esperanza por operación > 0 con t ≥ 2,5 en el examen **y** positiva en desarrollo; peor año del examen > −30 % del capital
 del bloque (10 % en riesgo por semana). Pruebas nuevas: 3 (O2 BTC, O2 ETH, O3).
+
+## 1b. Pre-registro adicional (escrito tras ver O2, antes de calcular O4–O5)
+O2 usa opciones de 7 días; la prima medida por el DVOL es a 30 días, así que el plazo podría importar.
+**O4 — Iron condor mensual (≈ 28 días):** entrada el viernes situado 28 días antes de cada vencimiento mensual (último viernes del mes),
+con las opciones de ese vencimiento; σ√(28/365); mismas reglas de strikes (1σ/2σ), ejecución, comisiones y liquidación que O2. Una posición a la vez.
+**O5 — Spread de put vendido mensual (≈ 28 días):** solo la pata de put de O4 (vender put a −1σ, comprar put a −2σ).
+Mismos periodos y criterio (con t ≥ 2 por el menor número de operaciones). BTC y ETH. Pruebas nuevas: 4.
