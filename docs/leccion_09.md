@@ -43,3 +43,32 @@ Cartera con el 5 % por trade: Sharpe 0,85, CAGR 9,8 %, DD 28,8 %, hasta 15 posic
 **Veredicto: NO aprobada** (t = 2,13 < 3). El efecto existe (los listados nuevos caen frente a BTC en el 72 % de los casos),
 pero uno de cada cuatro trades acaba en stop con pérdida total, y **la ventaja ha desaparecido en 2023-24**.
 Otro ejemplo de win rate alto con cola de pérdidas grande.
+
+## 3. Carry entre exchanges — criba (35 monedas de desarrollo) — `l09_salida_criba.txt`
+
+| | Sharpe | CAGR | DD máx. | Episodios | Win rate | PF | 2023-06→2024 | 2025→2026-10 | Veredicto |
+|---|---|---|---|---|---|---|---|---|---|
+| **X1 spot Binance + corto HL** | 7,96 | 15,8 % | 0,4 % | 71 | 65 % | 54 | +53,3 % (ocup. 66 %) | **+7,6 % (ocup. 42 %)** | ✅ |
+| X2 perp Binance + corto HL | 3,75 | 8,2 % | 2,4 % | 192 | 44 % | 4,4 | +33,4 % | −1,9 % | ❌ (pierde en 2025-26) |
+
+Auditoría de X1: funding cobrado +3,2 % por episodio, base entre exchanges +0,1 % (desviación 0,1 %), costes −0,4 %.
+El beneficio viene del funding. Episodios por año: 2023: 27, 2024: 20, 2025: 17, 2026: 7.
+
+## 4. Examen (45 monedas nunca usadas con HL, una vez) — `l09_salida_examen.txt`
+
+| | Sharpe | CAGR | DD máx. | Episodios | Win rate | PF | Liquidaciones | Deflated Sharpe |
+|---|---|---|---|---|---|---|---|---|
+| **X1 spot Binance + corto HL** | **6,33** | 10,6 % | 1,6 % | 72 | **72 %** | 16,6 | 0 | **1,00 ✅ APROBADA** |
+
+2023-06→2024: +35,6 % (ocupación 67 %). **2025→2026-10: +4,6 % (ocupación 37 %).**
+Episodios por año: 2023: 16, 2024: 17, 2025: 27, 2026: 12. Peor episodio: −8,3 % sobre el nocional. 22 monedas distintas.
+
+## 5. Conclusiones
+1. **El carry con la pata corta en Hyperliquid funciona y sí opera en 2025-26** (37–42 % del tiempo, frente al ~1 % en Binance).
+   Cuarta confirmación independiente de la ventaja del carry.
+2. **Pero el rendimiento reciente es bajo:** +4,6 % a +7,6 % en 22 meses (≈ 2,5–4 % anual). El carry ya no está parado,
+   pero el funding es bajo en todo el mercado. La ventaja es real; la prima de 2020-24 no está disponible ahora.
+3. X2 (perpetuo contra perpetuo) no compensa: el diferencial de funding es pequeño y los costes de dos patas apalancadas lo consumen.
+4. H10 (nuevos listados): no aprobada; la ventaja desapareció en 2023-24.
+5. **Riesgos de X1 no modelados:** contraparte de Hyperliquid (exchange descentralizado; margen en USDC), mover fondos entre
+   exchanges para reequilibrar, liquidez real de las monedas pequeñas en HL y ejecución simultánea en dos plataformas.
