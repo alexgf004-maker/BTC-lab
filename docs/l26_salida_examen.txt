@@ -1,0 +1,20 @@
+
+=== EXAMEN — rebote frente a placebo (réplica): 306 monedas ===
+                 toques reales  toques placebo rebote real rebote placebo rebote dif. rebote z continua real continua placebo continua dif. continua z E rebote (R) t operación t por día d medio
+familia                                                                                                                                                                                          
+dia_anterior             41776           42080       48.7%          50.0%       -1.5%     -4.9         49.6%            49.4%         +0.3%       +1.0       -0.049       -10.0      -2.4    3.8%
+giro_1d                   3993            3982       42.9%          45.8%       -3.5%     -3.2         51.2%            51.1%         -0.9%       -0.9       -0.163       -10.3      -2.0    4.9%
+giro_1h                  26608           26691       45.2%          47.3%       -2.3%     -5.7         50.3%            50.8%         -0.6%       -1.4       -0.120       -19.5      +0.6    4.0%
+redondo_fino            103743          104905       47.7%          48.2%       -0.5%     -2.6         48.9%            48.9%         -0.0%       -0.2       -0.063       -20.1      +7.7    5.1%
+redondo_grueso           20355           20848       47.2%          48.0%       +0.0%     +0.1         48.4%            48.6%         -1.1%       -1.6       -0.073       -10.4      +3.4    5.1%
+semana_anterior           5914            5910       44.7%          46.1%       -1.6%     -2.0         50.8%            51.0%         -0.4%       -0.5       -0.128        -9.8      -1.5    4.2%
+
+OPERACIÓN DE RUPTURA EN EL PRIMER TOQUE (examen, una vez)
+  giro_1h          real     n  26487 | E -0.270R | acierto 38.6% | t por día -27.73 | d medio 3.70%
+  giro_1h          placebo  n  26578 | E -0.298R | acierto 37.2% | t por día -30.14 | d medio 3.75%
+  dia_anterior     real     n  41657 | E -0.135R | acierto 45.3% | t por día -14.57 | d medio 3.70%
+  dia_anterior     placebo  n  41963 | E -0.166R | acierto 43.7% | t por día -21.63 | d medio 3.76%
+  semana_anterior  real     n   5897 | E -0.277R | acierto 38.2% | t por día -19.29 | d medio 3.88%
+  semana_anterior  placebo  n   5886 | E -0.289R | acierto 37.6% | t por día -21.13 | d medio 3.92%
+  giro_1d          real     n   3954 | E -0.405R | acierto 31.7% | t por día -18.87 | d medio 4.19%
+  giro_1d          placebo  n   3946 | E -0.438R | acierto 30.1% | t por día -21.35 | d medio 4.20%

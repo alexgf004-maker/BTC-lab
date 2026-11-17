@@ -47,3 +47,37 @@ si alcanza el stop, cuenta como pérdida aunque también alcance el objetivo (co
 Se compara con la misma operación en los niveles placebo. **Solo en el EXAMEN (482 criptos nuevas), una vez.**
 Criterio: esperanza neta > 0 con t ≥ 3 agrupando por día **y** mayor que en los placebos.
 Familias: giros de 1 h, día anterior, semana anterior (las de mayor diferencia). Se excluyen niveles ≤ 0 y eventos con d > 20 % del nivel.
+
+## 4. Examen (306 criptos nuevas que estuvieron en el top 30, una vez) — `l26_salida_examen.txt`
+**Réplica del hallazgo (rebote real frente a placebo):**
+| Familia | Rebote real | Rebote placebo | Diferencia (z) |
+|---|---|---|---|
+| Giros de 1 h | 45,2 % | 47,3 % | −2,3 % (−5,7) |
+| Día anterior | 48,7 % | 50,0 % | −1,5 % (−4,9) |
+| Giros diarios | 42,9 % | 45,8 % | −3,5 % (−3,2) |
+| Semana anterior | 44,7 % | 46,1 % | −1,6 % (−2,0) |
+| Redondos finos / gruesos | 47,7 % / 47,2 % | 48,2 % / 48,0 % | −0,5 % (−2,6) / 0,0 % (+0,1) |
+**Se replica:** en monedas nunca vistas, los niveles reales vuelven a romperse más que los placebos (salvo los redondos gruesos).
+
+**Operación de ruptura (hipótesis nueva):**
+| Familia | Real: E / acierto | Placebo: E / acierto |
+|---|---|---|
+| Giros de 1 h | −0,27R / 38,6 % | −0,30R / 37,2 % |
+| Día anterior | −0,14R / 45,3 % | −0,17R / 43,7 % |
+| Semana anterior | −0,28R / 38,2 % | −0,29R / 37,6 % |
+| Giros diarios | −0,41R / 31,7 % | −0,44R / 30,1 % |
+**NO aprobada.** La ruptura en niveles reales es algo mejor que en los placebos (+0,01 a +0,03R), pero las dos pierden mucho: la vela en que
+se toca un nivel suele ser una vela amplia que recorre ambos lados, y con la regla conservadora (si alcanza el stop, pérdida) más los costes
+de entrar a mercado, la operación no tiene salida. La operación de rebote clásica también pierde: −0,05R a −0,24R por operación.
+
+## 5. Conclusiones
+1. **Los soportes y resistencias no funcionan como dice el análisis técnico clásico.** El precio no rebota más en los niveles visibles;
+   en 2 de 2 conjuntos independientes (más de 100 000 toques) los atraviesa **más** que a niveles al azar: los stops y liquidaciones que se
+   acumulan detrás actúan como imán.
+2. El efecto es real pero pequeño (2–4 puntos de probabilidad, ≈ 0,04–0,08R) y no compensa los costes ni la incertidumbre de ejecución
+   en la vela del toque. **Ni el rebote ni la ruptura son operables.**
+3. Esto encaja con lo que ya sabíamos: la ruptura de máximos de 20 días SÍ funciona en BTC y ETH (tendencia), porque allí no se busca
+   un movimiento de 2 ATR sino una tendencia de semanas; y comprar mechas extremas (5σ) funciona en monedas consolidadas, porque esas caídas
+   ya han ejecutado los stops.
+4. Pista abierta, no comprobada: en los números redondos finos, el resultado medio POR DÍA es positivo (t +7,7 a +8,7) aunque por operación es
+   negativo: los rebotes funcionan los días tranquilos y fallan los días volátiles (muchos toques). Requeriría una hipótesis nueva condicionada a la volatilidad.

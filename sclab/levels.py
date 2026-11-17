@@ -163,3 +163,61 @@ def run_coin(args):
             o["familia"], o["tipo"], o["symbol"] = fam, kind, sym
             out.append(o)
     return out
+
+
+def break_trades(b, ev, atr):
+    """Operación de ruptura en el primer toque (conservadora: si la vela de toque alcanza el stop, pérdida)."""
+    h, l = b["high"].to_numpy(), b["low"].to_numpy()
+    rows = []
+    for j, v, side in ev:
+        d = 2 * atr[j - 1]
+        if not (d > 0) or v <= 0 or d / v > 0.2:
+            continue
+        stop, tgt = v + side * d, v - side * d
+        hit_stop = (h[j] >= stop) if side == 1 else (l[j] <= stop)
+        hit_tgt = (l[j] <= tgt) if side == 1 else (h[j] >= tgt)
+        res = None
+        if hit_stop:
+            res = 0
+        elif hit_tgt:
+            res = 1
+        else:
+            hi, lo = h[j + 1:j + 1 + MAXH], l[j + 1:j + 1 + MAXH]
+            s_ = np.flatnonzero((hi >= stop) if side == 1 else (lo <= stop))
+            t_ = np.flatnonzero((lo <= tgt) if side == 1 else (hi >= tgt))
+            fs, ft = (s_[0] if len(s_) else 10 ** 9), (t_[0] if len(t_) else 10 ** 9)
+            if fs < 10 ** 9 or ft < 10 ** 9:
+                res = 1 if ft < fs else 0           # misma vela: fs == ft → pérdida
+        if res is None:
+            continue
+        fee = TAKER_SLIP + (MAKER if res == 1 else TAKER_SLIP)
+        rows.append((b.index[j], v, side, d / v, (1.0 if res else -1.0) - fee * v / d))
+    return pd.DataFrame(rows, columns=["t", "nivel", "lado", "d_rel", "r"])
+
+
+def run_coin_exam(args):
+    sym, member_months, seed = args
+    b = data.load(sym, "1h")[["open", "high", "low", "close"]]
+    if len(b) < 24 * 90:
+        return []
+    months = pd.DatetimeIndex(b.index.tz_localize(None).to_period("M").to_timestamp()).tz_localize("UTC")
+    member = np.array([m in member_months for m in months])
+    if not member.any():
+        return []
+    atr = _atr(b["high"].to_numpy(), b["low"].to_numpy(), b["close"].to_numpy())
+    rng = np.random.default_rng(seed)
+    out = []
+    for fam in ("giro_1h", "giro_1d", "dia_anterior", "semana_anterior"):
+        lv = level_list(b, fam)
+        pl = [(s, e, v + rng.uniform(0.5, 2.0) * rng.choice([-1, 1]) * atr[max(s - 1, 0)]) for s, e, v in lv]
+        pl = [x for x in pl if np.isfinite(x[2]) and x[2] > 0]
+        for kind, L in (("real", lv), ("placebo", pl)):
+            ev = touches(b, L, member)
+            o = outcomes(b, ev, atr); o["familia"], o["tipo"], o["symbol"] = fam, kind, sym; out.append(o)
+            k = break_trades(b, ev, atr); k["familia"], k["tipo"], k["symbol"], k["clase"] = fam, kind, sym, "ruptura"; out.append(k)
+    for fam, mult in (("redondo_fino", 1.0), ("redondo_grueso", 5.0)):
+        for kind, off in (("real", 0.0), ("placebo", rng.uniform(0.2, 0.8))):
+            o = outcomes(b, round_touches(b, member, mult, off), atr)
+            o = o[(o.nivel > 0) & (o.d_rel <= 0.2)]
+            o["familia"], o["tipo"], o["symbol"] = fam, kind, sym; out.append(o)
+    return out
