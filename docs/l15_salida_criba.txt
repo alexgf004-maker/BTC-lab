@@ -1,0 +1,26 @@
+CRIBA — desarrollo: 218 monedas ya usadas, universo point-in-time
+
+S2 tendencia bajista en mercado bajista
+   Sharpe 0.22 | CAGR 2.4% | DD 33.4% | trades 406 | WR 41% | PF 1.19 | mitades (corte 2024-02): +21.1% / -6.0%
+   por año: {2021: -0.028, 2022: 0.421, 2023: -0.122, 2024: -0.091, 2025: -0.046, 2026: 0.084} | {'apal_max': 1.1971583052745143}
+   E por trade +0.048R | peor -1.0R
+   -> no pasa
+
+S3 pump fallido
+   Sharpe 0.17 | CAGR 0.2% | DD 2.2% | trades 72 | WR 58% | PF 1.15 | mitades (corte 2023-09): -0.4% / +1.9%
+   por año: {2020: -0.004, 2021: 0.002, 2022: 0.009, 2023: -0.015, 2024: 0.011, 2025: 0.002, 2026: 0.01} | {'apal_max': 0.09052964817773963}
+   E por trade +0.044R | peor -1.0R
+   -> no pasa
+
+S4 saturación de largos
+   Sharpe 0.62 | CAGR 0.2% | DD 0.3% | trades 8 | WR 62% | PF 2.19 | mitades (corte 2025-05): +0.5% / +0.0%
+   por año: {2023: 0.002, 2024: 0.003, 2025: 0.0, 2026: 0.0} | {'monedas_con_OI': 161}
+   E por trade +0.118R | peor -0.3R
+   -> no pasa
+
+S5 cesta corta de lotería
+   Sharpe -0.21 | CAGR -11.9% | DD 72.1% | semanas 342 | WR 53% | PF 0.92 | mitades (corte 2023-07): -42.8% / -23.9%
+   por año: {2020: 0.428, 2021: -0.691, 2022: 0.119, 2023: -0.154, 2024: 0.113, 2025: 0.211, 2026: -0.228} | {'semanas': 342, 'subida_media_de_los_cortos': 0.008122003343434332}
+   -> no pasa
+
+A examen: ['S1']

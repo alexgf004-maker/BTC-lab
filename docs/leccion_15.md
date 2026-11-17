@@ -35,3 +35,51 @@ largo en BTC con el mismo beta (90 días) → neutral al mercado. Bruto 100 %. S
 
 **Criterios.** Criba: Sharpe ≥ 1,2, rentabilidad positiva en las dos mitades, PF ≥ 1,3.
 Examen (una vez): Sharpe ≥ 1,0, PF ≥ 1,3, Deflated Sharpe ≥ 0,90 con 387 + 5 pruebas. Costes: 0,14 % ida y vuelta por pata + funding real.
+
+## 3. Datos del examen
+Archivo de Binance: 923 perpetuos USDT; 218 ya usados; **705 nuevos**. Excluidos: 5 con nombre en caracteres chinos (no se pueden descargar con
+la herramienta; declarado), 161 no cripto por la regla del fin de semana (acciones, ETFs, materias primas, índices; la regla también
+excluyó por error algunas criptos poco activas, como ANC o MDT) y 57 con menos de 60 días de historia. Quedan **482 criptos nuevas**,
+incluidas deslistadas.
+
+## 4. Criba (218 monedas de desarrollo) — `l15_salida_criba.txt`
+| | Sharpe | CAGR | DD máx. | n | Win rate | PF | Mitades | Veredicto |
+|---|---|---|---|---|---|---|---|---|
+| S2 tendencia bajista en mercado bajista | 0,22 | 2,4 % | 33,4 % | 406 | 41 % | 1,19 | +21 % / −6 % | ❌ |
+| S3 pump fallido | 0,17 | 0,2 % | 2,2 % | 72 | 58 % | 1,15 | −0,4 % / +1,9 % | ❌ |
+| S4 saturación de largos | 0,62 | 0,2 % | 0,3 % | **8** | 62 % | 2,19 | +0,5 % / 0 % | ❌ (casi sin señales) |
+| S5 cesta corta de lotería | −0,21 | −11,9 % | 72,1 % | 342 sem. | 53 % | 0,92 | −43 % / −24 % | ❌ (2021: −69 %) |
+
+## 5. Examen de S1 (482 criptos nuevas, top 30 point-in-time, una vez) — `l15_salida_examen.txt`
+| Sharpe | CAGR | DD máx. | Trades | Win rate | PF | E por trade | Deflated Sharpe |
+|---|---|---|---|---|---|---|---|
+| **1,56** | 65,4 % | 30,7 % | 1616 | 45 % | **1,71** | +0,221R | **0,924 → APROBADA** |
+
+Por año: 2020 +11 %, 2021 −9 %, 2022 +37 %, 2023 +146 %, 2024 +204 %, 2025 +63 %, 2026 +14 %. Exposición nocional máxima 3x.
+
+## 6. Auditoría de S1 — `l15_salida_auditoria_S1.txt`
+| Prueba | Sharpe | PF | E por trade |
+|---|---|---|---|
+| Tal cual | 1,56 | 1,71 | +0,221R |
+| Costes ×2 (0,56 % ida y vuelta) | 1,30 | 1,56 | +0,185R |
+| Costes ×3 (0,84 %) | 1,04 | 1,43 | +0,150R |
+| Sin funding (efecto del funding) | 1,66 | 1,76 | +0,234R |
+| Solo monedas con volumen ≥ 20 M$/día | 1,23 | 1,56 | +0,172R |
+| Solo monedas con volumen ≥ 50 M$/día | 1,04 | 1,52 | +0,158R |
+| Sin los 20 mejores trades | — | 1,40 | +0,127R |
+
+- Agrupando por día de entrada: t = 4,66 (822 días). 167 de 285 monedas positivas. No depende de las monedas recién listadas
+  (< 180 días: +0,19R; ≥ 180 días: +0,24R). Volumen mediano al entrar: 31 M$/día.
+- El funding cuesta al corto ≈ 0,1 de Sharpe (los cortos en altcoins débiles pagan funding negativo a veces).
+
+**S1 en las 218 monedas de desarrollo (informativo, ya vistas):** Sharpe 0,90, PF 1,38, 2026 −32 %. Correlación mensual con el examen: 0,44.
+La ventaja es mayor en altcoins nuevas y pequeñas que en las establecidas.
+
+## 7. Conclusiones
+1. **S1 (corto en altcoins débiles cubierto con BTC) es la segunda estrategia aprobada del proyecto**, tras el carry.
+   Evidencia acumulada: PF 1,39 (57 monedas), 1,43 (161), 1,38 (218 juntas) y 1,71 (482 nuevas). Win rate del 44–45 %.
+   Mecanismo: emisión continua de tokens, desbloqueos y ventas de los fundadores; el capital rota hacia BTC.
+2. Sus riesgos: 2021 negativo en los dos conjuntos (temporada de altcoins), 2026 negativo en las monedas establecidas,
+   caídas del 31–37 %, exposición de hasta 3x, cortos en monedas pequeñas (subidas violentas, límites de posición).
+3. Los cortos sin cobertura o basados en "esto ha subido demasiado" pierden; el corto que funciona es contra la debilidad
+   estructural y relativo a BTC.

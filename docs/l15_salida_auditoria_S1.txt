@@ -1,0 +1,20 @@
+AUDITORÍA DE S1 EN EL EXAMEN (482 monedas nuevas, top 30)
+
+  tal cual                                 Sharpe 1.56 | CAGR  65.4% | DD 30.7% | trades 1616 | WR 45% | PF 1.71 | E +0.221R
+  costes x2 (0.56 % ida y vuelta)          Sharpe 1.30 | CAGR  51.0% | DD 32.6% | trades 1616 | WR 44% | PF 1.56 | E +0.185R
+  costes x3 (0.84 % ida y vuelta)          Sharpe 1.04 | CAGR  37.7% | DD 36.1% | trades 1616 | WR 42% | PF 1.43 | E +0.150R
+  sin funding (para medir su efecto)       Sharpe 1.66 | CAGR  71.3% | DD 29.9% | trades 1616 | WR 45% | PF 1.76 | E +0.234R
+  solo volumen 30d >= 20 M$/día            Sharpe 1.23 | CAGR  38.8% | DD 30.7% | trades 1311 | WR 46% | PF 1.56 | E +0.172R
+  solo volumen 30d >= 50 M$/día            Sharpe 1.04 | CAGR  22.8% | DD 23.1% | trades  855 | WR 48% | PF 1.52 | E +0.158R
+
+  Concentración: el 10 % mejor de trades aporta 519R de 356R | sin los 20 mejores: E +0.127R, PF 1.40
+  Por moneda: 167 de 285 con resultado positivo | 5 que más aportan: {'BTSUSDT': 14.3, 'BTCSTUSDT': 17.1, '1000XECUSDT': 17.4, 'SCUSDT': 20.3, 'RAYUSDT': 30.2} | 5 peores: {'CTKUSDT': -8.0, 'FARTCOINUSDT': -5.1, 'YGGUSDT': -3.6, 'JELLYJELLYUSDT': -3.5, 'NMRUSDT': -3.3}
+  Trades por año: {2020: 5, 2021: 123, 2022: 189, 2023: 291, 2024: 295, 2025: 380, 2026: 333}
+  Volumen medio de 30 días al entrar: mediana 31.2 M$/día | p25 15.2 M$ | p10 6.8 M$
+  Antigüedad de la moneda al entrar: mediana 264 días | E con < 180 días +0.189R (n 534) | con >= 180 días +0.236R (n 1082)
+  Agrupando por día de entrada: 822 días, t 4.66
+
+S1 en las 218 monedas de desarrollo (informativo, ya vistas): Sharpe 0.90 | CAGR 29.0% | DD 36.5% | trades 1654 | WR 44% | PF 1.38 | E +0.126R
+   por año: {2020: 0.931, 2021: -0.08, 2022: 0.962, 2023: 0.432, 2024: 0.393, 2025: 0.153, 2026: -0.321} | {'apal_max': 3.2909904095447216}
+   meses positivos 45% | peor mes -12.4%
+   examen: meses positivos 49% | peor mes -14.4% | correlación mensual desarrollo-examen 0.44
