@@ -1,0 +1,34 @@
+
+=== O1 prima de volatilidad (DVOL frente a la realizada de los 30 días siguientes)
+/home/user/btc-lab/lecciones/leccion_30_opciones.py:110: Pandas4Warning: Sorting by default when concatenating all DatetimeIndex is deprecated.  In the future, pandas will respect the default of `sort=False`. Specify `sort=True` or `sort=False` to silence this message. If you see this warnings when not directly calling concat, report a bug to pandas.
+  j = pd.concat([iv, fwd.resample("1D").last()], axis=1, keys=["iv", "rv"]).dropna()
+BTC 2021-03→2022: implícita media 81.5 % | realizada 66.9 % | prima media +14.6 pts, mediana +18.7 | implícita > realizada 79 % de los días
+BTC 2023→2026: implícita media 49.5 % | realizada 44.7 % | prima media +4.8 pts, mediana +6.6 | implícita > realizada 72 % de los días
+/home/user/btc-lab/lecciones/leccion_30_opciones.py:110: Pandas4Warning: Sorting by default when concatenating all DatetimeIndex is deprecated.  In the future, pandas will respect the default of `sort=False`. Specify `sort=True` or `sort=False` to silence this message. If you see this warnings when not directly calling concat, report a bug to pandas.
+  j = pd.concat([iv, fwd.resample("1D").last()], axis=1, keys=["iv", "rv"]).dropna()
+ETH 2021-03→2022: implícita media 99.4 % | realizada 88.7 % | prima media +10.7 pts, mediana +20.5 | implícita > realizada 71 % de los días
+ETH 2023→2026: implícita media 61.7 % | realizada 59.2 % | prima media +2.5 pts, mediana +4.4 | implícita > realizada 64 % de los días
+
+=== O2 BTC iron condor (1σ / 2σ) — semanas: {'ok': 397, 'strikes no válidos': 10, 'sin ATM': 3}
+BTC desarrollo: n 197 | E[R] -0.051 (t -2.07) | ganadoras 78 % | peor -1.01 | anual (10 % en riesgo) -26.0 % | DD 75.4 % | años 2019:-19% 2020:-50% 2021:-32% 2022:+17%
+BTC EXAMEN: n 200 | E[R] -0.067 (t -2.71) | ganadoras 75 % | peor -1.01 | anual (10 % en riesgo) -31.7 % | DD 74.4 % | años 2023:-50% 2024:-34% 2025:-20% 2026:-14%
+   sin costes de ejecución: E[R] desarrollo -0.051 | examen -0.066 | crédito medio / pérdida máx. 0.113
+--- O3 BTC solo si implícita > realizada 30 d (147 de 397 semanas)
+BTC O3 desarrollo: n 67 | E[R] -0.056 (t -1.30) | ganadoras 76 % | peor -1.01 | anual (10 % en riesgo) -27.6 % | DD 40.1 % | años 2020:-25% 2021:-10% 2022:-2%
+BTC O3 EXAMEN: n 80 | E[R] -0.126 (t -2.65) | ganadoras 72 % | peor -1.01 | anual (10 % en riesgo) -50.7 % | DD 62.6 % | años 2023:-42% 2024:-19% 2025:-3% 2026:-26%
+   robustez 0.75σ/1.5σ desarrollo: n 202 | E[R] -0.024 (t -0.79) | ganadoras 71 % | peor -1.01 | anual (10 % en riesgo) -16.2 % | DD 70.0 % | años 2019:+4% 2020:-51% 2021:-28% 2022:+37%
+   robustez 0.75σ/1.5σ examen: n 201 | E[R] -0.080 (t -2.50) | ganadoras 67 % | peor -1.02 | anual (10 % en riesgo) -37.8 % | DD 84.2 % | años 2023:-52% 2024:-46% 2025:-28% 2026:-14%
+   robustez 1.25σ/2.5σ desarrollo: n 194 | E[R] -0.045 (t -2.29) | ganadoras 82 % | peor -1.01 | anual (10 % en riesgo) -22.5 % | DD 66.4 % | años 2019:-24% 2020:-39% 2021:-17% 2022:+1%
+   robustez 1.25σ/2.5σ examen: n 199 | E[R] -0.057 (t -2.85) | ganadoras 81 % | peor -1.01 | anual (10 % en riesgo) -27.1 % | DD 67.6 % | años 2023:-47% 2024:-19% 2025:-18% 2026:-16%
+
+=== O2 ETH iron condor (1σ / 2σ) — semanas: {'sin operaciones': 15, 'sin ATM': 9, 'strikes no válidos': 41, 'ok': 345}
+ETH desarrollo: n 144 | E[R] -0.046 (t -1.67) | ganadoras 73 % | peor -1.01 | anual (10 % en riesgo) -23.4 % | DD 63.9 % | años 2019:+9% 2020:-30% 2021:-29% 2022:-12%
+ETH EXAMEN: n 201 | E[R] -0.080 (t -3.20) | ganadoras 74 % | peor -1.01 | anual (10 % en riesgo) -36.4 % | DD 81.4 % | años 2023:-52% 2024:-37% 2025:-37% 2026:-10%
+   sin costes de ejecución: E[R] desarrollo -0.045 | examen -0.079 | crédito medio / pérdida máx. 0.117
+--- O3 ETH solo si implícita > realizada 30 d (114 de 345 semanas)
+ETH O3 desarrollo: n 45 | E[R] -0.039 (t -0.84) | ganadoras 78 % | peor -1.00 | anual (10 % en riesgo) -20.3 % | DD 24.9 % | años 2020:-14% 2021:-4% 2022:-0%
+ETH O3 EXAMEN: n 69 | E[R] -0.092 (t -2.06) | ganadoras 74 % | peor -1.01 | anual (10 % en riesgo) -40.6 % | DD 46.0 % | años 2023:-35% 2024:-14% 2025:-4% 2026:-7%
+   robustez 0.75σ/1.5σ desarrollo: n 146 | E[R] -0.110 (t -2.74) | ganadoras 62 % | peor -1.01 | anual (10 % en riesgo) -47.1 % | DD 88.1 % | años 2019:-2% 2020:-52% 2021:-54% 2022:-23%
+   robustez 0.75σ/1.5σ examen: n 201 | E[R] -0.083 (t -2.58) | ganadoras 66 % | peor -1.02 | anual (10 % en riesgo) -38.9 % | DD 85.8 % | años 2023:-54% 2024:-51% 2025:-24% 2026:-13%
+   robustez 1.25σ/2.5σ desarrollo: n 131 | E[R] -0.045 (t -1.88) | ganadoras 80 % | peor -1.01 | anual (10 % en riesgo) -22.3 % | DD 51.1 % | años 2019:-4% 2020:-21% 2021:-15% 2022:-18%
+   robustez 1.25σ/2.5σ examen: n 190 | E[R] -0.060 (t -3.06) | ganadoras 78 % | peor -1.01 | anual (10 % en riesgo) -28.4 % | DD 69.1 % | años 2023:-43% 2024:-26% 2025:-25% 2026:-7%

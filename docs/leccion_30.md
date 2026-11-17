@@ -35,3 +35,34 @@ O2 usa opciones de 7 días; la prima medida por el DVOL es a 30 días, así que 
 con las opciones de ese vencimiento; σ√(28/365); mismas reglas de strikes (1σ/2σ), ejecución, comisiones y liquidación que O2. Una posición a la vez.
 **O5 — Spread de put vendido mensual (≈ 28 días):** solo la pata de put de O4 (vender put a −1σ, comprar put a −2σ).
 Mismos periodos y criterio (con t ≥ 2 por el menor número de operaciones). BTC y ETH. Pruebas nuevas: 4.
+
+## 2. Resultados — `l30_salida.txt`, `l30_salida_mensual.txt`
+**O1 — La prima de volatilidad existe, pero se ha encogido:**
+| | Implícita (DVOL) | Realizada 30 d siguientes | Prima media / mediana | Días con implícita > realizada |
+|---|---|---|---|---|
+| BTC 2021-03→2022 | 81,5 % | 66,9 % | +14,6 / +18,7 pts | 79 % |
+| BTC 2023→2026 | 49,5 % | 44,7 % | +4,8 / +6,6 pts | 72 % |
+| ETH 2021-03→2022 | 99,4 % | 88,7 % | +10,7 / +20,5 pts | 71 % |
+| ETH 2023→2026 | 61,7 % | 59,2 % | +2,5 / +4,4 pts | 64 % |
+
+**O2–O5 — Venderla con riesgo limitado: todas pierden** (E[R] = beneficio medio por operación / pérdida máxima)
+| Estructura | BTC desarrollo | BTC examen | ETH desarrollo | ETH examen | Ganadoras |
+|---|---|---|---|---|---|
+| O2 iron condor semanal 1σ/2σ | −0,051 (t −2,1) | **−0,067 (t −2,7)** | −0,046 | **−0,080 (t −3,2)** | 73–78 % |
+| O3 = O2 solo con implícita > realizada | −0,056 | −0,126 | −0,039 | −0,092 | 72–78 % |
+| O4 iron condor mensual | −0,087 | −0,081 | −0,132 | −0,056 | 61–73 % |
+| O5 spread de put mensual | −0,050 | −0,038 | −0,034 | −0,029 | 82–86 % |
+| Robustez semanal 0,75σ/1,5σ y 1,25σ/2,5σ | −0,024 / −0,045 | −0,080 / −0,057 | −0,110 / −0,045 | −0,083 / −0,060 | |
+Comprobación: **a precio marcado, sin diferencial ni comisiones**, el condor semanal también queda en −0,02/−0,03 (BTC) y −0,02/−0,05 (ETH).
+
+## 3. Por qué la prima existe y aun así no se puede cobrar así
+1. **La prima está en las colas, y el seguro las devuelve.** El DVOL pondera mucho las opciones muy fuera del dinero (como el VIX).
+   Gran parte de la prima es el precio del seguro contra desplomes y subidas violentas. El iron condor **compra** ese seguro (las alas),
+   así que devuelve justo la parte cara. Las opciones de los strikes vendidos (a 1σ) están, en promedio, **bien valoradas**.
+2. **Gana el 75–86 % de las veces y aun así pierde.** El crédito es solo un 11–14 % del riesgo. Hace falta acertar más del 88 % para
+   compensar, y cada pérdida suele ser completa (peor caso −1,0).
+3. **Los costes de cuatro patas** (diferencial y comisión en cada una) se comen lo poco que queda.
+4. Vender la cola sin seguro sí cobraría la prima, pero eso es venta de volatilidad sin cubrir, ya rechazada en la Lección 14 por sus caídas.
+
+**Veredicto: opciones descartadas** como fuente de rentabilidad con riesgo limitado, para un particular con costes de taker.
+Coherente con la regla general: la prima existe porque paga por un riesgo de cola real; si te cubres de ese riesgo, desaparece.

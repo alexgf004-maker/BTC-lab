@@ -1,0 +1,16 @@
+
+=== O4 iron condor mensual BTC — {'sin operaciones': 1, 'ok': 78, 'sin ATM': 9, 'strikes no válidos': 6}
+BTC desarrollo: n 34 | E[R] -0.087 (t -1.59) | ganadoras 65 % | peor -1.00 | anual (10 % en riesgo por mes) -10.5 % | años 2019:-4% 2020:-17% 2021:+3% 2022:-11%
+BTC EXAMEN: n 44 | E[R] -0.081 (t -1.48) | ganadoras 73 % | peor -1.01 | anual (10 % en riesgo por mes) -10.1 % | años 2023:-9% 2024:-12% 2025:-0% 2026:-15%
+
+=== O5 spread de put mensual BTC — {'sin operaciones': 1, 'ok': 78, 'sin ATM': 9, 'strikes no válidos': 6}
+BTC desarrollo: n 34 | E[R] -0.050 (t -0.86) | ganadoras 82 % | peor -1.00 | anual (10 % en riesgo por mes) -6.6 % | años 2019:+3% 2020:-6% 2021:-4% 2022:-12%
+BTC EXAMEN: n 44 | E[R] -0.038 (t -0.82) | ganadoras 86 % | peor -1.00 | anual (10 % en riesgo por mes) -5.0 % | años 2023:-2% 2024:+7% 2025:-10% 2026:-12%
+
+=== O4 iron condor mensual ETH — {'sin operaciones': 9, 'strikes no válidos': 11, 'sin ATM': 9, 'ok': 65}
+ETH desarrollo: n 23 | E[R] -0.132 (t -1.74) | ganadoras 61 % | peor -1.00 | anual (10 % en riesgo por mes) -15.5 % | años 2020:+1% 2021:-12% 2022:-19%
+ETH EXAMEN: n 42 | E[R] -0.056 (t -1.10) | ganadoras 71 % | peor -1.01 | anual (10 % en riesgo por mes) -7.2 % | años 2023:+8% 2024:-6% 2025:-17% 2026:-9%
+
+=== O5 spread de put mensual ETH — {'sin operaciones': 9, 'strikes no válidos': 11, 'sin ATM': 9, 'ok': 65}
+ETH desarrollo: n 23 | E[R] -0.034 (t -0.48) | ganadoras 83 % | peor -1.00 | anual (10 % en riesgo por mes) -4.6 % | años 2020:+1% 2021:+4% 2022:-13%
+ETH EXAMEN: n 42 | E[R] -0.029 (t -0.64) | ganadoras 86 % | peor -1.00 | anual (10 % en riesgo por mes) -4.0 % | años 2023:+3% 2024:+7% 2025:-5% 2026:-18%
