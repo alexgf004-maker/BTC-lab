@@ -71,8 +71,9 @@ def check_minimums(rep, client, cfg):
     for k in ("A_carry", "E_carry_inverso"):
         if B[k]["activo"]:
             notional = sl[k] * B[k]["slot"] * B[k]["notional_frac"]
-            lvl = OK if notional >= 30 else FAIL
-            rep(lvl, f"{k}: cada posición ≈ {notional:,.0f} USDT por pata (mínimo práctico ≈ 30 en altcoins)")
+            lvl = OK if notional >= 30 else (WARN if notional >= 11 else FAIL)
+            rep(lvl, f"{k}: cada posición ≈ {notional:,.0f} USDT por pata (mínimo de Binance ≈ 10,5 en spot; "
+                     f"por debajo de 30 se omitirán las monedas con mínimos más altos)")
 
     if B["F_fin_de_semana"]["activo"]:
         per = min(B["F_fin_de_semana"]["per_trade_usd"], B["F_fin_de_semana"]["max_frac_per_trade"] * sl["F_fin_de_semana"])
