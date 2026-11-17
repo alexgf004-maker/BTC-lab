@@ -156,6 +156,15 @@ class Binance:
     def cancel_order(self, symbol, client_id):
         return self._request("DELETE", "fut", "/fapi/v1/order", {"symbol": symbol, "origClientOrderId": client_id}, signed=True)
 
+    def get_order(self, symbol, client_id):
+        return self._request("GET", "fut", "/fapi/v1/order", {"symbol": symbol, "origClientOrderId": client_id}, signed=True)
+
+    def position_mode_hedge(self):
+        return bool(self._request("GET", "fut", "/fapi/v1/positionSide/dual", signed=True)["dualSidePosition"])
+
+    def api_restrictions(self):
+        return self._request("GET", "spot", "/sapi/v1/account/apiRestrictions", signed=True)
+
     def cancel_all(self, symbol):
         return self._request("DELETE", "fut", "/fapi/v1/allOpenOrders", {"symbol": symbol}, signed=True)
 

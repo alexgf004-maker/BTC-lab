@@ -80,6 +80,22 @@ Parar: `sudo systemctl stop btclab-bot`. El servicio limita la memoria a 1,5 GB 
 Si `comprobar_vps.sh` muestra **BLOQUEADO (451)**, Binance no permite operar desde la región del VPS: hace falta otro VPS en una
 región permitida (y cumplir la normativa de tu país).
 
+## 5c. Paso a modo real (dinero real)
+
+1. **Clave de la API en Binance** (Perfil → Gestión de API → Crear API → generada por el sistema). Permisos:
+   lectura, trading spot y margen, margen (préstamo/devolución), futuros y transferencia universal.
+   **Nunca el permiso de retirada.** Restringe la clave a la IP del VPS.
+2. **Futuros → Preferencias → Modo de posición: Unidireccional (One-way).** Activa también las cuentas de futuros y de margen.
+3. **Reparte los USDT** entre las cuentas: ~55 % en futuros USDⓈ-M, ~25 % en spot y ~20 % en margen cruzado.
+4. En el VPS: `sudo nano /etc/btclab/entorno` (las claves) y `sudo -u btclab nano /opt/btclab/bot/config.yaml`
+   (`modo: live` y `capital:` igual o algo inferior al USDT total).
+5. Actualiza: `sudo bash /opt/btclab/deploy/instalar_vps.sh`.
+6. Comprobación previa (solo lee): `sudo bash /opt/btclab/deploy/comprobar_live.sh`. Si hay ❌, no arranques.
+7. Arranca: `sudo systemctl enable --now btclab-bot` y vigila con `sudo journalctl -u btclab-bot -f` y Telegram.
+
+El bot se niega a arrancar si encuentra un estado de otro modo (por ejemplo, de una prueba en paper).
+Si una pata de una cobertura falla, deshace la otra. Si una orden no llega al mínimo de Binance, la omite y lo anota.
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

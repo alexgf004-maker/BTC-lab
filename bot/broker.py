@@ -32,6 +32,12 @@ class PaperBroker:
     def protect(self, symbol, position_qty, stop):         # en simulación el stop lo gestiona la estrategia
         return None
 
+    def stop_filled(self, symbol):
+        return None
+
+    def can_trade(self, symbol, qty, leg="perp"):
+        return True
+
     def position_qty(self, symbol):
         return None
 
@@ -58,6 +64,27 @@ class ExchangeBroker:
         except Exception as e:
             log.error("transferencia %s %.2f %s fallida: %s", kind, amount, asset, e)
             return None
+
+    def can_trade(self, symbol, qty, leg="perp"):
+        """¿La orden cumple la cantidad y el nocional mínimos de Binance? Se comprueba ANTES de enviar cualquier pata."""
+        try:
+            px = float(self.c.premium_index(symbol)["markPrice"])
+            q = self.c.round_qty(symbol, qty)
+            r = self.c.rules(symbol)
+        except Exception:
+            return False
+        min_notional = r["min_notional"] if leg == "perp" else 10.0
+        return q >= r["min_qty"] and q * px >= min_notional * 1.05
+
+    def stop_filled(self, symbol):
+        """True si la orden de stop de la tendencia se ejecutó en el exchange (independiente de otras posiciones del mismo símbolo)."""
+        try:
+            o = self.c.get_order(symbol, f"btclab-stop-{symbol}"[:36])
+        except Exception:
+            return False
+        if o.get("status") == "FILLED":
+            return float(o.get("avgPrice") or o.get("stopPrice") or 0) or True
+        return False
 
     def position_qty(self, symbol):
         for p in self.c.positions():

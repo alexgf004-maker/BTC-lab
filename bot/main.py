@@ -137,7 +137,12 @@ def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s",
                         handlers=[logging.StreamHandler(), logging.handlers.RotatingFileHandler(Path(cfg["estado"]).parent / "bot.log",
                                                                                           maxBytes=5_000_000, backupCount=5)])
+    prev = State(cfg["estado"]).d                              # nunca mezclar un estado simulado con dinero real
+    if prev["sleeves"] and prev.get("modo", "paper") != cfg["modo"]:
+        raise SystemExit(f"El estado {cfg['estado']} es de modo {prev.get('modo', 'paper')}, no de {cfg['modo']}. "
+                         f"Muévelo (mv {cfg['estado']} {cfg['estado']}.antiguo) y vuelve a arrancar.")
     client, market, broker, state, journal, strategies = build(cfg)
+    state.d["modo"] = cfg["modo"]
     guard = RiskGuard(state, cfg["riesgo"]["revisar_caida"], cfg["riesgo"]["parar_caida"], cfg["riesgo"]["apalancamiento_max"])
     if a.status:
         for k, s in state.d["sleeves"].items():

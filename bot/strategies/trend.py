@@ -26,9 +26,10 @@ class Trend:
             last = df.iloc[-1]; t_last = df.index[-1]
             pos = self.sl["positions"].get(sym)
             if pos:
-                q_ex = self.b.position_qty(sym)
-                if q_ex is not None and abs(q_ex) < 1e-12:            # el stop del exchange ya se ejecutó
-                    self._close(sym, pos, pos["stop"], now, send=False)
+                filled = self.b.stop_filled(sym)
+                if filled:                                            # el stop del exchange ya se ejecutó
+                    px = filled if isinstance(filled, float) else pos["stop"]
+                    self._close(sym, pos, px, now, send=False)
                     self.sl["busy_until"] = {**self.sl.get("busy_until", {}), sym: str(t_last)}
                     pos = None
             if pos:
@@ -50,6 +51,8 @@ class Trend:
             return
         px = self.m.price(sym)
         units = risk * self.sl["balance"] / R
+        if not self.b.can_trade(sym, units, "perp"):
+            self.j.log(NAME, "omitida_minimo", sym, "BUY", units, px, "por debajo del mínimo de Binance", ts=str(now)); return
         f = self.b.execute(sym, units, "perp", tag="D")
         if not f.ok and f.msg != "simulacro":
             self.j.log(NAME, "error_entrada", sym, "BUY", units, px, f.msg); return
@@ -60,7 +63,11 @@ class Trend:
         self.b.protect(sym, f.qty, entry - R)
 
     def _close(self, sym, pos, exit_px, now, send=True):
-        if send and self.b.position_qty(sym) is not None:           # en el exchange: cerrar a mercado lo que quede
+        if send and self.b.position_qty(sym) is not None:           # en el exchange: cerrar a mercado y retirar el stop
+            try:
+                self.b.c.cancel_order(sym, f"btclab-stop-{sym}"[:36])
+            except Exception:
+                pass
             f = self.b.execute(sym, -pos["qty"], "perp", tag="D")
             exit_px = f.price if f.ok else exit_px
         fund = self.m.funding(sym, pd.Timestamp(pos["entry_time"]))

@@ -158,3 +158,23 @@ def test_carry_reajuste_usa_la_reserva_y_si_no_hay_reduce():
         pos = c.sl["positions"]["XUSDT"]
         assert (pos["qty"] < q0) == expect_reduce and pos["ref"] == 12.5
         assert (pos.get("margen_extra", 0) > 0) == (not expect_reduce)
+
+
+def test_preflight_atr_and_report():
+    from bot.preflight import Report, FAIL, OK, atr_frac
+    kl = [[0, 100, 101, 99, 100, 0]] * 30
+    assert abs(atr_frac(kl) - 0.02) < 1e-9
+    r = Report(); r(OK, "a"); r(FAIL, "b")
+    assert r.fails == 1
+
+
+def test_trend_detects_exchange_stop_by_order(tmp_path):
+    """Con B y D compartiendo BTCUSDT, la tendencia debe cerrarse por el estado de SU orden de stop, no por la posición neta."""
+    from bot.broker import ExchangeBroker
+
+    class C:
+        def get_order(self, symbol, cid):
+            assert cid == "btclab-stop-BTCUSDT"
+            return {"status": "FILLED", "avgPrice": "61000"}
+    b = ExchangeBroker.__new__(ExchangeBroker); b.c = C()
+    assert b.stop_filled("BTCUSDT") == 61000.0

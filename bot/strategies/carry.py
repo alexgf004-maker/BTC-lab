@@ -110,10 +110,17 @@ class Carry:
         if not (sp > 0 and pp > 0):
             return
         qty = notional / pp
+        if not (self.b.can_trade(sym, qty, "perp") and self.b.can_trade(sym, qty, "spot")):
+            self.j.log(self.name, "omitida_minimo", sym, "", qty, pp, f"nocional {notional:.2f} por debajo del mínimo", ts=str(now)); return
         if self.dir == -1 and not self.borrow_ok_fn(sym, qty):
             self.j.log(self.name, "sin_prestamo", sym, "", qty, sp, "no se puede pedir prestado", ts=str(now)); return
         f_spot = self.b.execute(sym, self.dir * qty, "spot" if self.dir == 1 else "margin", tag=self.name[0])
-        f_perp = self.b.execute(sym, -self.dir * qty, "perp", tag=self.name[0])
+        if not (f_spot.ok or f_spot.msg == "simulacro"):
+            self.j.log(self.name, "error_entrada", sym, "", qty, sp, f_spot.msg, ts=str(now)); return
+        f_perp = self.b.execute(sym, -self.dir * f_spot.qty if f_spot.ok else -self.dir * qty, "perp", tag=self.name[0])
+        if not (f_perp.ok or f_perp.msg == "simulacro"):                  # deshacer la pata spot para no quedar sin cobertura
+            self.b.execute(sym, -f_spot.qty, "spot" if self.dir == 1 else "margin", tag=self.name[0])
+            self.j.log(self.name, "error_entrada", sym, "", qty, pp, f"pata perpetua fallida ({f_perp.msg}); spot deshecho", ts=str(now)); return
         self.sl["positions"][sym] = {"notional": notional, "qty": qty, "spot_px": f_spot.price if f_spot.price == f_spot.price else sp,
                                      "perp_px": f_perp.price if f_perp.price == f_perp.price else pp, "ref": pp,
                                      "fees": f_spot.fee + f_perp.fee, "funding": 0.0, "rebal": 0, "entry_time": str(now), "last_accrual": str(now + pd.Timedelta("1min"))}

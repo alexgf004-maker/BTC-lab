@@ -74,8 +74,16 @@ class WeakAlts:
         units = risk * self.sl["balance"] / R                    # unidades de ratio
         notional = units * ratio_px                              # nocional por pata en USDT (aprox.)
         pa, pb = self.m.price(sym), self.m.price("BTCUSDT")
+        if not (self.b.can_trade(sym, notional / pa, "perp") and self.b.can_trade("BTCUSDT", notional / pb, "perp")):
+            self.j.log(NAME, "omitida_minimo", sym, "SELL", notional / pa, pa, f"nocional {notional:.2f} por debajo del mínimo de una pata", ts=str(now))
+            return
         fa = self.b.execute(sym, -notional / pa, "perp", tag="B")
+        if not (fa.ok or fa.msg == "simulacro"):
+            self.j.log(NAME, "error_entrada", sym, "SELL", notional / pa, pa, fa.msg, ts=str(now)); return
         fb = self.b.execute("BTCUSDT", notional / pb, "perp", tag="B")
+        if not (fb.ok or fb.msg == "simulacro"):                     # la cobertura falló: deshacer la pata de la altcoin
+            self.b.execute(sym, -fa.qty, "perp", tag="B")
+            self.j.log(NAME, "error_entrada", "BTCUSDT", "BUY", notional / pb, pb, f"cobertura fallida ({fb.msg}); altcoin deshecha", ts=str(now)); return
         self.sl["positions"][sym] = {"side": -1, "entry": ratio_px, "R": R, "stop": ratio_px + R, "ext": ratio_px, "units": units,
                                      "qty_alt": fa.qty, "qty_btc": fb.qty, "px_alt": fa.price, "px_btc": fb.price,
                                      "fees": fa.fee + fb.fee, "entry_time": entry_bar, "entry_bar": entry_bar}
