@@ -1,0 +1,25 @@
+T1 — FIN DE SEMANA DE PERPETUOS NO CRIPTO (posición contraria al movimiento del fin de semana)
+
+DESARROLLO (70 activos, 46 fines de semana, 2025-12-15 → 2026-10-26)
+  todos: obs 1350 | corr(W,R) -0.021 | operaciones 779 en 38 fines de semana | neto por operación +0.077% | por fin de semana -0.047% (t -0.15) | acierto 44% | fines de semana positivos 37%
+    Asia: obs 130 | corr(W,R) -0.326 | operaciones 74 en 20 fines de semana | neto por operación +1.419% | por fin de semana +1.459% (t +3.54) | acierto 61% | fines de semana positivos 70%
+    EE. UU.: obs 1143 | corr(W,R) +0.008 | operaciones 703 en 37 fines de semana | neto por operación -0.065% | por fin de semana -0.159% (t -0.48) | acierto 42% | fines de semana positivos 30%
+    materias primas: obs 77 | corr(W,R) +0.133 | operaciones 2 en 2 fines de semana | neto por operación +0.191% | por fin de semana +0.191% (t +nan) | acierto 100% | fines de semana positivos 100%
+    con |W| >= 2%: operaciones 488 | neto +0.210% | t por fin de semana +0.52
+    con |W| >= 3%: operaciones 317 | neto +0.017% | t por fin de semana +0.30
+EXAMEN (70 activos, 83 fines de semana, 2025-03-31 → 2026-10-26)
+  todos: obs 1539 | corr(W,R) -0.004 | operaciones 708 en 41 fines de semana | neto por operación -0.052% | por fin de semana -0.079% (t -0.32) | acierto 46% | fines de semana positivos 41%
+    Asia: obs 128 | corr(W,R) -0.253 | operaciones 66 en 19 fines de semana | neto por operación +0.472% | por fin de semana +0.141% (t +0.20) | acierto 56% | fines de semana positivos 53%
+    EE. UU.: obs 1114 | corr(W,R) +0.038 | operaciones 592 en 36 fines de semana | neto por operación -0.139% | por fin de semana -0.183% (t -0.60) | acierto 43% | fines de semana positivos 39%
+    materias primas: obs 297 | corr(W,R) -0.109 | operaciones 50 en 24 fines de semana | neto por operación +0.282% | por fin de semana +0.138% (t +0.50) | acierto 60% | fines de semana positivos 62%
+    con |W| >= 2%: operaciones 388 | neto +0.093% | t por fin de semana +0.22
+    con |W| >= 3%: operaciones 210 | neto -0.072% | t por fin de semana +0.70
+
+  -> T1: NO aprobada
+
+T2 — ACCIONES LIGADAS A CRIPTO FRENTE A BTC
+  8 acciones, 34 fines de semana; beta media 1.43
+  DESARROLLO: obs 88 | corr(G,Rrel) +0.205 | operaciones 50 en 19 fines de semana | neto por operación -0.393% | por fin de semana -0.441% (t -1.03) | acierto 42% | fines de semana positivos 37%
+  signo elegido en desarrollo: continuación (+)
+  EXAMEN: obs 94 | corr(G,Rrel) +0.120 | operaciones 46 en 13 fines de semana | neto por operación +0.006% | por fin de semana -0.379% (t -0.93) | acierto 52% | fines de semana positivos 38%
+  -> T2: NO aprobada

@@ -34,3 +34,18 @@ El perpetuo debe converger a su índice (media del spot de varios exchanges). *R
 largo perpetuo + corto spot; si > +0,5 %: largo spot + corto perpetuo. Salida cuando |prima| < 0,1 % o a las 24 h. Se cobra o paga funding real.
 Costes 0,38 % ida y vuelta (spot 0,10 % + perpetuo 0,05 % + deslizamiento, por lado). Desarrollo = monedas antiguas con spot; examen = nuevas con spot.
 Mismos criterios que la criba y el examen de la Lección 17.
+
+## 2. T1 y T2 — resultados — `l23_salida_T1_T2.txt`
+| | Desarrollo: corr(W, R) / neto por fin de semana (t) | Examen: corr(W, R) / neto por fin de semana (t) |
+|---|---|---|
+| T1 todos | −0,02 / −0,05 % (−0,15) | −0,00 / −0,08 % (−0,32) |
+| T1 Asia | **−0,33** / +1,46 % (+3,54) | **−0,25** / +0,14 % (+0,20) |
+| T1 EE. UU. | +0,01 / −0,16 % | +0,04 / −0,18 % |
+| T2 acciones-BTC | +0,21 / −0,44 % (−1,03) | +0,12 / −0,38 % (−0,93) |
+**T1 y T2: NO aprobadas.** En Asia la reversión aparece en los dos conjuntos (correlaciones −0,33 y −0,25), pero el resultado operable del examen no es significativo.
+
+## 3. T1b (prueba NUEVA, registrada después de ver T1): la ventana correcta para EE. UU.
+*Razonamiento:* los futuros de índices de EE. UU. (CME) reabren el domingo a las 22:00 UTC (horario de verano) o 23:00 (invierno).
+A las 13:00 del lunes los perpetuos ya han incorporado esa información: la reacción debe medirse el domingo por la noche.
+*Ventanas:* W = viernes 21:00 → domingo 21:00; R = domingo 21:00 → lunes 03:00. Activos de EE. UU. (no Asia, no materias primas).
+Misma regla y criterio que T1, misma división por activo. Cuenta como prueba adicional.
