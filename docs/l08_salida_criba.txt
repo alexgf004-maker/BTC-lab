@@ -1,0 +1,13 @@
+CRIBA — desarrollo: 57 activos, top 20 point-in-time. Sharpe total (2020-23 / 2024-26)
+
+H1a carry transversal diario     Sharpe  0.54 ( 0.63 /  0.41) | CAGR  12.6% | DD 53.8% | n  2405 | WR  51% | PF  1.09 | media +0.046%
+H1b carry transversal semanal    Sharpe  0.35 ( 0.29 /  0.49) | CAGR   6.3% | DD 66.5% | n  2405 | WR  50% | PF  1.06 | media +0.029%
+H3a cascada, largo               Sharpe  0.95 ( 1.42 /  0.33) | CAGR  33.7% | DD 42.6% | n  3023 | WR  55% | PF  1.45 | media +0.800%
+H3b cascada, corto               Sharpe -1.02 (-0.68 / -1.69) | CAGR -30.6% | DD 91.5% | n  2844 | WR  49% | PF  0.74 | media -0.746%
+H4 estacionalidad BTC 21-23h     Sharpe -0.35 (-0.19 / -0.68) | CAGR  -6.7% | DD 59.9% | n  2436 | WR  46% | PF  0.94 | media -0.015%
+H6 ratio alt/BTC                 Sharpe -1.40 (-2.01 / -0.21) | CAGR -48.2% | DD 98.9% | n  1936 | WR  58% | PF  0.73 | media -1.954%
+H9 reversión diaria              Sharpe -1.75 (-1.96 / -1.42) | CAGR -49.2% | DD 99.1% | n  2405 | WR  46% | PF  0.76 | media -0.170%
+H10 corto nuevos listados        Sharpe  0.63 ( 0.83 /   nan) | CAGR   5.3% | DD  8.6% | n    36 | WR  67% | PF  2.04 | media +20.323%
+H2 carry umbral bajo             Sharpe  5.08 ( 6.11 /  3.98) | CAGR  15.6% | DD  1.0% | n    68 | WR  71% | PF 111.15 | media +10.902%
+
+Pasan la criba: ['H2 carry umbral bajo']

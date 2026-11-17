@@ -43,3 +43,43 @@ Para cada perpetuo listado después de julio de 2020: 7 días tras el listado, c
 (5 % del capital). Salida a los 60 días o si el precio se duplica (stop). Funding real de ambas patas. Costes: 0,28 %.
 
 (H5, H7 y H8 —adelanto/retraso, flujo de órdenes y base— se descartan de antemano: exigen datos de mayor frecuencia o su señal ya la recoge H1.)
+
+## 2. Criba (desarrollo, 57 activos) — `l08_salida_criba.txt`
+
+| Hipótesis | Sharpe total | 2020-23 | 2024-26 | CAGR | DD máx. | Win rate | PF | Veredicto |
+|---|---|---|---|---|---|---|---|---|
+| H1a carry transversal diario | 0,54 | 0,63 | 0,41 | 12,6 % | 53,8 % | 51 % | 1,09 | ❌ |
+| H1b carry transversal semanal | 0,35 | 0,29 | 0,49 | 6,3 % | 66,5 % | 50 % | 1,06 | ❌ |
+| **H2 carry spot-perpetuo, umbral bajo** | **5,08** | 6,11 | 3,98 | 15,6 % | 1,0 % | 71 % | 111 | ✅ |
+| H3a cascada, largo | 0,95 | 1,42 | 0,33 | 33,7 % | 42,6 % | 55 % | 1,45 | ❌ (se debilita) |
+| H3b cascada, corto | −1,02 | −0,68 | −1,69 | −30,6 % | 91,5 % | 49 % | 0,74 | ❌ |
+| H4 estacionalidad BTC 21-23h | −0,35 | −0,19 | −0,68 | −6,7 % | 59,9 % | 46 % | 0,94 | ❌ |
+| H6 ratio alt/BTC | −1,40 | −2,01 | −0,21 | −48,2 % | 98,9 % | **58 %** | 0,73 | ❌ |
+| H9 reversión diaria | −1,75 | −1,96 | −1,42 | −49,2 % | 99,1 % | 46 % | 0,76 | ❌ |
+| H10 corto en nuevos listados | 0,63 | 0,83 | — | 5,3 % | 8,6 % | 67 % | 2,04 | ❌ (36 trades, t = 1,8) |
+
+Lecturas:
+- **H6 es la lección del win rate:** acierta el 58 % de las veces y pierde un 48 % al año. Las pocas veces que el ratio no
+  revierte (una altcoin que se hunde frente a BTC) borran todas las ganancias pequeñas.
+- **En cripto, a escala de horas y días, domina la continuación, no la reversión:** H3b, H6 y H9 pierden con fuerza.
+  Sus inversas tampoco son operables (H9 inversa no cubre costes; "comprar tras cualquier movimiento extremo" es beta alcista).
+- **H1:** cobrar funding solo con perpetuos expone al precio de los activos más calientes; el riesgo anula el carry.
+  La cobertura con spot (H2/S3) es lo que hace que funcione.
+- **H10:** efecto grande (+20 % por trade) pero 10 de 36 trades acaban en stop (−95 % el peor) y no es significativo.
+- H2 no resuelve la inactividad: ocupación del 1 % en 2025 y 0 % en 2026. El funding está bajo en todo el mercado.
+
+## 3. Examen (129 símbolos nuevos, top 10 point-in-time, una vez) — `l08_salida_examen.txt`
+| | Sharpe | 2020-23 | 2024-26 | CAGR | DD máx. | Win rate | PF | Deflated Sharpe |
+|---|---|---|---|---|---|---|---|---|
+| **H2 carry, umbral bajo** | **4,24** | 5,32 | 2,28 | 10,4 % | 2,3 % | **80 %** | 37,8 | **1,00 ✅** |
+
+Episodios por año: 2020: 8, 2021: 12, 2022: 2, 2023: 14, 2024: 8, 2025: 4, 2026: 1. Peor episodio: −10,6 % sobre el nocional.
+
+## 4. Conclusiones
+1. **El carry de funding queda confirmado por tercera vez** en un conjunto independiente (57 → 32 → 129 activos).
+   Es la única ventaja que ha sobrevivido a 351 pruebas.
+2. **Ninguna de las otras 8 hipótesis supera la criba.** No hay "estrategia brutal" escondida en velas horarias públicas:
+   lo que funciona es cobrar una prima con causa económica (carry) y, con menos fuerza, la tendencia en BTC y ETH.
+3. Límite estructural: en 2025-26 el funding de Binance es bajo y el carry apenas opera.
+4. Vías que quedan (necesitan datos que aún no tenemos): carry entre exchanges (el funding difiere entre Binance, Bybit,
+   OKX y Hyperliquid), interés abierto y liquidaciones como señal, y microestructura (libro de órdenes).
