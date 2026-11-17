@@ -1,0 +1,31 @@
+R1 — CARRY INVERSO (largo perpetuo + corto spot prestado)
+
+  DESARROLLO (antiguas), interés 15%: Sharpe 3.66 | CAGR 13.0% | DD 2.0% | episodios 340 | WR 41% | PF 9.04 | mitades +30.9% / +72.5% | liquidaciones 2
+     por año: {2020: '+7.8%', 2021: '+1.2%', 2022: '+11.6%', 2023: '+38.8%', 2024: '+2.5%', 2025: '+3.2%', 2026: '+26.2%'} | ocupación: {2020: 0.23, 2021: 0.18, 2022: 0.45, 2023: 0.29, 2024: 0.18, 2025: 0.17, 2026: 0.29}
+  DESARROLLO (antiguas), interés 30%: Sharpe 3.31 | CAGR 11.5% | DD 2.0% | episodios 243 | WR 45% | PF 10.40 | mitades +22.6% / +68.2% | liquidaciones 3
+     por año: {2020: '+4.5%', 2021: '-0.2%', 2022: '+10.9%', 2023: '+34.7%', 2024: '+1.6%', 2025: '+3.3%', 2026: '+26.1%'} | ocupación: {2020: 0.18, 2021: 0.13, 2022: 0.29, 2023: 0.19, 2024: 0.11, 2025: 0.11, 2026: 0.22}
+  DESARROLLO (antiguas), interés 50%: Sharpe 2.94 | CAGR 9.9% | DD 2.0% | episodios 187 | WR 41% | PF 10.91 | mitades +16.2% / +61.3% | liquidaciones 3
+     por año: {2020: '+3.3%', 2021: '-0.8%', 2022: '+8.5%', 2023: '+31.1%', 2024: '+0.6%', 2025: '+3.0%', 2026: '+24.1%'} | ocupación: {2020: 0.13, 2021: 0.07, 2022: 0.19, 2023: 0.14, 2024: 0.07, 2025: 0.06, 2026: 0.19}
+  -> criba (15 %): PASA
+  EXAMEN (nuevas con spot), interés 15%: Sharpe 1.47 | CAGR 72.9% | DD 17.6% | episodios 473 | WR 53% | PF 18.10 | liquidaciones 20 | DSR 0.943 -> APROBADA
+     por año: {2020: '+0.0%', 2021: '+0.3%', 2022: '-12.3%', 2023: '+14.8%', 2024: '+33.5%', 2025: '+877.6%', 2026: '+191.1%'}
+  EXAMEN (nuevas con spot), interés 30%: Sharpe 1.49 | CAGR 76.5% | DD 13.9% | episodios 454 | WR 52% | PF 22.74 | liquidaciones 23 | DSR 0.948
+     por año: {2020: '+0.0%', 2021: '-0.2%', 2022: '-9.7%', 2023: '+11.9%', 2024: '+29.2%', 2025: '+950.3%', 2026: '+223.1%'}
+
+R2 — TENDENCIA BAJISTA EN BTC Y ETH
+  Sharpe 0.19 | CAGR 1.9% | DD 51.9% | trades 87 | WR 32% | PF 1.19
+     por año: {2020: '+21.1%', 2021: '-15.5%', 2022: '+32.4%', 2023: '-18.0%', 2024: '-17.5%', 2025: '-11.3%', 2026: '+39.7%'}
+
+R3 — MECHAS SIN STOP EN MONEDAS CONSOLIDADAS (218 antiguas, top 20, 0,25 %)
+  Sharpe 2.61 | CAGR 32.1% | DD 12.2% | trades 3482 | WR 81%
+     por año: {2020: '+45.3%', 2021: '+59.9%', 2022: '+5.2%', 2023: '+43.9%', 2024: '+23.0%', 2025: '+12.1%', 2026: '+31.1%'}
+
+COMPLEMENTO DE LA CARTERA P (1/3 carry, 1/3 S1, 1/3 tendencia)
+  R1 desarrollo: corr. mensual con P +0.00 | en los 12 peores meses de P: P -4.3%/mes, pieza +1.6%/mes (positiva en 10 de 12) | 2022: +11.6% | 2026: +26.2%
+     P sola: Sharpe 1.79, CAGR 36.4%, DD 15.8%  →  P 75 % + pieza 25 %: Sharpe 2.01, CAGR 30.5%, DD 8.7% | 2026 de la mezcla: -3.6%
+  R1 examen: corr. mensual con P -0.05 | en los 12 peores meses de P: P -4.3%/mes, pieza +4.3%/mes (positiva en 9 de 12) | 2022: -12.3% | 2026: +191.1%
+     P sola: Sharpe 1.79, CAGR 36.4%, DD 15.8%  →  P 75 % + pieza 25 %: Sharpe 2.33, CAGR 46.6%, DD 8.3% | 2026 de la mezcla: +19.0%
+  R2 tendencia bajista BTC/ETH: corr. mensual con P -0.02 | en los 12 peores meses de P: P -4.3%/mes, pieza -0.5%/mes (positiva en 2 de 12) | 2022: +32.4% | 2026: +39.7%
+     P sola: Sharpe 1.79, CAGR 36.4%, DD 15.8%  →  P 75 % + pieza 25 %: Sharpe 1.65, CAGR 27.7%, DD 10.4% | 2026 de la mezcla: -0.8%
+  R3 mechas consolidadas: corr. mensual con P +0.22 | en los 12 peores meses de P: P -4.3%/mes, pieza +2.6%/mes (positiva en 11 de 12) | 2022: +5.2% | 2026: +31.1%
+     P sola: Sharpe 1.79, CAGR 36.4%, DD 15.8%  →  P 75 % + pieza 25 %: Sharpe 2.25, CAGR 35.8%, DD 9.5% | 2026 de la mezcla: -2.6%

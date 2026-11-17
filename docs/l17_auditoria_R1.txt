@@ -1,0 +1,28 @@
+
+DEV: 340 episodios | beneficio total 1.26 (sobre capital 1) | los 5 mejores aportan 47% | los 10 mejores 69%
+  moneda    entrada  días ret/nocional funding cobrado peor pago  pagos vol. diario 30d  días desde listado
+COTIUSDT 2026-08-01  39.7         +45%          -60.2%    -0.76%    793           72.5M                1969
+ TRBUSDT 2023-10-21  24.0         +48%          -32.4%    -1.69%    144          683.4M                1142
+ BLZUSDT 2023-09-01  31.0         +55%          -42.5%    -2.50%    116          514.7M                1078
+ AXSUSDT 2026-02-01  75.0         +34%          -49.5%    -1.18%    450          323.7M                1898
+DUSKUSDT 2026-02-01  33.0         +31%          -36.0%    -1.42%    198          159.6M                1485
+ ACEUSDT 2026-09-01  22.0         +22%          -21.8%    -0.99%    133          190.5M                 987
+ TRBUSDT 2023-12-29   6.3         +21%          -19.6%    -2.00%     39          360.0M                1211
+ LPTUSDT 2025-06-01  41.7         +17%          -25.3%    -0.75%   1000          212.1M                1297
+LINAUSDT 2023-05-28   9.3         +23%          -14.3%    -2.00%     28          147.2M                 799
+ SOLUSDT 2022-11-09  26.3         +24%          -35.0%    -2.00%    153          889.9M                 785
+   ret/nocional: mediana -0.13% | media +1.48% | episodios > +20 %: 10
+
+EXAMEN: 473 episodios | beneficio total 35.91 (sobre capital 1) | los 5 mejores aportan 45% | los 10 mejores 58%
+    moneda    entrada  días ret/nocional funding cobrado peor pago  pagos vol. diario 30d  días desde listado
+ALPACAUSDT 2025-04-24   8.0       +2250%          -96.3%    -4.00%    172           21.7M                 244
+  HOMEUSDT 2026-06-01  26.7        +105%         -116.0%    -2.00%    504           12.5M                 355
+  DEXEUSDT 2026-07-22  28.3         +51%          -77.6%    -2.00%    451           97.4M                 575
+  BARDUSDT 2026-03-22  49.3         +55%          -69.4%    -0.57%    636           81.6M                 184
+   ONGUSDT 2026-09-03  21.3         +26%          -27.5%    -1.16%    332          135.1M                1010
+   ARKUSDT 2026-10-01  10.0         +24%          -25.3%    -0.71%    199           34.4M                1107
+SAHARAUSDT 2026-03-05  41.0         +45%          -50.4%    -1.30%    586           68.1M                 251
+    LAUSDT 2026-08-31  13.7         +16%          -15.7%    -1.11%     83            9.6M                 452
+  HOMEUSDT 2026-08-16  21.0         +13%          -17.5%    -0.63%    127           77.5M                 431
+   VICUSDT 2026-06-01  14.7         +19%          -18.0%    -1.57%     88           12.1M                 445
+   ret/nocional: mediana +0.09% | media +7.48% | episodios > +20 %: 20

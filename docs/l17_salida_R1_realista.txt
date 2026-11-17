@@ -1,0 +1,28 @@
+R1 CON REGLAS DE REALISMO (spot fresco, spot >= 5 M$/día, sin entradas cerca de retiradas)
+
+  DESARROLLO (antiguas), interés 15%: Sharpe 3.38 | CAGR 11.5% | DD 2.0% | episodios 335 | WR 40% | PF 8.18 | liquidaciones 2 | mejor episodio +55% | 5 mejores = 47% del total | DSR 1.000
+     por año: {2020: '+7.3%', 2021: '+1.2%', 2022: '+10.2%', 2023: '+38.8%', 2024: '+2.5%', 2025: '+3.3%', 2026: '+17.5%'}
+  DESARROLLO (antiguas), interés 30%: Sharpe 2.99 | CAGR 10.0% | DD 2.0% | episodios 239 | WR 44% | PF 8.90 | liquidaciones 3 | mejor episodio +54% | 5 mejores = 48% del total | DSR 1.000
+     por año: {2020: '+4.2%', 2021: '-0.2%', 2022: '+9.3%', 2023: '+34.7%', 2024: '+1.6%', 2025: '+3.4%', 2026: '+17.6%'}
+  EXAMEN corregido (nuevas), interés 15%: Sharpe 5.12 | CAGR 26.0% | DD 0.7% | episodios 311 | WR 57% | PF 19.98 | liquidaciones 6 | mejor episodio +59% | 5 mejores = 24% del total | DSR 1.000
+     por año: {2020: '+0.0%', 2021: '+0.1%', 2022: '+1.1%', 2023: '+1.5%', 2024: '+10.4%', 2025: '+118.8%', 2026: '+87.5%'}
+  -> examen corregido: APROBADA
+  EXAMEN corregido (nuevas), interés 30%: Sharpe 4.92 | CAGR 24.6% | DD 0.9% | episodios 287 | WR 57% | PF 20.16 | liquidaciones 5 | mejor episodio +61% | 5 mejores = 24% del total | DSR 1.000
+     por año: {2020: '+0.0%', 2021: '-0.4%', 2022: '+0.8%', 2023: '+1.4%', 2024: '+6.6%', 2025: '+118.9%', 2026: '+82.6%'}
+
+Como complemento de la cartera P:
+  R1 realista desarrollo: corr. mensual con P -0.02 | en los 12 peores meses de P: P -4.3%/mes, pieza +1.6%/mes (positiva en 9 de 12) | 2022: +10.2% | 2026: +17.5%
+     P sola: Sharpe 1.79, CAGR 36.4%, DD 15.8%  →  P 75 % + pieza 25 %: Sharpe 1.99, CAGR 30.1%, DD 9.2% | 2026 de la mezcla: -5.3%
+  R1 realista examen: corr. mensual con P -0.23 | en los 12 peores meses de P: P -4.3%/mes, pieza +2.8%/mes (positiva en 7 de 12) | 2022: +1.1% | 2026: +87.5%
+     P sola: Sharpe 1.79, CAGR 36.4%, DD 15.8%  →  P 75 % + pieza 25 %: Sharpe 2.21, CAGR 34.1%, DD 8.6% | 2026 de la mezcla: +6.5%
+
+Sensibilidad al interés del préstamo (reglas de realismo):
+  desarrollo, interés 75%: Sharpe 2.34 | CAGR 7.3% | DD 2.1% | episodios 136 | 2025: +2.5% | 2026: +14.2%
+  desarrollo, interés 100%: Sharpe 2.15 | CAGR 7.2% | DD 0.8% | episodios 95 | 2025: +2.1% | 2026: +13.0%
+  desarrollo, interés 150%: Sharpe 1.84 | CAGR 5.8% | DD 0.9% | episodios 66 | 2025: +1.5% | 2026: +10.7%
+  examen, interés 75%: Sharpe 4.45 | CAGR 21.2% | DD 1.1% | episodios 251 | 2025: +91.1% | 2026: +81.3%
+  examen, interés 100%: Sharpe 4.18 | CAGR 20.3% | DD 1.1% | episodios 222 | 2025: +89.1% | 2026: +76.0%
+  examen, interés 150%: Sharpe 3.67 | CAGR 16.2% | DD 1.9% | episodios 193 | 2025: +68.1% | 2026: +59.2%
+
+Examen: funding cobrado durante cada episodio, anualizado: mediana 48% | p25 19% | p75 112%
+(es decir, el tipo de interés del préstamo al que cada episodio dejaría de ganar)

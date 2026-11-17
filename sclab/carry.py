@@ -14,14 +14,15 @@ REBAL_COST = 2 * (PERP_FEE + SLIP)                  # cerrar y reabrir la pata d
 def simulate(perp: dict, spot: dict, funding: dict, members: dict, enter=0.0003, exit_=0.00005,
              max_pos=5, slot=0.20, notional_frac=0.75, rebal_move=0.20, highs: dict | None = None,
              liq_move=0.30, liq_penalty=0.015, leg_cost=LEG_COST, rebal_cost=REBAL_COST,
-             start="2020-03-01", Hgrid: pd.DataFrame | None = None, Lgrid: pd.DataFrame | None = None):
+             start="2020-03-01", Hgrid: pd.DataFrame | None = None, Lgrid: pd.DataFrame | None = None,
+             ffill_limit: int = 8):
     """Hgrid/Lgrid: máximos/mínimos ya alineados a la rejilla de 8h (si se dan, sustituyen a `highs`).
     Con Lgrid la posición tiene dos patas apalancadas: también se liquida/reequilibra en caídas."""
     """perp/spot: {sym: Serie de cierres 1h}; funding: {sym: Serie de pagos}. Paso de decisión: 8h."""
     grid = pd.date_range(pd.Timestamp(start, tz="UTC"), max(s.index[-1] for s in perp.values()), freq="8h")
     syms = [s for s in perp if s in spot and s in funding]
-    P = pd.DataFrame({s: perp[s].reindex(grid, method="ffill", limit=8) for s in syms})
-    S = pd.DataFrame({s: spot[s].reindex(grid, method="ffill", limit=8) for s in syms})
+    P = pd.DataFrame({s: perp[s].reindex(grid, method="ffill", limit=ffill_limit) for s in syms})
+    S = pd.DataFrame({s: spot[s].reindex(grid, method="ffill", limit=ffill_limit) for s in syms})
     # funding cobrado entre la decisión anterior y la actual; media de 3 días normalizada a 8h
     F = pd.DataFrame({s: funding[s].groupby((funding[s].index - pd.Timedelta("1min")).ceil("8h")).sum().reindex(grid).fillna(0) for s in syms})
     F3 = F.rolling(9, min_periods=9).sum() / 9
