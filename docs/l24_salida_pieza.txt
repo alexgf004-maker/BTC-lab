@@ -1,0 +1,8 @@
+PIEZA: REVERSIÓN DEL FIN DE SEMANA EN PERPETUOS DE ACCIONES DE EE. UU. (ambos conjuntos, con funding)
+  fines de semana con operaciones: 29 | operaciones: 792 | activos por fin de semana: mediana 24
+  rendimiento por fin de semana (media de los activos): +0.93% | desviación 1.49% | t +3.38 | positivos 62% | peor -1.31%
+  Sharpe anualizado (52 fines de semana): 4.52
+  por trimestre: {'2026Q1': '-0.60% (n 1)', '2026Q2': '+0.42% (n 11)', '2026Q3': '+1.11% (n 13)', '2026Q4': '+2.14% (n 4)'}
+  capacidad por operación (5 % del volumen de 6 h): mediana 79 k$ | p25 19 k$ | p10 6.1 k$
+  capital desplegable por fin de semana (suma de capacidades): mediana 21886 k$ | últimos 8: 20085 k$
+  ganancia esperada por fin de semana con esa capacidad: mediana 8.9 k$

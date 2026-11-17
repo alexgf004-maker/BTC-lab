@@ -47,3 +47,11 @@ neto ≤ 1,4, no superan el filtro de suerte). Candidatas sin aprobar: pescar me
 - Fases: testnet → real con capital pequeño (verificar préstamo y ejecución) → escalar si el real se parece a lo esperado.
 - Parada: revisar todo si la cartera cae un 15 % desde su máximo; detener si cae un 25 %.
 - El bot debe ejecutarse fuera de esta sesión (Binance bloquea la API de margen desde esta región).
+
+## 7. Ampliación (Lecciones 23–24): primer hallazgo propio
+**Reversión del fin de semana en perpetuos de acciones de EE. UU.** De viernes a domingo, los perpetuos de acciones y ETFs de EE. UU. que
+cotizan 24/7 en Binance se mueven sin que los creadores de mercado puedan cubrirse (la bolsa y los futuros del CME están cerrados); ese
+movimiento revierte ≈ 55 % al reabrir los futuros el domingo por la noche. Corr −0,39 / −0,45 en dos conjuntos de activos, +0,9 % por fin de
+semana (t 3,4), 95 de 105 activos positivos. El efecto NO existe entre semana (cuando sí pueden cubrirse) → mecanismo confirmado.
+Límites: 29 fines de semana de historia y capacidad moderada. **Candidata a quinta pieza, a operar en pequeño.**
+La prima del perpetuo frente al índice (Lección 23) mejora el momento de entrada del carry inverso; no es una pieza aparte.

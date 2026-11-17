@@ -1,0 +1,51 @@
+1 T1b corregido (con funding)
+des: 59 activos, corr -0.39, pend. -0.56, ops 434, neto/op +1.231%, por periodo +1.016% (t +3.00, n 28), acierto 62%, funding medio -0.005%
+exa: 53 activos, corr -0.45, pend. -0.55, ops 358, neto/op +0.988%, por periodo +0.897% (t +4.04, n 29), acierto 64%, funding medio +0.003%
+   -> APROBADA
+
+2a entrada sábado 21:00
+des: 59 activos, corr -0.31, pend. -0.73, ops 255, neto/op +1.208%, por periodo +1.034% (t +2.53, n 26), acierto 66%, funding medio -0.003%
+exa: 53 activos, corr -0.39, pend. -0.67, ops 193, neto/op +1.089%, por periodo +1.006% (t +4.78, n 29), acierto 68%, funding medio +0.000%
+   -> APROBADA
+
+2b entrada domingo 09:00
+des: 59 activos, corr -0.22, pend. -0.31, ops 369, neto/op +0.801%, por periodo +0.857% (t +2.56, n 26), acierto 57%, funding medio +0.000%
+exa: 53 activos, corr -0.36, pend. -0.47, ops 299, neto/op +0.846%, por periodo +0.981% (t +4.46, n 29), acierto 64%, funding medio -0.006%
+   -> APROBADA
+
+3 noches entre semana EE. UU.
+des: 59 activos, corr +0.06, pend. +0.14, ops 1997, neto/op -0.656%, por periodo -0.416% (t -1.79, n 129), acierto 44%, funding medio -0.001%
+exa: 53 activos, corr +0.04, pend. +0.10, ops 1371, neto/op -0.423%, por periodo -0.343% (t -1.48, n 127), acierto 47%, funding medio +0.001%
+   -> NO aprobada
+
+4 materias primas fin de semana
+des: 2 activos, corr +0.18, pend. +0.33, ops 12, neto/op -0.340%, por periodo -0.420% (t -1.53, n 10), acierto 50%, funding medio +0.106%
+exa: 7 activos, corr -0.04, pend. -0.05, ops 126, neto/op +0.078%, por periodo +0.099% (t +0.61, n 47), acierto 56%, funding medio +0.037%
+   -> NO aprobada
+
+5 noches entre semana Asia
+des: 9 activos, corr +0.01, pend. +0.01, ops 296, neto/op +0.093%, por periodo +0.174% (t +0.60, n 80), acierto 50%, funding medio +0.016%
+exa: 10 activos, corr +0.13, pend. +0.13, ops 268, neto/op -0.200%, por periodo -0.001% (t -0.01, n 80), acierto 52%, funding medio +0.038%
+   -> NO aprobada
+
+6 FESTIVOS DE EE. UU. (descriptivo)
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user/e9703610-5c49-51c1-9f3f-bbe7221b21cd/scratchpad/l24.py", line 45, in <module>
+    O = pd.concat([o for s in allus if len(o := lab23.window_obs(s, [anchor], a, b, c))], ignore_index=True)
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/reshape/concat.py", line 407, in concat
+    objs, keys, ndims = _clean_keys_and_objs(objs, keys)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/pandas/core/reshape/concat.py", line 808, in _clean_keys_and_objs
+    raise ValueError("No objects to concatenate")
+ValueError: No objects to concatenate
+
+6 FESTIVOS DE EE. UU. (descriptivo)
+  2025-12-25: sin datos (antes de los listados)
+  2026-01-01: sin datos (antes de los listados)
+  2026-01-19: sin datos (antes de los listados)
+  2026-02-16 (lun): activos 4 | corr -0.18 | ops 0 | neto/op +nan%
+  2026-04-03 (vie): activos 10 | corr -0.85 | ops 1 | neto/op +1.598%
+  2026-05-25 (lun): activos 34 | corr -0.54 | ops 31 | neto/op +1.317%
+  2026-06-19 (vie): activos 68 | corr -0.74 | ops 28 | neto/op +1.770%
+  2026-07-03 (vie): activos 80 | corr -0.84 | ops 57 | neto/op +2.155%
+  2026-09-07 (lun): activos 112 | corr +0.27 | ops 58 | neto/op -0.535%

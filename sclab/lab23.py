@@ -63,3 +63,35 @@ def hedged_trade(sym, t_entry, hours, side, btc, fbtc, stop=0.30, leg=0.0028):
     fb = float(fbtc[(fbtc.index > t0) & (fbtc.index <= t1)].sum())
     net = r_rel - side * fa + side * fb - leg
     return {"symbol": sym, "entry": t0, "exit": t1, "ret": net, "stopped": stopped, "funding": -side * fa}
+
+
+US_HOLIDAYS = pd.to_datetime(["2025-12-25", "2026-01-01", "2026-01-19", "2026-02-16", "2026-04-03", "2026-05-25", "2026-06-19",
+                              "2026-07-03", "2026-09-07"]).tz_localize("UTC")
+
+
+def window_obs(sym, anchors, w_start, w_end, r_end, funding=True):
+    """anchors: instantes de referencia; w_start/w_end/r_end: desfases (Timedelta) desde el ancla. Precio = apertura de la hora."""
+    h = data.load(sym, "1h")
+    p = h["open"]
+    try:
+        f = data.load_funding(sym) if funding else None
+    except Exception:
+        f = None
+    rows = []
+    for a in anchors:
+        t0, t1, t2 = a + w_start, a + w_end, a + r_end
+        p0, p1, p2 = p.get(t0, np.nan), p.get(t1, np.nan), p.get(t2, np.nan)
+        if not (np.isfinite(p0) and np.isfinite(p1) and np.isfinite(p2)) or p0 <= 0:
+            continue
+        fr = float(f[(f.index > t1) & (f.index <= t2)].sum()) if f is not None and len(f) else 0.0
+        rows.append({"symbol": sym, "ancla": a, "W": np.log(p1 / p0), "R": np.log(p2 / p1), "fund": fr})
+    return pd.DataFrame(rows)
+
+
+def fade(O, th, cost=0.0014):
+    x = O[O.W.abs() >= th].copy()
+    s = -np.sign(x.W)
+    x["pnl"] = s * x.R - s * x.fund - cost           # el largo paga funding positivo; el corto lo cobra
+    per = x.groupby("ancla").pnl.mean()
+    t = per.mean() / per.std() * np.sqrt(len(per)) if len(per) > 2 else np.nan
+    return x, per, t
