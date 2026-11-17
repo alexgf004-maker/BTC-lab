@@ -2,3 +2,5 @@ data/
 __pycache__/
 *.pyc
 .env
+datos_bot/
+bot/config.yaml

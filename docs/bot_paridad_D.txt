@@ -1,0 +1,3 @@
+bot: 120 operaciones en 330s
+backtest: 120 | coinciden en entrada: 120 | solo backtest: 0 | solo bot: 0
+misma salida: 100.0% | precio de entrada igual: 100.0% | precio de salida igual: 100.0% | R igual: 100.0%
