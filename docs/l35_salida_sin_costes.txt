@@ -1,0 +1,41 @@
+pares: ['EURUSD', 'USDJPY', 'GBPUSD', 'AUDUSD', 'USDCAD', 'USDCHF', 'NZDUSD', 'EURJPY', 'EURGBP', 'GBPJPY']
+
+=== Y1 CRT 4h
+desarrollo 2012–2018                           n  20781 | E -0.023R (t  -2.0) | acierto 50.3 % | PF 0.95
+EXAMEN 2019–2026-10                            n  21473 | E -0.008R (t  -0.6) | acierto 52.3 % | PF 0.98
+   solo EURUSD, examen                         n   1751 | E -0.001R (t  -0.3) | acierto 54.1 % | PF 1.00
+
+=== Y2 CRT 4h + CISD 1h
+desarrollo 2012–2018                           n   6185 | E -0.018R (t  -1.0) | acierto 61.1 % | PF 0.94
+EXAMEN 2019–2026-10                            n   6790 | E -0.007R (t  -1.3) | acierto 63.0 % | PF 0.97
+   solo EURUSD, examen                         n    557 | E +0.017R (t  +1.1) | acierto 64.5 % | PF 1.06
+
+=== Y3 CRT diario
+desarrollo 2012–2018                           n   4074 | E -0.001R (t  +0.8) | acierto 49.8 % | PF 1.00
+EXAMEN 2019–2026-10                            n   4167 | E -0.011R (t  -0.8) | acierto 51.0 % | PF 0.97
+   solo EURUSD, examen                         n    417 | E -0.095R (t  -2.2) | acierto 49.6 % | PF 0.78
+
+=== Y4 reversión a la media 1:1 (z ≥ 2)
+desarrollo 2012–2018                           n  29377 | E -0.055R (t  -0.4) | acierto 47.0 % | PF 0.88
+EXAMEN 2019–2026-10                            n  32302 | E -0.051R (t  +1.2) | acierto 47.2 % | PF 0.89
+   solo EURUSD, examen                         n   3307 | E -0.063R (t  +2.7) | acierto 46.7 % | PF 0.86
+
+=== Y5 ruptura de Londres
+desarrollo 2012–2018                           n  16067 | E +0.045R (t  +4.0) | acierto 52.1 % | PF 1.11
+EXAMEN 2019–2026-10                            n  17023 | E +0.034R (t  +2.7) | acierto 51.8 % | PF 1.08
+   solo EURUSD, examen                         n   1772 | E +0.012R (t  +0.5) | acierto 50.6 % | PF 1.03
+
+=== Y6 tendencia (bloque D)
+desarrollo 2012–2018                           n    977 | E -0.006R (t  -0.7) | acierto 34.6 % | PF 0.98
+EXAMEN 2019–2026-10                            n   1118 | E -0.063R (t  -2.9) | acierto 34.7 % | PF 0.82
+   solo EURUSD, examen                         n    117 | E -0.066R (t  -1.0) | acierto 38.5 % | PF 0.79
+
+=== Y7 números redondos
+desarrollo 2012–2018                           n  17403 | E -0.073R (t  +1.9) | acierto 46.4 % | PF 0.86
+EXAMEN 2019–2026-10                            n  17429 | E -0.061R (t  +3.4) | acierto 47.0 % | PF 0.88
+   solo EURUSD, examen                         n   1473 | E -0.082R (t  -1.5) | acierto 45.9 % | PF 0.85
+
+===    placebo números redondos
+desarrollo 2012–2018                           n  17618 | E -0.038R (t  +5.7) | acierto 48.1 % | PF 0.93
+EXAMEN 2019–2026-10                            n  17573 | E -0.022R (t  +7.7) | acierto 48.9 % | PF 0.96
+   solo EURUSD, examen                         n   1496 | E +0.028R (t  +3.6) | acierto 51.4 % | PF 1.06

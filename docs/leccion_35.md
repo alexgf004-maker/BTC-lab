@@ -30,3 +30,26 @@ orden limit en el nivel, objetivo y stop a 2 ATR (1:1). Con placebo (niveles des
 **Periodos:** desarrollo 2012–2018; **examen 2019 → 2026-10** (una vez).
 **Criterio:** esperanza neta > 0 con t ≥ 3 (agrupando por día) en el examen y positiva en desarrollo; Y7 además mejor que su placebo.
 Pruebas nuevas: 7.
+
+## 3. Resultados — `l35_salida.txt` (con costes) y `l35_salida_sin_costes.txt` (informativo)
+Datos verificados: el EURUSD de HistData se desvía 0,7 pb del tipo oficial de la Reserva Federal (correlación diaria 0,998).
+| Estrategia | Desarrollo 2012–2018 | **Examen 2019–2026 (con costes)** | Acierto | Examen **sin costes** |
+|---|---|---|---|---|
+| Y1 CRT 4h | −0,151R | **−0,141R (t −17)** | 50 % | −0,008R |
+| Y2 CRT 4h + CISD 1h | −0,120R | **−0,119R (t −12)** | 57 % | −0,007R |
+| Y3 CRT diario | −0,056R | **−0,070R (t −4)** | 50 % | −0,011R |
+| Y4 Reversión a la media 1:1 | −0,124R | **−0,131R (t −8)** | 46 % | −0,051R |
+| Y5 Ruptura de Londres | −0,050R | **−0,073R (t −8)** | 51 % | **+0,034R (t 2,7)** |
+| Y6 Tendencia (bloque D) | −0,019R | **−0,079R (t −3,5)** | 34 % | −0,063R |
+| Y7 Números redondos | −0,142R | **−0,137R** (placebo −0,098R) | 47 % | −0,061R (placebo −0,022R) |
+**Ninguna se aprueba.** Más de 200 000 operaciones simuladas en 10 pares.
+
+## 4. Conclusiones
+1. **Sin costes, casi todo da cero:** CRT, CRT + CISD y CRT diario no tienen ventaja ni siquiera gratis. La reversión a la media 1:1 y los
+   números redondos pierden incluso sin costes (el precio, al alejarse 2 desviaciones o al tocar un nivel redondo, tiende a seguir).
+2. **La única ventaja real es la ruptura de Londres** (+0,03 a +0,045R por operación sin costes, en los dos periodos), pero es más pequeña
+   que el coste de un particular (≈ 0,1R). Pista abierta, no aprobada: solo sería operable con costes institucionales.
+3. **CRT + CISD vuelve a acertar el 57–63 %**, como en cripto y como dice la publicación, y vuelve a perder: el acierto alto viene de un
+   objetivo cercano.
+4. **Ni con costes 5–14 veces menores que en cripto aparecen ventajas intradía en forex.** El mercado de divisas está dominado por bancos
+   y algoritmos de alta frecuencia; los patrones de velas visibles para todos no dejan margen.
