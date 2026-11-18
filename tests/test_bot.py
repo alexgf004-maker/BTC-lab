@@ -116,7 +116,7 @@ def test_telegram_sin_configurar_no_falla_y_registra():
     d = tempfile.mkdtemp(); j = Journal(f"{d}/j.csv", "paper", t)
     j.log("D_tendencia", "entrada", "BTCUSDT", "BUY", 0.01, 65000.0, "R=1000")
     j.log("D_tendencia", "detalle_menor", "BTCUSDT")                     # no importante: no se avisa
-    assert len(t.sent) == 2 and "entrada BTCUSDT" in t.sent[1]
+    assert len(t.sent) == 2 and "Nueva operación" in t.sent[1] and "BTC" in t.sent[1]
 
 
 def test_comparacion_detecta_descuadre_y_bloquea():
@@ -193,3 +193,16 @@ def test_panel_render(tmp_path):
     assert s["health"][0] == "bad"                      # el ciclo es antiguo (o no hay servicio)
     h = panel.render(s)
     assert "BTCUSDT" in h and "<script>" not in h and "&lt;script&gt;" in h
+
+
+def test_mensajes_claros():
+    from bot.mensajes import formatear
+    m = formatear("paper", "B_corto_alt_btc", "entrada", "ENAUSDT", "SELL", -2731.77, 0.112611, "ratio=1.73561e-06 R=1.34e-07 BTC +0.00476")
+    assert "Vende 2.731,77 ENA" in m and "cobertura" in m and "7,7 %" in m
+    r = formatear("paper", "cartera", "resumen", detail="capital 10,000.00 | caída 0.0 % · D_tendencia: 2,375.00 | abiertas 0 | cerradas 0 · "
+                  "B_corto_alt_btc: 2,375.00 | abiertas 1 | cerradas 0")
+    assert "Resumen diario" in r and "10.000,00 $" in r and "abiertas: 1" in r
+    s = formatear("live", "D_tendencia", "salida", "BTCUSDT", "SELL", 0.01, 70000, "pnl=-23.50")
+    assert "REAL" in s and "−23,50 $" in s and "❌" in s
+    a = formatear("paper", "cartera", "arranque", detail="modo paper · bloques ['D_tendencia', 'A_carry'] · capital 10,000.00 · avisos de Telegram activos")
+    assert "Bot encendido" in a and "A, D" in a

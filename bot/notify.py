@@ -26,8 +26,8 @@ class Telegram:
     def enabled(self):
         return bool(self.token and self.chat)
 
-    def send(self, text):
-        msg = f"[{self.prefix}] {text}"[:4000]
+    def send(self, text, raw=False):
+        msg = (text if raw else f"[{self.prefix}] {text}")[:4000]
         self.sent.append(msg)
         if not self.enabled:
             return False

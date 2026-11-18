@@ -1,0 +1,135 @@
+"""Avisos de Telegram en español claro (el diario CSV sigue guardando el detalle técnico)."""
+from __future__ import annotations
+
+import re
+
+MODOS = {"paper": "🧪 SIMULADO", "testnet": "🧪 PRUEBAS", "live": "💰 REAL"}
+BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoin vs BTC",
+           "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)", "cartera": "Cartera"}
+
+
+def num(x, dec=2):
+    """1234.5 → '1.234,50' (formato español)."""
+    try:
+        s = f"{float(x):,.{dec}f}"
+    except (TypeError, ValueError):
+        return str(x)
+    return s.replace(",", "_").replace(".", ",").replace("_", ".")
+
+
+def precio(x):
+    x = float(x)
+    dec = 2 if x >= 100 else (4 if x >= 1 else (6 if x >= 0.01 else 8))
+    return num(x, dec)
+
+
+def cantidad(x):
+    x = abs(float(x))
+    return num(x, 2 if x >= 100 else (4 if x >= 1 else 6))
+
+
+def base(sym):
+    return sym.replace("USDT", "") if sym else ""
+
+
+def _f(pat, text, cast=float):
+    m = re.search(pat, text or "")
+    if not m:
+        return None
+    try:
+        return cast(m.group(1).replace(",", ""))
+    except ValueError:
+        return None
+
+
+def euros(x):
+    x = float(x)
+    return f"{'+' if x > 0 else ('−' if x < 0 else '')}{num(abs(x))} $"
+
+
+def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=""):
+    head = f"{MODOS.get(mode, mode)} · BTC-lab"
+    bl = BLOQUES.get(sleeve, sleeve)
+    a = base(symbol)
+    try:
+        q, p = float(qty), float(price)
+        notional = abs(q) * p
+    except (TypeError, ValueError):
+        q = p = notional = None
+
+    if event == "arranque":
+        cap = _f(r"capital ([\d,\.]+)", detail)
+        bloques = re.findall(r"'([A-Z])_", detail)
+        tg = "activos" if "Telegram activos" in detail else "no configurados"
+        return (f"{head}\n▶️ Bot encendido\nCapital: {num(cap) if cap else '?'} $\nBloques activos: {', '.join(sorted(bloques)) or '?'}\n"
+                f"Avisos de Telegram: {tg}")
+
+    if event == "resumen":
+        cap = _f(r"capital ([\d,\.]+)", detail); dd = _f(r"caída ([\d\.]+) %", detail)
+        lines, n_ab, n_ce = [], 0, 0
+        for name, bal, ab, ce in re.findall(r"(\w+): ([\d,\.]+) \| abiertas (\d+) \| cerradas (\d+)", detail):
+            n_ab += int(ab); n_ce += int(ce)
+            lines.append(f"• {BLOQUES.get(name, name)}: {num(bal.replace(',', ''))} $ · {ab} abierta(s)")
+        extra = "\n⚠️ Hay símbolos bloqueados por descuadre (ver panel)." if "bloqueados" in detail else ""
+        return (f"{head}\n📊 Resumen diario\nCapital: {num(cap) if cap else '?'} $ · caída desde el máximo: {num(dd or 0, 1)} %\n"
+                f"Operaciones abiertas: {n_ab} · cerradas: {n_ce}\n\n" + "\n".join(lines) + extra)
+
+    if event == "entrada" and q is not None:
+        if sleeve == "B_corto_alt_btc":
+            ratio, R = _f(r"ratio=([\d\.e\-\+]+)", detail), _f(r"R=([\d\.e\-\+]+)", detail)
+            btc = _f(r"BTC ([\+\-]?[\d\.e\-]+)", detail)
+            stop_pct = (R / ratio) if ratio and R else None
+            riesgo = notional * stop_pct if stop_pct else None
+            return (f"{head}\n🔻 Nueva operación · {bl}\nVende {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+                    + (f"Compra {cantidad(btc)} BTC (≈ {num(notional)} $) como cobertura\n" if btc else "")
+                    + f"Apuesta: {a} lo hará peor que BTC (si todo el mercado sube o baja, una pata compensa a la otra)\n"
+                    + (f"Stop: si {a} sube un {num(100 * stop_pct, 1)} % frente a BTC → pérdida ≈ {num(riesgo)} $" if riesgo else ""))
+        if sleeve == "D_tendencia":
+            stop = _f(r"stop=([\d\.]+)", detail)
+            loss = abs(q) * (p - stop) if stop else None
+            return (f"{head}\n📈 Nueva operación · {bl}\nCompra {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+                    + (f"Stop inicial: {precio(stop)} $ ({num(100 * (stop / p - 1), 1)} %) → pérdida máxima ≈ {num(loss)} $\n" if stop else "")
+                    + "El stop sube solo a medida que sube el precio.")
+        if sleeve in ("A_carry", "E_carry_inverso"):
+            y = _f(r"rendimiento ([\d\.\-]+)%", detail)
+            anual = f" (ahora ≈ {num(y * 3 * 365, 1)} % al año)" if y is not None else ""
+            if sleeve == "A_carry":
+                how = f"Compra {cantidad(q)} {a} en spot y vende lo mismo en futuros (≈ {num(notional)} $ por pata)"
+                why = "No apuesta por el precio: cobra lo que pagan los que compran con apalancamiento"
+            else:
+                how = f"Compra {cantidad(q)} {a} en futuros y vende lo mismo en spot con préstamo (≈ {num(notional)} $ por pata)"
+                why = "No apuesta por el precio: cobra lo que pagan los que venden en corto"
+            return f"{head}\n💵 Nueva operación · {bl}\n{how}\n{why}{anual}."
+        if sleeve == "F_fin_de_semana":
+            W = _f(r"W=([\+\-]?[\d\.]+)%", detail)
+            verb = "Vende" if side == "SELL" else "Compra"
+            return (f"{head}\n🔄 Nueva operación · {bl}\n{verb} {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+                    f"La acción se movió {num(W or 0, 2)} % durante el fin de semana con la bolsa cerrada; se apuesta a que "
+                    f"devuelve parte al reabrir. Se cierra el lunes a las 03:00 UTC.")
+
+    if event == "salida":
+        pnl = _f(r"pnl=([\-\d\.]+)", detail)
+        why = (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc") else ""
+        motivos = {"stop": "saltó el stop", "stop_horario": "saltó el stop (comprobación horaria)",
+                   "sin_datos": "la moneda dejó de tener datos (posible deslistado)", "rendimiento": "el funding dejó de compensar"}
+        icon = "✅" if (pnl or 0) > 0 else "❌"
+        fund = _f(r"funding=([\-\d\.]+)", detail)
+        return (f"{head}\n{icon} Operación cerrada · {bl} · {a}\nResultado: {euros(pnl) if pnl is not None else '?'}"
+                + (f" (de ello, funding cobrado: {euros(fund)})" if fund is not None else "")
+                + (f"\nMotivo: {motivos.get(why, why)}" if why and not why.startswith("pnl") else ""))
+
+    if event in ("error", "error_entrada"):
+        return f"{head}\n⚠️ Error · {bl} {a}\n{detail}\nSi se repite varias horas seguidas, revisa el panel o el VPS."
+    if event == "revisar":
+        return f"{head}\n⚠️ La cartera cae {detail.replace('caída', '').strip()}. Es una alerta para revisar, el bot sigue funcionando."
+    if event == "detenido":
+        return f"{head}\n🛑 Bot detenido por caída ({detail}). No abrirá operaciones nuevas hasta que lo revises."
+    if event == "descuadre":
+        return (f"{head}\n⚠️ Descuadre con Binance en {a}: {detail}.\nEl bot no abrirá nada nuevo en {a} hasta revisarlo.")
+    if event == "margen_transferido":
+        return f"{head}\n🔁 {bl} · {a}: el bot ha movido fondos entre tus cuentas de Binance para mantener el margen."
+    if event in ("reequilibrar_margen", "margen_insuficiente"):
+        return f"{head}\n⚠️ {bl} · {a}: margen justo; el bot ha reducido la posición para evitar una liquidación. {detail}"
+    if event == "sin_prestamo":
+        return f"{head}\nℹ️ {bl} · {a}: Binance no presta esta moneda ahora; se omite la operación."
+    return f"{head}\n{bl} · {event} {a} {side} {qty} {price} {detail}".strip()
