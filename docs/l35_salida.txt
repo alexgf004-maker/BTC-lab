@@ -1,0 +1,6 @@
+pares: ['EURUSD', 'USDJPY', 'GBPUSD', 'AUDUSD', 'USDCAD', 'USDCHF', 'NZDUSD', 'EURJPY', 'EURGBP', 'GBPJPY']
+
+=== Y1 CRT 4h
+desarrollo 2012–2018                           n  20781 | E -0.151R (t -17.5) | acierto 48.0 % | PF 0.70
+EXAMEN 2019–2026-10                            n  21473 | E -0.141R (t -17.1) | acierto 49.5 % | PF 0.71
+   solo EURUSD, examen                         n   1751 | E -0.090R (t  -4.3) | acierto 51.6 % | PF 0.79
