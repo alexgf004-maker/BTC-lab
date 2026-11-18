@@ -7,8 +7,10 @@ que en cripto no compensaba podría compensar aquí. Además se prueban las estr
 del forex minorista.
 
 ## 1. Datos
-Velas de 1 hora (precio de compra) de Dukascopy, banco suizo: EURUSD, USDJPY, GBPUSD, AUDUSD, USDCAD, USDCHF, NZDUSD, EURJPY, EURGBP, GBPJPY,
-2012-01 → 2026-10. (Se descartaron los pares EUR/GBP/AUD frente a USDT de Binance: se desvían 11–30 pb del tipo oficial.)
+Velas de 1 minuto (precio de compra) de HistData.com, agregadas a 1 hora: EURUSD, USDJPY, GBPUSD, AUDUSD, USDCAD, USDCHF, NZDUSD, EURJPY,
+EURGBP, GBPJPY, 2012-01 → 2026-10. Hora original: EST fija (UTC−5), convertida a UTC.
+(Dukascopy rechazó las descargas por límite de peticiones; se descartaron los pares EUR/GBP/AUD frente a USDT de Binance porque se
+desvían 11–30 pb del tipo oficial.)
 
 ## 2. Pre-registro (antes de calcular ningún resultado)
 **Costes por lado** (diferencial + comisión de un bróker ECN): EURUSD 0,5 pb; USDJPY 0,6; GBPUSD, AUDUSD, USDCAD, USDCHF 0,8;
