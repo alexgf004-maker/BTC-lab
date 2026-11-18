@@ -12,6 +12,8 @@ FXH = ROOT / "data/fxd"
 PAIRS = {"EURUSD": 0.5e-4, "USDJPY": 0.6e-4, "GBPUSD": 0.8e-4, "AUDUSD": 0.8e-4, "USDCAD": 0.8e-4, "USDCHF": 0.8e-4,
          "NZDUSD": 1.2e-4, "EURJPY": 1.0e-4, "EURGBP": 1.0e-4, "GBPJPY": 1.5e-4}      # coste por lado (diferencial + comisión)
 SLIP = 0.3e-4                                                                         # deslizamiento extra en stops y salidas a mercado
+if "--sin-costes" in sys.argv:                                                        # pasada informativa
+    PAIRS = {k: 0.0 for k in PAIRS}; SLIP = 0.0
 DEV = ("2012-01-01", "2018-12-31")
 EXA = ("2019-01-01", "2026-10-31")
 
