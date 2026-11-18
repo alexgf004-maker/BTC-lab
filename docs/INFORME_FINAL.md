@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (43 pruebas más; ≈ 463 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (45 pruebas más; ≈ 465 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -76,6 +76,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 35 Forex intradía y swing | CRT, CRT + CISD, reversión 1:1, ruptura de Londres, bloque D y números redondos en 10 pares, 2012–2026 | Las 7 pierden con costes de bróker ECN. Sin costes, solo la ruptura de Londres tiene ventaja (+0,03R), menor que los costes. |
 | 36 Mercados de predicción | Polymarket, 26 012 mercados: comprar favoritos y casi seguros | Rechazado: los favoritos están CAROS (al revés del sesgo clásico). El "Sí" infravalorado 4–5 pts podría ser un sesgo de selección: solo seguimiento en tiempo real. |
 | 37 Acciones tokenizadas | Tokens spot de acciones en Binance: carry, fin de semana, arbitraje spot-perpetuo | Carry rechazado; el fin de semana confirma el bloque F; arbitraje spot-perpetuo (+0,34 %, t 2,9) candidato a seguimiento. |
+| 38 Estrategia ICT del Nasdaq (redes sociales) | Tomas de liquidez + ventanas macro + IFVG, Nasdaq 100 en 1 min 2012–2026 | Acierta el 51 % con 1:1 y el 37 % con 2:1 (no el 70 % publicado): sin ventaja. |
 | 31 Mejoras de la cartera | Hold inteligente como quinto bloque; filtro de temporada de altcoins para B | Ninguna mejora: el hold es redundante con D y el filtro llega tarde. |
 
 **Conclusión de la segunda ampliación:** la cartera actual (A, E, B, D + F en pequeño) sigue siendo la mejor combinación encontrada.

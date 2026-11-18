@@ -1,0 +1,13 @@
+datos: 2012-01-03 06:00:00-05:00 → 2026-10-30 16:13:00-04:00 4947647 minutos
+
+=== Z1 ICT 1:1
+desarrollo 2012–2019           n  2328 | E -0.132R (t -6.16) | acierto 47.4 % | PF 0.76 | riesgo medio 12.0 pts | por operación -0.029 % del índice
+EXAMEN 2020–2026               n  2638 | E -0.029R (t -1.40) | acierto 50.2 % | PF 0.94 | riesgo medio 45.2 pts | por operación -0.002 % del índice
+  periodo de la publicación 2021–2025 n  1873 | E -0.014R (t -0.23) | acierto 51.0 % | PF 0.97 | riesgo medio 44.9 pts | por operación +0.007 % del índice
+  por año: {2012: '-0.21R/44%', 2013: '-0.22R/43%', 2014: '-0.25R/42%', 2015: '-0.13R/47%', 2016: '-0.12R/47%', 2017: '-0.13R/48%', 2018: '-0.09R/49%', 2019: '-0.01R/53%', 2020: '-0.01R/51%', 2021: '-0.13R/46%', 2022: '+0.05R/54%', 2023: '-0.01R/52%', 2024: '+0.03R/53%', 2025: '-0.00R/51%', 2026: '-0.13R/44%'}
+
+=== Z2 ICT 2:1
+desarrollo 2012–2019           n  2328 | E -0.131R (t -4.59) | acierto 33.9 % | PF 0.81 | riesgo medio 12.0 pts | por operación -0.030 % del índice
+EXAMEN 2020–2026               n  2638 | E +0.003R (t +0.63) | acierto 36.4 % | PF 1.00 | riesgo medio 45.2 pts | por operación +0.008 % del índice
+  periodo de la publicación 2021–2025 n  1873 | E +0.018R (t +1.07) | acierto 37.1 % | PF 1.03 | riesgo medio 44.9 pts | por operación +0.017 % del índice
+  por año: {2012: '-0.18R/34%', 2013: '-0.26R/31%', 2014: '-0.29R/29%', 2015: '-0.20R/30%', 2016: '-0.15R/34%', 2017: '-0.09R/36%', 2018: '-0.03R/36%', 2019: '+0.02R/39%', 2020: '+0.03R/37%', 2021: '-0.06R/35%', 2022: '+0.03R/37%', 2023: '+0.01R/38%', 2024: '+0.07R/39%', 2025: '+0.04R/38%', 2026: '-0.11R/32%'}

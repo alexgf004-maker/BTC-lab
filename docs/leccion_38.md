@@ -28,3 +28,20 @@ Si en la misma vela de 1 min se tocan stop y objetivo → pérdida.
 **Periodos:** desarrollo 2012–2019; **examen 2020 → 2026-10** (incluye su periodo 2021–2025). Una vez.
 **Criterio:** esperanza neta > 0 con t ≥ 3 (agrupando por día) en el examen y positiva en desarrollo. Se informa el acierto y el resultado
 de 2021–2025 por separado para compararlo con la publicación. Pruebas nuevas: 2.
+
+## 3. Resultados — `l38_salida.txt` (Nasdaq 100, 4,9 millones de velas de 1 min, ≈ 5 000 operaciones)
+| | Desarrollo 2012–2019 | **Examen 2020–2026** | **Periodo de la publicación 2021–2025** |
+|---|---|---|---|
+| Z1 ICT 1:1 | −0,132R / 47 % acierto | **−0,029R (t −1,4) / 50 %** | −0,014R / **51 %** |
+| Z2 ICT 2:1 | −0,131R / 34 % | **+0,003R (t 0,6) / 36 %** | +0,018R / **37 %** |
+**NO aprobada.** Con las reglas escritas, el modelo acierta el **50–51 % con 1:1** (no el 70 %) y el **37 % con 2:1**: exactamente lo que
+daría el azar. Sin costes rondaría cero. Ningún año pasa de +0,07R.
+
+## 4. Qué nos dice
+1. **El 70 % de acierto no aparece** cuando las reglas se aplican igual a todas las situaciones. La diferencia entre el 51 % y el 70 %
+   es, muy probablemente, el efecto del simulador manual: al repasar el gráfico vela a vela, la persona decide qué "toma de liquidez" o qué
+   "IFVG" cuenta, y sin querer elige las que funcionaron (sesgo retrospectivo). Por eso "el reto es ejecutarla en vivo": en vivo no se puede elegir.
+2. Los conceptos ICT (tomas de liquidez, FVG, IFVG, ventanas macro) no dan ventaja en el Nasdaq de 2012 a 2026, igual que CRT + CISD en
+   cripto y en forex (Lecciones 33 y 35).
+3. Limitación: es una versión estándar de esos conceptos; el autor podría usar variantes. Pero si su ventaja dependiera de detalles no
+   escritos, no sería una regla verificable sino criterio personal.
