@@ -29,3 +29,29 @@ Interactive Brokers (0,2 pb + 0,25 % anual).
 **Criterio:** Sharpe neto de F4 ≥ 0,5 en el examen y positivo en el desarrollo. Se informa cada pieza, el apalancamiento necesario
 (máximo europeo para particulares: 30:1 en principales), la caída máxima y la correlación con la cartera de cripto (2020-03 → 2026-10).
 Pruebas nuevas: 4.
+
+## 3. Resultados — `l34_salida.txt` (escaladas a 10 % de volatilidad anual)
+| Estrategia | Desarrollo: Sharpe / anual | **Examen (2006–2026): Sharpe / anual / caída** | Examen sin costes |
+|---|---|---|---|
+| F1 Carry | 0,40 / +3,8 % | **0,00 / −0,5 % / 42 %** (IB: 0,22) | 0,29 |
+| F2 Tendencia | 0,73 / +7,3 % | **−0,19 / −2,5 % / 50 %** (IB: −0,07) | −0,04 |
+| F3 Valor (1999–2010 / 2011–2026) | −0,38 / −4,8 % | **−0,29 / −3,2 % / 46 %** (IB: 0,00) | 0,10 |
+| **F4 Combinación** | **0,77 / +8,1 %** | **−0,09 / −1,7 % / 47 %** (IB: +0,13) | 0,19 |
+Por década (F4, costes de CFD): 1980s +3,5 %, 1990s +8,1 %, 2000s +5,9 %, **2010s +1,1 %, 2020s −5,0 % anual**.
+
+**NO aprobada.** Las primas de divisas funcionaron hasta 2005 (Sharpe 0,77, como dice la literatura) y **desaparecieron después**:
+el carry se hundió en 2008 y luego hubo una década de tipos casi iguales en todos los países (sin diferencial que cobrar); la tendencia
+en divisas lleva 15 años sin funcionar. Es un resultado conocido: estas primas se publicaron, los fondos las explotaron y se comprimieron.
+
+**Comparación con la cartera de cripto (2020-03 → 2026-10, mensual):**
+| | Anual | Sharpe | Caída máx. |
+|---|---|---|---|
+| Cartera cripto del bot | +29,6 % | 1,81 | 6,2 % |
+| Forex F4 | −3,3 % | −0,29 | 37,3 % |
+| 75 % cripto + 25 % forex | +20,8 % | 1,65 | 5,9 % |
+Correlación +0,16: diversificaría algo, pero restando rentabilidad. **No compensa.**
+
+## 4. Conclusión
+En las divisas principales, los mercados más eficientes y líquidos del mundo, las primas clásicas están agotadas desde hace 15 años
+para un particular con costes de CFD. Las ventajas que hemos encontrado en cripto existen porque cripto es un mercado joven, segmentado
+y con restricciones (funding, préstamos, emisión de tokens) que en forex no hay. **Forex no es mejor ni más rentable para nosotros.**

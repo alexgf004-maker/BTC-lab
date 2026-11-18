@@ -1,0 +1,28 @@
+F1 carry        CFD minorista        DESARROLLO 1985-2005: anual   +3.8 % | Sharpe  0.40 | caída  34.9 % | peor mes -12.1 % | apalancamiento medio 2.6x (máx 4.5x)
+                                     EXAMEN     2006-2026-10: anual   -0.5 % | Sharpe -0.00 | caída  42.3 % | peor mes -12.8 % | apalancamiento medio 3.0x (máx 4.8x)
+F1 carry        Interactive Brokers  DESARROLLO 1985-2005: anual   +6.0 % | Sharpe  0.59 | caída  31.9 % | peor mes -12.0 % | apalancamiento medio 2.6x (máx 4.5x)
+                                     EXAMEN     2006-2026-10: anual   +1.7 % | Sharpe  0.22 | caída  34.8 % | peor mes -12.7 % | apalancamiento medio 3.0x (máx 4.8x)
+                sin costes, examen: Sharpe 0.29
+F2 tendencia    CFD minorista        DESARROLLO 1985-2005: anual   +7.3 % | Sharpe  0.73 | caída  15.3 % | peor mes  -7.0 % | apalancamiento medio 1.8x (máx 5.0x)
+                                     EXAMEN     2006-2026-10: anual   -2.5 % | Sharpe -0.19 | caída  50.1 % | peor mes -14.0 % | apalancamiento medio 1.4x (máx 4.2x)
+F2 tendencia    Interactive Brokers  DESARROLLO 1985-2005: anual   +9.0 % | Sharpe  0.88 | caída  13.6 % | peor mes  -6.9 % | apalancamiento medio 1.8x (máx 5.0x)
+                                     EXAMEN     2006-2026-10: anual   -1.3 % | Sharpe -0.07 | caída  37.7 % | peor mes -13.8 % | apalancamiento medio 1.4x (máx 4.2x)
+                sin costes, examen: Sharpe -0.04
+F3 valor        CFD minorista        DESARROLLO 1999-2010: anual   -4.8 % | Sharpe -0.38 | caída  58.9 % | peor mes  -8.0 % | apalancamiento medio 2.8x (máx 3.9x)
+                                     EXAMEN     2011-2026-10: anual   -3.2 % | Sharpe -0.29 | caída  46.4 % | peor mes  -9.2 % | apalancamiento medio 3.5x (máx 5.5x)
+F3 valor        Interactive Brokers  DESARROLLO 1999-2010: anual   -2.7 % | Sharpe -0.18 | caída  49.4 % | peor mes  -7.7 % | apalancamiento medio 2.8x (máx 3.9x)
+                                     EXAMEN     2011-2026-10: anual   -0.4 % | Sharpe  0.00 | caída  37.1 % | peor mes  -8.9 % | apalancamiento medio 3.5x (máx 5.5x)
+                sin costes, examen: Sharpe 0.10
+F4 combinación  CFD minorista        DESARROLLO 1985-2005: anual   +8.1 % | Sharpe  0.77 | caída  20.0 % | peor mes -11.1 % | apalancamiento medio 2.5x (máx 10.1x)
+                                     EXAMEN     2006-2026-10: anual   -1.7 % | Sharpe -0.09 | caída  46.6 % | peor mes -12.4 % | apalancamiento medio 2.9x (máx 7.4x)
+F4 combinación  Interactive Brokers  DESARROLLO 1985-2005: anual  +10.4 % | Sharpe  0.96 | caída  18.9 % | peor mes -10.7 % | apalancamiento medio 2.5x (máx 10.1x)
+                                     EXAMEN     2006-2026-10: anual   +0.8 % | Sharpe  0.13 | caída  34.2 % | peor mes -12.1 % | apalancamiento medio 2.9x (máx 7.4x)
+                sin costes, examen: Sharpe 0.19
+
+F4 por década (CFD): {'1980s': '+3.5%/año', '1990s': '+8.1%/año', '2000s': '+5.9%/año', '2010s': '+1.1%/año', '2020s': '-5.0%/año'}
+F4 últimos años (CFD): {2018: '-7.1%', 2019: '-3.8%', 2020: '-10.8%', 2021: '+5.0%', 2022: '-1.7%', 2023: '-4.4%', 2024: '-15.5%', 2025: '-10.0%', 2026: '+4.7%'}
+
+Correlación mensual cartera cripto vs F4 forex (2020-03 → 2026-10): +0.16
+Mismo periodo: cripto anual  +29.6 % | Sharpe  1.81 | caída   6.2 % | peor mes  -4.2 %
+               forex  anual   -3.3 % | Sharpe -0.29 | caída  37.3 % | peor mes -11.1 %
+               75 % cripto + 25 % forex: anual  +20.8 % | Sharpe  1.65 | caída   5.9 % | peor mes  -4.7 %

@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (27 pruebas más; ≈ 447 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (31 pruebas más; ≈ 451 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -72,6 +72,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 30 Opciones | Prima de volatilidad (Deribit 2019–2026) con iron condors y spreads de put, semanales y mensuales | La prima existe (+5 pts en 2023–26) pero está en las colas que el seguro devuelve: todas las estructuras con riesgo limitado pierden. |
 | 32 Desbloqueos de tokens | Calendarios de DefiLlama (1 384 eventos, 89 monedas): corto antes del desbloqueo y factor de emisión | La emisión pesa (−1 a −3 % extra antes de grandes desbloqueos; las monedas con emisión caen siempre frente a BTC), pero no mejora lo que ya hace B: el corto puntual no llega a t ≥ 3 y el permanente se hunde en 2021. |
 | 33 Estrategias de redes sociales | CRT + CISD ("Smart Money"), 5 versiones, ≈ 120 000 operaciones | Acierta el 60 % pero con objetivo de 0,5R: pierde (−0,03 a −0,12R). Con objetivo 1:2 el acierto cae al 41 %. |
+| 34 Forex (divisas principales) | Carry, tendencia, valor y combinación, 1985–2026 (datos de la Reserva Federal) | Funcionaron hasta 2005 (Sharpe 0,77); desde 2006, Sharpe −0,09 con costes de CFD. Primas agotadas. |
 | 31 Mejoras de la cartera | Hold inteligente como quinto bloque; filtro de temporada de altcoins para B | Ninguna mejora: el hold es redundante con D y el filtro llega tarde. |
 
 **Conclusión de la segunda ampliación:** la cartera actual (A, E, B, D + F en pequeño) sigue siendo la mejor combinación encontrada.
