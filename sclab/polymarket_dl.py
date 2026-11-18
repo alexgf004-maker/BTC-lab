@@ -72,9 +72,11 @@ if __name__ == "__main__":
         try:
             op = [float(x) for x in json.loads(m["outcomePrices"])]
             if json.loads(m["outcomes"]) == ["Yes", "No"] and max(op) > 0.98 and min(op) < 0.02:
-                ct = m.get("closedTime")
+                ct, st = m.get("closedTime"), m.get("startDate")
                 ts = datetime.fromisoformat(ct.replace(" ", "T").replace("+00", "+00:00")).timestamp() if ct else None
-                toks.append((json.loads(m["clobTokenIds"])[0], ts))
+                ss = datetime.fromisoformat(st.replace("Z", "+00:00")).timestamp() if st else None
+                if ts and ss and ts - ss >= 8 * 86400:                    # solo mercados de 8 días o más (pre-registro)
+                    toks.append((json.loads(m["clobTokenIds"])[0], ts))
         except Exception:
             pass
     print("binarios resueltos 0/1:", len(toks))
