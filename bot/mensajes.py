@@ -80,30 +80,30 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
             btc = _f(r"BTC ([\+\-]?[\d\.e\-]+)", detail)
             stop_pct = (R / ratio) if ratio and R else None
             riesgo = notional * stop_pct if stop_pct else None
-            return (f"{head}\n🔻 Nueva operación · {bl}\nVende {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
-                    + (f"Compra {cantidad(btc)} BTC (≈ {num(notional)} $) como cobertura\n" if btc else "")
+            return (f"{head}\n🔻 Nueva operación · {bl} (futuros)\nCorto en el futuro de {a}: {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+                    + (f"Largo en el futuro de BTC: {cantidad(btc)} BTC (≈ {num(notional)} $) como cobertura\n" if btc else "")
                     + f"Apuesta: {a} lo hará peor que BTC (si todo el mercado sube o baja, una pata compensa a la otra)\n"
                     + (f"Stop: si {a} sube un {num(100 * stop_pct, 1)} % frente a BTC → pérdida ≈ {num(riesgo)} $" if riesgo else ""))
         if sleeve == "D_tendencia":
             stop = _f(r"stop=([\d\.]+)", detail)
             loss = abs(q) * (p - stop) if stop else None
-            return (f"{head}\n📈 Nueva operación · {bl}\nCompra {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+            return (f"{head}\n📈 Nueva operación · {bl} (futuros)\nLargo en el futuro de {a}: {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
                     + (f"Stop inicial: {precio(stop)} $ ({num(100 * (stop / p - 1), 1)} %) → pérdida máxima ≈ {num(loss)} $\n" if stop else "")
                     + "El stop sube solo a medida que sube el precio.")
         if sleeve in ("A_carry", "E_carry_inverso"):
             y = _f(r"rendimiento ([\d\.\-]+)%", detail)
             anual = f" (ahora ≈ {num(y * 3 * 365, 1)} % al año)" if y is not None else ""
             if sleeve == "A_carry":
-                how = f"Compra {cantidad(q)} {a} en spot y vende lo mismo en futuros (≈ {num(notional)} $ por pata)"
+                how = f"Compra {cantidad(q)} {a} en spot (moneda real) y abre un corto del mismo tamaño en el futuro (≈ {num(notional)} $ por pata)"
                 why = "No apuesta por el precio: cobra lo que pagan los que compran con apalancamiento"
             else:
-                how = f"Compra {cantidad(q)} {a} en futuros y vende lo mismo en spot con préstamo (≈ {num(notional)} $ por pata)"
+                how = f"Abre un largo de {cantidad(q)} {a} en el futuro y vende lo mismo en spot con monedas prestadas (≈ {num(notional)} $ por pata)"
                 why = "No apuesta por el precio: cobra lo que pagan los que venden en corto"
             return f"{head}\n💵 Nueva operación · {bl}\n{how}\n{why}{anual}."
         if sleeve == "F_fin_de_semana":
             W = _f(r"W=([\+\-]?[\d\.]+)%", detail)
-            verb = "Vende" if side == "SELL" else "Compra"
-            return (f"{head}\n🔄 Nueva operación · {bl}\n{verb} {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+            verb = "Corto" if side == "SELL" else "Largo"
+            return (f"{head}\n🔄 Nueva operación · {bl} (futuros)\n{verb} en el futuro de {a}: {cantidad(q)} a {precio(p)} $ (≈ {num(notional)} $)\n"
                     f"La acción se movió {num(W or 0, 2)} % durante el fin de semana con la bolsa cerrada; se apuesta a que "
                     f"devuelve parte al reabrir. Se cierra el lunes a las 03:00 UTC.")
 

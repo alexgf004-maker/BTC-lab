@@ -215,7 +215,7 @@ def describe(name, sym, p, px):
         qa, qb = p.get("qty_alt", 0), p.get("qty_btc", 0)
         pa, pb = p.get("px_alt", 0), p.get("px_btc", 0)
         stop_pct = p["R"] / p["entry"] if p.get("entry") else 0
-        txt = (f"Vendido {_cant(qa)} {a} (≈ {_num(abs(qa) * pa)} $) y comprado {_cant(qb)} BTC como cobertura. "
+        txt = (f"Futuros: corto en {a} ({_cant(qa)}, ≈ {_num(abs(qa) * pa)} $) y largo en BTC ({_cant(qb)}) como cobertura. "
                f"Apuesta: {a} peor que BTC. Stop si {a} sube un {_num(100 * (p['stop'] / p['entry'] - 1), 1)} % frente a BTC "
                f"(pérdida ≈ {_num(abs(qa) * pa * stop_pct)} $). Desde {when(p.get('entry_time'))} UTC.")
         bn = px.get("BTCUSDT")
@@ -223,18 +223,18 @@ def describe(name, sym, p, px):
         return txt, pnl
     if name == "D_tendencia":
         q, e, st = p.get("qty", 0), p.get("entry", 0), p.get("stop", 0)
-        txt = (f"Comprado {_cant(q)} {a} a {_precio(e)} $ (≈ {_num(q * e)} $). Stop actual {_precio(st)} $ "
+        txt = (f"Futuros: largo en {a} ({_cant(q)} a {_precio(e)} $, ≈ {_num(q * e)} $). Stop actual {_precio(st)} $ "
                f"({_num(100 * (st / e - 1), 1)} % desde la entrada); sube solo si el precio sube. Desde {when(p.get('entry_time'))} UTC.")
         return txt, (q * (now - e) - p.get("fees", 0) if now else None)
     if name in ("A_carry", "E_carry_inverso"):
         n, f = p.get("notional", 0), p.get("funding", 0)
-        how = "spot comprado y futuro vendido" if name == "A_carry" else "futuro comprado y spot vendido con préstamo"
+        how = "moneda comprada en spot + corto en el futuro" if name == "A_carry" else "largo en el futuro + venta en spot con monedas prestadas"
         txt = (f"{a}: {how}, ≈ {_num(n)} $ por pata (sin riesgo de precio). Funding cobrado hasta ahora: {_num(f)} $. "
                f"Desde {when(p.get('entry_time'))} UTC.")
         return txt, f - p.get("fees", 0)
     if name == "F_fin_de_semana":
         q, e = p.get("qty", 0), p.get("entry", 0)
-        txt = (f"{'Vendido' if q < 0 else 'Comprado'} {_cant(q)} {a} a {_precio(e)} $ tras moverse {_num(100 * p.get('W', 0), 2)} % "
+        txt = (f"Futuros: {'corto' if q < 0 else 'largo'} en {a} ({_cant(q)} a {_precio(e)} $) tras moverse {_num(100 * p.get('W', 0), 2)} % "
                f"el fin de semana. Se cierra el lunes 03:00 UTC.")
         return txt, (q * (now - e) - p.get("fees", 0) if now else None)
     return html.escape(json.dumps(p)[:160]), None

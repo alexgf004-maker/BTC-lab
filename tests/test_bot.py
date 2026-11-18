@@ -192,13 +192,13 @@ def test_panel_render(tmp_path):
     s = panel.snapshot(cfg)
     assert s["health"][0] == "bad"                      # el ciclo es antiguo (o no hay servicio)
     h = panel.render(s)
-    assert "Comprado" in h and "BTC" in h and "<script>" not in h and "&lt;script&gt;" in h
+    assert "largo en BTC" in h and "<script>" not in h and "&lt;script&gt;" in h
 
 
 def test_mensajes_claros():
     from bot.mensajes import formatear
     m = formatear("paper", "B_corto_alt_btc", "entrada", "ENAUSDT", "SELL", -2731.77, 0.112611, "ratio=1.73561e-06 R=1.34e-07 BTC +0.00476")
-    assert "Vende 2.731,77 ENA" in m and "cobertura" in m and "7,7 %" in m
+    assert "Corto en el futuro de ENA: 2.731,77" in m and "Largo en el futuro de BTC" in m and "7,7 %" in m
     r = formatear("paper", "cartera", "resumen", detail="capital 10,000.00 | caída 0.0 % · D_tendencia: 2,375.00 | abiertas 0 | cerradas 0 · "
                   "B_corto_alt_btc: 2,375.00 | abiertas 1 | cerradas 0")
     assert "Resumen diario" in r and "10.000,00 $" in r and "abiertas: 1" in r
