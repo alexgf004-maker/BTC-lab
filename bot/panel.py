@@ -142,11 +142,12 @@ td{white-space:normal}td.n{white-space:nowrap}td.wrap{min-width:0}th,td{padding:
 
 
 def money(x):
-    return f"{x:,.2f} $".replace(",", " ")
+    return f"{_num(x)} $"
 
 
 def pct(x, sign=True):
-    return (f"{100 * x:+.2f} %" if sign else f"{100 * x:.2f} %")
+    v = _num(abs(100 * x))
+    return (("+" if x >= 0 else "−") + v + " %") if sign else (v + " %")
 
 
 def ago(m):
@@ -302,7 +303,7 @@ def render(s):
 <header><h1>BTC-lab · Panel</h1><div><span class="pill mode">{html.escape(cfg.get("modo", "?").upper())}</span>
 <span class="pill {hc}">{html.escape(ht)}</span></div></header>
 <section class="kpis">{k("Capital", money(eq))}{k("Desde el inicio", pct(ret), "pos" if ret >= 0 else "neg")}
-{k("Caída desde el máximo", pct(dd, False), "neg" if dd > 0.05 else "")}{k("Último ciclo", ago(s["age"]))}
+{k("Caída desde el máximo", pct(dd, False), "neg" if dd > 0.05 else "")}{k("Última revisión <span style='font-weight:400'>(cada hora)</span>", ago(s["age"]))}
 {k("Posiciones abiertas", n_open)}{k("Resultado de las abiertas", (("+" if unreal >= 0 else "−") + _num(abs(unreal)) + " $") if n_open else "—", "pos" if unreal >= 0 else "neg")}
 {k("Operaciones cerradas", n_closed)}</section>
 <section class="card"><h2>Curva de capital</h2>{chart(s["curve"], cap0)}</section>
