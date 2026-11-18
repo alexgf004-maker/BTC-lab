@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (38 pruebas más; ≈ 458 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (43 pruebas más; ≈ 463 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -74,6 +74,8 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 33 Estrategias de redes sociales | CRT + CISD ("Smart Money"), 5 versiones, ≈ 120 000 operaciones | Acierta el 60 % pero con objetivo de 0,5R: pierde (−0,03 a −0,12R). Con objetivo 1:2 el acierto cae al 41 %. |
 | 34 Forex (divisas principales) | Carry, tendencia, valor y combinación, 1985–2026 (datos de la Reserva Federal) | Funcionaron hasta 2005 (Sharpe 0,77); desde 2006, Sharpe −0,09 con costes de CFD. Primas agotadas. |
 | 35 Forex intradía y swing | CRT, CRT + CISD, reversión 1:1, ruptura de Londres, bloque D y números redondos en 10 pares, 2012–2026 | Las 7 pierden con costes de bróker ECN. Sin costes, solo la ruptura de Londres tiene ventaja (+0,03R), menor que los costes. |
+| 36 Mercados de predicción | Polymarket, 26 012 mercados: comprar favoritos y casi seguros | Rechazado: los favoritos están CAROS (al revés del sesgo clásico). El "Sí" infravalorado 4–5 pts podría ser un sesgo de selección: solo seguimiento en tiempo real. |
+| 37 Acciones tokenizadas | Tokens spot de acciones en Binance: carry, fin de semana, arbitraje spot-perpetuo | Carry rechazado; el fin de semana confirma el bloque F; arbitraje spot-perpetuo (+0,34 %, t 2,9) candidato a seguimiento. |
 | 31 Mejoras de la cartera | Hold inteligente como quinto bloque; filtro de temporada de altcoins para B | Ninguna mejora: el hold es redundante con D y el filtro llega tarde. |
 
 **Conclusión de la segunda ampliación:** la cartera actual (A, E, B, D + F en pequeño) sigue siendo la mejor combinación encontrada.

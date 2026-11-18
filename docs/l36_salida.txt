@@ -1,0 +1,73 @@
+mercados binarios resueltos con historial: 26012 | desarrollo 1862 | examen 24150
+
+--- Calibración T−7 días, desarrollo (n 1750)
+  favorito a [0.5, 0.6): n    88 | precio medio  54.9 % | gana  55.7 % | diferencia  +0.8 pts (z +0.2)
+  favorito a [0.6, 0.7): n    90 | precio medio  64.7 % | gana  65.6 % | diferencia  +0.9 pts (z +0.2)
+  favorito a [0.7, 0.8): n   124 | precio medio  75.1 % | gana  69.4 % | diferencia  -5.7 pts (z -1.5)
+  favorito a [0.8, 0.9): n   165 | precio medio  84.7 % | gana  81.2 % | diferencia  -3.5 pts (z -1.3)
+  favorito a [0.9, 0.95): n   168 | precio medio  92.6 % | gana  89.9 % | diferencia  -2.8 pts (z -1.4)
+  favorito a [0.95, 0.99): n   394 | precio medio  97.6 % | gana  97.5 % | diferencia  -0.1 pts (z -0.2)
+  favorito a [0.99, 1.0): n   721 | precio medio  99.7 % | gana 100.0 % | diferencia  +0.3 pts (z +1.5)
+
+--- Calibración T−7 días, EXAMEN (n 23176)
+  favorito a [0.5, 0.6): n  3593 | precio medio  54.7 % | gana  51.9 % | diferencia  -2.9 pts (z -3.5)
+  favorito a [0.6, 0.7): n  2655 | precio medio  64.7 % | gana  61.6 % | diferencia  -3.1 pts (z -3.4)
+  favorito a [0.7, 0.8): n  2699 | precio medio  74.7 % | gana  69.8 % | diferencia  -4.9 pts (z -5.8)
+  favorito a [0.8, 0.9): n  2662 | precio medio  85.1 % | gana  81.7 % | diferencia  -3.4 pts (z -4.9)
+  favorito a [0.9, 0.95): n  2052 | precio medio  92.6 % | gana  90.7 % | diferencia  -1.8 pts (z -3.1)
+  favorito a [0.95, 0.99): n  3414 | precio medio  97.4 % | gana  96.9 % | diferencia  -0.5 pts (z -2.0)
+  favorito a [0.99, 1.0): n  6101 | precio medio  99.7 % | gana  99.6 % | diferencia  -0.0 pts (z -0.5)
+
+--- Calibración T−1 día, desarrollo (n 1755)
+  favorito a [0.5, 0.6): n    48 | precio medio  55.2 % | gana  58.3 % | diferencia  +3.1 pts (z +0.4)
+  favorito a [0.6, 0.7): n    56 | precio medio  64.9 % | gana  75.0 % | diferencia +10.1 pts (z +1.6)
+  favorito a [0.7, 0.8): n    70 | precio medio  74.6 % | gana  80.0 % | diferencia  +5.4 pts (z +1.0)
+  favorito a [0.8, 0.9): n    88 | precio medio  85.3 % | gana  85.2 % | diferencia  -0.1 pts (z -0.0)
+  favorito a [0.9, 0.95): n    80 | precio medio  92.8 % | gana  97.5 % | diferencia  +4.7 pts (z +1.6)
+  favorito a [0.95, 0.99): n   278 | precio medio  97.8 % | gana  97.5 % | diferencia  -0.4 pts (z -0.4)
+  favorito a [0.99, 1.0): n  1135 | precio medio  99.7 % | gana 100.0 % | diferencia  +0.3 pts (z +1.8)
+
+--- Calibración T−1 día, EXAMEN (n 23929)
+  favorito a [0.5, 0.6): n  3119 | precio medio  54.9 % | gana  53.4 % | diferencia  -1.6 pts (z -1.8)
+  favorito a [0.6, 0.7): n  2546 | precio medio  64.8 % | gana  63.3 % | diferencia  -1.6 pts (z -1.7)
+  favorito a [0.7, 0.8): n  2572 | precio medio  74.7 % | gana  69.9 % | diferencia  -4.8 pts (z -5.6)
+  favorito a [0.8, 0.9): n  2048 | precio medio  85.0 % | gana  80.6 % | diferencia  -4.4 pts (z -5.6)
+  favorito a [0.9, 0.95): n  1207 | precio medio  92.6 % | gana  90.4 % | diferencia  -2.2 pts (z -2.9)
+  favorito a [0.95, 0.99): n  2287 | precio medio  97.5 % | gana  97.2 % | diferencia  -0.3 pts (z -1.0)
+  favorito a [0.99, 1.0): n 10148 | precio medio  99.8 % | gana  99.9 % | diferencia  +0.1 pts (z +2.7)
+
+--- Calibración T−30 días, desarrollo (n 1186)
+  favorito a [0.5, 0.6): n    72 | precio medio  55.2 % | gana  54.2 % | diferencia  -1.1 pts (z -0.2)
+  favorito a [0.6, 0.7): n    68 | precio medio  64.7 % | gana  58.8 % | diferencia  -5.8 pts (z -1.0)
+  favorito a [0.7, 0.8): n    90 | precio medio  75.0 % | gana  81.1 % | diferencia  +6.1 pts (z +1.3)
+  favorito a [0.8, 0.9): n   154 | precio medio  85.3 % | gana  81.2 % | diferencia  -4.1 pts (z -1.5)
+  favorito a [0.9, 0.95): n   142 | precio medio  92.4 % | gana  92.3 % | diferencia  -0.1 pts (z -0.1)
+  favorito a [0.95, 0.99): n   291 | precio medio  97.5 % | gana  97.3 % | diferencia  -0.2 pts (z -0.2)
+  favorito a [0.99, 1.0): n   369 | precio medio  99.7 % | gana 100.0 % | diferencia  +0.3 pts (z +1.1)
+
+--- Calibración T−30 días, EXAMEN (n 9712)
+  favorito a [0.5, 0.6): n   623 | precio medio  54.8 % | gana  57.6 % | diferencia  +2.8 pts (z +1.4)
+  favorito a [0.6, 0.7): n   632 | precio medio  65.1 % | gana  63.4 % | diferencia  -1.6 pts (z -0.8)
+  favorito a [0.7, 0.8): n   863 | precio medio  75.0 % | gana  73.7 % | diferencia  -1.3 pts (z -0.9)
+  favorito a [0.8, 0.9): n  1325 | precio medio  85.4 % | gana  84.8 % | diferencia  -0.6 pts (z -0.6)
+  favorito a [0.9, 0.95): n  1013 | precio medio  92.6 % | gana  92.3 % | diferencia  -0.3 pts (z -0.4)
+  favorito a [0.95, 0.99): n  2400 | precio medio  97.4 % | gana  98.3 % | diferencia  +0.9 pts (z +2.7)
+  favorito a [0.99, 1.0): n  2856 | precio medio  99.7 % | gana  99.6 % | diferencia  -0.1 pts (z -0.5)
+
+=== P1 comprar el favorito a T−7 días (0,80–0,97; +1 céntimo)
+/home/user/btc-lab/lecciones/leccion_36_prediccion.py:95: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  w = s.groupby(s["T"].dt.to_period("W")).r.mean()
+desarrollo                                 n   438 | gana  87.4 % | resultado medio  -4.50 % (t semanas -2.48) | por día -0.644 % | peor semana -100.0 %
+/home/user/btc-lab/lecciones/leccion_36_prediccion.py:95: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  w = s.groupby(s["T"].dt.to_period("W")).r.mean()
+EXAMEN                                     n  5914 | gana  87.5 % | resultado medio  -3.87 % (t semanas -6.37) | por día -0.553 % | peor semana -40.4 %
+
+=== P2 casi seguros a T−1 día (0,95–0,995; +0,5 céntimos)
+/home/user/btc-lab/lecciones/leccion_36_prediccion.py:95: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  w = s.groupby(s["T"].dt.to_period("W")).r.mean()
+desarrollo                                 n   508 | gana  98.6 % | resultado medio  -0.39 % (t semanas -0.59) | por día -0.392 % | peor semana -24.0 %
+/home/user/btc-lab/lecciones/leccion_36_prediccion.py:95: UserWarning: Converting to PeriodArray/Index representation will drop timezone information.
+  w = s.groupby(s["T"].dt.to_period("W")).r.mean()
+EXAMEN                                     n  3693 | gana  98.0 % | resultado medio  -0.66 % (t semanas -2.20) | por día -0.664 % | peor semana -26.4 %
+
+P1 examen por categoría (informativo):
