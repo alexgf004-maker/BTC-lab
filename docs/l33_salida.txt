@@ -1,0 +1,28 @@
+
+=== T1 CRT 4h
+desarrollo 2020-03 → 2023-06                 n  43235 | E -0.100R (t  -8.4) | acierto 46.3 % | objetivo/riesgo medio 1.24 | PF 0.82 | salidas: obj 40 % stop 49 % tiempo 11 %
+EXAMEN 2023-07 → 2026-10                     n  41570 | E -0.124R (t -13.0) | acierto 45.7 % | objetivo/riesgo medio 1.24 | PF 0.78 | salidas: obj 40 % stop 49 % tiempo 11 %
+  solo BTC y ETH, desarrollo                 n   4209 | E -0.130R (t  -6.5) | acierto 47.5 % | objetivo/riesgo medio 1.17 | PF 0.76 | salidas: obj 40 % stop 46 % tiempo 15 %
+  solo BTC y ETH, examen                     n   3145 | E -0.151R (t  -5.4) | acierto 48.2 % | objetivo/riesgo medio 1.07 | PF 0.72 | salidas: obj 40 % stop 43 % tiempo 17 %
+  examen con acierto ≥ 60 % en algún año: [(2023, np.float64(46.5)), (2024, np.float64(45.5)), (2025, np.float64(45.2)), (2026, np.float64(46.4))]
+
+=== T2 CRT diario
+desarrollo 2020-03 → 2023-06                 n   7336 | E -0.016R (t  +0.0) | acierto 46.5 % | objetivo/riesgo medio 1.34 | PF 0.97 | salidas: obj 40 % stop 48 % tiempo 12 %
+EXAMEN 2023-07 → 2026-10                     n   7480 | E -0.053R (t  -2.1) | acierto 45.6 % | objetivo/riesgo medio 1.35 | PF 0.90 | salidas: obj 38 % stop 50 % tiempo 12 %
+  solo BTC y ETH, desarrollo                 n    693 | E +0.015R (t  +0.8) | acierto 49.1 % | objetivo/riesgo medio 1.27 | PF 1.03 | salidas: obj 43 % stop 45 % tiempo 12 %
+  solo BTC y ETH, examen                     n    664 | E -0.039R (t  -1.4) | acierto 45.3 % | objetivo/riesgo medio 1.36 | PF 0.93 | salidas: obj 38 % stop 48 % tiempo 14 %
+  examen con acierto ≥ 60 % en algún año: [(2023, np.float64(45.4)), (2024, np.float64(45.1)), (2025, np.float64(46.2)), (2026, np.float64(45.5))]
+
+=== T3 CRT 4h + CISD 1h
+desarrollo 2020-03 → 2023-06                 n  10806 | E -0.068R (t  -5.4) | acierto 61.5 % | objetivo/riesgo medio 0.53 | PF 0.80 | salidas: obj 57 % stop 29 % tiempo 13 %
+EXAMEN 2023-07 → 2026-10                     n  11235 | E -0.086R (t  -8.9) | acierto 60.7 % | objetivo/riesgo medio 0.52 | PF 0.76 | salidas: obj 57 % stop 30 % tiempo 13 %
+  solo BTC y ETH, desarrollo                 n   1177 | E -0.100R (t  -3.7) | acierto 59.5 % | objetivo/riesgo medio 0.55 | PF 0.72 | salidas: obj 54 % stop 29 % tiempo 17 %
+  solo BTC y ETH, examen                     n   1034 | E -0.097R (t  -4.4) | acierto 59.1 % | objetivo/riesgo medio 0.52 | PF 0.73 | salidas: obj 55 % stop 27 % tiempo 18 %
+  examen con acierto ≥ 60 % en algún año: [(2023, np.float64(59.9)), (2024, np.float64(60.6)), (2025, np.float64(61.4)), (2026, np.float64(60.3))]
+
+=== T4 CRT diario + CISD 4h
+desarrollo 2020-03 → 2023-06                 n   2852 | E -0.023R (t  -1.7) | acierto 58.3 % | objetivo/riesgo medio 0.67 | PF 0.94 | salidas: obj 52 % stop 33 % tiempo 15 %
+EXAMEN 2023-07 → 2026-10                     n   3096 | E -0.025R (t  -1.9) | acierto 58.6 % | objetivo/riesgo medio 0.67 | PF 0.93 | salidas: obj 53 % stop 32 % tiempo 14 %
+  solo BTC y ETH, desarrollo                 n    291 | E +0.055R (t  +0.7) | acierto 60.1 % | objetivo/riesgo medio 0.75 | PF 1.15 | salidas: obj 55 % stop 32 % tiempo 13 %
+  solo BTC y ETH, examen                     n    287 | E -0.067R (t  -1.4) | acierto 54.4 % | objetivo/riesgo medio 0.75 | PF 0.84 | salidas: obj 50 % stop 37 % tiempo 13 %
+  examen con acierto ≥ 60 % en algún año: [(2023, np.float64(58.8)), (2024, np.float64(57.4)), (2025, np.float64(60.3)), (2026, np.float64(58.2))]

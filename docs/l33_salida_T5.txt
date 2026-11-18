@@ -1,0 +1,7 @@
+
+=== T5 CRT 4h + CISD 1h, objetivo 2R
+desarrollo 2020-03 → 2023-06                 n  10806 | E -0.046R (t  -1.4) | acierto 42.6 % | objetivo/riesgo medio 2.00 | PF 0.90 | salidas: obj 14 % stop 38 % tiempo 48 %
+EXAMEN 2023-07 → 2026-10                     n  11235 | E -0.087R (t  -4.7) | acierto 41.0 % | objetivo/riesgo medio 2.00 | PF 0.83 | salidas: obj 14 % stop 40 % tiempo 46 %
+  solo BTC y ETH, desarrollo                 n   1177 | E -0.052R (t  -0.9) | acierto 42.1 % | objetivo/riesgo medio 2.00 | PF 0.89 | salidas: obj 15 % stop 37 % tiempo 48 %
+  solo BTC y ETH, examen                     n   1034 | E -0.128R (t  -3.4) | acierto 40.2 % | objetivo/riesgo medio 2.00 | PF 0.75 | salidas: obj 14 % stop 37 % tiempo 50 %
+  examen con acierto ≥ 60 % en algún año: [(2023, np.float64(40.2)), (2024, np.float64(41.1)), (2025, np.float64(41.5)), (2026, np.float64(40.8))]

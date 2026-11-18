@@ -31,3 +31,30 @@ relación beneficio/riesgo media, PF y el resultado solo en BTC y ETH. Pruebas n
 ## 2b. Pre-registro adicional (tras ver T1–T4, antes de calcular T5)
 T3 acierta el 60 %, pero con un objetivo de solo 0,5 veces el riesgo. La afirmación original es "60 % con 1:2".
 **T5 — T3 con objetivo fijo a 2 veces el riesgo** (en lugar del extremo opuesto de C1). Todo lo demás igual. Mismo criterio. Prueba nueva: 1.
+
+## 3. Resultados — `l33_salida.txt`, `l33_salida_T5.txt` (≈ 120 000 operaciones simuladas)
+| Prueba | Desarrollo: E / acierto | **Examen: E / acierto** | Objetivo/riesgo | PF examen |
+|---|---|---|---|---|
+| T1 CRT 4h | −0,100R / 46 % | **−0,124R (t −13) / 46 %** | 1,24 | 0,78 |
+| T2 CRT diario | −0,016R / 47 % | **−0,053R (t −2,1) / 46 %** | 1,35 | 0,90 |
+| T3 CRT 4h + CISD 1h | −0,068R / 61,5 % | **−0,086R (t −8,9) / 60,7 %** | 0,52 | 0,76 |
+| T4 CRT diario + CISD 4h | −0,023R / 58 % | **−0,025R (t −1,9) / 59 %** | 0,67 | 0,93 |
+| T5 = T3 con objetivo 1:2 | −0,046R / 43 % | **−0,087R (t −4,7) / 41 %** | 2,00 | 0,83 |
+Solo BTC y ETH: mismo panorama (examen entre −0,04R y −0,15R). **Ninguna se aprueba; todas pierden en el examen.**
+Los costes (0,09–0,14 % del precio) suponen ≈ 0,1R por operación: **sin costes, la estrategia quedaría en torno a cero**, es decir,
+no hay ventaja que proteger.
+
+## 4. Qué nos enseña
+1. **El 60 % de acierto es real… y no sirve.** CRT + CISD acierta el 60 % (exactamente lo que dice el post), pero porque el objetivo
+   (el otro extremo de la vela anterior) queda a solo 0,5 veces el riesgo. Con 60 % de acierto y 0,5:1, la esperanza es negativa.
+2. **"60 % con 1:2" no aparece en ninguna versión.** Al poner el objetivo a 2R, el acierto cae al 41 % (solo el 14 % llega al objetivo).
+   Acierto y relación beneficio/riesgo no son independientes: subir uno baja el otro. Quien dice tener ambos (esperanza +0,8R) casi
+   siempre ha cometido un error de backtest: mirar el futuro dentro de la vela, elegir a mano las operaciones, o reglas que cambian.
+3. **Coherente con la Lección 26:** los extremos de la vela anterior se rompen MÁS que niveles al azar (stops y liquidaciones detrás).
+   Apostar a que el barrido "falla" va contra ese efecto.
+4. **Las otras publicaciones no se pueden validar:** 25 operaciones en 12 días con lotes variables (las ganadoras grandes coinciden con
+   una subida fuerte del USDJPY) y una reversión a la media de 112 operaciones con backtest manual de 6,5 meses (t ≈ 2,5, un solo
+   periodo, sin reglas ni costes). Sin reglas escritas no hay prueba posible, y la reversión a la media ya se rechazó en cripto 5 veces.
+
+**Señales de alarma en estas afirmaciones:** acierto alto + relación alta a la vez; "validado en X años" sin datos; backtest manual;
+capturas de pocos días; lotes que cambian entre operaciones; y sobre todo, que no publiquen las reglas para que otros las prueben.
