@@ -27,3 +27,7 @@ Salida máxima: 3 velas del marco alto después de C2 (a mercado). Si en la mism
 **Periodos:** desarrollo 2020-03 → 2023-06; **examen 2023-07 → 2026-10** (una vez).
 **Criterio:** esperanza neta > 0 con t ≥ 3 (agrupando por día) en el examen y positiva en desarrollo. Se informa también acierto,
 relación beneficio/riesgo media, PF y el resultado solo en BTC y ETH. Pruebas nuevas: 4.
+
+## 2b. Pre-registro adicional (tras ver T1–T4, antes de calcular T5)
+T3 acierta el 60 %, pero con un objetivo de solo 0,5 veces el riesgo. La afirmación original es "60 % con 1:2".
+**T5 — T3 con objetivo fijo a 2 veces el riesgo** (en lugar del extremo opuesto de C1). Todo lo demás igual. Mismo criterio. Prueba nueva: 1.
