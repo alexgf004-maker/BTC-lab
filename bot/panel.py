@@ -20,7 +20,24 @@ from pathlib import Path
 
 import yaml
 
+from .mensajes import base as _base, cantidad as _cant, formatear, num as _num, precio as _precio
 from .notify import Telegram
+
+_PRICES = {"t": 0.0, "p": {}}
+
+
+def mark_prices():
+    """Precios marcados de los perpetuos (una sola petición pública a Binance, en caché 60 s). Si falla, {}."""
+    if time.time() - _PRICES["t"] < 60:
+        return _PRICES["p"]
+    try:
+        import requests
+        r = requests.get("https://fapi.binance.com/fapi/v1/premiumIndex", timeout=5)
+        _PRICES["p"] = {x["symbol"]: float(x["markPrice"]) for x in r.json()}
+    except Exception:
+        _PRICES["p"] = _PRICES["p"] or {}
+    _PRICES["t"] = time.time()
+    return _PRICES["p"]
 
 STALE_MIN = 135
 NAMES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoins/BTC",
@@ -120,7 +137,7 @@ td.n,th.n{text-align:right}tr.err td{background:var(--badbg)}
 .muted{color:var(--muted);font-size:13px}svg text{fill:var(--muted)}
 td.wrap{white-space:normal;min-width:200px}.narrow{display:none}
 @media (max-width:640px){.wide{display:none}.narrow{display:block}main{padding:12px}.hide-m{display:none}.kpi .v{font-size:19px}
-td{white-space:normal}td.n{white-space:nowrap}td.wrap{min-width:150px}th,td{padding:7px 5px;font-size:13px}}
+td{white-space:normal}td.n{white-space:nowrap}td.wrap{min-width:0}th,td{padding:7px 5px;font-size:13px}}
 """
 
 
@@ -185,21 +202,56 @@ def _chart(curve, start_capital, W, H, fs, nx):
             f'el carry cobrado; no las ganancias o pérdidas aún abiertas.</p>')
 
 
-def fmt_pos(p):
-    keys = [("side", "lado"), ("qty", "cantidad"), ("units", "unidades"), ("entry", "entrada"), ("stop", "stop"),
-            ("entry_time", "desde"), ("notional", "nocional")]
-    out = []
-    for k, lab in keys:
-        if k in p:
-            v = p[k]
-            if k == "side":
-                v = "largo" if v == 1 else ("corto" if v == -1 else v)
-            elif isinstance(v, float):
-                v = f"{v:.6g}"
-            elif k == "entry_time":
-                v = str(v)[:16].replace("T", " ")
-            out.append(f"{lab}: {html.escape(str(v))}")
-    return " · ".join(out) or html.escape(json.dumps(p)[:120])
+def when(t):
+    t = str(t)
+    return f"{t[8:10]}/{t[5:7]} {t[11:16]}" if len(t) >= 16 else t
+
+
+def describe(name, sym, p, px):
+    """(texto claro, resultado abierto en $ o None) de una posición."""
+    a = _base(sym)
+    now = px.get(sym)
+    if name == "B_corto_alt_btc":
+        qa, qb = p.get("qty_alt", 0), p.get("qty_btc", 0)
+        pa, pb = p.get("px_alt", 0), p.get("px_btc", 0)
+        stop_pct = p["R"] / p["entry"] if p.get("entry") else 0
+        txt = (f"Vendido {_cant(qa)} {a} (≈ {_num(abs(qa) * pa)} $) y comprado {_cant(qb)} BTC como cobertura. "
+               f"Apuesta: {a} peor que BTC. Stop si {a} sube un {_num(100 * (p['stop'] / p['entry'] - 1), 1)} % frente a BTC "
+               f"(pérdida ≈ {_num(abs(qa) * pa * stop_pct)} $). Desde {when(p.get('entry_time'))} UTC.")
+        bn = px.get("BTCUSDT")
+        pnl = qa * (now - pa) + qb * (bn - pb) - p.get("fees", 0) if now and bn else None
+        return txt, pnl
+    if name == "D_tendencia":
+        q, e, st = p.get("qty", 0), p.get("entry", 0), p.get("stop", 0)
+        txt = (f"Comprado {_cant(q)} {a} a {_precio(e)} $ (≈ {_num(q * e)} $). Stop actual {_precio(st)} $ "
+               f"({_num(100 * (st / e - 1), 1)} % desde la entrada); sube solo si el precio sube. Desde {when(p.get('entry_time'))} UTC.")
+        return txt, (q * (now - e) - p.get("fees", 0) if now else None)
+    if name in ("A_carry", "E_carry_inverso"):
+        n, f = p.get("notional", 0), p.get("funding", 0)
+        how = "spot comprado y futuro vendido" if name == "A_carry" else "futuro comprado y spot vendido con préstamo"
+        txt = (f"{a}: {how}, ≈ {_num(n)} $ por pata (sin riesgo de precio). Funding cobrado hasta ahora: {_num(f)} $. "
+               f"Desde {when(p.get('entry_time'))} UTC.")
+        return txt, f - p.get("fees", 0)
+    if name == "F_fin_de_semana":
+        q, e = p.get("qty", 0), p.get("entry", 0)
+        txt = (f"{'Vendido' if q < 0 else 'Comprado'} {_cant(q)} {a} a {_precio(e)} $ tras moverse {_num(100 * p.get('W', 0), 2)} % "
+               f"el fin de semana. Se cierra el lunes 03:00 UTC.")
+        return txt, (q * (now - e) - p.get("fees", 0) if now else None)
+    return html.escape(json.dumps(p)[:160]), None
+
+
+def event_text(r):
+    e = r.get("evento", "")
+    if e == "omitida_minimo":
+        return f"ℹ️ {_base(r.get('symbol', ''))}: señal omitida (por debajo del mínimo de Binance)"
+    try:
+        lines = formatear("", r.get("bloque", ""), e, r.get("symbol", ""), r.get("lado", ""), r.get("cantidad", ""),
+                          r.get("precio", ""), r.get("detalle", "")).split("\n")[1:]
+    except Exception:
+        lines = [f"{e} {r.get('symbol', '')} {r.get('detalle', '')}"]
+    if e == "resumen":
+        lines = lines[:2]
+    return " · ".join(x for x in lines if x.strip())
 
 
 def render(s):
@@ -212,26 +264,34 @@ def render(s):
     n_closed = sum(v.get("closed", 0) for v in sl.values())
     hc, ht = s["health"]
     k = lambda l, v, c="": f'<div class="kpi"><div class="l">{l}</div><div class="v {c}">{v}</div></div>'
+    px = mark_prices() if n_open else {}
+    opened, open_by = {}, {}
+    for name, v in sl.items():
+        for sym, p in v.get("positions", {}).items():
+            opened[(name, sym)] = describe(name, sym, p, px)
+            pnl = opened[(name, sym)][1]
+            open_by[name] = open_by.get(name, 0.0) + (pnl or 0.0)
+    unreal = sum(open_by.values())
     rows = ""
     for name, v in sl.items():
-        bal = v.get("balance", 0)
+        bal = v.get("balance", 0) + open_by.get(name, 0.0)
         cap_b = cap0 * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", 0) or 0)
         r = (bal / cap_b - 1) if cap_b else 0
         rows += (f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td class="n">{money(bal)}</td>'
                  f'<td class="n {"pos" if r >= 0 else "neg"}">{pct(r)}</td><td class="n">{len(v.get("positions", {}))}</td>'
                  f'<td class="n hide-m">{v.get("closed", 0)}</td></tr>')
     pos = ""
-    for name, v in sl.items():
-        for sym, p in v.get("positions", {}).items():
-            pos += f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td>{html.escape(sym)}</td><td class="wrap">{fmt_pos(p)}</td></tr>'
-    pos = pos or '<tr><td colspan="3" class="muted">Sin posiciones abiertas. Es normal: las entradas dependen de rupturas en velas de 4 h y del funding.</td></tr>'
+    for (name, sym), (txt, pnl) in opened.items():
+        res = "—" if pnl is None else f'<span class="{"pos" if pnl >= 0 else "neg"}">{"+" if pnl >= 0 else "−"}{_num(abs(pnl))} $</span>'
+        pos += (f'<tr><td class="hide-m">{html.escape(NAMES.get(name, name))}</td><td><b>{html.escape(_base(sym))}</b><br>'
+                f'<span class="muted">{html.escape(name[0])}</span></td><td class="n">{res}</td><td class="wrap">{html.escape(txt)}</td></tr>')
+    pos = pos or '<tr><td colspan="4" class="muted">Sin posiciones abiertas. Es normal: las entradas dependen de rupturas en velas de 4 h y del funding.</td></tr>'
     ev = ""
     for r in reversed(s["diario"]):
         e = r.get("evento", "")
         cls = ' class="err"' if e.startswith("error") or e in ("descuadre", "detenido") else ""
-        ev += (f'<tr{cls}><td>{html.escape(r.get("ts", "")[8:10] + "/" + r.get("ts", "")[5:7] + " " + r.get("ts", "")[11:16])}</td><td>{html.escape(r.get("bloque", ""))}</td>'
-               f'<td>{html.escape(e)}</td><td>{html.escape(r.get("symbol", ""))}</td><td class="hide-m">{html.escape(r.get("lado", ""))}</td>'
-               f'<td class="wrap">{html.escape(r.get("detalle", "")[:140])}</td></tr>')
+        ev += (f'<tr{cls}><td>{html.escape(when(r.get("ts", "")))}</td><td>{html.escape(NAMES.get(r.get("bloque", ""), r.get("bloque", "")))}</td>'
+               f'<td class="wrap">{html.escape(event_text(r))}</td></tr>')
     blk = st.get("bloqueados") or {}
     blk_html = ("".join(f"<li><b>{html.escape(k_)}</b>: {html.escape(str(v_))}</li>" for k_, v_ in blk.items())
                 if blk else "")
@@ -242,15 +302,17 @@ def render(s):
 <span class="pill {hc}">{html.escape(ht)}</span></div></header>
 <section class="kpis">{k("Capital", money(eq))}{k("Desde el inicio", pct(ret), "pos" if ret >= 0 else "neg")}
 {k("Caída desde el máximo", pct(dd, False), "neg" if dd > 0.05 else "")}{k("Último ciclo", ago(s["age"]))}
-{k("Posiciones abiertas", n_open)}{k("Operaciones cerradas", n_closed)}</section>
+{k("Posiciones abiertas", n_open)}{k("Resultado de las abiertas", (("+" if unreal >= 0 else "−") + _num(abs(unreal)) + " $") if n_open else "—", "pos" if unreal >= 0 else "neg")}
+{k("Operaciones cerradas", n_closed)}</section>
 <section class="card"><h2>Curva de capital</h2>{chart(s["curve"], cap0)}</section>
 {f'<section class="card"><h2>⚠️ Símbolos bloqueados (descuadre con el exchange)</h2><ul>{blk_html}</ul></section>' if blk_html else ""}
 <section class="card"><h2>Bloques</h2><div class="tbl"><table><thead><tr><th>Bloque</th><th class="n">Saldo</th><th class="n">Resultado</th>
-<th class="n">Abiertas</th><th class="n hide-m">Cerradas</th></tr></thead><tbody>{rows or '<tr><td colspan="5" class="muted">Sin datos todavía.</td></tr>'}</tbody></table></div></section>
-<section class="card"><h2>Posiciones abiertas</h2><div class="tbl"><table><thead><tr><th>Bloque</th><th>Símbolo</th><th>Detalle</th></tr></thead>
+<th class="n">Abiertas</th><th class="n hide-m">Cerradas</th></tr></thead><tbody>{rows or '<tr><td colspan="5" class="muted">Sin datos todavía.</td></tr>'}</tbody></table></div>
+<p class="muted">El resultado incluye lo que van ganando o perdiendo las operaciones abiertas, a precio actual.</p></section>
+<section class="card"><h2>Posiciones abiertas</h2><div class="tbl"><table><thead><tr><th class="hide-m">Bloque</th><th>Moneda</th><th class="n">Va</th><th>Qué es</th></tr></thead>
 <tbody>{pos}</tbody></table></div></section>
-<section class="card"><h2>Últimos eventos</h2><div class="tbl"><table><thead><tr><th>Hora (UTC)</th><th>Bloque</th><th>Evento</th><th>Símbolo</th>
-<th class="hide-m">Lado</th><th>Detalle</th></tr></thead><tbody>{ev or '<tr><td colspan="6" class="muted">Sin eventos todavía.</td></tr>'}</tbody></table></div></section>
+<section class="card"><h2>Últimos eventos</h2><div class="tbl"><table><thead><tr><th>Hora (UTC)</th><th>Bloque</th><th>Qué pasó</th></tr></thead>
+<tbody>{ev or '<tr><td colspan="3" class="muted">Sin eventos todavía.</td></tr>'}</tbody></table></div></section>
 <p class="muted">Actualizado {now} · se refresca solo cada minuto · servicio: {html.escape(s["svc"])}. Página de solo lectura.</p>
 </main></body></html>"""
 

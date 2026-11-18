@@ -192,7 +192,7 @@ def test_panel_render(tmp_path):
     s = panel.snapshot(cfg)
     assert s["health"][0] == "bad"                      # el ciclo es antiguo (o no hay servicio)
     h = panel.render(s)
-    assert "BTCUSDT" in h and "<script>" not in h and "&lt;script&gt;" in h
+    assert "Comprado" in h and "BTC" in h and "<script>" not in h and "&lt;script&gt;" in h
 
 
 def test_mensajes_claros():
