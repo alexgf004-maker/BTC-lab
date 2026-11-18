@@ -78,16 +78,21 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
         if sleeve == "B_corto_alt_btc":
             ratio, R = _f(r"ratio=([\d\.e\-\+]+)", detail), _f(r"R=([\d\.e\-\+]+)", detail)
             btc = _f(r"BTC ([\+\-]?[\d\.e\-]+)", detail)
+            pb = _f(r"@ ([\d\.]+)", detail) or (notional / btc if btc else None)
             stop_pct = (R / ratio) if ratio and R else None
             riesgo = notional * stop_pct if stop_pct else None
-            return (f"{head}\n🔻 Nueva operación · {bl} (futuros)\nCorto en el futuro de {a}: {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
-                    + (f"Largo en el futuro de BTC: {cantidad(btc)} BTC (≈ {num(notional)} $) como cobertura\n" if btc else "")
-                    + f"Apuesta: {a} lo hará peor que BTC (si todo el mercado sube o baja, una pata compensa a la otra)\n"
-                    + (f"Stop: si {a} sube un {num(100 * stop_pct, 1)} % frente a BTC → pérdida ≈ {num(riesgo)} $" if riesgo else ""))
+            msg = f"{head}\n🔻 Nueva operación · {bl} (futuros)\nEntrada:\n• Corto en el futuro de {a}: {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+            if btc:
+                msg += f"• Largo en el futuro de BTC: {cantidad(btc)} BTC a {precio(pb)} $ (≈ {num(abs(btc) * pb)} $) como cobertura\n"
+            msg += f"Apuesta: {a} lo hará peor que BTC (si todo el mercado sube o baja, una pata compensa a la otra)\n"
+            if riesgo:
+                msg += (f"Stop: si {a} sube un {num(100 * stop_pct, 1)} % más que BTC. Si BTC no se mueve, equivale a {a} en "
+                        f"≈ {precio(p * (1 + stop_pct))} $. Pérdida ≈ {num(riesgo)} $")
+            return msg
         if sleeve == "D_tendencia":
             stop = _f(r"stop=([\d\.]+)", detail)
             loss = abs(q) * (p - stop) if stop else None
-            return (f"{head}\n📈 Nueva operación · {bl} (futuros)\nLargo en el futuro de {a}: {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+            return (f"{head}\n📈 Nueva operación · {bl} (futuros)\nEntrada: largo en el futuro de {a}, {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
                     + (f"Stop inicial: {precio(stop)} $ ({num(100 * (stop / p - 1), 1)} %) → pérdida máxima ≈ {num(loss)} $\n" if stop else "")
                     + "El stop sube solo a medida que sube el precio.")
         if sleeve in ("A_carry", "E_carry_inverso"):

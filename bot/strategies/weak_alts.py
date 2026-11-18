@@ -87,7 +87,7 @@ class WeakAlts:
         self.sl["positions"][sym] = {"side": -1, "entry": ratio_px, "R": R, "stop": ratio_px + R, "ext": ratio_px, "units": units,
                                      "qty_alt": fa.qty, "qty_btc": fb.qty, "px_alt": fa.price, "px_btc": fb.price,
                                      "fees": fa.fee + fb.fee, "entry_time": entry_bar, "entry_bar": entry_bar}
-        self.j.log(NAME, "entrada", sym, "SELL", fa.qty, fa.price, f"ratio={ratio_px:.6g} R={R:.3g} BTC {fb.qty:+.5f}", ts=str(now))
+        self.j.log(NAME, "entrada", sym, "SELL", fa.qty, fa.price, f"ratio={ratio_px:.6g} R={R:.3g} BTC {fb.qty:+.5f} @ {fb.price:.2f}", ts=str(now))
 
     def _close(self, sym, pos, ratio_exit, now, why):
         fa = self.b.execute(sym, -pos["qty_alt"], "perp", tag="B")

@@ -215,15 +215,16 @@ def describe(name, sym, p, px):
         qa, qb = p.get("qty_alt", 0), p.get("qty_btc", 0)
         pa, pb = p.get("px_alt", 0), p.get("px_btc", 0)
         stop_pct = p["R"] / p["entry"] if p.get("entry") else 0
-        txt = (f"Futuros: corto en {a} ({_cant(qa)}, ≈ {_num(abs(qa) * pa)} $) y largo en BTC ({_cant(qb)}) como cobertura. "
-               f"Apuesta: {a} peor que BTC. Stop si {a} sube un {_num(100 * (p['stop'] / p['entry'] - 1), 1)} % frente a BTC "
-               f"(pérdida ≈ {_num(abs(qa) * pa * stop_pct)} $). Desde {when(p.get('entry_time'))} UTC.")
+        txt = (f"Futuros. Entrada: corto en {a} a {_precio(pa)} $ ({_cant(qa)}, ≈ {_num(abs(qa) * pa)} $) y largo en BTC a "
+               f"{_precio(pb)} $ ({_cant(qb)}) como cobertura. Apuesta: {a} peor que BTC. Stop si {a} sube un "
+               f"{_num(100 * (p['stop'] / p['entry'] - 1), 1)} % más que BTC (con BTC quieto, {a} en ≈ {_precio(pa * p['stop'] / p['entry'])} $; "
+               f"pérdida ≈ {_num(abs(qa) * pa * (p['stop'] / p['entry'] - 1))} $). Desde {when(p.get('entry_time'))} UTC.")
         bn = px.get("BTCUSDT")
         pnl = qa * (now - pa) + qb * (bn - pb) - p.get("fees", 0) if now and bn else None
         return txt, pnl
     if name == "D_tendencia":
         q, e, st = p.get("qty", 0), p.get("entry", 0), p.get("stop", 0)
-        txt = (f"Futuros: largo en {a} ({_cant(q)} a {_precio(e)} $, ≈ {_num(q * e)} $). Stop actual {_precio(st)} $ "
+        txt = (f"Futuros. Entrada: largo en {a} a {_precio(e)} $ ({_cant(q)}, ≈ {_num(q * e)} $). Stop actual {_precio(st)} $ "
                f"({_num(100 * (st / e - 1), 1)} % desde la entrada); sube solo si el precio sube. Desde {when(p.get('entry_time'))} UTC.")
         return txt, (q * (now - e) - p.get("fees", 0) if now else None)
     if name in ("A_carry", "E_carry_inverso"):
