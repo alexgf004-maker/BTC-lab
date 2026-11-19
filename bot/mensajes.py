@@ -103,7 +103,8 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
                 why = "No apuesta por el precio: cobra lo que pagan los que compran con apalancamiento"
             else:
                 how = f"Abre un largo de {cantidad(q)} {a} en el futuro y vende lo mismo en spot con monedas prestadas (≈ {num(notional)} $ por pata)"
-                why = "No apuesta por el precio: cobra lo que pagan los que venden en corto"
+                why = ("No apuesta por el precio (una pata compensa a la otra): cobra lo que pagan cada 8 h los que están en corto, "
+                       "descontado el interés del préstamo")
             return f"{head}\n💵 Nueva operación · {bl}\n{how}\n{why}{anual}."
         if sleeve == "F_fin_de_semana":
             W = _f(r"W=([\+\-]?[\d\.]+)%", detail)
