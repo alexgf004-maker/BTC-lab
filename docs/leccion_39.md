@@ -23,3 +23,29 @@ idealmente con **confluencia** (media móvil de 21 periodos como soporte dinámi
 - Cripto: BTC, ETH y las 20 más líquidas de cada mes (perpetuos de Binance, con deslistadas). Limit y objetivo 0,02 %; mercado y stop
   0,07 %. Desarrollo 2020-03 → 2023-06; **examen 2023-07 → 2026-10.**
 **Criterio (en cada mercado por separado):** esperanza neta > 0 con t ≥ 3 (agrupando por día) en el examen y positiva en desarrollo.
+
+## 2. Resultados — `l39_salida.txt`
+**Forex (10 pares, 4 h):**
+| | Desarrollo 2012–2018 | **Examen 2019–2026** | Examen sin costes |
+|---|---|---|---|
+| P1 conservadora 1:2 | −0,34R / 27 % acierto | **−0,34R (t −6,7) / 28 %** | −0,17R |
+| P1 conservadora 1:5 | −0,28R / 15 % | **−0,33R (t −4,2) / 14 %** | −0,14R |
+| P2 confluencia 1:2 | −0,13R (n 15) | **−0,56R (n 35)** | −0,28R |
+| P2 confluencia 1:5 | −0,33R (n 15) | **−0,82R (n 35)** | −0,52R |
+| P1 agresiva 1:2 | −0,22R / 30 % | **−0,26R (t −5,9) / 29 %** | −0,12R |
+**Cripto (BTC, ETH y top 20, 4 h):**
+| | Desarrollo 2020–2023 | **Examen 2023–2026** |
+|---|---|---|
+| P1 conservadora 1:2 | −0,02R / 34 % | **−0,14R (t −2,2) / 31 %** |
+| P1 conservadora 1:5 | +0,16R / 20 % | **−0,10R / 17 %** |
+| P2 confluencia 1:2 | +0,44R (t 2,5) / 49 % (n 94) | **−0,01R / 36 % (n 67)** |
+| P2 confluencia 1:5 | +0,98R (t 3,2) / 34 % (n 94) | **+0,07R (t 0,7) / 21 % (n 67)** |
+| P1 agresiva 1:2 | −0,04R / 34 % | **−0,12R (t −2,3) / 32 %** |
+
+**NO aprobada en ningún mercado.**
+- **Forex:** pierde incluso sin costes. Con objetivo 1:2 hace falta acertar el 33 % para no perder y acierta el 27–29 %: en divisas, los
+  retrocesos al nivel roto suelen ser rupturas fallidas, no "segundas oportunidades".
+- **Cripto: la lección más valiosa.** La versión con máxima confluencia (P2) parecía excelente en 2020–2023 (+0,98R por operación, t 3,2):
+  exactamente el tipo de resultado que se publica en un libro. En los años siguientes, con las mismas reglas, se quedó en cero.
+  Con pocas operaciones (94) y muchas condiciones, es fácil que el pasado "confirme" una estrategia por azar.
+- **La confluencia reduce mucho las señales** (de ~700 a ~50–90 en 6 años) sin mejorar el resultado en datos nuevos.
