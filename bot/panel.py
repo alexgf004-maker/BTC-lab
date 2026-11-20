@@ -253,7 +253,10 @@ def event_text(r):
         lines = [f"{e} {r.get('symbol', '')} {r.get('detalle', '')}"]
     if e == "resumen":
         lines = lines[:2]
-    return " · ".join(x for x in lines if x.strip())
+    out = ""
+    for x in (x.strip() for x in lines if x.strip()):
+        out += (" " if out.endswith(":") or not out else " · ") + x.lstrip("• ")
+    return out.strip()
 
 
 def render(s):
@@ -302,7 +305,7 @@ def render(s):
 <meta http-equiv="refresh" content="60"><title>BTC-lab · Panel</title><style>{CSS}</style></head><body><main>
 <header><h1>BTC-lab · Panel</h1><div><span class="pill mode">{html.escape(cfg.get("modo", "?").upper())}</span>
 <span class="pill {hc}">{html.escape(ht)}</span></div></header>
-<section class="kpis">{k("Capital", money(eq))}{k("Desde el inicio", pct(ret), "pos" if ret >= 0 else "neg")}
+<section class="kpis">{k("Capital (con abiertas)", money(eq + unreal))}{k("Desde el inicio", pct((eq + unreal) / cap0 - 1 if cap0 else 0), "pos" if eq + unreal >= cap0 else "neg")}
 {k("Caída desde el máximo", pct(dd, False), "neg" if dd > 0.05 else "")}{k("Última revisión <span style='font-weight:400'>(cada hora)</span>", ago(s["age"]))}
 {k("Posiciones abiertas", n_open)}{k("Resultado de las abiertas", (("+" if unreal >= 0 else "−") + _num(abs(unreal)) + " $") if n_open else "—", "pos" if unreal >= 0 else "neg")}
 {k("Operaciones cerradas", n_closed)}</section>
