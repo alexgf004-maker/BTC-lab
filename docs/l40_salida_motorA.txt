@@ -1,0 +1,16 @@
+BTCUSDT motor A: 800 → 1807
+ETHUSDT motor A: 800 → 1796
+SOLUSDT motor A: 800 → 1369
+correlación mensual motor A con D: 0.63 | con la cartera: 0.49
+--- 2020-03-01 → 2022-12-31
+   cartera actual     Sharpe 2.36 | anual +37.4 % | caída 7.5 %
+   + motor A (1/5)    Sharpe 2.52 | anual +31.6 % | caída 5.9 %
+   motor A solo       Sharpe 1.34 | anual +9.6 % | caída 6.1 %
+--- 2023-01-01 → 2026-10-31
+   cartera actual     Sharpe 1.78 | anual +26.8 % | caída 8.2 %
+   + motor A (1/5)    Sharpe 1.93 | anual +24.0 % | caída 6.7 %
+   motor A solo       Sharpe 1.05 | anual +12.7 % | caída 6.9 %
+--- 2020-03-01 → 2026-10-31
+   cartera actual     Sharpe 2.03 | anual +31.2 % | caída 8.2 %
+   + motor A (1/5)    Sharpe 2.17 | anual +27.2 % | caída 6.7 %
+   motor A solo       Sharpe 1.11 | anual +11.4 % | caída 6.9 %
