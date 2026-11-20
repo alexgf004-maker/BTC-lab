@@ -18,5 +18,5 @@ bloques:               # fracción del capital de cada bloque (validado: 1/4 cad
   B_corto_alt_btc:  {activo: true,  fraccion: 0.2375, N: 120, m: 5.0, risk: 0.01, max_pos: 10, K: 30}
   D_tendencia:      {activo: true,  fraccion: 0.2375, N: 120, m: 5.0, risk: 0.05, symbols: [BTCUSDT, ETHUSDT]}
   F_fin_de_semana:  {activo: true,  fraccion: 0.05, threshold: 0.01, per_trade_usd: 100, max_frac_per_trade: 0.10}   # candidata: tamaño pequeño
-  # EN PRUEBA (Lección 40): siempre simulado, no cuenta en el capital. Motor A del BTC-Strategy-Monitor.
-  G_rafaga:         {activo: true,  seguimiento: true, fraccion: 0.20, risk: 0.0025, symbols: [BTCUSDT, ETHUSDT, SOLUSDT]}
+  # Lección 40: motor A del BTC-Strategy-Monitor. seguimiento: true = siempre simulado y fuera del capital.
+  G_rafaga:         {activo: true,  seguimiento: false, fraccion: 0.20, risk: 0.0025, symbols: [BTCUSDT, ETHUSDT, SOLUSDT]}

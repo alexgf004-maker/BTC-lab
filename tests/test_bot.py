@@ -222,7 +222,7 @@ def test_bloque_g_en_prueba_no_cuenta_ni_se_concilia():
     perp, spot, borrowed = expected_positions(st)
     assert perp.get("BTCUSDT", 0) == 0
     m = formatear("live", "G_rafaga", "entrada", "BTCUSDT", "BUY", 0.01, 60000, "stop=59000 z=4.5 ret3=1.80%")
-    assert "EN PRUEBA" in m and "no cuenta" in m and "1,8 %" in m
+    assert "Ráfaga" in m and "1,8 %" in m
 
 
 def test_rafaga_señal_y_salidas():
@@ -242,3 +242,17 @@ def test_rafaga_señal_y_salidas():
     assert step_exit(pos, Bar(100, 101, 97.5, 99), 3)[0] == 98.0
     assert step_exit(pos, Bar(100, 101, 99, 99.5), 5)[1].startswith("control")
     assert step_exit(pos, Bar(100, 101, 99, 100.5), 5) is None
+
+
+def test_g_en_cartera_capital_inicial_y_migracion(tmp_path):
+    from bot.main import incorporate_g, initial_capital
+    from bot.state import State
+    cfg = {"capital": 10000, "estado": str(tmp_path / "estado.json"),
+           "bloques": {"A_carry": {"activo": True, "fraccion": 0.2375}, "E_carry_inverso": {"activo": True, "fraccion": 0.2375},
+                       "B_corto_alt_btc": {"activo": True, "fraccion": 0.2375}, "D_tendencia": {"activo": True, "fraccion": 0.2375},
+                       "F_fin_de_semana": {"activo": True, "fraccion": 0.05}}}
+    assert abs(initial_capital(cfg) - 12000) < 1e-6
+    (tmp_path / "capital.csv").write_text("ts,capital,caida,bloques\n2026-11-18T00:00:00+00:00,10010.0,0.0,{}\n")
+    st = State(cfg["estado"]); st.d["equity_peak"] = 10010.0
+    incorporate_g(cfg, st); incorporate_g(cfg, st)                  # idempotente
+    assert "12010.0" in (tmp_path / "capital.csv").read_text() and st.d["equity_peak"] == 12010.0

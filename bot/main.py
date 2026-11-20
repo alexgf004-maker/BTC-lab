@@ -33,7 +33,7 @@ from .universe_live import LiveUniverse
 log = logging.getLogger("bot")
 
 
-G_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.20, "risk": 0.0025, "symbols": ["BTCUSDT", "ETHUSDT", "SOLUSDT"]}
+G_DEFAULT = {"activo": True, "seguimiento": False, "fraccion": 0.20, "risk": 0.0025, "symbols": ["BTCUSDT", "ETHUSDT", "SOLUSDT"]}
 
 
 def build(cfg):
@@ -78,9 +78,42 @@ def build(cfg):
                                 lambda now: uni.top(now, cfgE["K"], need_spot=True), -1, borrow_rate, borrow_ok))
     cfgG = {**G_DEFAULT, **B.get("G_rafaga", {})}
     state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG}.items() if v.get("seguimiento", True)]
-    if cfgG.get("activo", True):                             # en prueba: SIEMPRE con el bróker simulado, nunca órdenes reales
-        strategies.append(Rafaga({**cfgG, "capital": total * cfgG["fraccion"]}, state, PaperBroker(market), market, journal))
+    if cfgG.get("activo", True):                             # en seguimiento: siempre con el bróker simulado
+        brG = PaperBroker(market) if cfgG.get("seguimiento") else broker
+        strategies.append(Rafaga({**cfgG, "capital": total * cfgG["fraccion"]}, state, brG, market, journal))
     return client, market, broker, state, journal, strategies
+
+
+def initial_capital(cfg):
+    """Capital inicial de la cartera: capital × suma de las fracciones de los bloques activos que cuentan (incluido G)."""
+    B = cfg["bloques"]
+    fr = sum(float(v.get("fraccion", 0)) for k, v in B.items() if v.get("activo") and k != "G_rafaga")
+    g = {**G_DEFAULT, **B.get("G_rafaga", {})}
+    if g.get("activo", True) and not g.get("seguimiento"):
+        fr += float(g["fraccion"])
+    return cfg["capital"] * fr
+
+
+def incorporate_g(cfg, state):
+    """Una sola vez: al entrar G en la cartera, se suma su capital a la curva anterior y al máximo, para no crear un salto falso."""
+    g = {**G_DEFAULT, **cfg["bloques"].get("G_rafaga", {})}
+    if not g.get("activo", True) or g.get("seguimiento") or state.d.get("g_en_cartera"):
+        return
+    add = cfg["capital"] * float(g["fraccion"])
+    f = Path(cfg["estado"]).parent / "capital.csv"
+    if f.exists():
+        import csv
+        rows = list(csv.reader(open(f)))
+        for r in rows[1:]:
+            try:
+                r[1] = str(round(float(r[1]) + add, 4))
+            except (ValueError, IndexError):
+                pass
+        with open(f, "w", newline="") as fh:
+            csv.writer(fh).writerows(rows)
+    if state.d.get("equity_peak"):
+        state.d["equity_peak"] += add
+    state.d["g_en_cartera"] = True
 
 
 def equity(state):
@@ -173,6 +206,8 @@ def main():
                          f"Muévelo (mv {cfg['estado']} {cfg['estado']}.antiguo) y vuelve a arrancar.")
     client, market, broker, state, journal, strategies = build(cfg)
     state.d["modo"] = cfg["modo"]
+    incorporate_g(cfg, state)
+    state.d["capital_inicial"] = initial_capital(cfg)
     guard = RiskGuard(state, cfg["riesgo"]["revisar_caida"], cfg["riesgo"]["parar_caida"], cfg["riesgo"]["apalancamiento_max"])
     if a.status:
         for k, s in state.d["sleeves"].items():

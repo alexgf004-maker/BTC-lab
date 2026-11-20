@@ -42,7 +42,7 @@ def mark_prices():
 STALE_MIN = 135
 NAMES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoins/BTC",
          "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
-         "G_rafaga": "G · Ráfaga de momentum 🧪 en prueba"}
+         "G_rafaga": "G · Ráfaga de momentum"}
 
 
 # ------------------------------------------------------------------ lectura de datos
@@ -238,7 +238,7 @@ def describe(name, sym, p, px):
         return txt, f - p.get("fees", 0)
     if name == "G_rafaga":
         q, e, st_ = p.get("qty", 0), p.get("entry", 0), p.get("stop", 0)
-        txt = (f"EN PRUEBA (simulada, no cuenta en tu capital). Futuros: largo en {a} a {_precio(e)} $ ({_cant(q)}, ≈ {_num(q * e)} $). "
+        txt = (f"Futuros: largo en {a} a {_precio(e)} $ ({_cant(q)}, ≈ {_num(q * e)} $). "
                f"Stop {_precio(st_)} $ ({_num(100 * (st_ / e - 1), 1)} %). Se cierra si a las 6 h va en negativo o como máximo a las 60 h. "
                f"Desde {when(p.get('entry_time'))} UTC.")
         return txt, (q * (now - e) - p.get("fees", 0) if now else None)
@@ -269,7 +269,7 @@ def event_text(r):
 
 def render(s):
     cfg, st, sl = s["cfg"], s["st"], s["sleeves"]
-    cap0 = float(cfg.get("capital", 0) or 0)
+    cap0 = float(st.get("capital_inicial") or cfg.get("capital", 0) or 0)
     eq = s["eq"]
     ret = (eq / cap0 - 1) if cap0 else 0
     dd = st.get("drawdown", 0) or 0
@@ -289,7 +289,7 @@ def render(s):
     rows = ""
     for name, v in sl.items():
         bal = v.get("balance", 0) + open_by.get(name, 0.0)
-        cap_b = cap0 * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", 0.20 if name in skip else 0) or 0)
+        cap_b = cap0 * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", 0.20 if name == "G_rafaga" else 0) or 0)
         r = (bal / cap_b - 1) if cap_b else 0
         rows += (f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td class="n">{money(bal)}</td>'
                  f'<td class="n {"pos" if r >= 0 else "neg"}">{pct(r)}</td><td class="n">{len(v.get("positions", {}))}</td>'

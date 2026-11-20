@@ -13,10 +13,10 @@ def expected_positions(state):
     perp, spot, borrowed = defaultdict(float), defaultdict(float), defaultdict(float)
     skip = set(state.d.get("seguimiento", []))
     for name, sl in state.d["sleeves"].items():
-        if name in skip or name.startswith("G"):             # bloques en prueba: solo simulados
+        if name in skip:                                      # bloques en seguimiento: solo simulados
             continue
         for sym, p in sl["positions"].items():
-            if name.startswith("D") or name.startswith("F"):
+            if name.startswith("D") or name.startswith("F") or name.startswith("G"):
                 perp[sym] += p["qty"]
             elif name.startswith("B"):
                 perp[sym] += p["qty_alt"]; perp["BTCUSDT"] += p["qty_btc"]

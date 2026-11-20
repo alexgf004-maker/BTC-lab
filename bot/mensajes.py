@@ -6,7 +6,7 @@ import re
 MODOS = {"paper": "🧪 SIMULADO", "testnet": "🧪 PRUEBAS", "live": "💰 REAL"}
 BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoin vs BTC",
            "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
-           "G_rafaga": "G · Ráfaga de momentum (EN PRUEBA)", "cartera": "Cartera"}
+           "G_rafaga": "G · Ráfaga de momentum", "cartera": "Cartera"}
 
 
 def num(x, dec=2):
@@ -110,7 +110,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
         if sleeve == "G_rafaga":
             stop = _f(r"stop=([\d\.e\-\+]+)", detail); r3 = _f(r"ret3=([\d\.\-]+)%", detail)
             loss = abs(q) * (p - stop) if stop else None
-            return (f"{head}\n🧪 Nueva operación EN PRUEBA · {bl} (simulada, no cuenta en tu capital)\n"
+            return (f"{head}\n📈 Nueva operación · {bl} (futuros)\n"
                     f"Entrada: largo en el futuro de {a}, {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
                     + (f"Stop: {precio(stop)} $ ({num(100 * (stop / p - 1), 1)} %) → pérdida máxima ≈ {num(loss)} $\n" if stop else "")
                     + f"Motivo: {a} subió {num(r3 or 0, 1)} % en 3 h con un pico anormal de operaciones.\n"
