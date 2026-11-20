@@ -105,7 +105,8 @@ class LiveMarket:
             return pd.DataFrame(columns=["open", "high", "low", "close", "volume", "quote_volume"])
         df = pd.DataFrame(rows, columns=["t", "open", "high", "low", "close", "volume", "ct", "quote_volume", "n", "tbv", "tbq", "x"])
         df.index = pd.to_datetime(df.t, unit="ms", utc=True)
-        df = df[["open", "high", "low", "close", "volume", "quote_volume", "tbv"]].astype(float).rename(columns={"tbv": "taker_buy_volume"})
+        df = df[["open", "high", "low", "close", "volume", "quote_volume", "n", "tbv"]].astype(float).rename(
+            columns={"tbv": "taker_buy_volume", "n": "count"})
         return df[df.index + H <= self.now]
 
     def spot_price(self, sym):

@@ -5,7 +5,8 @@ import re
 
 MODOS = {"paper": "🧪 SIMULADO", "testnet": "🧪 PRUEBAS", "live": "💰 REAL"}
 BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoin vs BTC",
-           "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)", "cartera": "Cartera"}
+           "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
+           "G_rafaga": "G · Ráfaga de momentum (EN PRUEBA)", "cartera": "Cartera"}
 
 
 def num(x, dec=2):
@@ -106,6 +107,14 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
                 why = ("No apuesta por el precio (una pata compensa a la otra): cobra lo que pagan cada 8 h los que están en corto, "
                        "descontado el interés del préstamo")
             return f"{head}\n💵 Nueva operación · {bl}\n{how}\n{why}{anual}."
+        if sleeve == "G_rafaga":
+            stop = _f(r"stop=([\d\.e\-\+]+)", detail); r3 = _f(r"ret3=([\d\.\-]+)%", detail)
+            loss = abs(q) * (p - stop) if stop else None
+            return (f"{head}\n🧪 Nueva operación EN PRUEBA · {bl} (simulada, no cuenta en tu capital)\n"
+                    f"Entrada: largo en el futuro de {a}, {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+                    + (f"Stop: {precio(stop)} $ ({num(100 * (stop / p - 1), 1)} %) → pérdida máxima ≈ {num(loss)} $\n" if stop else "")
+                    + f"Motivo: {a} subió {num(r3 or 0, 1)} % en 3 h con un pico anormal de operaciones.\n"
+                    "Se cierra si a las 6 h va en negativo, si toca el stop o como máximo a las 60 h.")
         if sleeve == "F_fin_de_semana":
             W = _f(r"W=([\+\-]?[\d\.]+)%", detail)
             verb = "Corto" if side == "SELL" else "Largo"
@@ -115,7 +124,8 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
 
     if event == "salida":
         pnl = _f(r"pnl=([\-\d\.]+)", detail)
-        why = (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc") else ""
+        why = (detail or "").split(" pnl=")[0] if sleeve == "G_rafaga" else (
+            (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc") else "")
         motivos = {"stop": "saltó el stop", "stop_horario": "saltó el stop (comprobación horaria)",
                    "sin_datos": "la moneda dejó de tener datos (posible deslistado)", "rendimiento": "el funding dejó de compensar"}
         icon = "✅" if (pnl or 0) > 0 else "❌"

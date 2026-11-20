@@ -24,12 +24,16 @@ from .reconcile import futures_margin_guard, reconcile
 from .risk import RiskGuard
 from .state import State
 from .strategies.carry import Carry
+from .strategies.momentum import Rafaga
 from .strategies.trend import Trend
 from .strategies.weak_alts import WeakAlts
 from .strategies.weekend import Weekend
 from .universe_live import LiveUniverse
 
 log = logging.getLogger("bot")
+
+
+G_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.20, "risk": 0.0025, "symbols": ["BTCUSDT", "ETHUSDT", "SOLUSDT"]}
 
 
 def build(cfg):
@@ -72,11 +76,17 @@ def build(cfg):
                 return False
         strategies.append(Carry(sc("E_carry_inverso"), state, broker, market, journal,
                                 lambda now: uni.top(now, cfgE["K"], need_spot=True), -1, borrow_rate, borrow_ok))
+    cfgG = {**G_DEFAULT, **B.get("G_rafaga", {})}
+    state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG}.items() if v.get("seguimiento", True)]
+    if cfgG.get("activo", True):                             # en prueba: SIEMPRE con el bróker simulado, nunca órdenes reales
+        strategies.append(Rafaga({**cfgG, "capital": total * cfgG["fraccion"]}, state, PaperBroker(market), market, journal))
     return client, market, broker, state, journal, strategies
 
 
 def equity(state):
-    return sum(s["balance"] for s in state.d["sleeves"].values())
+    """Capital de la cartera (sin los bloques en prueba, que se siguen aparte)."""
+    skip = set(state.d.get("seguimiento", []))
+    return sum(s["balance"] for k, s in state.d["sleeves"].items() if k not in skip)
 
 
 def record_cycle(cfg, state, status):
@@ -102,7 +112,8 @@ def daily_summary(state, journal, now):
         return
     lines = [f"capital {equity(state):,.2f} | caída {100 * state.d.get('drawdown', 0):.1f} %"]
     for k, s in state.d["sleeves"].items():
-        lines.append(f"{k}: {s['balance']:,.2f} | abiertas {len(s['positions'])} | cerradas {s['closed']}")
+        tag = " (en prueba)" if k in state.d.get("seguimiento", []) else ""
+        lines.append(f"{k}{tag}: {s['balance']:,.2f} | abiertas {len(s['positions'])} | cerradas {s['closed']}")
     if state.d.get("bloqueados"):
         lines.append(f"bloqueados: {list(state.d['bloqueados'])}")
     journal.log("cartera", "resumen", detail=" · ".join(lines))

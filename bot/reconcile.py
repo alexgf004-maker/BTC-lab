@@ -11,7 +11,10 @@ log = logging.getLogger("bot.reconcile")
 
 def expected_positions(state):
     perp, spot, borrowed = defaultdict(float), defaultdict(float), defaultdict(float)
+    skip = set(state.d.get("seguimiento", []))
     for name, sl in state.d["sleeves"].items():
+        if name in skip or name.startswith("G"):             # bloques en prueba: solo simulados
+            continue
         for sym, p in sl["positions"].items():
             if name.startswith("D") or name.startswith("F"):
                 perp[sym] += p["qty"]

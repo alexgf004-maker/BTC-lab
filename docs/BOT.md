@@ -103,6 +103,12 @@ por el instalador (`sudo cat /etc/btclab/panel_contrasena`). El panel escucha so
 Vigilancia: si el bot se detiene por un fallo, systemd avisa por Telegram (`deploy/alerta_caida.sh`, máx. un aviso cada 30 min);
 y si el servicio no está activo o lleva más de 2 h 15 min sin completar un ciclo, el panel avisa (y vuelve a avisar al recuperarse).
 
+## 5e. Bloque G en prueba (Lección 40)
+Motor A del BTC-Strategy-Monitor (ráfaga de momentum en BTC, ETH y SOL), el único de esa suite que funciona fuera de BTC.
+**Siempre simulado**, aunque el bot esté en modo real (usa el bróker simulado), y **no cuenta en el capital** ni en la caída de la cartera:
+el panel y los avisos lo marcan "EN PRUEBA". Paridad comprobada con el monitor (281 operaciones idénticas) y entre la versión hora a hora
+y la réplica histórica (54 de 54 en 2024). Se activa solo; para desactivarlo: `G_rafaga: {activo: false}` en config.yaml.
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

@@ -41,7 +41,8 @@ def mark_prices():
 
 STALE_MIN = 135
 NAMES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoins/BTC",
-         "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)"}
+         "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
+         "G_rafaga": "G · Ráfaga de momentum 🧪 en prueba"}
 
 
 # ------------------------------------------------------------------ lectura de datos
@@ -81,7 +82,8 @@ def snapshot(cfg):
     base = Path(cfg["estado"]).parent
     st = read_json(cfg["estado"])
     sleeves = st.get("sleeves", {})
-    eq = sum(s.get("balance", 0) for s in sleeves.values())
+    skip = set(st.get("seguimiento", []))
+    eq = sum(v.get("balance", 0) for k_, v in sleeves.items() if k_ not in skip)
     curve = read_csv_tail(base / "capital.csv", 5000)
     diario = read_csv_tail(cfg["diario"], 60)
     age = minutes_since(st.get("ultimo_ciclo", ""))
@@ -234,6 +236,12 @@ def describe(name, sym, p, px):
         txt = (f"{a}: {how}, ≈ {_num(n)} $ por pata (sin riesgo de precio). Funding cobrado hasta ahora: {_num(f)} $. "
                f"Desde {when(p.get('entry_time'))} UTC.")
         return txt, f - p.get("fees", 0)
+    if name == "G_rafaga":
+        q, e, st_ = p.get("qty", 0), p.get("entry", 0), p.get("stop", 0)
+        txt = (f"EN PRUEBA (simulada, no cuenta en tu capital). Futuros: largo en {a} a {_precio(e)} $ ({_cant(q)}, ≈ {_num(q * e)} $). "
+               f"Stop {_precio(st_)} $ ({_num(100 * (st_ / e - 1), 1)} %). Se cierra si a las 6 h va en negativo o como máximo a las 60 h. "
+               f"Desde {when(p.get('entry_time'))} UTC.")
+        return txt, (q * (now - e) - p.get("fees", 0) if now else None)
     if name == "F_fin_de_semana":
         q, e = p.get("qty", 0), p.get("entry", 0)
         txt = (f"Futuros: {'corto' if q < 0 else 'largo'} en {a} ({_cant(q)} a {_precio(e)} $) tras moverse {_num(100 * p.get('W', 0), 2)} % "
@@ -265,22 +273,23 @@ def render(s):
     eq = s["eq"]
     ret = (eq / cap0 - 1) if cap0 else 0
     dd = st.get("drawdown", 0) or 0
-    n_open = sum(len(v.get("positions", {})) for v in sl.values())
-    n_closed = sum(v.get("closed", 0) for v in sl.values())
+    skip = set(st.get("seguimiento", []))
+    n_open = sum(len(v.get("positions", {})) for k_, v in sl.items() if k_ not in skip)
+    n_closed = sum(v.get("closed", 0) for k_, v in sl.items() if k_ not in skip)
     hc, ht = s["health"]
     k = lambda l, v, c="": f'<div class="kpi"><div class="l">{l}</div><div class="v {c}">{v}</div></div>'
-    px = mark_prices() if n_open else {}
+    px = mark_prices() if any(v.get("positions") for v in sl.values()) else {}
     opened, open_by = {}, {}
     for name, v in sl.items():
         for sym, p in v.get("positions", {}).items():
             opened[(name, sym)] = describe(name, sym, p, px)
             pnl = opened[(name, sym)][1]
             open_by[name] = open_by.get(name, 0.0) + (pnl or 0.0)
-    unreal = sum(open_by.values())
+    unreal = sum(v for k_, v in open_by.items() if k_ not in skip)
     rows = ""
     for name, v in sl.items():
         bal = v.get("balance", 0) + open_by.get(name, 0.0)
-        cap_b = cap0 * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", 0) or 0)
+        cap_b = cap0 * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", 0.20 if name in skip else 0) or 0)
         r = (bal / cap_b - 1) if cap_b else 0
         rows += (f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td class="n">{money(bal)}</td>'
                  f'<td class="n {"pos" if r >= 0 else "neg"}">{pct(r)}</td><td class="n">{len(v.get("positions", {}))}</td>'

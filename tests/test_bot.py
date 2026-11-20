@@ -206,3 +206,39 @@ def test_mensajes_claros():
     assert "REAL" in s and "−23,50 $" in s and "❌" in s
     a = formatear("paper", "cartera", "arranque", detail="modo paper · bloques ['D_tendencia', 'A_carry'] · capital 10,000.00 · avisos de Telegram activos")
     assert "Bot encendido" in a and "A, D" in a
+
+
+def test_bloque_g_en_prueba_no_cuenta_ni_se_concilia():
+    import tempfile as _t
+    from bot.main import equity
+    from bot.reconcile import expected_positions
+    from bot.state import State
+    from bot.mensajes import formatear
+    st = State(f"{_t.mkdtemp()}/s.json")
+    st.d["sleeves"] = {"D_tendencia": {"balance": 2500.0, "positions": {}, "closed": 0},
+                       "G_rafaga": {"balance": 2100.0, "positions": {"BTCUSDT": {"qty": 0.01, "entry": 60000.0, "stop": 59000.0}}, "closed": 0}}
+    st.d["seguimiento"] = ["G_rafaga"]
+    assert equity(st) == 2500.0
+    perp, spot, borrowed = expected_positions(st)
+    assert perp.get("BTCUSDT", 0) == 0
+    m = formatear("live", "G_rafaga", "entrada", "BTCUSDT", "BUY", 0.01, 60000, "stop=59000 z=4.5 ret3=1.80%")
+    assert "EN PRUEBA" in m and "no cuenta" in m and "1,8 %" in m
+
+
+def test_rafaga_señal_y_salidas():
+    import numpy as np
+    import pandas as pd
+    from bot.strategies.momentum import features, is_signal, step_exit
+    n = 300
+    idx = pd.date_range("2026-01-01", periods=n, freq="1h", tz="UTC")
+    c = np.linspace(100, 110, n); c[-1] = c[-4] * 1.03
+    df = pd.DataFrame({"open": c * 0.999, "high": c * 1.002, "low": c * 0.998, "close": c,
+                       "count": np.r_[np.random.default_rng(0).normal(1000, 50, n - 1), 5000]}, index=idx)
+    f = features(df)
+    assert is_signal(f, n - 1)
+    pos = {"entry": 100.0, "stop": 98.0}
+    Bar = lambda o, h, l, c_: pd.Series({"open": o, "high": h, "low": l, "close": c_})
+    assert step_exit(pos, Bar(97, 99, 96, 98), 3)[1] == "stop (hueco)"
+    assert step_exit(pos, Bar(100, 101, 97.5, 99), 3)[0] == 98.0
+    assert step_exit(pos, Bar(100, 101, 99, 99.5), 5)[1].startswith("control")
+    assert step_exit(pos, Bar(100, 101, 99, 100.5), 5) is None
