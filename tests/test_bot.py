@@ -256,3 +256,16 @@ def test_g_en_cartera_capital_inicial_y_migracion(tmp_path):
     st = State(cfg["estado"]); st.d["equity_peak"] = 10010.0
     incorporate_g(cfg, st); incorporate_g(cfg, st)                  # idempotente
     assert "12010.0" in (tmp_path / "capital.csv").read_text() and st.d["equity_peak"] == 12010.0
+
+
+def test_panel_resultado_por_bloque_con_g(tmp_path):
+    import json as _j
+    from bot import panel
+    st = {"sleeves": {"D_tendencia": {"balance": 2375.0, "positions": {}, "closed": 0},
+                      "G_rafaga": {"balance": 2000.0, "positions": {}, "closed": 0}},
+          "capital_inicial": 12000.0, "seguimiento": [], "ultimo_ciclo": "2026-01-01T00:00:00+00:00"}
+    (tmp_path / "estado.json").write_text(_j.dumps(st))
+    cfg = {"modo": "paper", "capital": 10000, "estado": str(tmp_path / "estado.json"), "diario": str(tmp_path / "d.csv"),
+           "bloques": {"D_tendencia": {"activo": True, "fraccion": 0.2375}}}
+    h = panel.render(panel.snapshot(cfg))
+    assert "−16,67 %" not in h and "+0,00 %" in h
