@@ -38,3 +38,32 @@ Pruebas nuevas: 7.
   recomendación del informe final (de 1x a 1,5x); no es una mejora, es una elección de riesgo.
 - **Momentum de estrategias:** brilla en 2023–2026 (Sharpe 2,80 frente a 1,96) pero empeora 2020–2022 y aumenta la caída. Pista para
   seguir en papel, no aprobada.
+
+## 3. Resultados del nivel operativo — `l43_salida.txt`, `l43_salida_combinada.txt`, `l43_salida_bot.txt`
+**Nota sobre el pre-registro:** el texto decía "dos añadidos de 2,5 %"; lo programado y medido fueron **dos añadidos de 1,25 %** (entrada 2,5 %),
+es decir, el **mismo riesgo total del 5 %** que el D actual, repartido de otra forma. Es la comparación justa; se deja constancia.
+**Simulador de la lección (BTC y ETH):**
+| | Desarrollo: Sharpe / caída | Examen: Sharpe / caída |
+|---|---|---|
+| D actual | 1,15 / 9,0 % | 0,52 / 13,0 % |
+| **P3 piramidación** | 1,16 / 7,2 % | 0,58 / 12,6 % | ✅
+| **P5 filtro de euforia** | 1,23 / 7,4 % | 0,62 / 13,0 % | ✅
+| Las dos (informativo) | 1,23 / 5,8 % | 0,64 / 12,6 % |
+| P4 D en 10 altcoins (con BTC alcista) | E +0,15R (t 1,3) | E +0,29R (t 1,6) | ❌ (positivo, pero sin la significación exigida)
+
+**Confirmación con el código del propio bot** (que reproduce al 100 % la investigación original; 2020-03 → 2026-10):
+| Bloque D | Desarrollo: Sharpe / anual / caída | Examen: Sharpe / anual / caída |
+|---|---|---|
+| Original | 1,04 / +56,8 % / 19,8 % | 0,49 / +14,9 % / 27,5 % |
+| + filtro de euforia | 1,17 / +65,3 % / 16,4 % | 0,59 / +19,8 % / 27,5 % |
+| + piramidación | 1,08 / +58,0 % / 15,5 % | 0,54 / +16,8 % / 24,5 % |
+| **+ las dos** | **1,19 / +64,8 % / 12,7 %** | **0,60 / +19,8 % / 24,5 %** |
+**Las dos mejoras se aprueban y se activan en el bot.** Mejoran el Sharpe y reducen la caída en los dos periodos, con los dos simuladores.
+- **Filtro de euforia:** evita comprar rupturas cuando los largos ya pagan mucho funding (mercado sobrecalentado): esas rupturas
+  fallan más a menudo.
+- **Piramidación:** arriesgar la mitad al principio y añadir solo si la tendencia confirma; las rupturas falsas cuestan la mitad y las
+  buenas acaban con el riesgo completo.
+
+## 4. Conclusión
+A nivel cartera, los pesos iguales siguen siendo lo más robusto (las construcciones sofisticadas mejoran un periodo y empeoran otro).
+A nivel operativo, dos técnicas clásicas de gestión de operaciones mejoran el bloque D de forma estable: **activadas en el bot.**

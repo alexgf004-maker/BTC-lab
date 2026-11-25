@@ -1,0 +1,5 @@
+Comprobación con el código del bot (2020-03 → 2026-10, bloque D sobre 2 375 $)
+  D original             desarrollo Sharpe 1.04 | anual  +56.8 % | caída  19.8 % || EXAMEN Sharpe 0.49 | anual  +14.9 % | caída  27.5 % | operaciones 120
+  + filtro de euforia    desarrollo Sharpe 1.17 | anual  +65.3 % | caída  16.4 % || EXAMEN Sharpe 0.59 | anual  +19.8 % | caída  27.5 % | operaciones 103
+  + piramidación         desarrollo Sharpe 1.08 | anual  +58.0 % | caída  15.5 % || EXAMEN Sharpe 0.54 | anual  +16.8 % | caída  24.5 % | operaciones 120
+  + las dos              desarrollo Sharpe 1.19 | anual  +64.8 % | caída  12.7 % || EXAMEN Sharpe 0.60 | anual  +19.8 % | caída  24.5 % | operaciones 103
