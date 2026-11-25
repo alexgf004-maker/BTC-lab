@@ -30,3 +30,6 @@ idénticas del motor A. Desarrollo 2020-03 → 2023-06; examen 2023-07 → 2026-
 | Actual | +0,682R / 226 | +0,733R / 199 |
 | **Con filtro de euforia** | **+0,780R / 191 (85 %)** | **+0,776R / 194 (97 %)** |
 **Aprobado y activado en el bot.** Igual que en D: las subidas bruscas compradas cuando los largos ya pagan mucho funding salen peor.
+
+**Doble comprobación con el código del bot** (repetición hora a hora de 2024, BTC/ETH/SOL, saldo 2.400): sin filtro 54 operaciones,
+E +1,227R, saldo final 2.787; con filtro 50 operaciones, E +1,385R, saldo final 2.810. Mismo sentido que el simulador de investigación.
