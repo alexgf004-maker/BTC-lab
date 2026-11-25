@@ -1,0 +1,6 @@
+CP prima de Coinbase (diaria)          | IC (signo esperado) +0.017, t +0.88 | desarrollo: Sharpe -0.40, anual -15.7 % | examen: Sharpe +1.13, anual +33.8 % | tiempo invertido 34 %
+KP prima kimchi (diaria)               | IC (signo esperado) -0.029, t -1.46 | desarrollo: Sharpe +0.38, anual +20.0 % | examen: Sharpe -0.03, anual -1.0 % | tiempo invertido 41 %
+SC emisión de stablecoins (7 días)     | IC (signo esperado) +0.011, t +0.56 | desarrollo: Sharpe -0.05, anual -2.0 % | examen: Sharpe +0.43, anual +13.2 % | tiempo invertido 33 %
+CP4 prima de Coinbase (4 h)            | IC (signo esperado) +0.016, t +2.13 | desarrollo: Sharpe +0.52, anual +23.3 % | examen: Sharpe +0.82, anual +24.3 % | tiempo invertido 37 %
+
+Comparación: BTC comprado siempre — Sharpe desarrollo +0.76 / examen +1.10

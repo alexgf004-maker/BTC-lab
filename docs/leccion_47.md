@@ -24,3 +24,21 @@ errores robustos (Newey-West).
 
 **Criterio de aprobación** (4 pruebas): Sharpe neto ≥ 0,8 en desarrollo **y** en examen, e IC con el signo esperado y t ≥ 2,5
 en todo el periodo. Si pasa: doble comprobación y, si se confirma, bloque en seguimiento en el bot.
+
+## 2. Resultados — `l47_salida.txt`
+Un error del descargador (fechas y precios de Binance spot desalineados, todo NaN) se corrigió antes de leer resultados.
+Comprobación: la prima de Coinbase media es +0,011 %, con el 90 % de las horas entre −0,13 % y +0,15 %. Es razonable.
+
+| Indicador | IC (signo esperado), t | Desarrollo: Sharpe | Examen: Sharpe | ¿Pasa? |
+|---|---|---|---|---|
+| CP prima de Coinbase (diaria) | +0,017, t +0,88 | −0,40 | +1,13 | No |
+| KP prima kimchi (diaria) | −0,029, t −1,46 (signo contrario) | +0,38 | −0,03 | No |
+| SC emisión de stablecoins | +0,011, t +0,56 | −0,05 | +0,43 | No |
+| CP4 prima de Coinbase (4 h) | +0,016, t +2,13 | +0,52 | +0,82 | No (le falta en desarrollo y en t) |
+
+BTC comprado siempre: Sharpe +0,76 y +1,10 en los mismos periodos.
+
+**Rechazados los cuatro.** La prima de Coinbase en 4 horas es lo más cercano: gana en los dos periodos y apunta en la dirección
+esperada, pero no llega al listón (t 2,13 < 2,5; Sharpe 0,52 < 0,8 en desarrollo) y por sí sola no mejora a comprar y mantener.
+No se ajusta nada después de ver esto. La prima kimchi y la emisión de stablecoins no predicen nada a 1 día: son buenos
+termómetros del ánimo del mercado, pero no dan ventaja para operar.
