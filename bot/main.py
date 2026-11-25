@@ -36,7 +36,7 @@ log = logging.getLogger("bot")
 
 H_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25, "max_pos": 4, "entrada": -0.005,
              "salida": 0.001, "max_horas": 24, "K": 30, "borrow_apr": 0.30}
-G_DEFAULT = {"activo": True, "seguimiento": False, "fraccion": 0.20, "risk": 0.0025, "symbols": ["BTCUSDT", "ETHUSDT", "SOLUSDT"]}
+G_DEFAULT = {"activo": True, "seguimiento": False, "fraccion": 0.20, "risk": 0.0025, "filtro_euforia": 0.0003, "symbols": ["BTCUSDT", "ETHUSDT", "SOLUSDT"]}
 
 
 def build(cfg):

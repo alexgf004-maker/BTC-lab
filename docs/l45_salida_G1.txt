@@ -1,0 +1,6 @@
+desarrollo
+   G actual                       n  226 | E +0.682R (t +2.76) | aciertos 29.6 %
+   G con filtro de euforia        n  191 | E +0.780R (t +2.78) | aciertos 30.4 %
+EXAMEN
+   G actual                       n  199 | E +0.733R (t +1.62) | aciertos 24.6 %
+   G con filtro de euforia        n  194 | E +0.776R (t +1.74) | aciertos 25.3 %

@@ -23,3 +23,10 @@ B y E se activan con el pánico). El control de caídas recorta algo la caída p
 Igual que el aprobado en D (Lección 43): G no abre si el funding medio de 3 días de la moneda > 0,03 % por 8 h. BTC, ETH y SOL, reglas
 idénticas del motor A. Desarrollo 2020-03 → 2023-06; examen 2023-07 → 2026-10. Criterio: E[R] mayor en los dos periodos y con al menos el
 80 % de las operaciones de G conservadas. Prueba nueva: 1.
+
+## 4. Resultado de G1 — `l45_salida_G1.txt`
+| Bloque G (BTC, ETH, SOL) | Desarrollo: E / n | Examen: E / n |
+|---|---|---|
+| Actual | +0,682R / 226 | +0,733R / 199 |
+| **Con filtro de euforia** | **+0,780R / 191 (85 %)** | **+0,776R / 194 (97 %)** |
+**Aprobado y activado en el bot.** Igual que en D: las subidas bruscas compradas cuando los largos ya pagan mucho funding salen peor.

@@ -128,6 +128,14 @@ class Rafaga:
                 busy = self.sl.get("busy_until", {}).get(sym)
                 i = len(f) - 1
                 if (busy is None or f.index[i] > pd.Timestamp(busy)) and is_signal(f, i):
+                    euf = self.cfg.get("filtro_euforia", 0.0003)     # Lección 45: no comprar con el mercado eufórico
+                    if euf:
+                        fz = self.m.funding(sym, now - pd.Timedelta("72h") + pd.Timedelta("1min"))
+                        f3 = float(fz.sum()) / 9 if len(fz) else 0.0
+                        if f3 > euf:
+                            self.j.log(NAME, "omitida_euforia", sym, "BUY", 0, float(f.iloc[i].close),
+                                       f"funding medio 3 días {100 * f3:.4f} % por 8 h", ts=str(now))
+                            continue
                     self._open(sym, f.iloc[i], now, risk)
 
     def _open(self, sym, r, now, risk):
