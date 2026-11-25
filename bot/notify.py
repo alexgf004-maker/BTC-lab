@@ -11,7 +11,7 @@ import requests
 log = logging.getLogger("bot.notify")
 
 IMPORTANT = {"entrada", "salida", "error", "error_entrada", "reequilibrar_margen", "margen_transferido", "margen_insuficiente",
-             "detenido", "revisar", "descuadre", "sin_prestamo", "arranque", "resumen"}
+             "detenido", "revisar", "descuadre", "sin_prestamo", "arranque", "resumen", "ampliacion"}
 
 
 class Telegram:

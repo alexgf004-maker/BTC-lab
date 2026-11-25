@@ -32,6 +32,8 @@ class Trend:
                     self._close(sym, pos, px, now, send=False)
                     self.sl["busy_until"] = {**self.sl.get("busy_until", {}), sym: str(t_last)}
                     pos = None
+            if pos and self.cfg.get("piramidar", True):
+                self._pyramid(sym, pos, last, now, risk)
             if pos:
                 exit_px = chandelier_step(pos, last, float(last["atr"]), m, is_entry_bar=(str(t_last) == pos["entry_bar"]))
                 if exit_px is None:
@@ -49,18 +51,45 @@ class Trend:
             return
         if not (R > 0):
             return
+        euf = self.cfg.get("filtro_euforia", 0.0003)
+        if euf:                                                  # Lección 43: no comprar rupturas con el mercado eufórico
+            fz = self.m.funding(sym, now - pd.Timedelta("72h") + pd.Timedelta("1min"))
+            f3 = float(fz.sum()) / 9 if len(fz) else 0.0
+            if f3 > euf:
+                self.j.log(NAME, "omitida_euforia", sym, "BUY", 0, self.m.price(sym), f"funding medio 3 días {100 * f3:.4f} % por 8 h", ts=str(now))
+                return
         px = self.m.price(sym)
-        units = risk * self.sl["balance"] / R
+        frac = 0.5 if self.cfg.get("piramidar", True) else 1.0  # Lección 43: entrar con la mitad y añadir dos cuartos si va a favor
+        units = frac * risk * self.sl["balance"] / R
         if not self.b.can_trade(sym, units, "perp"):
             self.j.log(NAME, "omitida_minimo", sym, "BUY", units, px, "por debajo del mínimo de Binance", ts=str(now)); return
         f = self.b.execute(sym, units, "perp", tag="D")
         if not f.ok and f.msg != "simulacro":
             self.j.log(NAME, "error_entrada", sym, "BUY", units, px, f.msg); return
         entry = f.price if f.price == f.price else px
+        atr = R / 5
         self.sl["positions"][sym] = {"side": 1, "entry": entry, "qty": f.qty, "R": R, "stop": entry - R, "ext": entry,
-                                     "entry_time": str(now), "entry_bar": str(now), "fees": f.fee}
+                                     "entry_time": str(now), "entry_bar": str(now), "fees": f.fee,
+                                     "adds": [entry + atr, entry + 2 * atr] if frac < 1 else []}
         self.j.log(NAME, "entrada", sym, "BUY", f.qty, entry, f"R={R:.2f} stop={entry - R:.2f}", ts=str(now))
         self.b.protect(sym, f.qty, entry - R)
+
+    def _pyramid(self, sym, pos, bar, now, risk):
+        """Añade un cuarto del riesgo cuando el precio supera +1 ATR y otro en +2 ATR sobre la entrada (mismo stop dinámico)."""
+        for a in list(pos.get("adds", [])):
+            if float(bar["high"]) >= a:
+                qty = 0.25 * risk * self.sl["balance"] / pos["R"]
+                if not self.b.can_trade(sym, qty, "perp"):
+                    pos["adds"].remove(a); continue
+                f = self.b.execute(sym, qty, "perp", tag="D")
+                if not f.ok and f.msg != "simulacro":
+                    continue
+                px = f.price if f.price == f.price else self.m.price(sym)
+                pos["entry"] = (pos["entry"] * pos["qty"] + px * f.qty) / (pos["qty"] + f.qty)   # precio medio
+                pos["qty"] += f.qty; pos["fees"] += f.fee; pos["adds"].remove(a)
+                self.j.log(NAME, "ampliacion", sym, "BUY", f.qty, px, f"posición total {pos['qty']:.6g} · precio medio {pos['entry']:.2f} · stop {pos['stop']:.2f}",
+                           ts=str(now))
+                self.b.protect(sym, pos["qty"], pos["stop"])
 
     def _close(self, sym, pos, exit_px, now, send=True):
         if send and self.b.position_qty(sym) is not None:           # en el exchange: cerrar a mercado y retirar el stop

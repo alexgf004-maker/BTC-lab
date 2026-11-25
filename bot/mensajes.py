@@ -134,6 +134,9 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
                 + (f" (de ello, funding cobrado: {euros(fund)})" if fund is not None else "")
                 + (f"\nMotivo: {motivos.get(why, why)}" if why and not why.startswith("pnl") else ""))
 
+    if event == "ampliacion" and q is not None:
+        return (f"{head}\n➕ Amplía posición · {bl}\n{a} sigue subiendo: añade {cantidad(q)} {a} a {precio(p)} $.\n{detail}.\n"
+                "Todo usa el mismo stop dinámico.")
     if event in ("error", "error_entrada"):
         return f"{head}\n⚠️ Error · {bl} {a}\n{detail}\nSi se repite varias horas seguidas, revisa el panel o el VPS."
     if event == "revisar":

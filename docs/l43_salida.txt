@@ -1,0 +1,33 @@
+=== NIVEL CARTERA (bloques A, E, B, D, G)
+--- 2020-07-01 → 2022-12-31
+   P0 pesos iguales                 Sharpe 2.81 | anual  +34.8 % | caída   5.6 % | MAR 6.27
+   P1a inversa de la volatilidad    Sharpe 2.86 | anual   +8.5 % | caída   9.4 % | MAR 0.90
+   P1b volatilidad objetivo 12 %    Sharpe 2.70 | anual  +40.3 % | caída   6.7 % | MAR 5.99
+   P1c inversa vol. + objetivo 12 % Sharpe 2.86 | anual  +17.7 % | caída  18.0 % | MAR 0.98
+   P2 momentum de estrategias       Sharpe 2.72 | anual  +31.3 % | caída   8.6 % | MAR 3.63
+--- 2023-01-01 → 2026-10-31
+   P0 pesos iguales                 Sharpe 1.96 | anual  +22.7 % | caída   6.5 % | MAR 3.49
+   P1a inversa de la volatilidad    Sharpe 0.07 | anual   +0.2 % | caída  13.6 % | MAR 0.01
+   P1b volatilidad objetivo 12 %    Sharpe 2.08 | anual  +32.9 % | caída   9.0 % | MAR 3.66
+   P1c inversa vol. + objetivo 12 % Sharpe 0.07 | anual   +0.2 % | caída  25.4 % | MAR 0.01
+   P2 momentum de estrategias       Sharpe 2.80 | anual  +28.8 % | caída   9.4 % | MAR 3.07
+--- 2020-07-01 → 2026-10-31
+   P0 pesos iguales                 Sharpe 2.30 | anual  +27.4 % | caída   6.5 % | MAR 4.21
+   P1a inversa de la volatilidad    Sharpe 1.14 | anual   +3.4 % | caída  14.9 % | MAR 0.23
+   P1b volatilidad objetivo 12 %    Sharpe 2.31 | anual  +35.7 % | caída   9.0 % | MAR 3.98
+   P1c inversa vol. + objetivo 12 % Sharpe 1.14 | anual   +6.8 % | caída  27.5 % | MAR 0.25
+   P2 momentum de estrategias       Sharpe 2.76 | anual  +29.8 % | caída   9.4 % | MAR 3.17
+
+=== NIVEL OPERATIVO (bloque D)
+  D actual (5 % de una vez)
+     desarrollo Sharpe 1.15 | anual  +34.0 % | caída   9.0 % | MAR 3.79 | operaciones 53 | E +0.751R
+     EXAMEN     Sharpe 0.52 | anual   +9.8 % | caída  13.0 % | MAR 0.76 | operaciones 59 | E +0.266R
+  P3 piramidación 2,5 % + 2,5 % + 2,5 %
+     desarrollo Sharpe 1.16 | anual  +33.2 % | caída   7.2 % | MAR 4.59 | operaciones 53 | E +0.733R
+     EXAMEN     Sharpe 0.58 | anual  +10.7 % | caída  12.6 % | MAR 0.85 | operaciones 59 | E +0.282R
+  P5 filtro de euforia (funding 3d > 0,03 %)
+     desarrollo Sharpe 1.23 | anual  +35.4 % | caída   7.4 % | MAR 4.81 | operaciones 41 | E +1.025R
+     EXAMEN     Sharpe 0.62 | anual  +12.1 % | caída  13.0 % | MAR 0.93 | operaciones 55 | E +0.334R
+  P4 D en las 10 altcoins más líquidas (solo con BTC sobre su EMA50)
+     desarrollo operaciones 216 | E +0.153R (t +1.28) | aciertos 39.4 %
+     EXAMEN     operaciones 214 | E +0.290R (t +1.57) | aciertos 35.0 %

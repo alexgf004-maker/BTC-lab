@@ -1,0 +1,3 @@
+Informativo: piramidación + filtro de euforia
+   desarrollo Sharpe 1.23 | anual  +34.1 % | caída   5.8 % | MAR 5.86 | operaciones 41 | E +0.992R
+   EXAMEN     Sharpe 0.64 | anual  +12.2 % | caída  12.6 % | MAR 0.96 | operaciones 55 | E +0.333R

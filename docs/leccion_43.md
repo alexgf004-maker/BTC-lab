@@ -22,3 +22,19 @@ Desarrollo 2020-03 → 2023-06; examen 2023-07 → 2026-10.
   diaria. Criterio: E[R] > 0 con t ≥ 3 en el examen y positiva en desarrollo.
 - **P5 · Filtro de euforia (BTC y ETH):** no abrir si el funding medio de 3 días > 0,03 % por 8 h. Criterio como P3.
 Pruebas nuevas: 7.
+
+## 2. Resultados del nivel cartera — `l43_salida.txt`
+| | 2020-07→2022: Sharpe / caída | 2023→2026-10: Sharpe / caída | Todo: anual / caída |
+|---|---|---|---|
+| **P0 pesos iguales (A, E, B, D, G)** | **2,81 / 5,6 %** | 1,96 / **6,5 %** | +27,4 % / **6,5 %** |
+| P1a inversa de la volatilidad | 2,86 / 9,4 % | 0,07 / 13,6 % | +3,4 % / 14,9 % |
+| P1b volatilidad objetivo 12 % | 2,70 / 6,7 % | 2,08 / 9,0 % | +35,7 % / 9,0 % |
+| P1c inversa vol. + objetivo | 2,86 / 18,0 % | 0,07 / 25,4 % | +6,8 % / 27,5 % |
+| P2 momentum de estrategias | 2,72 / 8,6 % | **2,80** / 9,4 % | +29,8 % / 9,4 % |
+**Ninguna pasa el criterio** (Sharpe mayor en las dos mitades y caída no mayor).
+- **Inversa de la volatilidad: muy mala.** Carga casi todo en el carry (muy poca volatilidad, poca rentabilidad). En carteras de estrategias
+  con rentabilidades tan distintas, igualar el riesgo no es buena idea.
+- **Volatilidad objetivo:** es, en la práctica, más apalancamiento (≈ 1,3x): más rentabilidad y más caída, mismo Sharpe. Coincide con la
+  recomendación del informe final (de 1x a 1,5x); no es una mejora, es una elección de riesgo.
+- **Momentum de estrategias:** brilla en 2023–2026 (Sharpe 2,80 frente a 1,96) pero empeora 2020–2022 y aumenta la caída. Pista para
+  seguir en papel, no aprobada.
