@@ -1,0 +1,4 @@
+
+=== U — Agotamiento de bombas coreanas (109 monedas con mercado KRW)
+  señal                                        | desarrollo: n   71, media -1.04 %, t -0.78 | examen: n  101, media -1.06 %, t -1.14 | total t -1.36
+  placebo (bombas sin dominancia coreana)      | desarrollo: n  178, media -1.26 %, t -1.30 | examen: n   86, media -0.91 %, t -0.66 | total t -1.45

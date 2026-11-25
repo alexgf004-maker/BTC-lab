@@ -76,3 +76,16 @@ proponía Gemini.
 | Placebo: todas las elegibles (166 por semana) | −1,02 % | −0,52 % | −1,18 |
 **Rechazada.** Elegir las moribundas mejora al placebo (ponerse corto en toda la cola pierde más), pero no gana: las caídas que
 quedan se compensan con rebotes de +25 % y costes altos.
+
+### U — Agotamiento de bombas coreanas — `l48_salida_U.txt`
+Comprobación de datos: won implícito ≈ 1.397 por dólar (2024); cuota de Upbit en el volumen de XRP: mediana 18 %, percentil 99 50 %.
+| | Desarrollo | Examen | Total t |
+|---|---|---|---|
+| Señal (dominancia coreana ≥ 3 × lo normal) | −1,04 % (n 71) | −1,06 % (n 101) | −1,36 |
+| Placebo (bombas sin dominancia coreana) | −1,26 % (n 178) | −0,91 % (n 86) | −1,45 |
+**Rechazada.** Ponerse corto cuando se agota una bomba pierde ~1 % por operación con o sin flujo coreano: estas subidas suelen
+seguir (o rebotar hasta el stop de +10 %) antes de devolver lo ganado.
+
+## 3. Conclusión de la primera tanda
+Las cuatro ideas probadas (U, M, C, X) se rechazan. Lo útil de Gemini: cada idea traía un mecanismo y su propia prueba de falsación,
+y en X y M fue precisamente esa prueba la que las tumbó. Quedan para una segunda tanda #1 (curva de Deribit) y #6/#7 (aggTrades).
