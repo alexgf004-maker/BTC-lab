@@ -1,0 +1,5 @@
+
+=== X — Prima de lotería: corto en las 6 de mayor residuo, largo en las 6 de menor (neutral en dólares)
+  desarrollo: periodos 319, media -0.054 % cada 3 días, Sharpe -0.29
+  examen: periodos 466, media -0.012 % cada 3 días, Sharpe -0.08
+  total: t -0.43

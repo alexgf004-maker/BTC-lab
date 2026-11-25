@@ -1,0 +1,5 @@
+
+=== M — Estrés de crédito y tipos reales → corto en altcoins de beta alta
+  señal real                                   | desarrollo: n   22, media +0.22 %, t +0.08 | examen: n   19, media -2.42 %, t -1.59 | total t -0.60
+  placebo +15 días                             | desarrollo: n   21, media -0.44 %, t -0.19 | examen: n   21, media -1.78 %, t -1.18 | total t -0.80
+  placebo −15 días                             | desarrollo: n   21, media +3.18 %, t +1.62 | examen: n   18, media -3.71 %, t -2.07 | total t -0.00

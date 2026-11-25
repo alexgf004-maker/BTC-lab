@@ -53,3 +53,26 @@ días; se excluyen de los cortos las monedas con funding de 24 h < −0,05 % por
   mejor que su placebo en los dos periodos.
 - X (cartera continua): Sharpe neto ≥ 0,8 en desarrollo y en examen, y t ≥ 2,5 en todo el periodo.
 Lo que pase va a doble comprobación y, si se confirma, a seguimiento en el bot.
+
+## 2. Resultados
+### M — Estrés de crédito y tipos reales — `l48_salida_M.txt`
+| | Desarrollo | Examen | Total t |
+|---|---|---|---|
+| Señal real | +0,22 % (n 22) | −2,42 % (n 19) | −0,60 |
+| Placebo +15 días | −0,44 % | −1,78 % | −0,80 |
+| Placebo −15 días | +3,18 % | −3,71 % | 0,00 |
+**Rechazada.** El estrés de crédito en EE. UU. no anticipa caídas de las altcoins de beta alta: la señal real no se distingue de la
+misma señal desplazada dos semanas.
+
+### X — Prima de lotería largo-corto — `l48_salida_X.txt`
+Desarrollo: Sharpe −0,29; examen: −0,08; t total −0,43. **Rechazada.** Al descontar la rentabilidad y la volatilidad de 14 días, el
+efecto lotería desaparece: el IC de la lección 11 era reversión y volatilidad disfrazadas. Es justo la prueba de falsación que
+proponía Gemini.
+
+### C — Monedas moribundas fuera del top 50 — `l48_salida_C.txt`
+| | Desarrollo | Examen | Total t |
+|---|---|---|---|
+| Señal (13 monedas por semana de media) | +0,07 % por semana | −0,17 % | −0,15 |
+| Placebo: todas las elegibles (166 por semana) | −1,02 % | −0,52 % | −1,18 |
+**Rechazada.** Elegir las moribundas mejora al placebo (ponerse corto en toda la cola pierde más), pero no gana: las caídas que
+quedan se compensan con rebotes de +25 % y costes altos.

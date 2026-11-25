@@ -1,0 +1,4 @@
+
+=== C — Monedas moribundas fuera del top 50 (corto, semanal)
+  señal (media 13.1 monedas/semana)            | desarrollo: n   64, media +0.07 %, t +0.05 | examen: n  180, media -0.17 %, t -0.21 | total t -0.15
+  placebo (todas las elegibles) (media 166.2 monedas/semana) | desarrollo: n  116, media -1.02 %, t -0.89 | examen: n  200, media -0.52 %, t -0.77 | total t -1.18
