@@ -50,6 +50,8 @@ class WeakAlts:
                     self._close(sym, pos, float(df["close"].iloc[-1]) if len(df) else pos["entry"], now, "sin_datos")
                 continue
             last = df.iloc[-1]
+            if self.cfg.get("piramidar", True) and pos.get("adds"):
+                self._pyramid(sym, pos, last, now, risk)
             px = chandelier_step(pos, last, float(last["atr"]), m, is_entry_bar=(str(df.index[-1]) == pos["entry_bar"]))
             if px is not None:
                 self._close(sym, pos, px, now, "stop")
@@ -71,7 +73,8 @@ class WeakAlts:
             return
         if not (R > 0):
             return
-        units = risk * self.sl["balance"] / R                    # unidades de ratio
+        frac = 0.5 if self.cfg.get("piramidar", True) else 1.0  # Lección 44: mitad al entrar, dos cuartos si confirma
+        units = frac * risk * self.sl["balance"] / R             # unidades de ratio
         notional = units * ratio_px                              # nocional por pata en USDT (aprox.)
         pa, pb = self.m.price(sym), self.m.price("BTCUSDT")
         if not (self.b.can_trade(sym, notional / pa, "perp") and self.b.can_trade("BTCUSDT", notional / pb, "perp")):
@@ -86,8 +89,34 @@ class WeakAlts:
             self.j.log(NAME, "error_entrada", "BTCUSDT", "BUY", notional / pb, pb, f"cobertura fallida ({fb.msg}); altcoin deshecha", ts=str(now)); return
         self.sl["positions"][sym] = {"side": -1, "entry": ratio_px, "R": R, "stop": ratio_px + R, "ext": ratio_px, "units": units,
                                      "qty_alt": fa.qty, "qty_btc": fb.qty, "px_alt": fa.price, "px_btc": fb.price,
-                                     "fees": fa.fee + fb.fee, "entry_time": entry_bar, "entry_bar": entry_bar}
+                                     "fees": fa.fee + fb.fee, "entry_time": entry_bar, "entry_bar": entry_bar,
+                                     "adds": [ratio_px - R / 5, ratio_px - 2 * R / 5] if frac < 1 else []}
         self.j.log(NAME, "entrada", sym, "SELL", fa.qty, fa.price, f"ratio={ratio_px:.6g} R={R:.3g} BTC {fb.qty:+.5f} @ {fb.price:.2f}", ts=str(now))
+
+    def _pyramid(self, sym, pos, bar, now, risk):
+        """Amplía el corto un cuarto del riesgo cuando el ratio cae 1 ATR y otro cuando cae 2 ATR (mismo stop dinámico)."""
+        for trig in list(pos["adds"]):
+            if float(bar["low"]) > trig:
+                continue
+            ratio = float(bar["close"])
+            units = 0.25 * risk * self.sl["balance"] / pos["R"]
+            notional = units * ratio
+            pa, pb = self.m.price(sym), self.m.price("BTCUSDT")
+            if not (pa > 0 and pb > 0) or not (self.b.can_trade(sym, notional / pa, "perp") and self.b.can_trade("BTCUSDT", notional / pb, "perp")):
+                pos["adds"].remove(trig); continue
+            fa = self.b.execute(sym, -notional / pa, "perp", tag="B")
+            if not (fa.ok or fa.msg == "simulacro"):
+                continue
+            fb = self.b.execute("BTCUSDT", notional / pb, "perp", tag="B")
+            if not (fb.ok or fb.msg == "simulacro"):
+                self.b.execute(sym, -fa.qty, "perp", tag="B"); continue
+            pos["px_alt"] = (pos["px_alt"] * pos["qty_alt"] + fa.price * fa.qty) / (pos["qty_alt"] + fa.qty)
+            pos["px_btc"] = (pos["px_btc"] * pos["qty_btc"] + fb.price * fb.qty) / (pos["qty_btc"] + fb.qty)
+            pos["entry"] = (pos["entry"] * pos["units"] + ratio * units) / (pos["units"] + units)
+            pos["qty_alt"] += fa.qty; pos["qty_btc"] += fb.qty; pos["units"] += units; pos["fees"] += fa.fee + fb.fee
+            pos["adds"].remove(trig)
+            self.j.log(NAME, "ampliacion", sym, "SELL", fa.qty, fa.price,
+                       f"corto total {abs(pos['qty_alt']):.6g} {sym.replace('USDT', '')} + BTC {pos['qty_btc']:.5f} · stop del ratio {pos['stop']:.6g}", ts=str(now))
 
     def _close(self, sym, pos, ratio_exit, now, why):
         fa = self.b.execute(sym, -pos["qty_alt"], "perp", tag="B")

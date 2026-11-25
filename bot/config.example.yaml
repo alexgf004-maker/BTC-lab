@@ -15,7 +15,7 @@ bloques:               # fracción del capital de cada bloque (validado: 1/4 cad
   A_carry:          {activo: true,  fraccion: 0.2375, enter: 0.00015, exit: 0.00005, slots: 3, slot: 0.25, notional_frac: 0.6667, rebal_move: 0.20, K: 20}   # 3 huecos: 25 % de reserva de margen
   E_carry_inverso:  {activo: true,  fraccion: 0.2375, enter: 0.00015, exit: 0.00005, slots: 4, slot: 0.25, notional_frac: 0.6667, K: 30,
                      min_spot_vol: 5000000, borrow_apr_max: 1.5}
-  B_corto_alt_btc:  {activo: true,  fraccion: 0.2375, N: 120, m: 5.0, risk: 0.01, max_pos: 10, K: 30}
+  B_corto_alt_btc:  {activo: true,  fraccion: 0.2375, N: 120, m: 5.0, risk: 0.01, max_pos: 10, K: 30, piramidar: true}
   D_tendencia:      {activo: true,  fraccion: 0.2375, N: 120, m: 5.0, risk: 0.05, symbols: [BTCUSDT, ETHUSDT], piramidar: true, filtro_euforia: 0.0003}
   F_fin_de_semana:  {activo: true,  fraccion: 0.05, threshold: 0.01, per_trade_usd: 100, max_frac_per_trade: 0.10}   # candidata: tamaño pequeño
   # Lección 40: motor A del BTC-Strategy-Monitor. seguimiento: true = siempre simulado y fuera del capital.

@@ -135,6 +135,9 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
                 + (f"\nMotivo: {motivos.get(why, why)}" if why and not why.startswith("pnl") else ""))
 
     if event == "ampliacion" and q is not None:
+        if sleeve == "B_corto_alt_btc":
+            return (f"{head}\n➕ Amplía posición · {bl}\n{a} sigue debilitándose frente a BTC: amplía el corto en {cantidad(q)} {a} "
+                    f"a {precio(p)} $ (con su cobertura en BTC).\n{detail}.\nTodo usa el mismo stop dinámico.")
         return (f"{head}\n➕ Amplía posición · {bl}\n{a} sigue subiendo: añade {cantidad(q)} {a} a {precio(p)} $.\n{detail}.\n"
                 "Todo usa el mismo stop dinámico.")
     if event in ("error", "error_entrada"):

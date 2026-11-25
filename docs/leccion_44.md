@@ -12,3 +12,16 @@ Cada variante cambia UNA cosa:
 - **Q4 · Salida por tiempo:** si tras 30 velas (5 días) la operación no ha ido nunca 0,5R a favor, se cierra al cierre de esa vela.
 **Mitades:** 2020-03 → 2022-12 y 2023-01 → 2026-10 (el criterio es la estabilidad en ambas).
 **Criterio:** Sharpe mayor en las dos mitades y caída máxima no mayor que B actual. Pruebas nuevas: 4.
+
+## 2. Resultados — `l44_salida.txt` (la reconstrucción de B reproduce exactamente la serie de la Lección 31: Sharpe 1,56 / 0,82)
+| Variante | 2020–2022: Sharpe / anual / caída | 2023–2026: Sharpe / anual / caída | Veredicto |
+|---|---|---|---|
+| B actual | 1,56 / +71,0 % / 30,4 % | 0,82 / +28,4 % / 33,8 % | |
+| Q1 filtro de cortos saturados | 1,41 / +60,8 % / 33,3 % | 0,88 / +31,7 % / 26,0 % | ❌ empeora 2020–22 |
+| **Q2 piramidación** | **1,60 / +74,7 % / 26,8 %** | **0,92 / +34,0 % / 24,7 %** | ✅ |
+| Q3 stop a cero tras +1R | 1,55 / +70,2 % / 30,3 % | 0,81 / +27,8 % / 34,0 % | ❌ sin efecto |
+| Q4 salida por tiempo | 1,42 / +63,2 % / 30,2 % | 0,88 / +32,1 % / 31,7 % | ❌ empeora 2020–22 |
+**La piramidación se aprueba también en B** (como en D): mejora el Sharpe en las dos mitades y reduce la caída máxima de 30–34 % a 25–27 %.
+Las entradas que fallan enseguida solo arriesgan la mitad; las que funcionan terminan con el riesgo completo.
+Mover el stop a cero no aporta (el stop dinámico de 5 ATR ya hace ese trabajo) y cerrar por tiempo corta algunas ganadoras lentas.
+**Activado en el bot** (`piramidar: true`). Las posiciones ya abiertas siguen con su tamaño original.

@@ -1,0 +1,6 @@
+Bloque B (riesgo 1 % por operación, máximo 10 posiciones, universo de las 30 más líquidas)
+  B actual                                   | 2020–22: Sharpe 1.56 | anual  +71.0 % | caída  30.4 % | 2023–26: Sharpe 0.82 | anual  +28.4 % | caída  33.8 % | operaciones 2091 | E +0.147R
+  Q1 filtro de cortos saturados              | 2020–22: Sharpe 1.41 | anual  +60.8 % | caída  33.3 % | 2023–26: Sharpe 0.88 | anual  +31.7 % | caída  26.0 % | operaciones 2058 | E +0.145R
+  Q2 piramidación                            | 2020–22: Sharpe 1.60 | anual  +74.7 % | caída  26.8 % | 2023–26: Sharpe 0.92 | anual  +34.0 % | caída  24.7 % | operaciones 2091 | E +0.153R
+  Q3 stop a cero tras +1R                    | 2020–22: Sharpe 1.55 | anual  +70.2 % | caída  30.3 % | 2023–26: Sharpe 0.81 | anual  +27.8 % | caída  34.0 % | operaciones 2096 | E +0.144R
+  Q4 salida por tiempo (5 días sin +0,5R)    | 2020–22: Sharpe 1.42 | anual  +63.2 % | caída  30.2 % | 2023–26: Sharpe 0.88 | anual  +32.1 % | caída  31.7 % | operaciones 2260 | E +0.135R
