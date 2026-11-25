@@ -24,3 +24,26 @@ es dd/(du + dd) (paseo aleatorio). Se mide el exceso: (toca primero la zona MÁS
 **Activos:** BTC, ETH y las 20 más líquidas de cada mes con métricas disponibles. **Desarrollo 2020-09 → 2023-06; examen 2023-07 → 2026-10.**
 **Criterio:** LM1: estrategia con esperanza neta > 0 y t ≥ 3 (por día) en el examen y positiva en desarrollo. LM2: exceso > 0 con z ≥ 3
 en los dos periodos. Pruebas nuevas: 2.
+
+## 3. Resultados — `l41_salida.txt` (≈ 35 000 observaciones diarias, 67–102 monedas)
+**LM1 — Desequilibrio del mapa → dirección de las 24 h: RECHAZADO.**
+| | Correlación I vs 24 h | Estrategia (|I| ≥ 0,5) |
+|---|---|---|
+| Desarrollo | −0,036 | −0,14 % por operación (t −0,3) |
+| **Examen** | **−0,003** | **−0,03 % (t +0,6)** |
+| Solo BTC y ETH, examen | −0,050 | −0,22 % (t −2,0) |
+Saber hacia qué lado hay más liquidaciones acumuladas no dice hacia dónde irá el precio al día siguiente (si acaso, en BTC y ETH, ligeramente al revés).
+
+**LM2 — ¿Se toca antes la zona más grande?: NO APROBADO.**
+| | Toca primero la zona grande | Esperado solo por distancia | Exceso |
+|---|---|---|---|
+| Desarrollo 2020–2023 | 57,2 % | 53,9 % | **+3,3 pts (z 7,1)** |
+| **Examen 2023–2026** | 54,9 % | 54,0 % | **+0,9 pts (z 2,6)** |
+| Solo BTC y ETH, examen | 53,2 % | 55,7 % | −2,4 pts |
+El efecto "imán" existió en 2020–2023 (sobre todo en altcoins y con zonas muy grandes) pero se ha diluido: desde 2023 es casi
+inexistente y en BTC y ETH no aparece. Coincide con la popularización de estos mapas: cuando todos miran lo mismo, deja de funcionar.
+
+## 4. Conclusión
+Los mapas de liquidaciones describen bien **dónde están los puntos de dolor** (y por qué las caídas se aceleran al atravesarlos, Lección 26),
+pero no dan una ventaja operable: no predicen la dirección, y el "imán" es demasiado débil (≈ 1 punto de probabilidad) desde 2023.
+Para un trader son útiles como contexto de riesgo (dónde NO poner el stop), no como señal de entrada.

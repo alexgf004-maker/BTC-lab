@@ -1,0 +1,24 @@
+
+=== DESARROLLO 2020-09 → 2023-06: 67 monedas, 11802 observaciones diarias
+LM1 correlación de rangos I vs rentabilidad 24 h: -0.0359 (p 0.000)
+LM1 estrategia (|I| ≥ 0,5): n 5588 | media -0.140 % por operación | t (días) -0.33 | aciertos 44.9 %
+   I ≥ 0.5: rentabilidad media 24 h -0.001 % (n 2541) | I ≤ −0.5: -0.000 % (n 3047)
+   I ≥ 0.8: rentabilidad media 24 h +0.054 % (n 895) | I ≤ −0.8: +0.306 % (n 1354)
+LM2 la zona MÁS GRANDE se toca primero: 57.2 % | esperado por distancia 53.9 % | exceso +3.33 pts (z +7.13, n 10427)
+    cuando la zona grande es ≥ 3 veces la otra: 65.1 % vs 60.4 % (exceso +4.72 pts, n 1097)
+
+=== EXAMEN 2023-07 → 2026-10: 102 monedas, 23747 observaciones diarias
+LM1 correlación de rangos I vs rentabilidad 24 h: -0.0025 (p 0.698)
+LM1 estrategia (|I| ≥ 0,5): n 10927 | media -0.029 % por operación | t (días) +0.58 | aciertos 47.4 %
+   I ≥ 0.5: rentabilidad media 24 h +0.126 % (n 4941) | I ≤ −0.5: -0.098 % (n 5986)
+   I ≥ 0.8: rentabilidad media 24 h +0.139 % (n 1504) | I ≤ −0.8: +0.044 % (n 2137)
+LM2 la zona MÁS GRANDE se toca primero: 54.9 % | esperado por distancia 54.0 % | exceso +0.86 pts (z +2.56, n 20087)
+    cuando la zona grande es ≥ 3 veces la otra: 61.6 % vs 58.5 % (exceso +3.14 pts, n 2307)
+
+=== Solo BTC y ETH, examen: 2 monedas, 2414 observaciones diarias
+LM1 correlación de rangos I vs rentabilidad 24 h: -0.0498 (p 0.015)
+LM1 estrategia (|I| ≥ 0,5): n 839 | media -0.215 % por operación | t (días) -1.96 | aciertos 43.7 %
+   I ≥ 0.5: rentabilidad media 24 h -0.021 % (n 435) | I ≤ −0.5: +0.132 % (n 404)
+   I ≥ 0.8: rentabilidad media 24 h -0.246 % (n 78) | I ≤ −0.8: +0.161 % (n 106)
+LM2 la zona MÁS GRANDE se toca primero: 53.2 % | esperado por distancia 55.7 % | exceso -2.44 pts (z -1.99, n 1462)
+    cuando la zona grande es ≥ 3 veces la otra: 44.6 % vs 60.8 % (exceso -16.12 pts, n 56)
