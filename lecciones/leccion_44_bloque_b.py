@@ -18,6 +18,8 @@ BAR = pd.Timedelta("4h")
 COST = 0.0010 + 0.0004                                         # por lado, como lab15 (dos patas)
 VARIANTS = {"B actual": {}, "Q1 filtro de cortos saturados": {"crowd": -0.0003}, "Q2 piramidación": {"pyramid": True},
             "Q3 stop a cero tras +1R": {"breakeven": True}, "Q4 salida por tiempo (5 días sin +0,5R)": {"timestop": True}}
+if "--realista" in sys.argv:                                     # añadidos ejecutados al cierre de la vela de 4 h (como el bot)
+    VARIANTS = {"B actual": {}, "Q2 piramidación (añadidos al cierre de la vela)": {"pyramid": True, "add_at_close": True}}
 
 
 def frame(sym, btc, f_btc):
@@ -37,7 +39,7 @@ def frame(sym, btc, f_btc):
     return df, fund
 
 
-def trades(df, fund, crowd=None, pyramid=False, breakeven=False, timestop=False, m=5.0):
+def trades(df, fund, crowd=None, pyramid=False, breakeven=False, timestop=False, m=5.0, add_at_close=False):
     o, h, l, c, a = (df[k].to_numpy() for k in ("open", "high", "low", "close", "atr"))
     t, tns = df.index, df.index.as_unit("ns").asi8
     f_t = fund.index.as_unit("ns").asi8; f_cum = np.concatenate([[0.0], np.cumsum(fund.to_numpy())])
@@ -60,7 +62,7 @@ def trades(df, fund, crowd=None, pyramid=False, breakeven=False, timestop=False,
                 exit_px = c[k]; break
             for p in list(adds):
                 if l[k] <= p:
-                    units.append((p, 0.25)); adds.remove(p)
+                    units.append((c[k] if add_at_close else p, 0.25)); adds.remove(p)
             ext = min(ext, l[k])
             stop = min(stop, ext + m * a[k])
             if breakeven and entry - ext >= R:

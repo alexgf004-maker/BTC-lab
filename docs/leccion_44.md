@@ -24,4 +24,16 @@ Cada variante cambia UNA cosa:
 **La piramidación se aprueba también en B** (como en D): mejora el Sharpe en las dos mitades y reduce la caída máxima de 30–34 % a 25–27 %.
 Las entradas que fallan enseguida solo arriesgan la mitad; las que funcionan terminan con el riesgo completo.
 Mover el stop a cero no aporta (el stop dinámico de 5 ATR ya hace ese trabajo) y cerrar por tiempo corta algunas ganadoras lentas.
-**Activado en el bot** (`piramidar: true`). Las posiciones ya abiertas siguen con su tamaño original.
+~~Activado en el bot~~ → **retirado; ver la corrección del apartado 3.**
+
+## 3. Corrección: con ejecución realista, la piramidación NO mejora B — `l44_salida_realista.txt`
+La simulación anterior ejecutaba cada añadido **exactamente en su precio de activación**. El bot revisa B cada 4 h y añade **al cierre de
+la vela**, a menudo bastante más lejos. La comprobación con el código del bot (25 monedas, 2022–2024) dio menos saldo final con
+piramidación (6 108 $ frente a 7 557 $), y la simulación repetida con añadidos al cierre de la vela confirma el problema:
+| | 2020–2022: Sharpe / anual / caída | 2023–2026: Sharpe / anual / caída |
+|---|---|---|
+| B actual | 1,56 / +71,0 % / 30,4 % | 0,82 / +28,4 % / 33,8 % |
+| Piramidación con añadidos al cierre de la vela | 1,40 / +61,9 % / 27,8 % | 0,67 / +21,1 % / 32,5 % |
+**Q2 queda RECHAZADA.** El ratio altcoin/BTC se mueve a saltos: al añadir tarde se compra peor y se pierde la ventaja.
+En D sí se mantiene, porque allí la mejora se confirmó directamente con el código del bot (que ya añade al precio real).
+**Lección de método:** las suposiciones de ejecución "en el precio exacto" pueden fabricar mejoras que no existen.

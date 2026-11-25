@@ -50,7 +50,7 @@ class WeakAlts:
                     self._close(sym, pos, float(df["close"].iloc[-1]) if len(df) else pos["entry"], now, "sin_datos")
                 continue
             last = df.iloc[-1]
-            if self.cfg.get("piramidar", True) and pos.get("adds"):
+            if self.cfg.get("piramidar", False) and pos.get("adds"):
                 self._pyramid(sym, pos, last, now, risk)
             px = chandelier_step(pos, last, float(last["atr"]), m, is_entry_bar=(str(df.index[-1]) == pos["entry_bar"]))
             if px is not None:
@@ -73,7 +73,7 @@ class WeakAlts:
             return
         if not (R > 0):
             return
-        frac = 0.5 if self.cfg.get("piramidar", True) else 1.0  # Lección 44: mitad al entrar, dos cuartos si confirma
+        frac = 0.5 if self.cfg.get("piramidar", False) else 1.0  # Lección 44: probado y DESCARTADO con ejecución realista
         units = frac * risk * self.sl["balance"] / R             # unidades de ratio
         notional = units * ratio_px                              # nocional por pata en USDT (aprox.)
         pa, pb = self.m.price(sym), self.m.price("BTCUSDT")

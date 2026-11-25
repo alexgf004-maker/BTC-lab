@@ -82,7 +82,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 41 Mapas de liquidaciones | Mapa estimado con interés abierto y apalancamientos típicos (como Coinglass/Hyblock): desequilibrio e "imán" | No predice la dirección; el imán existió en 2020–23 (+3 pts) y casi desapareció desde 2023 (+0,9 pts). Rechazado. |
 | 42 Ampliar lo que funciona | Motor A en 20 altcoins, su espejo bajista, filtro anticapitulación para B | Los tres rechazados: el motor A solo funciona en BTC/ETH/SOL; el corto espejo no tiene ventaja; el filtro de B mejora un periodo y empeora otro. |
 | 43 Pensar como gestor | Paridad de riesgo, volatilidad objetivo, momentum de estrategias; piramidación y filtro de euforia en D; D en altcoins | Cartera: nada supera a pesos iguales. **D mejora con piramidación + filtro de euforia** (Sharpe 1,04→1,19 y 0,49→0,60; caída 19,8→12,7 % y 27,5→24,5 %): activado en el bot. |
-| 44 Mejoras del bloque B | Filtro de cortos saturados, piramidación, stop a cero, salida por tiempo | **Piramidación aprobada** (Sharpe 1,56→1,60 y 0,82→0,92; caída 30→27 % y 34→25 %): activada. Las otras tres, rechazadas. |
+| 44 Mejoras del bloque B | Filtro de cortos saturados, piramidación, stop a cero, salida por tiempo | Las cuatro rechazadas. La piramidación parecía mejorar, pero era un efecto de suponer añadidos al precio exacto; con ejecución realista empeora. |
 | 31 Mejoras de la cartera | Hold inteligente como quinto bloque; filtro de temporada de altcoins para B | Ninguna mejora: el hold es redundante con D y el filtro llega tarde. |
 
 **Conclusión de la segunda ampliación:** la cartera actual (A, E, B, D + F en pequeño) sigue siendo la mejor combinación encontrada.
