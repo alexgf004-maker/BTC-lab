@@ -1,0 +1,12 @@
+--- 2020-07-01 → 2022-12-31
+   P0 pesos iguales             Sharpe 2.81 | anual  +34.8 % | caída   5.6 % | MAR 6.27
+   R1 asignación por régimen    Sharpe 2.75 | anual  +44.6 % | caída   5.9 % | MAR 7.50
+   R2 control de caídas         Sharpe 2.75 | anual  +31.5 % | caída   5.3 % | MAR 5.95
+--- 2023-01-01 → 2026-10-31
+   P0 pesos iguales             Sharpe 1.96 | anual  +22.7 % | caída   6.5 % | MAR 3.49
+   R1 asignación por régimen    Sharpe 1.79 | anual  +19.8 % | caída   9.6 % | MAR 2.07
+   R2 control de caídas         Sharpe 1.81 | anual  +19.7 % | caída   5.9 % | MAR 3.34
+--- 2020-07-01 → 2026-10-31
+   P0 pesos iguales             Sharpe 2.30 | anual  +27.4 % | caída   6.5 % | MAR 4.21
+   R1 asignación por régimen    Sharpe 2.21 | anual  +29.0 % | caída   9.6 % | MAR 3.03
+   R2 control de caídas         Sharpe 2.18 | anual  +24.2 % | caída   5.9 % | MAR 4.11
