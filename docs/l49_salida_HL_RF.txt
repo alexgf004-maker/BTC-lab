@@ -1,0 +1,8 @@
+
+=== HL — Funding de Hyperliquid frente a Binance (señal direccional en Binance)
+  señal (Hyperliquid − Binance)            | desarrollo: n 4450, media -0.209 %, t -2.48 | examen: n 1171, media -0.297 %, t -2.08 | total t -3.11
+  placebo (solo Binance)                   | desarrollo: n 2239, media -0.105 %, t -0.55 | examen: n  740, media -0.014 %, t -0.06 | total t -0.54
+
+=== RF — Resaca tras funding extremo (entrada a T+1 h)
+  señal (con caída del interés abierto)    | desarrollo: n   68, media -0.720 %, t -2.43 | examen: n   54, media -0.725 %, t -1.30 | total t -2.44
+  placebo (sin filtro de interés abierto)  | desarrollo: n 6300, media -0.231 %, t -6.15 | examen: n 1009, media -0.298 %, t -3.68 | total t -6.95

@@ -41,3 +41,37 @@ Desarrollo: hasta 2023-12; examen 2024-01 → 2026-10. Placebo: sin el filtro de
 
 Criterio de HL y RF: media neta por operación > 0 en desarrollo y examen, t ≥ 2,5 (agrupado por semana) en todo el periodo, y
 mejor que el placebo en los dos periodos. Costes 0,07 % por lado y funding real.
+
+## 2. Resultados — `l49_salida_B.txt`, `l49_salida_HL_RF.txt`
+### Q5 y Q6 sobre el bloque B (la base coincide exactamente con la lección 44)
+| Variante | 2020–22: Sharpe / caída | 2023–26: Sharpe / caída | E por operación |
+|---|---|---|---|
+| B actual | 1,56 / 30,4 % | 0,82 / 33,8 % | +0,147R |
+| Q5 stop por sangrado de funding | 1,52 / 29,4 % | 0,87 / 27,7 % | +0,132R |
+| Q6 tamaño por interés abierto / volumen | 1,25 / 30,4 % | 0,53 / 27,7 % | +0,103R |
+
+**Q5: rechazada por poco.** Mejora el examen (Sharpe 0,87, caída de 33,8 % a 27,7 %) pero empeora un poco 2020–22 (1,52 frente a
+1,56): no cumple "mejor en las dos mitades". Se mantiene B sin cambios; se anota como candidata a revisar si en real el funding
+pagado por los cortos de B pesa más que en la historia.
+**Q6: rechazada.** Quitar o reducir los cortos con mucho interés abierto empeora en los dos periodos: esas monedas "cargadas" son
+justo las que más caen.
+
+### HL — Funding de Hyperliquid frente a Binance
+| | Desarrollo (2023-07 → 2024) | Examen (2025 → 2026-10) | Total t |
+|---|---|---|---|
+| Señal | −0,209 % (n 4450) | −0,297 % (n 1171) | **−3,11** |
+| Placebo (solo Binance) | −0,105 % | −0,014 % | −0,54 |
+**Rechazada.** Seguir a Hyperliquid pierde, y de forma significativa: cuando el funding de Hyperliquid se separa del de Binance, el
+precio de Binance va en contra de esa dirección. Hyperliquid no se adelanta; su desvío se corrige. (Observación posterior, no un
+hallazgo: apostar en contra tendría que probarse con datos nuevos.)
+
+### RF — Resaca tras funding extremo
+| | Desarrollo (hasta 2023) | Examen (2024 → 2026-10) | Total t |
+|---|---|---|---|
+| Señal (con caída del interés abierto ≥ 2 %) | −0,720 % (n 68) | −0,725 % (n 54) | −2,44 |
+| Placebo (sin filtro) | −0,231 % (n 6300) | −0,298 % (n 1009) | −6,95 |
+**Rechazada.** Tras un funding extremo no hay resaca contraria en las 4 horas siguientes: el precio sigue en la dirección que
+causó el funding extremo, y el filtro de interés abierto lo empeora.
+
+## 3. Conclusión
+Ninguna de las cuatro pasa. Q5 es la más cercana: reduce la caída de B en 2023–26, pero no mejora en las dos mitades.

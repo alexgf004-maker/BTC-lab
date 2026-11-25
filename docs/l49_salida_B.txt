@@ -1,0 +1,5 @@
+
+=== Q5 / Q6 sobre el bloque B (riesgo 1 %, máximo 10 posiciones, top 30)
+  B actual                                 | 2020–22: Sharpe 1.56 | anual  +71.0 % | caída  30.4 % | 2023–26: Sharpe 0.82 | anual  +28.4 % | caída  33.8 % | operaciones 2091 | E +0.147R
+  Q5 stop por sangrado de funding          | 2020–22: Sharpe 1.52 | anual  +66.9 % | caída  29.4 % | 2023–26: Sharpe 0.87 | anual  +31.1 % | caída  27.7 % | operaciones 2338 | E +0.132R
+  Q6 tamaño por interés abierto/volumen    | 2020–22: Sharpe 1.25 | anual  +51.8 % | caída  30.4 % | 2023–26: Sharpe 0.53 | anual  +14.2 % | caída  27.7 % | operaciones 2062 | E +0.103R
