@@ -33,3 +33,24 @@ supone lo peor (salida al cierre). Una operación por moneda a la vez.
 
 **Criterio de aprobación** (por lado × entrada, 4 pruebas): media neta > 0 en desarrollo y en examen, t ≥ 2,5 en todo el periodo,
 y media mejor que la del placebo en los dos periodos. Si pasa, doble comprobación antes de llevarlo al bot.
+
+## 2. Resultados — `l46_salida.txt`
+Dos errores del simulador corregidos antes de leer nada (se declaran): (1) el objetivo estaba al otro lado del nivel; (2) si la
+entrada ya había saltado más allá del objetivo (p. ej. LUNA en mayo de 2022), se suponía la salida en el objetivo y no en el precio
+disponible. Ninguno cambia las reglas pre-registradas.
+
+| Variante (universo top-30) | Desarrollo: media / t | Examen: media / t | Total t | Placebo (niveles no redondos), total t |
+|---|---|---|---|---|
+| Corto, entrada al día siguiente | −0,86 % / −1,89 | −0,61 % / −1,95 | **−2,71** | −1,25 |
+| Corto, vender el rebote a L | −0,05 % / −0,11 | −0,31 % / −1,14 | −0,83 | −0,07 |
+| Largo, entrada al día siguiente | −0,81 % / −2,82 | −0,80 % / −2,98 | **−4,09** | −2,07 |
+| Largo, comprar el retroceso a L | +0,50 % / +1,53 | +0,19 % / +0,77 | +1,62 | +2,80 (mejor que los redondos) |
+
+BTC+ETH solos: −0,85 %, −1,06 %, −0,24 % y +0,32 % por operación (n 107–168).
+
+**Rechazada en las 4 variantes.** Ninguna gana en los dos periodos con t ≥ 2,5 y mejor que el placebo.
+
+**Lo que sí enseña:** seguir la ruptura de un número redondo sale **peor** que seguir la de un nivel cualquiera (t −2,7 y −4,1
+frente a −1,3 y −2,1). Los números redondos se rompen en falso más a menudo: el precio vuelve al otro lado. Es lo contrario de lo
+que propone el post. Como esta observación salió de mirar los resultados, no cuenta como hallazgo: "apostar a que la ruptura del
+número redondo falla" tendría que probarse con datos nuevos (seguimiento en simulado hacia adelante), no con estos.

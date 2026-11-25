@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (76 pruebas más; ≈ 496 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (80 pruebas más; ≈ 500 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -83,6 +83,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 42 Ampliar lo que funciona | Motor A en 20 altcoins, su espejo bajista, filtro anticapitulación para B | Los tres rechazados: el motor A solo funciona en BTC/ETH/SOL; el corto espejo no tiene ventaja; el filtro de B mejora un periodo y empeora otro. |
 | 43 Pensar como gestor | Paridad de riesgo, volatilidad objetivo, momentum de estrategias; piramidación y filtro de euforia en D; D en altcoins | Cartera: nada supera a pesos iguales. **D mejora con piramidación + filtro de euforia** (Sharpe 1,04→1,19 y 0,49→0,60; caída 19,8→12,7 % y 27,5→24,5 %): activado en el bot. |
 | 44 Mejoras del bloque B | Filtro de cortos saturados, piramidación, stop a cero, salida por tiempo | Las cuatro rechazadas. La piramidación parecía mejorar, pero era un efecto de suponer añadidos al precio exacto; con ejecución realista empeora. |
+| 46 Ruptura de números redondos (idea de foro) | Tras defender un nivel redondo 3 días, operar la ruptura del cierre diario; 4 variantes contra un placebo de niveles no redondos | **Rechazada.** Seguir la ruptura de un redondo pierde (−0,6 a −0,9 % por operación) y sale peor que con niveles cualquiera: los redondos se rompen en falso más a menudo. |
 | 45 Régimen, control de caídas y euforia en G | Asignación según BTC sobre/bajo su media de 200 días; reducir exposición tras −5 %; filtro de euforia en G | Régimen y control de caídas rechazados (los pesos iguales siguen siendo lo mejor). **Filtro de euforia en G aprobado** (+0,68→+0,78R y +0,73→+0,78R): activado. |
 | 31 Mejoras de la cartera | Hold inteligente como quinto bloque; filtro de temporada de altcoins para B | Ninguna mejora: el hold es redundante con D y el filtro llega tarde. |
 
