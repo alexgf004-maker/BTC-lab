@@ -1,0 +1,22 @@
+=== H1 motor A (largos) en las 20 altcoins más líquidas (sin BTC, ETH ni SOL)
+   desarrollo 2020-03 → 2023-06       n  2036 | E -0.000R (t -1.63) | aciertos 18.8 %
+   EXAMEN 2023-07 → 2026-10           n  1707 | E +0.184R (t -1.23) | aciertos 17.7 %
+   (referencia BTC/ETH/SOL:)
+     BTC/ETH/SOL desarrollo           n   226 | E +0.682R (t +2.76) | aciertos 29.6 %
+     BTC/ETH/SOL examen               n   199 | E +0.733R (t +1.62) | aciertos 24.6 %
+
+=== H2 espejo bajista (cortos)
+   BTC/ETH/SOL desarrollo             n   246 | E +0.029R (t +0.36) | aciertos 22.4 %
+   BTC/ETH/SOL EXAMEN                 n   245 | E +0.146R (t -0.05) | aciertos 22.4 %
+   altcoins desarrollo                n  1533 | E -0.062R (t -2.22) | aciertos 20.6 %
+   altcoins EXAMEN                    n  1470 | E +0.037R (t -1.22) | aciertos 23.5 %
+   todo desarrollo                    n  1779 | E -0.050R (t -2.32) | aciertos 20.9 %
+   todo EXAMEN                        n  1715 | E +0.053R (t -1.48) | aciertos 23.4 %
+
+=== H3 bloque B con filtro anticapitulación (BTC −10 % en 72 h → no abrir cortos)
+--- 2020-03-01 → 2022-12-31
+   B sin filtro  Sharpe 1.56 | anual +71.0 % | caída 30.4 % | operaciones 765
+   B con filtro  Sharpe 1.60 | anual +71.2 % | caída 26.1 % | operaciones 736
+--- 2023-01-01 → 2026-10-31
+   B sin filtro  Sharpe 0.82 | anual +28.4 % | caída 33.8 % | operaciones 1326
+   B con filtro  Sharpe 0.78 | anual +26.3 % | caída 37.6 % | operaciones 1321

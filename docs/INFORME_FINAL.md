@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (59 pruebas más; ≈ 479 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (62 pruebas más; ≈ 482 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -80,6 +80,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 39 Price action del libro "La biblia del trading con velas" | Ruptura + retroceso + pin bar + media 21 + Fibonacci, forex y cripto | Forex pierde incluso sin costes; en cripto la versión de confluencia brilló en 2020–23 (+0,98R) y se quedó en cero en 2023–26. Rechazada. |
 | 40 Suite del BTC-Strategy-Monitor | Sus 4 motores, sin cambios, en ETH y SOL; y como complemento de la cartera | Solo el motor A (ráfaga de momentum) funciona fuera de BTC (+0,67R, t 3,2) y mejora el Sharpe y la caída de la cartera en las dos mitades: candidato a bloque nuevo en simulado. B, C y D: sobreajustados. |
 | 41 Mapas de liquidaciones | Mapa estimado con interés abierto y apalancamientos típicos (como Coinglass/Hyblock): desequilibrio e "imán" | No predice la dirección; el imán existió en 2020–23 (+3 pts) y casi desapareció desde 2023 (+0,9 pts). Rechazado. |
+| 42 Ampliar lo que funciona | Motor A en 20 altcoins, su espejo bajista, filtro anticapitulación para B | Los tres rechazados: el motor A solo funciona en BTC/ETH/SOL; el corto espejo no tiene ventaja; el filtro de B mejora un periodo y empeora otro. |
 | 31 Mejoras de la cartera | Hold inteligente como quinto bloque; filtro de temporada de altcoins para B | Ninguna mejora: el hold es redundante con D y el filtro llega tarde. |
 
 **Conclusión de la segunda ampliación:** la cartera actual (A, E, B, D + F en pequeño) sigue siendo la mejor combinación encontrada.
