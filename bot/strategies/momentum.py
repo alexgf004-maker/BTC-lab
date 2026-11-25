@@ -1,6 +1,6 @@
 """Bloque G — Ráfaga de momentum (motor A del BTC-Strategy-Monitor; validado fuera de BTC en la Lección 40).
 
-EN PRUEBA: siempre se ejecuta con el bróker simulado (nunca envía órdenes reales) y no cuenta en el capital de la cartera.
+En la cartera desde la Lección 40 (20 % del capital). Filtro de euforia (Lección 45): no abre si el funding medio de 3 días > 0,03 % por 8 h.
 
 Reglas (idénticas al motor A, velas de 1 h cerradas):
   señal en la vela i: subida de 3 horas > 1,5 %; z-score del número de operaciones > 3,9362322227 frente a las 168 velas

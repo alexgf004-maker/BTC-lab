@@ -298,3 +298,37 @@ def test_bloque_h_prima_rapida():
     h.run(t0 + pd.Timedelta("9h"))
     tr = st.d["sleeves"]["H_prima"]["trades"][0]
     assert not st.d["sleeves"]["H_prima"]["positions"] and tr["funding"] > 0 and tr["prestamo"] > 0
+
+
+def test_rafaga_filtro_de_euforia(tmp_path):
+    import numpy as np
+    import pandas as pd
+    from bot.journal import Journal
+    from bot.state import State
+    from bot.strategies.momentum import Rafaga
+    n = 300
+    idx = pd.date_range("2026-01-01", periods=n, freq="1h", tz="UTC")
+    c = np.linspace(100, 110, n); c[-1] = c[-4] * 1.03
+    df = pd.DataFrame({"open": c * 0.999, "high": c * 1.002, "low": c * 0.998, "close": c,
+                       "count": np.r_[np.random.default_rng(0).normal(1000, 50, n - 1), 5000]}, index=idx)
+    now = idx[-1] + pd.Timedelta("1h")
+
+    class M:
+        def __init__(self, rate): self.rate = rate
+        def candles(self, sym, n_): return df
+        def price(self, sym): return float(c[-1])
+        def funding(self, sym, since, until=None):
+            t = pd.date_range(now - pd.Timedelta("64h"), now, freq="8h")
+            return pd.Series(self.rate, index=t[t > since])
+
+    class B:
+        def execute(self, sym, qty, kind, tag=""):
+            return type("F", (), {"price": float(c[-1]), "qty": qty, "fee": 0.0, "ok": True})()
+
+    for rate, abre in ((0.0005, False), (0.0001, True)):
+        st = State(str(tmp_path / f"s{rate}.json"))
+        j = Journal(tmp_path / f"d{rate}.csv", "paper")
+        s = Rafaga({"capital": 2000.0, "symbols": ["BTCUSDT"], "filtro_euforia": 0.0003}, st, B(), M(rate), j)
+        s.run(now)
+        assert ("BTCUSDT" in s.sl["positions"]) == abre
+        assert ("omitida_euforia" in open(tmp_path / f"d{rate}.csv").read()) == (not abre)
