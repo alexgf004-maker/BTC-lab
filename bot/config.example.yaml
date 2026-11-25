@@ -22,3 +22,7 @@ bloques:               # fracción del capital de cada bloque (validado: 1/4 cad
   G_rafaga:         {activo: true,  seguimiento: false, fraccion: 0.20, risk: 0.0025, filtro_euforia: 0.0003, symbols: [BTCUSDT, ETHUSDT, SOLUSDT]}
   # Lección 23 (T4): perpetuo > 0,5 % por debajo de su spot → largo futuro + corto spot prestado. En seguimiento: simulado y aparte.
   H_prima:          {activo: true,  seguimiento: true, fraccion: 0.10, slot: 0.25, max_pos: 4, entrada: -0.005, salida: 0.001, max_horas: 24, K: 30}
+  # En prueba (siempre simulados, no cuentan en el capital): Lecciones 47, 46 y 37
+  I_coinbase:       {activo: true,  seguimiento: true, fraccion: 0.10}
+  J_redondos:       {activo: true,  seguimiento: true, fraccion: 0.10, slot: 0.10, max_pos: 10, max_dias: 20, K: 30}
+  K_tokenizadas:    {activo: true,  seguimiento: true, fraccion: 0.10, slot: 0.25, max_pos: 4, entrada: 0.005, salida: 0.001, max_horas: 24}

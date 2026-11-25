@@ -6,7 +6,9 @@ import re
 MODOS = {"paper": "🧪 SIMULADO", "testnet": "🧪 PRUEBAS", "live": "💰 REAL"}
 BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoin vs BTC",
            "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
-           "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida (EN PRUEBA)", "cartera": "Cartera"}
+           "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida (EN PRUEBA)",
+           "I_coinbase": "I · Prima de Coinbase (EN PRUEBA)", "J_redondos": "J · Ruptura falsa de redondos (EN PRUEBA)",
+           "K_tokenizadas": "K · Arbitraje de tokenizadas (EN PRUEBA)", "cartera": "Cartera"}
 
 
 def num(x, dec=2):
@@ -107,6 +109,8 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
                 why = ("No apuesta por el precio (una pata compensa a la otra): cobra lo que pagan cada 8 h los que están en corto, "
                        "descontado el interés del préstamo")
             return f"{head}\n💵 Nueva operación · {bl}\n{how}\n{why}{anual}."
+        if sleeve in ("I_coinbase", "J_redondos", "K_tokenizadas"):
+            return f"{head}\n🧪 Nueva operación EN PRUEBA · {bl} (simulada, no cuenta en tu capital)\n{detail}"
         if sleeve == "H_prima":
             pr = _f(r"prima=([\-\d\.]+)%", detail)
             return (f"{head}\n⚡ Nueva operación EN PRUEBA · {bl} (simulada, no cuenta en tu capital)\n"
@@ -131,7 +135,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
 
     if event == "salida":
         pnl = _f(r"pnl=([\-\d\.]+)", detail)
-        why = (detail or "").split(" pnl=")[0] if sleeve in ("G_rafaga", "H_prima") else (
+        why = (detail or "").split(" pnl=")[0] if sleeve in ("G_rafaga", "H_prima", "I_coinbase", "J_redondos", "K_tokenizadas") else (
             (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc") else "")
         motivos = {"stop": "saltó el stop", "stop_horario": "saltó el stop (comprobación horaria)",
                    "sin_datos": "la moneda dejó de tener datos (posible deslistado)", "rendimiento": "el funding dejó de compensar"}

@@ -44,7 +44,9 @@ def mark_prices():
 STALE_MIN = 135
 NAMES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoins/BTC",
          "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
-         "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida 🧪 en prueba"}
+         "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida 🧪 en prueba",
+         "I_coinbase": "I · Prima de Coinbase 🧪 en prueba", "J_redondos": "J · Ruptura falsa de redondos 🧪 en prueba",
+         "K_tokenizadas": "K · Arbitraje de tokenizadas 🧪 en prueba"}
 
 
 # ------------------------------------------------------------------ lectura de datos
@@ -256,6 +258,11 @@ def describe(name, sym, p, px):
         txt = (f"Futuros: {'corto' if q < 0 else 'largo'} en {a} ({_cant(q)} a {_precio(e)} $) tras moverse {_num(100 * p.get('W', 0), 2)} % "
                f"el fin de semana. Se cierra el lunes 03:00 UTC.")
         return txt, (q * (now - e) - p.get("fees", 0) if now else None)
+    if p.get("texto"):                                           # bloques en prueba I, J y K
+        txt = f"EN PRUEBA (no cuenta en tu capital). {p['texto']} Desde {when(p.get('entry_time'))} UTC."
+        if "qty" in p and "entry" in p:
+            return txt, (p["qty"] * (now - p["entry"]) - p.get("fees", 0) if now else None)
+        return txt, None
     return html.escape(json.dumps(p)[:160]), None
 
 
@@ -300,7 +307,7 @@ def render(s):
     rows = ""
     for name, v in sl.items():
         bal = v.get("balance", 0) + open_by.get(name, 0.0)
-        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", {"G_rafaga": 0.20, "H_prima": 0.10}.get(name, 0)) or 0)
+        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", {"G_rafaga": 0.20}.get(name, 0.10 if name[:2] in ("H_", "I_", "J_", "K_") else 0)) or 0)
         r = (bal / cap_b - 1) if cap_b else 0
         rows += (f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td class="n">{money(bal)}</td>'
                  f'<td class="n {"pos" if r >= 0 else "neg"}">{pct(r)}</td><td class="n">{len(v.get("positions", {}))}</td>'

@@ -115,6 +115,23 @@ futuro y venta del spot con monedas prestadas; salida cuando la diferencia vuelv
 entrando 1 h tarde, +0,5 % (2020–23) y +1,3 % (examen) por operación. **En seguimiento** (simulado y fuera del capital) porque el
 resultado depende de la velocidad de ejecución; se incorpora a la cartera si en papel confirma lo esperado (`seguimiento: false`).
 
+## 5g. Bloques I, J y K — solo en seguimiento (Lecciones 47, 46 y 37)
+Siempre simulados y fuera del capital de la cartera (no usan el bróker: calculan su resultado con precios reales y costes fijos).
+Sirven para medir hacia adelante, con datos nuevos, tres ideas que no llegaron al listón con la historia disponible.
+- **I · Prima de Coinbase (L47, CP4):** cada 4 h, z-score de la prima Coinbase BTC-USD / Binance BTCUSDT frente a los 30 días
+  anteriores; z > +1 → largo BTC, z < −1 → corto, si no, fuera. Necesita salida a `api.exchange.coinbase.com`. En la historia:
+  Sharpe +0,52 / +0,82, t 2,13 (no aprobado).
+- **J · Ruptura falsa de redondos (L46):** a las 00:00 UTC, en las 30 monedas más líquidas, si el día cerró al otro lado de un
+  número redondo defendido 3 días, se opera **en contra** de la ruptura. Ganancia si el cierre diario vuelve al otro lado del nivel;
+  stop en el siguiente número redondo; máximo 20 días; 10 % del bloque por operación, máximo 10. Es una observación posterior a la
+  lección (seguir la ruptura salía peor que con niveles cualquiera), por eso solo se mide hacia adelante.
+- **K · Arbitraje de tokenizadas (L37, K3):** cada hora, si el token spot de una acción (`xxxBUSDT`) se separa > 0,5 % de su
+  perpetuo, se compra el barato y se vende el caro (25 % del bloque, máximo 4); salida cuando la diferencia baja de 0,1 % o a las
+  24 h. Costes: 0,12 % por lado en spot y 0,07 % en el perpetuo. Vender el token cuando está caro requeriría tenerlo o pedirlo prestado.
+
+Se configuran en `config.yaml` (`I_coinbase`, `J_redondos`, `K_tokenizadas`; `activo: false` para apagarlos). Aunque no aparezcan
+en el `config.yaml`, vienen activos por defecto.
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

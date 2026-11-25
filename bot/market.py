@@ -122,6 +122,36 @@ class LiveMarket:
     def price(self, sym):
         return float(self.c.premium_index(sym)["markPrice"])
 
+    def last_price(self, sym):
+        """Último precio negociado del perpetuo (vela de 1 min en curso)."""
+        k = self.c.klines(sym, "1m", limit=1)
+        return float(k[-1][4]) if k else float("nan")
+
+    def coinbase_premium(self, days=34):
+        """Prima horaria de Coinbase BTC-USD frente a Binance spot BTCUSDT (índice = hora en que se conoce el cierre)."""
+        key = ("cbp", self.now, days)
+        if key in self._cache:
+            return self._cache[key]
+        import requests
+        start, rows, t = self.now - pd.Timedelta(days=days), [], None
+        t = start
+        while t < self.now:
+            t2 = min(t + pd.Timedelta(hours=300), self.now)
+            r = requests.get("https://api.exchange.coinbase.com/products/BTC-USD/candles", timeout=15,
+                             params={"granularity": 3600, "start": t.isoformat(), "end": t2.isoformat()},
+                             headers={"User-Agent": "btclab-bot"})
+            r.raise_for_status()
+            rows += r.json()
+            t = t2
+        cb = pd.Series({pd.Timestamp(int(x[0]), unit="s", tz="UTC"): float(x[4]) for x in rows}).sort_index()
+        k = self.c.spot_klines("BTCUSDT", "1h", start_ms=int(start.timestamp() * 1000), limit=1000)
+        bs = pd.Series({pd.Timestamp(int(x[0]), unit="ms", tz="UTC"): float(x[4]) for x in k}).sort_index()
+        prem = (cb / bs.reindex(cb.index) - 1).dropna()
+        prem.index = prem.index + H
+        prem = prem[prem.index <= self.now]
+        self._cache[key] = prem
+        return prem
+
     def premiums(self):
         """Prima del perpetuo frente a su índice spot (precio marcado / índice − 1) de todos los símbolos, una vez por ciclo."""
         key = ("premiums", self.now)

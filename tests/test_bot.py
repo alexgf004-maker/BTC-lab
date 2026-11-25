@@ -332,3 +332,83 @@ def test_rafaga_filtro_de_euforia(tmp_path):
         s.run(now)
         assert ("BTCUSDT" in s.sl["positions"]) == abre
         assert ("omitida_euforia" in open(tmp_path / f"d{rate}.csv").read()) == (not abre)
+
+
+def test_bloques_en_prueba_i_j_k(tmp_path):
+    import numpy as np
+    import pandas as pd
+    from bot.journal import Journal
+    from bot.main import initial_capital
+    from bot.state import State
+    from bot.strategies.seguimiento import (ArbitrajeTokenizadas, PrimaCoinbase, RedondoFalla, coinbase_z, daily,
+                                            round_break)
+    # J: BTC defiende 60.000 tres días y cierra en 59.500 → ruptura bajista; el bloque apuesta a que falla (largo)
+    idx = pd.date_range("2026-11-01", periods=24 * 6, freq="1h", tz="UTC")
+    closes = np.r_[np.full(24, 61000.0), np.full(24, 60400.0), np.full(24, 60300.0), np.full(24, 60200.0), np.full(24, 59500.0),
+                   np.full(24, 60800.0)]
+    lows = closes - 100; lows[24 * 2 + 5] = 60050
+    df = pd.DataFrame({"open": closes, "high": closes + 100, "low": lows, "close": closes}, index=idx)
+    now = idx[24 * 5]                                            # 00:00 del sexto día
+    d = daily(df[df.index < now], now)
+    assert round_break(d) == (-1, 60000, 5000)
+    st = State(str(tmp_path / "s.json")); j = Journal(tmp_path / "d.csv", "paper")
+
+    class M:
+        t = now
+        def candles(self, sym, n): return df[df.index < self.t]
+        def price(self, sym): return float(df.close[df.index < self.t].iloc[-1])
+        def funding(self, sym, since, until=None): return pd.Series(dtype=float, index=pd.DatetimeIndex([], tz="UTC"))
+    m = M()
+    J = RedondoFalla({"capital": 1000.0, "slot": 0.10}, st, m, j, lambda now: ["BTCUSDT"])
+    J.run(now)
+    pos = J.sl["positions"]["BTCUSDT"]
+    assert pos["lado"] == 1 and pos["L"] == 60000 and pos["stop"] == 55000
+    m.t = now + pd.Timedelta("1D"); J.run(m.t)                  # el día siguiente cierra en 60.800 > 60.000: la ruptura falló
+    assert "BTCUSDT" not in J.sl["positions"] and J.sl["closed"] == 1 and J.sl["pnl"] > 0
+    # I: prima con un salto al final → z > 1 → largo
+    h = pd.date_range("2026-10-01 01:00", periods=24 * 34, freq="1h", tz="UTC")   # índice = hora en que se conoce
+    prem = pd.Series(np.random.default_rng(1).normal(0, 0.0003, len(h)), index=h); prem.iloc[-4:] = 0.003
+    nowI = h[-1]
+    assert coinbase_z(prem, nowI) > 1
+
+    class MI(M):
+        def coinbase_premium(self, days): return prem
+        def price(self, sym): return 60000.0
+    I = PrimaCoinbase({"capital": 1000.0}, st, MI(), j)
+    I.run(nowI)
+    assert I.sl["positions"]["BTCUSDT"]["qty"] > 0
+    # K: token spot 1 % barato → compra token / corto en el futuro; al cerrarse la diferencia, gana
+    gap = {"v": -0.01}
+
+    class MK(M):
+        def spot_price(self, tok): return 100 * (1 + gap["v"])
+        def last_price(self, sym): return 100.0
+    K = ArbitrajeTokenizadas({"capital": 1000.0}, st, MK(), j, lambda: ["TSLAUSDT"])
+    K.run(now)
+    assert K.sl["positions"]["TSLAUSDT"]["lado"] == 1
+    gap["v"] = 0.0; K.run(now + pd.Timedelta("2h"))
+    assert K.sl["closed"] == 1 and K.sl["pnl"] > 0
+    # I, J y K nunca cuentan en el capital inicial
+    cfg = {"capital": 10000, "bloques": {"D_tendencia": {"activo": True, "fraccion": 0.5}, "I_coinbase": {"activo": True, "fraccion": 0.1},
+                                         "J_redondos": {"activo": True, "fraccion": 0.1}, "K_tokenizadas": {"activo": True, "fraccion": 0.1}}}
+    assert abs(initial_capital(cfg) - 10000 * (0.5 + 0.20)) < 1e-6       # D + G (en cartera por defecto)
+    assert "J_redondos" in open(tmp_path / "d.csv").read()
+
+
+def test_panel_bloques_en_prueba(tmp_path):
+    import json as _j
+    from bot import panel
+    st = {"sleeves": {"D_tendencia": {"balance": 2375.0, "positions": {}, "closed": 0},
+                      "J_redondos": {"balance": 1000.0, "closed": 0, "positions": {"ETHUSDT": {
+                          "qty": 0.06, "entry": 1650.0, "fees": 0.07, "entry_time": "2026-11-25T00:00:00+00:00", "lado": 1,
+                          "L": 1500, "stop": 1000, "texto": "Largo a 1.650 $: apuesta a que la ruptura del número redondo falla."}}},
+                      "K_tokenizadas": {"balance": 1000.0, "closed": 0, "positions": {"TSLAUSDT": {
+                          "b": -0.01, "lado": 1, "notional": 250, "spot_px": 99, "perp_px": 100,
+                          "entry_time": "2026-11-25T00:00:00+00:00", "texto": "El token spot de TSLA está un 1,00 % por debajo."}}}},
+          "capital_inicial": 12000.0, "seguimiento": ["J_redondos", "K_tokenizadas"], "ultimo_ciclo": "2026-01-01T00:00:00+00:00"}
+    (tmp_path / "estado.json").write_text(_j.dumps(st))
+    cfg = {"modo": "paper", "capital": 10000, "estado": str(tmp_path / "estado.json"), "diario": str(tmp_path / "d.csv"),
+           "bloques": {"D_tendencia": {"activo": True, "fraccion": 0.2375}}}
+    h = panel.render(panel.snapshot(cfg))
+    assert "J · Ruptura falsa de redondos" in h and "K · Arbitraje de tokenizadas" in h and "EN PRUEBA" in h
+    assert "{&quot;" not in h                                   # sin volcados de JSON en bruto

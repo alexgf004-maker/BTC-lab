@@ -26,6 +26,7 @@ from .state import State
 from .strategies.carry import Carry
 from .strategies.momentum import Rafaga
 from .strategies.premium import PrimaRapida
+from .strategies.seguimiento import ArbitrajeTokenizadas, PrimaCoinbase, RedondoFalla
 from .strategies.trend import Trend
 from .strategies.weak_alts import WeakAlts
 from .strategies.weekend import Weekend
@@ -37,6 +38,13 @@ log = logging.getLogger("bot")
 H_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25, "max_pos": 4, "entrada": -0.005,
              "salida": 0.001, "max_horas": 24, "K": 30, "borrow_apr": 0.30}
 G_DEFAULT = {"activo": True, "seguimiento": False, "fraccion": 0.20, "risk": 0.0025, "filtro_euforia": 0.0003, "symbols": ["BTCUSDT", "ETHUSDT", "SOLUSDT"]}
+
+
+I_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10}
+J_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "max_dias": 20, "K": 30}
+K_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25, "max_pos": 4, "entrada": 0.005, "salida": 0.001,
+             "max_horas": 24}
+EXTRA = {"G_rafaga": G_DEFAULT, "H_prima": H_DEFAULT, "I_coinbase": I_DEFAULT, "J_redondos": J_DEFAULT, "K_tokenizadas": K_DEFAULT}
 
 
 def build(cfg):
@@ -81,7 +89,19 @@ def build(cfg):
                                 lambda now: uni.top(now, cfgE["K"], need_spot=True), -1, borrow_rate, borrow_ok))
     cfgG = {**G_DEFAULT, **B.get("G_rafaga", {})}
     cfgH = {**H_DEFAULT, **B.get("H_prima", {})}
-    state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG, "H_prima": cfgH}.items() if v.get("seguimiento")]
+    cfgI = {**I_DEFAULT, **B.get("I_coinbase", {}), "seguimiento": True}       # I, J y K solo existen en seguimiento
+    cfgJ = {**J_DEFAULT, **B.get("J_redondos", {}), "seguimiento": True}
+    cfgK = {**K_DEFAULT, **B.get("K_tokenizadas", {}), "seguimiento": True}
+    state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG, "H_prima": cfgH, "I_coinbase": cfgI, "J_redondos": cfgJ,
+                                             "K_tokenizadas": cfgK}.items() if v.get("seguimiento")]
+    if cfgI.get("activo", True) and spot_ok:
+        strategies.append(PrimaCoinbase({**cfgI, "capital": total * cfgI["fraccion"]}, state, market, journal))
+    if cfgJ.get("activo", True):
+        strategies.append(RedondoFalla({**cfgJ, "capital": total * cfgJ["fraccion"]}, state, market, journal,
+                                       lambda now: uni.top(now, cfgJ["K"])))
+    if cfgK.get("activo", True) and spot_ok:
+        strategies.append(ArbitrajeTokenizadas({**cfgK, "capital": total * cfgK["fraccion"]}, state, market, journal,
+                                               lambda: uni.equities(market.now)))
     if cfgH.get("activo", True) and spot_ok:
         brH = PaperBroker(market) if cfgH.get("seguimiento") else broker
         strategies.append(PrimaRapida({**cfgH, "capital": total * cfgH["fraccion"]}, state, brH, market, journal,
@@ -95,9 +115,11 @@ def build(cfg):
 def initial_capital(cfg):
     """Capital inicial de la cartera: capital × suma de las fracciones de los bloques activos que cuentan (incluido G)."""
     B = cfg["bloques"]
-    fr = sum(float(v.get("fraccion", 0)) for k, v in B.items() if v.get("activo") and k not in ("G_rafaga", "H_prima"))
-    for name, dflt in (("G_rafaga", G_DEFAULT), ("H_prima", H_DEFAULT)):
+    fr = sum(float(v.get("fraccion", 0)) for k, v in B.items() if v.get("activo") and k not in EXTRA)
+    for name, dflt in EXTRA.items():
         g = {**dflt, **B.get(name, {})}
+        if name in ("I_coinbase", "J_redondos", "K_tokenizadas"):
+            continue
         if g.get("activo", True) and not g.get("seguimiento"):
             fr += float(g["fraccion"])
     return cfg["capital"] * fr
