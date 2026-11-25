@@ -25,6 +25,7 @@ from .risk import RiskGuard
 from .state import State
 from .strategies.carry import Carry
 from .strategies.momentum import Rafaga
+from .strategies.premium import PrimaRapida
 from .strategies.trend import Trend
 from .strategies.weak_alts import WeakAlts
 from .strategies.weekend import Weekend
@@ -33,6 +34,8 @@ from .universe_live import LiveUniverse
 log = logging.getLogger("bot")
 
 
+H_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25, "max_pos": 4, "entrada": -0.005,
+             "salida": 0.001, "max_horas": 24, "K": 30, "borrow_apr": 0.30}
 G_DEFAULT = {"activo": True, "seguimiento": False, "fraccion": 0.20, "risk": 0.0025, "symbols": ["BTCUSDT", "ETHUSDT", "SOLUSDT"]}
 
 
@@ -77,7 +80,12 @@ def build(cfg):
         strategies.append(Carry(sc("E_carry_inverso"), state, broker, market, journal,
                                 lambda now: uni.top(now, cfgE["K"], need_spot=True), -1, borrow_rate, borrow_ok))
     cfgG = {**G_DEFAULT, **B.get("G_rafaga", {})}
-    state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG}.items() if v.get("seguimiento", True)]
+    cfgH = {**H_DEFAULT, **B.get("H_prima", {})}
+    state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG, "H_prima": cfgH}.items() if v.get("seguimiento")]
+    if cfgH.get("activo", True) and spot_ok:
+        brH = PaperBroker(market) if cfgH.get("seguimiento") else broker
+        strategies.append(PrimaRapida({**cfgH, "capital": total * cfgH["fraccion"]}, state, brH, market, journal,
+                                      lambda now: uni.top(now, cfgH["K"], need_spot=True)))
     if cfgG.get("activo", True):                             # en seguimiento: siempre con el bróker simulado
         brG = PaperBroker(market) if cfgG.get("seguimiento") else broker
         strategies.append(Rafaga({**cfgG, "capital": total * cfgG["fraccion"]}, state, brG, market, journal))
@@ -87,10 +95,11 @@ def build(cfg):
 def initial_capital(cfg):
     """Capital inicial de la cartera: capital × suma de las fracciones de los bloques activos que cuentan (incluido G)."""
     B = cfg["bloques"]
-    fr = sum(float(v.get("fraccion", 0)) for k, v in B.items() if v.get("activo") and k != "G_rafaga")
-    g = {**G_DEFAULT, **B.get("G_rafaga", {})}
-    if g.get("activo", True) and not g.get("seguimiento"):
-        fr += float(g["fraccion"])
+    fr = sum(float(v.get("fraccion", 0)) for k, v in B.items() if v.get("activo") and k not in ("G_rafaga", "H_prima"))
+    for name, dflt in (("G_rafaga", G_DEFAULT), ("H_prima", H_DEFAULT)):
+        g = {**dflt, **B.get(name, {})}
+        if g.get("activo", True) and not g.get("seguimiento"):
+            fr += float(g["fraccion"])
     return cfg["capital"] * fr
 
 

@@ -109,6 +109,12 @@ Forma parte de la cartera con un 20 % adicional del capital configurado (con 10 
 anteriores se ajustan una sola vez para no mostrar un salto falso). Con `seguimiento: true` queda siempre simulado y fuera del capital. Paridad comprobada con el monitor (281 operaciones idénticas) y entre la versión hora a hora
 y la réplica histórica (54 de 54 en 2024). Se activa solo; para desactivarlo: `G_rafaga: {activo: false}` en config.yaml.
 
+## 5f. Bloque H — prima rápida, en seguimiento (Lección 23, T4)
+Cada hora: si el futuro de una de las 30 monedas más líquidas (con spot) cotiza más de un 0,5 % por debajo de su índice spot, largo en el
+futuro y venta del spot con monedas prestadas; salida cuando la diferencia vuelve a menos de 0,1 % o a las 24 h. En la investigación,
+entrando 1 h tarde, +0,5 % (2020–23) y +1,3 % (examen) por operación. **En seguimiento** (simulado y fuera del capital) porque el
+resultado depende de la velocidad de ejecución; se incorpora a la cartera si en papel confirma lo esperado (`seguimiento: false`).
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

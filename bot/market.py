@@ -121,3 +121,15 @@ class LiveMarket:
 
     def price(self, sym):
         return float(self.c.premium_index(sym)["markPrice"])
+
+    def premiums(self):
+        """Prima del perpetuo frente a su índice spot (precio marcado / índice − 1) de todos los símbolos, una vez por ciclo."""
+        key = ("premiums", self.now)
+        if key not in self._cache:
+            try:
+                rows = self.c.premium_index()
+                self._cache[key] = {r["symbol"]: float(r["markPrice"]) / float(r["indexPrice"]) - 1
+                                    for r in rows if float(r.get("indexPrice") or 0) > 0}
+            except Exception:
+                self._cache[key] = {}
+        return self._cache[key]

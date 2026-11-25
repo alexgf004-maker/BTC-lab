@@ -20,3 +20,5 @@ bloques:               # fracción del capital de cada bloque (validado: 1/4 cad
   F_fin_de_semana:  {activo: true,  fraccion: 0.05, threshold: 0.01, per_trade_usd: 100, max_frac_per_trade: 0.10}   # candidata: tamaño pequeño
   # Lección 40: motor A del BTC-Strategy-Monitor. seguimiento: true = siempre simulado y fuera del capital.
   G_rafaga:         {activo: true,  seguimiento: false, fraccion: 0.20, risk: 0.0025, symbols: [BTCUSDT, ETHUSDT, SOLUSDT]}
+  # Lección 23 (T4): perpetuo > 0,5 % por debajo de su spot → largo futuro + corto spot prestado. En seguimiento: simulado y aparte.
+  H_prima:          {activo: true,  seguimiento: true, fraccion: 0.10, slot: 0.25, max_pos: 4, entrada: -0.005, salida: 0.001, max_horas: 24, K: 30}

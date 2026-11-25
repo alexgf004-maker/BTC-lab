@@ -22,7 +22,7 @@ def expected_positions(state):
                 perp[sym] += p["qty_alt"]; perp["BTCUSDT"] += p["qty_btc"]
             elif name.startswith("A"):
                 perp[sym] -= p["qty"]; spot[sym.replace("USDT", "")] += p["qty"]
-            elif name.startswith("E"):
+            elif name.startswith("E") or name.startswith("H"):
                 perp[sym] += p["qty"]; borrowed[sym.replace("USDT", "")] += p["qty"]
     return perp, spot, borrowed
 

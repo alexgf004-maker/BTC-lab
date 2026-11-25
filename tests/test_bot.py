@@ -269,3 +269,32 @@ def test_panel_resultado_por_bloque_con_g(tmp_path):
            "bloques": {"D_tendencia": {"activo": True, "fraccion": 0.2375}}}
     h = panel.render(panel.snapshot(cfg))
     assert "−16,67 %" not in h and "+0,00 %" in h
+
+
+def test_bloque_h_prima_rapida():
+    import tempfile as _t
+    import pandas as pd
+    from bot.journal import Journal
+    from bot.state import State
+    from bot.strategies.premium import PrimaRapida
+
+    class M:
+        def __init__(self): self.p = {"XUSDT": -0.008, "YUSDT": -0.002}
+        def premiums(self): return self.p
+        def spot_price(self, s): return 10.0
+        def price(self, s): return 9.92
+        def funding(self, s, since): return pd.Series([-0.001], index=[pd.Timestamp("2026-01-01 08:00", tz="UTC")])
+
+    class Br:
+        def execute(self, s, q, leg, tag=""):
+            from bot.broker import Fill
+            return Fill(s, q, 10.0 if leg == "margin" else 9.92, 0.0, leg)
+    d = _t.mkdtemp(); st = State(f"{d}/s.json"); m = M()
+    h = PrimaRapida({"capital": 1000.0}, st, Br(), m, Journal(f"{d}/j.csv", "paper"), lambda now: ["XUSDT", "YUSDT"])
+    t0 = pd.Timestamp("2026-01-01 00:00", tz="UTC")
+    h.run(t0)
+    assert list(st.d["sleeves"]["H_prima"]["positions"]) == ["XUSDT"]       # solo la prima < −0,5 %
+    m.p = {"XUSDT": -0.0005}
+    h.run(t0 + pd.Timedelta("9h"))
+    tr = st.d["sleeves"]["H_prima"]["trades"][0]
+    assert not st.d["sleeves"]["H_prima"]["positions"] and tr["funding"] > 0 and tr["prestamo"] > 0

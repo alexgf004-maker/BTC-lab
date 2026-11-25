@@ -33,7 +33,9 @@ def mark_prices():
     try:
         import requests
         r = requests.get("https://fapi.binance.com/fapi/v1/premiumIndex", timeout=5)
-        _PRICES["p"] = {x["symbol"]: float(x["markPrice"]) for x in r.json()}
+        rows = r.json()
+        _PRICES["p"] = {x["symbol"]: float(x["markPrice"]) for x in rows}
+        _PRICES["p"].update({x["symbol"] + "#idx": float(x["indexPrice"]) for x in rows if float(x.get("indexPrice") or 0) > 0})
     except Exception:
         _PRICES["p"] = _PRICES["p"] or {}
     _PRICES["t"] = time.time()
@@ -42,7 +44,7 @@ def mark_prices():
 STALE_MIN = 135
 NAMES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_corto_alt_btc": "B · Corto altcoins/BTC",
          "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
-         "G_rafaga": "G · Ráfaga de momentum"}
+         "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida 🧪 en prueba"}
 
 
 # ------------------------------------------------------------------ lectura de datos
@@ -236,6 +238,13 @@ def describe(name, sym, p, px):
         txt = (f"{a}: {how}, ≈ {_num(n)} $ por pata (sin riesgo de precio). Funding cobrado hasta ahora: {_num(f)} $. "
                f"Desde {when(p.get('entry_time'))} UTC.")
         return txt, f - p.get("fees", 0)
+    if name == "H_prima":
+        n = p.get("notional", 0)
+        txt = (f"EN PRUEBA (no cuenta en tu capital). {a}: largo en el futuro + venta del spot con monedas prestadas, ≈ {_num(n)} $ por pata "
+               f"(entró con el futuro un {_num(abs(100 * p.get('prima', 0)), 2)} % por debajo del spot). Se cierra al normalizarse o a las 24 h. "
+               f"Desde {when(p.get('entry_time'))} UTC.")
+        q, idx = p.get("qty", 0), px.get(sym + "#idx")
+        return txt, (q * ((now - p["perp_px"]) - (idx - p["spot_px"])) - p.get("fees", 0) if now and idx else None)
     if name == "G_rafaga":
         q, e, st_ = p.get("qty", 0), p.get("entry", 0), p.get("stop", 0)
         txt = (f"Futuros: largo en {a} a {_precio(e)} $ ({_cant(q)}, ≈ {_num(q * e)} $). "
@@ -289,7 +298,7 @@ def render(s):
     rows = ""
     for name, v in sl.items():
         bal = v.get("balance", 0) + open_by.get(name, 0.0)
-        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", 0.20 if name == "G_rafaga" else 0) or 0)
+        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", {"G_rafaga": 0.20, "H_prima": 0.10}.get(name, 0)) or 0)
         r = (bal / cap_b - 1) if cap_b else 0
         rows += (f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td class="n">{money(bal)}</td>'
                  f'<td class="n {"pos" if r >= 0 else "neg"}">{pct(r)}</td><td class="n">{len(v.get("positions", {}))}</td>'
