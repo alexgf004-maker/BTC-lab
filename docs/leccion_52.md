@@ -32,3 +32,22 @@ velas. Una operación por mercado a la vez. Stop conservador si en la misma vela
 **Medida:** resultado neto por operación en R (riesgo = distancia al stop), sumando todos los mercados.
 **Criterio** (7 pruebas): media en R > 0 en desarrollo **y** examen, t ≥ 2,5 (agrupado por semana) en todo el periodo, y mejor
 que el placebo de su familia en los dos periodos.
+
+## 2. Resultados — `l52_salida.txt` (neto por operación, en R)
+| Figura | Desarrollo | Examen | Total t | Cripto / oro y divisas | Placebo (desarrollo / examen) |
+|---|---|---|---|---|---|
+| HCH (techo) | +0,095R (n 221) | +0,029R (n 336) | +0,97 | +0,157R / −0,128R | +0,002R / −0,004R |
+| HCH invertido | −0,069R | −0,043R | −1,14 | −0,055R / −0,052R | +0,037R / −0,005R |
+| **Doble techo** | **+0,072R** (n 535) | **+0,048R** (n 721) | **+1,82** | +0,111R / −0,001R | +0,006R / +0,008R |
+| Doble suelo | +0,018R | −0,036R | −0,45 | −0,014R / −0,013R | +0,015R / −0,016R |
+| Triángulo ascendente | −0,022R | −0,109R | −1,39 | −0,061R / −0,090R | +0,009R / −0,019R |
+| Triángulo descendente | +0,025R | −0,065R | −0,53 | +0,031R / −0,174R | ídem |
+| Triángulo simétrico | −0,047R | −0,134R | −1,57 | −0,127R / −0,025R | ídem |
+
+**Rechazadas las siete.** Ninguna llega a t ≥ 2,5.
+- Lo más cercano es el **doble techo**: positivo en los dos periodos y mejor que su placebo, pero solo +0,05 a +0,07R por operación
+  (t 1,82), y casi todo en cripto. El **HCH** se comporta igual, más débil.
+- Las figuras **alcistas** (HCH invertido, doble suelo, triángulos ascendente y simétrico) pierden en el examen.
+- En oro y divisas, ninguna figura gana.
+- Observación posterior (no es un hallazgo): las figuras bajistas funcionan algo mejor que las alcistas en cripto, coherente con lo
+  que ya se sabe (los cortos en debilidad, bloque B, son de lo que mejor funciona).

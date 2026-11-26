@@ -1,0 +1,13 @@
+Patrones chartistas, velas de 4 h (cripto top 30 2020–26; oro + 10 divisas 2012–26). Resultado neto por operación en R.
+  HCH                                          | desarrollo: n   221, +0.095R, acierto  47 % | examen: n   336, +0.029R, acierto  49 % | total t +0.97 | cripto +0.157R (n 358) · oro/divisas -0.128R (n 199)
+  HCH invertido                                | desarrollo: n   241, -0.069R, acierto  41 % | examen: n   344, -0.043R, acierto  43 % | total t -1.14 | cripto -0.055R (n 342) · oro/divisas -0.052R (n 243)
+  doble techo                                  | desarrollo: n   535, +0.072R, acierto  58 % | examen: n   721, +0.048R, acierto  57 % | total t +1.82 | cripto +0.111R (n 658) · oro/divisas -0.001R (n 598)
+  doble suelo                                  | desarrollo: n   616, +0.018R, acierto  53 % | examen: n   836, -0.036R, acierto  50 % | total t -0.45 | cripto -0.014R (n 850) · oro/divisas -0.013R (n 602)
+  triángulo ascendente                         | desarrollo: n   253, -0.022R, acierto  44 % | examen: n   366, -0.109R, acierto  40 % | total t -1.39 | cripto -0.061R (n 365) · oro/divisas -0.090R (n 254)
+  triángulo descendente                        | desarrollo: n   261, +0.025R, acierto  46 % | examen: n   421, -0.065R, acierto  47 % | total t -0.53 | cripto +0.031R (n 478) · oro/divisas -0.174R (n 204)
+  triángulo simétrico                          | desarrollo: n   210, -0.047R, acierto  39 % | examen: n   250, -0.134R, acierto  37 % | total t -1.57 | cripto -0.127R (n 314) · oro/divisas -0.025R (n 146)
+  placebo HCH (5 giros sin forma, techo)       | desarrollo: n  3168, +0.002R, acierto  45 % | examen: n  4212, -0.004R, acierto  47 % | total t -0.06 | cripto +0.018R (n 4544) · oro/divisas -0.032R (n 2836)
+  placebo HCH inv. (5 giros sin forma, suelo)  | desarrollo: n  3402, +0.037R, acierto  46 % | examen: n  4522, -0.005R, acierto  43 % | total t +0.48 | cripto +0.029R (n 5038) · oro/divisas -0.015R (n 2886)
+  placebo doble suelo (3 giros sin forma)      | desarrollo: n  2747, +0.015R, acierto  53 % | examen: n  3549, -0.016R, acierto  52 % | total t -0.14 | cripto +0.006R (n 3834) · oro/divisas -0.016R (n 2462)
+  placebo doble techo (3 giros sin forma)      | desarrollo: n  2526, +0.006R, acierto  52 % | examen: n  3381, +0.008R, acierto  54 % | total t +0.37 | cripto +0.029R (n 3531) · oro/divisas -0.025R (n 2376)
+  placebo triángulos (4 giros sin forma)       | desarrollo: n  5131, +0.009R, acierto  54 % | examen: n  6717, -0.019R, acierto  53 % | total t -0.51 | cripto +0.005R (n 7175) · oro/divisas -0.027R (n 4673)
