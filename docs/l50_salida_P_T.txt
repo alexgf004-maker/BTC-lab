@@ -1,0 +1,8 @@
+
+=== P — Reversión del fin de semana en PAXG (spot)
+  señal (vie 20:00 → dom 20:00)              | desarrollo: n    5, media -0.491 %, t -0.52 | examen: n   10, media +0.265 %, t +0.49 | total t +0.03
+  placebo (mar 20:00 → jue 20:00)            | desarrollo: n   17, media -0.227 %, t -1.11 | examen: n   27, media -0.285 %, t -1.29 | total t -1.67
+
+=== T — Fuga de TVL real → corto
+  señal (TVL real −10 % en 14 días)          | desarrollo: n  167, media +1.097 %, t +1.27 | examen: n  167, media +0.239 %, t +0.31 | total t +1.14
+  placebo (TVL real ≥ 0)                     | desarrollo: n 1640, media -0.308 %, t -1.28 | examen: n 2683, media -0.131 %, t -0.85 | total t -1.50

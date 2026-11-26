@@ -1,0 +1,4 @@
+
+=== W — Líderes congestionados que pierden soporte → corto
+  señal (largos congestionados)              | desarrollo: n   15, media -2.077 %, t -2.38 | examen: n   16, media +0.474 %, t +0.26 | total t -0.66
+  placebo (sin congestión)                   | desarrollo: n  737, media -0.530 %, t -1.94 | examen: n  959, media -0.139 %, t -0.69 | total t -1.85
