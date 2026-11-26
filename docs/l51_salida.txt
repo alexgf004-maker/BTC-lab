@@ -1,0 +1,19 @@
+XAUUSD M1: 5,215,199 minutos, 2012-01-02 23:03:00+00:00 → 2026-11-13 21:58:00+00:00
+
+=== O1 — Barrido del rango de Asia en la apertura de Londres
+  señal (Asia 00–06, barrido 07–10)      coste 0.02 %/lado | desarrollo 2012–18: n 1201, -0.035 % (-0.865R), t -6.48 | examen 2019–26: n 1374, -0.044 % (-0.799R), t -6.28 | total t -8.81
+  señal (Asia 00–06, barrido 07–10)      coste 0.05 %/lado | desarrollo 2012–18: n 1201, -0.095 % (-2.193R), t -17.58 | examen 2019–26: n 1374, -0.104 % (-2.067R), t -14.76 | total t -22.02
+  placebo (+3 h)                         coste 0.02 %/lado | desarrollo 2012–18: n 1108, -0.049 % (-0.897R), t -8.19 | examen 2019–26: n 1200, -0.048 % (-0.943R), t -6.75 | total t -10.36
+  placebo (+3 h)                         coste 0.05 %/lado | desarrollo 2012–18: n 1108, -0.109 % (-2.268R), t -18.27 | examen 2019–26: n 1200, -0.108 % (-2.283R), t -15.22 | total t -23.23
+
+=== O2 — Barrido del rango de Londres en la apertura de Nueva York
+  señal (Londres 07–12, barrido 13–16)   coste 0.02 %/lado | desarrollo 2012–18: n 1380, -0.027 % (-0.330R), t -3.80 | examen 2019–26: n 1587, -0.044 % (-0.531R), t -6.48 | total t -7.35
+  señal (Londres 07–12, barrido 13–16)   coste 0.05 %/lado | desarrollo 2012–18: n 1380, -0.087 % (-1.153R), t -12.37 | examen 2019–26: n 1587, -0.104 % (-1.314R), t -15.32 | total t -19.64
+  placebo (+3 h)                         coste 0.02 %/lado | desarrollo 2012–18: n 873, -0.046 % (-0.582R), t -6.68 | examen 2019–26: n 961, -0.051 % (-0.772R), t -6.42 | total t -9.18
+  placebo (+3 h)                         coste 0.05 %/lado | desarrollo 2012–18: n 873, -0.106 % (-1.536R), t -15.41 | examen 2019–26: n 961, -0.111 % (-1.777R), t -13.92 | total t -20.46
+
+=== O3 — Barrido del máximo/mínimo del día anterior (velas de 1 h, objetivo 2R)
+  señal (día UTC)                        coste 0.02 %/lado | desarrollo 2012–18: n 959, -0.031 % (-0.335R), t -2.69 | examen 2019–26: n 1117, -0.028 % (-0.358R), t -2.30 | total t -3.48
+  señal (día UTC)                        coste 0.05 %/lado | desarrollo 2012–18: n 959, -0.091 % (-0.816R), t -7.92 | examen 2019–26: n 1117, -0.088 % (-0.841R), t -7.25 | total t -10.62
+  placebo (día de 12:00 a 12:00)         coste 0.02 %/lado | desarrollo 2012–18: n 1143, -0.035 % (-0.270R), t -3.43 | examen 2019–26: n 1325, -0.034 % (-0.267R), t -2.84 | total t -4.33
+  placebo (día de 12:00 a 12:00)         coste 0.05 %/lado | desarrollo 2012–18: n 1143, -0.095 % (-0.643R), t -9.24 | examen 2019–26: n 1325, -0.094 % (-0.628R), t -7.90 | total t -11.87

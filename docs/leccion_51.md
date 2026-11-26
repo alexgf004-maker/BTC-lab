@@ -29,3 +29,18 @@ Resultado en R (riesgo = distancia al stop) y en %. Stop conservador: si en la m
 
 **Criterio de aprobación** (3 pruebas): media neta por operación (con 0,02 % por lado) > 0 en desarrollo (2012–2018) **y** examen
 (2019 → 2026-10), t ≥ 2,5 (agrupado por semana) en todo el periodo, y mejor que su placebo en los dos periodos.
+
+## 2. Resultados — `l51_salida.txt` (5,2 millones de minutos, 2012-01 → 2026-11)
+| | Bruto por operación | Gana | Stop mediano | Neto (0,02 %/lado): desarrollo / examen | Total t | Placebo +3 h (neto) |
+|---|---|---|---|---|---|---|
+| O1 Asia barrida en Londres | 0,000 % | 21 % | 0,08 % | −0,035 % / −0,044 % | −8,8 | −0,049 % / −0,048 % |
+| O2 Londres barrida en Nueva York | +0,004 % | 29 % | 0,13 % | −0,027 % / −0,044 % | −7,4 | −0,046 % / −0,051 % |
+| O3 Máximo/mínimo del día anterior | +0,011 % | 36 % | 0,19 % | −0,031 % / −0,028 % | −3,5 | −0,035 % / −0,034 % |
+
+**Rechazadas las tres.** Antes de costes, ir en contra de un barrido de liquidez en el oro gana lo mismo que lanzar una moneda
+(entre 0,000 % y +0,011 % por operación, en 2.000–3.000 operaciones por idea). Con costes mínimos de una cuenta ECN ya pierde, y
+con 0,05 % por lado pierde mucho más. Los horarios de sesión apenas importan: el placebo desplazado 3 horas da casi lo mismo.
+
+Por qué "parece" funcionar al mirarlo en un gráfico: los stops son diminutos (0,08–0,19 % del precio, 1,5–4 $ con el oro a 2.000 $),
+así que las operaciones que salen bien parecen espectaculares ("1:5", "1:10"), pero se pierde el 64–79 % de las veces.
+Mismo resultado que CRT en cripto (L33), forex (L35) e ICT en el Nasdaq (L38).
