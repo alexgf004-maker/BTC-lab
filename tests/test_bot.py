@@ -419,3 +419,15 @@ def test_aviso_de_cierre_con_entrada_y_duracion():
     pos = {"qty": 0.01, "entry": 60000.0, "entry_time": "2026-11-20 08:00:00+00:00"}
     m = formatear("paper", "D_tendencia", "salida", "BTCUSDT", "SELL", 0.01, 63000, "pnl=29.50" + tras(pos), ts="2026-11-23T08:00:00+00:00")
     assert "Entró el 20/11 08:00 UTC a 60.000,00 $ y salió a 63.000,00 $" in m and "duró 3,0 días" in m and "+29,50 $" in m
+
+
+def test_detector_doble_techo():
+    import numpy as np
+    import pandas as pd
+    from bot.patrones import bear_breaks
+    # sube a 110, baja a 100, vuelve a 110 y rompe 100: doble techo
+    path = np.r_[np.linspace(90, 110, 40), np.linspace(110, 100, 25), np.linspace(100, 110, 25), np.linspace(110, 98, 25), np.full(30, 97.0)]
+    idx = pd.date_range("2026-01-01", periods=len(path), freq="4h", tz="UTC")
+    df = pd.DataFrame({"open": path, "high": path + 0.3, "low": path - 0.3, "close": path}, index=idx)
+    b = bear_breaks(df)
+    assert len(b) >= 1 and b[0] > idx[90]

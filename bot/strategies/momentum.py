@@ -1,6 +1,7 @@
 """Bloque G — Ráfaga de momentum (motor A del BTC-Strategy-Monitor; validado fuera de BTC en la Lección 40).
 
 En la cartera desde la Lección 40 (20 % del capital). Filtro de euforia (Lección 45): no abre si el funding medio de 3 días > 0,03 % por 8 h.
+Filtro de figuras (Lección 53): no abre si en los últimos 5 días se rompió un doble techo o un HCH (velas de 4 h).
 
 Reglas (idénticas al motor A, velas de 1 h cerradas):
   señal en la vela i: subida de 3 horas > 1,5 %; z-score del número de operaciones > 3,9362322227 frente a las 168 velas
@@ -12,6 +13,7 @@ Reglas (idénticas al motor A, velas de 1 h cerradas):
 from __future__ import annotations
 
 from ..mensajes import tras
+from ..patrones import recent_bear
 
 import math
 
@@ -138,6 +140,10 @@ class Rafaga:
                             self.j.log(NAME, "omitida_euforia", sym, "BUY", 0, float(f.iloc[i].close),
                                        f"funding medio 3 días {100 * f3:.4f} % por 8 h", ts=str(now))
                             continue
+                    if self.cfg.get("filtro_figuras", True) and recent_bear(df, now):   # Lección 53
+                        self.j.log(NAME, "omitida_figura", sym, "BUY", 0, float(f.iloc[i].close),
+                                   "doble techo o HCH roto en los últimos 5 días", ts=str(now))
+                        continue
                     self._open(sym, f.iloc[i], now, risk)
 
     def _open(self, sym, r, now, risk):

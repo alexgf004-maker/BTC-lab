@@ -270,6 +270,8 @@ def event_text(r):
     e = r.get("evento", "")
     if e == "omitida_euforia":
         return f"🔥 {_base(r.get('symbol', ''))}: señal omitida por euforia ({r.get('detalle', '')})"
+    if e == "omitida_figura":
+        return f"📉 {_base(r.get('symbol', ''))}: compra omitida por una figura bajista reciente ({r.get('detalle', '')})"
     if e == "omitida_minimo":
         return f"ℹ️ {_base(r.get('symbol', ''))}: señal omitida (por debajo del mínimo de Binance)"
     try:

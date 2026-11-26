@@ -1,0 +1,14 @@
+
+=== C1 / C2 sobre el bloque D (BTC y ETH)
+  D actual                           | desarrollo: Sharpe 1.23 | anual  +34.1 % | caída   5.8 % | MAR 5.86 | n 41 | examen: Sharpe 0.64 | anual  +12.2 % | caída  12.6 % | MAR 0.96 | n 55
+  C1 sale con figura bajista         | desarrollo: Sharpe 1.20 | anual  +33.2 % | caída   5.8 % | MAR 5.71 | n 42 | examen: Sharpe 0.60 | anual  +11.2 % | caída  12.7 % | MAR 0.89 | n 57
+  C2 no entra tras figura bajista    | desarrollo: Sharpe 1.23 | anual  +34.0 % | caída   6.0 % | MAR 5.66 | n 41 | examen: Sharpe 0.64 | anual  +12.2 % | caída  12.6 % | MAR 0.96 | n 55
+
+=== C5 sobre el bloque G (BTC, ETH, SOL; con filtro de euforia)
+  G actual (con euforia)               | desarrollo: n 150 (100 %), E +0.708R | examen: n 239 (100 %), E +0.827R
+  C5 sin compras tras figura bajista   | desarrollo: n 142 (95 %), E +0.739R | examen: n 229 (96 %), E +0.885R
+
+=== C3 / C4 sobre el bloque B (riesgo 1 %, máximo 10 posiciones, top 30)
+  B actual                                 | 2020–22: Sharpe 1.56 | anual  +71.0 % | caída  30.4 % | 2023–26: Sharpe 0.82 | anual  +28.4 % | caída  33.8 % | operaciones 2091
+  C3 sin cortos tras figura alcista        | 2020–22: Sharpe 1.50 | anual  +65.7 % | caída  29.2 % | 2023–26: Sharpe 0.85 | anual  +30.0 % | caída  31.3 % | operaciones 2049
+  C4 riesgo ×1,5 tras figura bajista       | 2020–22: Sharpe 1.60 | anual  +73.9 % | caída  31.2 % | 2023–26: Sharpe 0.79 | anual  +26.9 % | caída  37.1 % | operaciones 2091
