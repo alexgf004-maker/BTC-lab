@@ -164,16 +164,19 @@ class RedondoFalla(_Seguimiento):
                 continue
             q = side * self.cfg.get("slot", 0.10) * self.sl["balance"] / px
             stop = L - step if side > 0 else L + step
-            nivel = f"{L:,.10g}"
+            from ..mensajes import precio as _p
+            nivel = _p(L)
             self.sl["positions"][sym] = {"qty": q, "entry": px, "fees": abs(q) * px * PERP_COST, "entry_time": str(now),
                                          "lado": side, "L": L, "stop": stop,
-                                         "texto": f"{'Largo' if side > 0 else 'Corto'} a {px:,.6g} $: apuesta a que la ruptura del número "
-                                                  f"redondo {nivel} falla. Cierra con ganancia si el cierre diario vuelve al otro lado; "
-                                                  f"stop en {stop:,.10g}; máximo 20 días."}
+                                         "texto": f"{'Largo' if side > 0 else 'Corto'} a {_p(px)} $: apuesta a que la ruptura del número "
+                                                  f"redondo {nivel} $ es falsa. Gana si un cierre diario vuelve al otro lado de {nivel} $; "
+                                                  f"stop en {_p(stop)} $; máximo 20 días."}
             self.j.log(self.NAME, "entrada", sym, "BUY" if side > 0 else "SELL", abs(q), px,
-                       f"{'Largo' if side > 0 else 'Corto'} en el futuro de {sym[:-4]} (≈ {abs(q) * px:,.0f} $): cerró el día "
-                       f"{'por debajo' if brk < 0 else 'por encima'} de {nivel} tras defenderlo 3 días; se apuesta a que es una ruptura "
-                       f"falsa. Ganancia si vuelve al otro lado de {nivel}; stop en {stop:,.10g}.", ts=str(now))
+                       f"{'Largo' if side > 0 else 'Corto'} en el futuro de {sym[:-4]} a {_p(px)} $ (≈ {abs(q) * px:,.0f} $).\n"
+                       + (f"{sym[:-4]} estuvo 3 días por encima de {nivel} $ y ayer cerró por debajo; "
+                          if brk < 0 else f"{sym[:-4]} estuvo 3 días por debajo de {nivel} $ sin poder superarlo y ayer cerró por encima; ")
+                       + f"se apuesta a que la ruptura es falsa.\nGana si un cierre diario vuelve al otro lado de {nivel} $. "
+                       f"Stop en {_p(stop)} $ (siguiente número redondo). Máximo 20 días.", ts=str(now))
 
 
 # ------------------------------------------------------------------------------------------------ K · arbitraje de tokenizadas
