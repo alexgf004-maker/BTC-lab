@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (92 pruebas más; ≈ 512 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (96 pruebas más; ≈ 516 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -83,6 +83,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 42 Ampliar lo que funciona | Motor A en 20 altcoins, su espejo bajista, filtro anticapitulación para B | Los tres rechazados: el motor A solo funciona en BTC/ETH/SOL; el corto espejo no tiene ventaja; el filtro de B mejora un periodo y empeora otro. |
 | 43 Pensar como gestor | Paridad de riesgo, volatilidad objetivo, momentum de estrategias; piramidación y filtro de euforia en D; D en altcoins | Cartera: nada supera a pesos iguales. **D mejora con piramidación + filtro de euforia** (Sharpe 1,04→1,19 y 0,49→0,60; caída 19,8→12,7 % y 27,5→24,5 %): activado en el bot. |
 | 44 Mejoras del bloque B | Filtro de cortos saturados, piramidación, stop a cero, salida por tiempo | Las cuatro rechazadas. La piramidación parecía mejorar, pero era un efecto de suponer añadidos al precio exacto; con ejecución realista empeora. |
+| 50 Ideas de Gemini (3.ª tanda) | Fin de semana en PAXG, fuga de TVL real (DefiLlama), líderes congestionados, ruptura liderada por spot (2 aplazadas) | **Rechazadas las cuatro.** La fuga de TVL gana en los dos periodos y supera al placebo, pero con t 1,1; la ruptura liderada por spot va al revés (rebota). |
 | 49 Ideas de Gemini (2.ª tanda) | Stop por funding pagado y tamaño por interés abierto en B; funding de Hyperliquid frente a Binance; resaca tras funding extremo (4 ideas más descartadas o aplazadas) | **Rechazadas las cuatro.** El stop por funding reduce la caída de B en 2023–26 pero empeora un poco 2020–22. |
 | 48 Ideas de Gemini (1.ª tanda) | Bombas coreanas en Upbit, estrés de crédito en EE. UU., monedas moribundas fuera del top 50, prima de lotería largo-corto (3 ideas más descartadas sin probar) | **Rechazadas las cuatro.** Ninguna gana en los dos periodos ni supera a su placebo. |
 | — Bloques en seguimiento I, J, K | Prima de Coinbase 4 h (L47), ruptura falsa de redondos (L46), arbitraje de tokenizadas (L37) | Añadidos al bot **solo en seguimiento** (simulados, fuera del capital) para medirlos hacia adelante con datos nuevos. |

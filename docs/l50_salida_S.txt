@@ -1,4 +1,4 @@
 
-=== S — Ruptura bajista liderada por spot → corto (51 monedas con spot)
-  señal (z cuota spot ≥ 1,5)                 | desarrollo: n   56, media -1.706 %, t -2.22 | examen: n   97, media +0.073 %, t +0.20 | total t -1.51
-  placebo (z ≤ −1, liderada por perpetuos)   | desarrollo: n  235, media -0.042 %, t -0.12 | examen: n  275, media +0.059 %, t +0.28 | total t +0.06
+=== S — Ruptura bajista liderada por spot → corto (227 monedas con spot)
+  señal (z cuota spot ≥ 1,5)                 | desarrollo: n  231, media -1.233 %, t -2.31 | examen: n  378, media -0.756 %, t -2.80 | total t -3.50
+  placebo (z ≤ −1, liderada por perpetuos)   | desarrollo: n 1011, media -0.043 %, t -0.17 | examen: n 1176, media -0.038 %, t -0.24 | total t -0.28

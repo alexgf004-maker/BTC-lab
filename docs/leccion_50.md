@@ -44,3 +44,24 @@ a los 60 días anteriores. Corto si el cierre < mínimo de los 7 días anteriore
 doce horas seguidas, o 5 días. Stop: entrada + 3 ATR (24 velas de 1 h), que baja con el mínimo desde la entrada a 2,5 ATR. Se excluye
 BTCUSDT de 2022-07 a 2023-03 (spot sin comisiones). Placebo: la misma ruptura con z ≤ −1 (caída liderada por perpetuos).
 Desarrollo 2020–2022; examen 2023 → 2026-10.
+
+## 2. Resultados — `l50_salida_P_T.txt`, `l50_salida_W.txt`, `l50_salida_S.txt`
+Correcciones antes de leer resultados: interés abierto con horas duplicadas (se toma el último valor) y una descarga spot
+interrumpida por el proxy; S se repitió con las 227 monedas con par spot (la salida provisional con 51 se descarta).
+
+| Idea | Desarrollo | Examen | Total t | Placebo (desarrollo / examen) | ¿Pasa? |
+|---|---|---|---|---|---|
+| P · Fin de semana en PAXG | −0,49 % (n 5) | +0,27 % (n 10) | +0,03 | −0,23 % / −0,29 % | No (casi nunca se activa) |
+| T · Fuga de TVL real | **+1,10 %** (n 167) | **+0,24 %** (n 167) | +1,14 | −0,31 % / −0,13 % | No (t insuficiente) |
+| W · Líderes congestionados | −2,08 % (n 15) | +0,47 % (n 16) | −0,66 | −0,53 % / −0,14 % | No |
+| S · Ruptura liderada por spot | −1,23 % (n 231) | −0,76 % (n 378) | **−3,50** | −0,04 % / −0,04 % | No (pierde) |
+
+- **P:** el oro tokenizado rara vez se mueve ≥ 0,8 % en un fin de semana (15 casos en 6 años); imposible de validar.
+- **T:** es la primera idea de Gemini con el signo correcto en los dos periodos y mejor que su placebo, pero el efecto es débil
+  (t 1,14 frente a 2,5 exigido). Candidata a seguimiento en papel, no a la cartera.
+- **W:** la combinación de condiciones casi nunca se da (31 casos) y el resultado no es estable.
+- **S:** al revés de lo previsto y con fuerza. Cuando una ruptura bajista llega con una cuota anormal de volumen spot, el precio
+  **rebota**: las ventas en spot de ese momento son capitulación, no distribución. (Observación posterior; no se opera sin datos nuevos.)
+
+## 3. Conclusión
+Tercera tanda: 0 de 4 aprobadas, pero mejor orientada que las anteriores (una con el signo correcto en los dos periodos).
