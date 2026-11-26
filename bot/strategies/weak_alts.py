@@ -3,6 +3,8 @@ Ratio alt/BTC en 4h; filtro: ratio diario bajo su EMA50; entrada en la ruptura d
 Posición: corto en la altcoin y largo en BTC por el mismo nocional. 1 % de riesgo; máximo 10 posiciones; universo point-in-time."""
 from __future__ import annotations
 
+from ..mensajes import tras
+
 import pandas as pd
 
 from .common import BAR, chandelier_step, ratio_bars4, with_trend_signals
@@ -129,4 +131,4 @@ class WeakAlts:
         self.sl.setdefault("trades", []).append({"symbol": sym, "entry_time": pos["entry_time"], "exit_time": str(now), "entry": pos["entry"],
                                                  "exit": ratio_exit, "R": pos["R"], "pnl_ratio": pnl_ratio, "pnl_patas": legs - fees, "motivo": why})
         del self.sl["positions"][sym]
-        self.j.log(NAME, "salida", sym, "BUY", -pos["qty_alt"], fa.price, f"{why} ratio={ratio_exit:.6g} pnl={legs - fees:.2f}", ts=str(now))
+        self.j.log(NAME, "salida", sym, "BUY", -pos["qty_alt"], fa.price, f"{why} ratio={ratio_exit:.6g} pnl={legs - fees:.2f}" + tras(pos), ts=str(now))

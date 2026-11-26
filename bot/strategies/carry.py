@@ -4,6 +4,8 @@ E (inverso): largo perpetuo + corto spot prestado cuando (−funding − interé
 4 huecos del 25 % del bloque; nocional = 2/3 del hueco (pata corta a 2x). Decisiones cada 8h (00, 08, 16 UTC)."""
 from __future__ import annotations
 
+from ..mensajes import tras
+
 import logging
 
 import numpy as np
@@ -139,4 +141,4 @@ class Carry:
         self.sl.setdefault("trades", []).append({"symbol": sym, "entry_time": pos["entry_time"], "exit_time": str(now), "pnl": pnl,
                                                  "funding": pos["funding"], "patas": legs, "costes": fees, "motivo": why, "notional": pos["notional"]})
         del self.sl["positions"][sym]
-        self.j.log(self.name, "salida", sym, "", pos["qty"], xp, f"{why} pnl={pnl:.2f} funding={pos['funding']:.2f}", ts=str(now))
+        self.j.log(self.name, "salida", sym, "", pos["qty"], xp, f"{why} pnl={pnl:.2f} funding={pos['funding']:.2f}" + tras(pos), ts=str(now))

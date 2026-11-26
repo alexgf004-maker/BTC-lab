@@ -11,6 +11,8 @@ Reglas (idénticas al motor A, velas de 1 h cerradas):
 """
 from __future__ import annotations
 
+from ..mensajes import tras
+
 import math
 
 import numpy as np
@@ -162,4 +164,4 @@ class Rafaga:
         self.sl.setdefault("trades", []).append({"symbol": sym, "entry_time": pos["entry_time"], "exit_time": str(now),
                                                  "entry": pos["entry"], "exit": px, "R": (px - pos["entry"]) / pos["R"], "pnl": pnl, "motivo": why})
         del self.sl["positions"][sym]
-        self.j.log(NAME, "salida", sym, "SELL", pos["qty"], px, f"{why} pnl={pnl:.2f}", ts=str(now))
+        self.j.log(NAME, "salida", sym, "SELL", pos["qty"], px, f"{why} pnl={pnl:.2f}" + tras(pos), ts=str(now))

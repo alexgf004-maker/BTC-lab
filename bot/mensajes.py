@@ -11,6 +11,13 @@ BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_
            "K_tokenizadas": "K · Arbitraje de tokenizadas (EN PRUEBA)", "cartera": "Cartera"}
 
 
+def tras(pos):
+    """Texto técnico que se añade al cerrar una operación: precio y hora de entrada (para el aviso de cierre)."""
+    px = next((pos[k] for k in ("px_alt", "perp_px", "entry") if isinstance(pos.get(k), (int, float))), None)
+    t = str(pos.get("entry_time", "")).replace(" ", "T").replace("+00:00", "")
+    return (f" entrada={px:.10g}" if px else "") + (f" desde={t}" if t else "")
+
+
 def num(x, dec=2):
     """1234.5 → '1.234,50' (formato español)."""
     try:
@@ -50,7 +57,7 @@ def euros(x):
     return f"{'+' if x > 0 else ('−' if x < 0 else '')}{num(abs(x))} $"
 
 
-def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=""):
+def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail="", ts=None):
     head = f"{MODOS.get(mode, mode)} · BTC-lab"
     bl = BLOQUES.get(sleeve, sleeve)
     a = base(symbol)
@@ -141,7 +148,24 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
                    "sin_datos": "la moneda dejó de tener datos (posible deslistado)", "rendimiento": "el funding dejó de compensar"}
         icon = "✅" if (pnl or 0) > 0 else "❌"
         fund = _f(r"funding=([\-\d\.]+)", detail)
+        e_px = _f(r"entrada=([\d\.eE\+\-]+)", detail)
+        m_t = re.search(r"desde=(\S+)", detail or "")
+        tramo = ""
+        if m_t:
+            try:
+                import pandas as _pd
+                t0 = _pd.Timestamp(m_t.group(1).replace("T", " ")[:19])
+                t1 = _pd.Timestamp(str(ts).replace("T", " ")[:19]) if ts else None
+                dur = ""
+                if t1 is not None and t1 >= t0:
+                    hrs = (t1 - t0).total_seconds() / 3600
+                    dur = f" · duró {num(hrs, 0)} h" if hrs < 48 else f" · duró {num(hrs / 24, 1)} días"
+                precios = (f" a {precio(e_px)} $ y salió a {precio(p)} $" if e_px and p else "")
+                tramo = f"\nEntró el {t0:%d/%m %H:%M} UTC{precios}{dur}"
+            except Exception:
+                tramo = ""
         return (f"{head}\n{icon} Operación cerrada · {bl} · {a}\nResultado: {euros(pnl) if pnl is not None else '?'}"
+                + tramo
                 + (f" (de ello, funding cobrado: {euros(fund)})" if fund is not None else "")
                 + (f"\nMotivo: {motivos.get(why, why)}" if why and not why.startswith("pnl") else ""))
 

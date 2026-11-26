@@ -22,7 +22,7 @@ class Journal:
             csv.writer(f).writerow([ts, self.mode, sleeve, event, symbol, side, qty, price, detail])
         if self.notifier is not None and event in getattr(self.notifier, "important", ()):
             try:
-                text = formatear(self.mode, sleeve, event, symbol, side, qty, price, detail)
+                text = formatear(self.mode, sleeve, event, symbol, side, qty, price, detail, ts)
             except Exception:                                   # un fallo al redactar nunca impide avisar
                 text = f"{self.mode} · {sleeve} · {event} {symbol} {side} {qty} @ {price} {detail}".strip()
             self.notifier.send(text, raw=True)

@@ -274,7 +274,7 @@ def event_text(r):
         return f"ℹ️ {_base(r.get('symbol', ''))}: señal omitida (por debajo del mínimo de Binance)"
     try:
         lines = formatear("", r.get("bloque", ""), e, r.get("symbol", ""), r.get("lado", ""), r.get("cantidad", ""),
-                          r.get("precio", ""), r.get("detalle", "")).split("\n")[1:]
+                          r.get("precio", ""), r.get("detalle", ""), r.get("ts")).split("\n")[1:]
     except Exception:
         lines = [f"{e} {r.get('symbol', '')} {r.get('detalle', '')}"]
     if e == "resumen":

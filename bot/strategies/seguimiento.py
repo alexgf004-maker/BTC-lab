@@ -11,6 +11,8 @@ Ninguno usa el bróker: calculan su resultado con los precios reales y costes fi
 """
 from __future__ import annotations
 
+from ..mensajes import tras
+
 import math
 
 import numpy as np
@@ -43,7 +45,7 @@ class _Seguimiento:
         q, e = pos["qty"], pos["entry"]
         pnl = q * (px - e) - pos["fees"] - abs(q) * px * PERP_COST - q * e * float(f.sum())
         self._book(sym, pnl, now, why, {"entry": e, "exit": px})
-        self.j.log(self.NAME, "salida", sym, "SELL" if q > 0 else "BUY", abs(q), px, f"{why} pnl={pnl:.2f}", ts=str(now))
+        self.j.log(self.NAME, "salida", sym, "SELL" if q > 0 else "BUY", abs(q), px, f"{why} pnl={pnl:.2f}" + tras(pos), ts=str(now))
 
 
 # ------------------------------------------------------------------------------------------------ I · prima de Coinbase
@@ -235,4 +237,4 @@ class ArbitrajeTokenizadas(_Seguimiento):
         f = f[f.index <= now]
         pnl = n * (side * (b - b0) / (1 + b0) - 2 * (SPOT_COST + PERP_COST) + side * float(f.sum()))
         self._book(sym, pnl, now, why, {"b_entrada": b0, "b_salida": b})
-        self.j.log(self.NAME, "salida", sym, "SELL" if side > 0 else "BUY", n, 0, f"{why} pnl={pnl:.2f}", ts=str(now))
+        self.j.log(self.NAME, "salida", sym, "SELL" if side > 0 else "BUY", n, 0, f"{why} pnl={pnl:.2f}" + tras(pos), ts=str(now))

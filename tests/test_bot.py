@@ -412,3 +412,10 @@ def test_panel_bloques_en_prueba(tmp_path):
     h = panel.render(panel.snapshot(cfg))
     assert "J · Ruptura falsa de redondos" in h and "K · Arbitraje de tokenizadas" in h and "EN PRUEBA" in h
     assert "{&quot;" not in h                                   # sin volcados de JSON en bruto
+
+
+def test_aviso_de_cierre_con_entrada_y_duracion():
+    from bot.mensajes import formatear, tras
+    pos = {"qty": 0.01, "entry": 60000.0, "entry_time": "2026-11-20 08:00:00+00:00"}
+    m = formatear("paper", "D_tendencia", "salida", "BTCUSDT", "SELL", 0.01, 63000, "pnl=29.50" + tras(pos), ts="2026-11-23T08:00:00+00:00")
+    assert "Entró el 20/11 08:00 UTC a 60.000,00 $ y salió a 63.000,00 $" in m and "duró 3,0 días" in m and "+29,50 $" in m

@@ -1,6 +1,8 @@
 """Bloque D — Tendencia en BTC y ETH (Lecciones 3 y 7): ruptura de 120 velas de 4h con filtro EMA50 diaria, chandelier 5 ATR."""
 from __future__ import annotations
 
+from ..mensajes import tras
+
 import pandas as pd
 
 from .common import BAR, bars4_from_1h, chandelier_step, with_trend_signals
@@ -106,4 +108,4 @@ class Trend:
         self.sl.setdefault("trades", []).append({"symbol": sym, "entry_time": pos["entry_time"], "exit_time": str(now), "entry": pos["entry"],
                                                  "exit": exit_px, "R": pos["R"], "pnl": pnl})
         del self.sl["positions"][sym]
-        self.j.log(NAME, "salida", sym, "SELL", pos["qty"], exit_px, f"pnl={pnl:.2f}", ts=str(now))
+        self.j.log(NAME, "salida", sym, "SELL", pos["qty"], exit_px, f"pnl={pnl:.2f}" + tras(pos), ts=str(now))

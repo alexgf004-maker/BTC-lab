@@ -7,6 +7,8 @@ En la investigación, entrando 1 h tarde: +0,5 % por operación (2020–2023) y 
 """
 from __future__ import annotations
 
+from ..mensajes import tras
+
 import pandas as pd
 
 NAME = "H_prima"
@@ -81,4 +83,4 @@ class PrimaRapida:
         self.sl.setdefault("trades", []).append({"symbol": sym, "entry_time": pos["entry_time"], "exit_time": str(now), "pnl": pnl,
                                                  "patas": legs, "funding": fund, "prestamo": borrow, "costes": fees, "motivo": why})
         del self.sl["positions"][sym]
-        self.j.log(NAME, "salida", sym, "SELL", pos["qty"], xp, f"{why} pnl={pnl:.2f} funding={fund:.2f}", ts=str(now))
+        self.j.log(NAME, "salida", sym, "SELL", pos["qty"], xp, f"{why} pnl={pnl:.2f} funding={fund:.2f}" + tras(pos), ts=str(now))

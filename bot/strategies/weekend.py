@@ -2,6 +2,8 @@
 Domingo 21:00 UTC: W = log(precio ahora / apertura del viernes 21:00); si |W| ≥ 1 %, posición −signo(W). Cierre el lunes 03:00 UTC."""
 from __future__ import annotations
 
+from ..mensajes import tras
+
 import numpy as np
 import pandas as pd
 
@@ -28,7 +30,7 @@ class Weekend:
                 self.sl["balance"] += pnl; self.sl["pnl"] += pnl; self.sl["closed"] += 1
                 self.sl.setdefault("trades", []).append({"symbol": sym, "entry_time": pos["entry_time"], "exit_time": str(now), "W": pos["W"], "pnl": pnl})
                 del self.sl["positions"][sym]
-                self.j.log(NAME, "salida", sym, "", -pos["qty"], px, f"pnl={pnl:.2f}", ts=str(now))
+                self.j.log(NAME, "salida", sym, "", -pos["qty"], px, f"pnl={pnl:.2f}" + tras(pos), ts=str(now))
             return
         fri = now - pd.Timedelta("2D")                      # viernes 21:00
         per_trade, th = self.cfg.get("per_trade_usd", 500.0), self.cfg.get("threshold", 0.01)
