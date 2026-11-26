@@ -26,8 +26,14 @@ PROTOS = {"UNI": "uniswap", "AAVE": "aave", "CRV": "curve-dex", "MKR": "makerdao
 
 
 def spot_month(sym, m):
-    r = requests.get(f"https://data.binance.vision/data/spot/monthly/klines/{sym}/1h/{sym}-1h-{m}.zip", timeout=60)
-    if r.status_code != 200:
+    r = None
+    for k in range(5):
+        try:
+            r = requests.get(f"https://data.binance.vision/data/spot/monthly/klines/{sym}/1h/{sym}-1h-{m}.zip", timeout=60)
+            break
+        except requests.RequestException:
+            time.sleep(3 * (k + 1))
+    if r is None or r.status_code != 200:
         return None
     z = zipfile.ZipFile(io.BytesIO(r.content)); d = pd.read_csv(z.open(z.namelist()[0]), header=None)
     t = d[0].astype("int64"); t = t.where(t < 1e14, t // 1000)
