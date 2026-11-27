@@ -282,7 +282,7 @@ def event_text(r):
     if e == "resumen":
         lines = lines[:2]
     out = ""
-    for x in (x.strip() for x in lines if x.strip()):
+    for x in (x.strip() for x in lines if x.strip() and not set(x.strip()) <= {"━"}):
         out += (" " if out.endswith(":") or not out else " · ") + x.lstrip("• ")
     return out.strip()
 

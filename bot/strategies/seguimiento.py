@@ -196,7 +196,7 @@ class RedondoFalla(_Seguimiento):
                        + (f"{sym[:-4]} estuvo 3 días por encima de {nivel} $ y ayer cerró por debajo; "
                           if brk < 0 else f"{sym[:-4]} estuvo 3 días por debajo de {nivel} $ sin poder superarlo y ayer cerró por encima; ")
                        + f"se apuesta a que la ruptura es falsa.\nGana si un cierre diario vuelve al otro lado de {nivel} $. "
-                       f"Stop en {_p(stop)} $ (siguiente número redondo). Máximo 20 días.", ts=str(now))
+                       f"Stop en {_p(stop)} $ (siguiente número redondo). Máximo 20 días. stop={stop:.10g}", ts=str(now))
 
 
 # ------------------------------------------------------------------------------------------------ K · arbitraje de tokenizadas

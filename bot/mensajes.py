@@ -11,11 +11,33 @@ BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_
            "K_tokenizadas": "K · Arbitraje de tokenizadas (EN PRUEBA)", "cartera": "Cartera"}
 
 
+LINEA = "━━━━━━━━━━━━━━"
+EN_PRUEBA = {"H_prima", "I_coinbase", "J_redondos", "K_tokenizadas"}
+
+
+def pct(x):
+    return f"{'+' if x > 0 else ('−' if x < 0 else '')}{num(abs(100 * x), 1)} %"
+
+
+def dir_tag(d, a):
+    return f"🟢 LARGO en {a} · gana si SUBE" if d > 0 else f"🔴 CORTO en {a} · gana si BAJA"
+
+
 def tras(pos):
-    """Texto técnico que se añade al cerrar una operación: precio y hora de entrada (para el aviso de cierre)."""
+    """Texto técnico que se añade al cerrar una operación: dirección, precio y hora de entrada (para el aviso de cierre)."""
     px = next((pos[k] for k in ("px_alt", "perp_px", "entry") if isinstance(pos.get(k), (int, float))), None)
     t = str(pos.get("entry_time", "")).replace(" ", "T").replace("+00:00", "")
-    return (f" entrada={px:.10g}" if px else "") + (f" desde={t}" if t else "")
+    if isinstance(pos.get("lado"), (int, float)):
+        d = pos["lado"]
+    elif isinstance(pos.get("side"), (int, float)):
+        d = pos["side"]
+    elif "qty_alt" in pos:
+        d = -1
+    else:
+        q = pos.get("qty")
+        d = (1 if q > 0 else -1) if isinstance(q, (int, float)) and q else 0
+    lado = {1: "largo", -1: "corto"}.get(int(d) if d else 0, "")
+    return (f" entrada={px:.10g}" if px else "") + (f" desde={t}" if t else "") + (f" lado={lado}" if lado else "")
 
 
 def num(x, dec=2):
@@ -85,60 +107,63 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
                 f"Operaciones abiertas: {n_ab} · cerradas: {n_ce}\n\n" + "\n".join(lines) + extra)
 
     if event == "entrada" and q is not None:
+        prueba = sleeve in EN_PRUEBA
+        top = f"{head}\n📥 NUEVA OPERACIÓN{' · 🧪 EN PRUEBA' if prueba else ''}\n{bl.replace(' (EN PRUEBA)', '')}\n{LINEA}\n"
+        pie = "\n🧪 Simulada aparte: no cuenta en tu capital." if prueba else ""
         if sleeve == "B_corto_alt_btc":
             ratio, R = _f(r"ratio=([\d\.e\-\+]+)", detail), _f(r"R=([\d\.e\-\+]+)", detail)
             btc = _f(r"BTC ([\+\-]?[\d\.e\-]+)", detail)
             pb = _f(r"@ ([\d\.]+)", detail) or (notional / btc if btc else None)
             stop_pct = (R / ratio) if ratio and R else None
             riesgo = notional * stop_pct if stop_pct else None
-            msg = f"{head}\n🔻 Nueva operación · {bl} (futuros)\nEntrada:\n• Corto en el futuro de {a}: {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
+            msg = (top + f"🔴 CORTO en {a}  +  🟢 LARGO en BTC (cobertura)\nGana si {a} lo hace PEOR que BTC\n{LINEA}\n"
+                   f"🔴 Corto en el futuro de {a}: {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n")
             if btc:
-                msg += f"• Largo en el futuro de BTC: {cantidad(btc)} BTC a {precio(pb)} $ (≈ {num(abs(btc) * pb)} $) como cobertura\n"
-            msg += f"Apuesta: {a} lo hará peor que BTC (si todo el mercado sube o baja, una pata compensa a la otra)\n"
+                msg += f"🟢 Largo en el futuro de BTC: {cantidad(btc)} BTC a {precio(pb)} $ (≈ {num(abs(btc) * pb)} $)\n"
             if riesgo:
-                msg += (f"Stop: si {a} sube un {num(100 * stop_pct, 1)} % más que BTC. Si BTC no se mueve, equivale a {a} en "
-                        f"≈ {precio(p * (1 + stop_pct))} $. Pérdida ≈ {num(riesgo)} $")
-            return msg
-        if sleeve == "D_tendencia":
-            stop = _f(r"stop=([\d\.]+)", detail)
-            loss = abs(q) * (p - stop) if stop else None
-            return (f"{head}\n📈 Nueva operación · {bl} (futuros)\nEntrada: largo en el futuro de {a}, {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
-                    + (f"Stop inicial: {precio(stop)} $ ({num(100 * (stop / p - 1), 1)} %) → pérdida máxima ≈ {num(loss)} $\n" if stop else "")
-                    + "El stop sube solo a medida que sube el precio.")
-        if sleeve in ("A_carry", "E_carry_inverso"):
-            y = _f(r"rendimiento ([\d\.\-]+)%", detail)
-            anual = f" (ahora ≈ {num(y * 3 * 365, 1)} % al año)" if y is not None else ""
+                msg += (f"🛑 Stop: si {a} sube un {num(100 * stop_pct, 1)} % más que BTC (con BTC quieto, {a} en "
+                        f"≈ {precio(p * (1 + stop_pct))} $) → pérdida ≈ {num(riesgo)} $\n")
+            return msg + "💡 Si todo el mercado sube o baja, una pata compensa a la otra. El stop baja solo si la apuesta va bien."
+        if sleeve in ("A_carry", "E_carry_inverso", "H_prima", "K_tokenizadas"):
             if sleeve == "A_carry":
-                how = f"Compra {cantidad(q)} {a} en spot (moneda real) y abre un corto del mismo tamaño en el futuro (≈ {num(notional)} $ por pata)"
-                why = "No apuesta por el precio: cobra lo que pagan los que compran con apalancamiento"
+                y = _f(r"rendimiento ([\d\.\-]+)%", detail)
+                how = f"🟢 Compra {cantidad(q)} {a} en spot  +  🔴 corto igual en el futuro (≈ {num(notional)} $ por pata)"
+                why = "Cobra el funding que pagan los que compran con apalancamiento" + (f" (ahora ≈ {num(y * 3 * 365, 1)} % al año)" if y is not None else "")
+            elif sleeve == "E_carry_inverso":
+                y = _f(r"rendimiento ([\d\.\-]+)%", detail)
+                how = f"🟢 Largo de {cantidad(q)} {a} en el futuro  +  🔴 venta igual en spot con monedas prestadas (≈ {num(notional)} $ por pata)"
+                why = ("Cobra el funding que pagan los cortos, menos el interés del préstamo"
+                       + (f" (ahora ≈ {num(y * 3 * 365, 1)} % al año)" if y is not None else ""))
+            elif sleeve == "H_prima":
+                pr = _f(r"prima=([\-\d\.]+)%", detail)
+                how = f"🟢 Largo en el futuro de {a} a {precio(p)} $  +  🔴 venta igual en spot (≈ {num(notional)} $ por pata)"
+                why = (f"El futuro cotiza un {num(abs(pr or 0), 2)} % por debajo del spot; gana cuando la diferencia se cierra "
+                       "(menos de 0,1 % o como máximo 24 h)")
             else:
-                how = f"Abre un largo de {cantidad(q)} {a} en el futuro y vende lo mismo en spot con monedas prestadas (≈ {num(notional)} $ por pata)"
-                why = ("No apuesta por el precio (una pata compensa a la otra): cobra lo que pagan cada 8 h los que están en corto, "
-                       "descontado el interés del préstamo")
-            return f"{head}\n💵 Nueva operación · {bl}\n{how}\n{why}{anual}."
-        if sleeve in ("I_coinbase", "J_redondos", "K_tokenizadas"):
-            return f"{head}\n🧪 Nueva operación EN PRUEBA · {bl} (simulada, no cuenta en tu capital)\n{detail}"
-        if sleeve == "H_prima":
-            pr = _f(r"prima=([\-\d\.]+)%", detail)
-            return (f"{head}\n⚡ Nueva operación EN PRUEBA · {bl} (simulada, no cuenta en tu capital)\n"
-                    f"El futuro de {a} cotiza un {num(abs(pr or 0), 2)} % por debajo de su precio spot.\n"
-                    f"Entrada: largo en el futuro ({cantidad(q)} {a} a {precio(p)} $) y venta del mismo importe en spot con monedas "
-                    f"prestadas (≈ {num(notional)} $ por pata). Sin riesgo de precio: gana cuando la diferencia se cierra.\n"
-                    "Se cierra cuando la diferencia vuelve a menos de 0,1 % o como máximo a las 24 h.")
+                return (top + f"⚪ NEUTRAL · arbitraje entre el token spot y el futuro de {a}\nNo apuesta a la dirección del precio\n{LINEA}\n"
+                        f"💡 {detail}" + pie)
+            return top + f"⚪ NEUTRAL · no apuesta a la dirección del precio\n{LINEA}\n{how}\n💡 {why}." + pie
+        d = 1 if side == "BUY" else -1
+        msg = top + dir_tag(d, a) + f"\n{LINEA}\n💵 Entrada: {precio(p)} $\n📦 Tamaño: {cantidad(q)} {a} (≈ {num(notional)} $)\n"
+        stop = _f(r"stop=([\d\.e\-\+]+)", detail)
+        if stop:
+            loss = abs(q) * abs(p - stop)
+            msg += f"🛑 Stop: {precio(stop)} $ ({pct(stop / p - 1)}) → pérdida máx. ≈ {num(loss)} $\n"
+        if sleeve == "D_tendencia":
+            return msg + "🚪 Salida: sin objetivo fijo; el stop sube solo a medida que sube el precio.\n💡 Por qué: rompió su máximo de 20 días con tendencia alcista."
         if sleeve == "G_rafaga":
-            stop = _f(r"stop=([\d\.e\-\+]+)", detail); r3 = _f(r"ret3=([\d\.\-]+)%", detail)
-            loss = abs(q) * (p - stop) if stop else None
-            return (f"{head}\n📈 Nueva operación · {bl} (futuros)\n"
-                    f"Entrada: largo en el futuro de {a}, {cantidad(q)} {a} a {precio(p)} $ (≈ {num(notional)} $)\n"
-                    + (f"Stop: {precio(stop)} $ ({num(100 * (stop / p - 1), 1)} %) → pérdida máxima ≈ {num(loss)} $\n" if stop else "")
-                    + f"Motivo: {a} subió {num(r3 or 0, 1)} % en 3 h con un pico anormal de operaciones.\n"
-                    "Se cierra si a las 6 h va en negativo, si toca el stop o como máximo a las 60 h.")
+            r3 = _f(r"ret3=([\d\.\-]+)%", detail)
+            return (msg + "🚪 Salida: si a las 6 h va en negativo, si toca el stop o como máximo a las 60 h.\n"
+                    f"💡 Por qué: subió {num(r3 or 0, 1)} % en 3 h con un pico anormal de operaciones.")
         if sleeve == "F_fin_de_semana":
             W = _f(r"W=([\+\-]?[\d\.]+)%", detail)
-            verb = "Corto" if side == "SELL" else "Largo"
-            return (f"{head}\n🔄 Nueva operación · {bl} (futuros)\n{verb} en el futuro de {a}: {cantidad(q)} a {precio(p)} $ (≈ {num(notional)} $)\n"
-                    f"La acción se movió {num(W or 0, 2)} % durante el fin de semana con la bolsa cerrada; se apuesta a que "
-                    f"devuelve parte al reabrir. Se cierra el lunes a las 03:00 UTC.")
+            return (msg + "🚪 Salida: el lunes a las 03:00 UTC.\n"
+                    f"💡 Por qué: la acción se movió {num(W or 0, 2)} % el fin de semana con la bolsa cerrada; se apuesta a que devuelve parte.")
+        if sleeve in ("I_coinbase", "J_redondos"):
+            extra = "\n".join(x for x in (detail or "").split("\n")[1:] if x.strip()) or detail
+            extra = re.sub(r"\s*stop=\S+", "", extra)
+            return msg + f"💡 {extra}" + pie
+        return msg + (f"💡 {detail}" if detail else "") + pie
 
     if event == "salida":
         pnl = _f(r"pnl=([\-\d\.]+)", detail)
@@ -146,28 +171,44 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
             (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc") else "")
         motivos = {"stop": "saltó el stop", "stop_horario": "saltó el stop (comprobación horaria)",
                    "sin_datos": "la moneda dejó de tener datos (posible deslistado)", "rendimiento": "el funding dejó de compensar"}
-        icon = "✅" if (pnl or 0) > 0 else "❌"
+        gana = (pnl or 0) > 0
+        title = "✅ CERRADA CON GANANCIA" if gana else "❌ CERRADA CON PÉRDIDA"
+        prueba = " · 🧪 EN PRUEBA" if sleeve in EN_PRUEBA else ""
+        lado = _f(r"lado=(\w+)", detail, str)
+        if sleeve in ("A_carry", "E_carry_inverso", "H_prima", "K_tokenizadas"):
+            dl = "⚪ Era NEUTRAL (no apostaba a la dirección)"
+        elif sleeve == "B_corto_alt_btc":
+            dl = f"🔴 Era CORTO en {a} contra BTC (ganaba si {a} lo hacía peor que BTC)"
+        elif lado == "largo":
+            dl = "🟢 Era LARGO (ganaba si subía)"
+        elif lado == "corto":
+            dl = "🔴 Era CORTO (ganaba si bajaba)"
+        else:
+            dl = ""
         fund = _f(r"funding=([\-\d\.]+)", detail)
+        msg = (f"{head}\n{title}{prueba}\n{bl.replace(' (EN PRUEBA)', '')} · {a}\n{LINEA}\n" + (dl + "\n" if dl else "")
+               + f"💰 Resultado: {euros(pnl) if pnl is not None else '?'}" + (f" (funding: {euros(fund)})" if fund is not None else "")
+               + f"\n{LINEA}")
         e_px = _f(r"entrada=([\d\.eE\+\-]+)", detail)
         m_t = re.search(r"desde=(\S+)", detail or "")
-        tramo = ""
         if m_t:
             try:
                 import pandas as _pd
                 t0 = _pd.Timestamp(m_t.group(1).replace("T", " ")[:19])
                 t1 = _pd.Timestamp(str(ts).replace("T", " ")[:19]) if ts else None
-                dur = ""
-                if t1 is not None and t1 >= t0:
+                neutral = dl.startswith("⚪")
+                msg += f"\n📥 Entró: {t0:%d/%m %H:%M} UTC" + (f" a {precio(e_px)} $" if e_px and not neutral else "")
+                if t1 is not None:
+                    mov = f" ({pct(p / e_px - 1)})" if e_px and p and not neutral else ""
+                    msg += f"\n📤 Salió: {t1:%d/%m %H:%M} UTC" + (f" a {precio(p)} ${mov}" if p and not neutral else "")
                     hrs = (t1 - t0).total_seconds() / 3600
-                    dur = f" · duró {num(hrs, 0)} h" if hrs < 48 else f" · duró {num(hrs / 24, 1)} días"
-                precios = (f" a {precio(e_px)} $ y salió a {precio(p)} $" if e_px and p else "")
-                tramo = f"\nEntró el {t0:%d/%m %H:%M} UTC{precios}{dur}"
+                    if hrs >= 0:
+                        msg += f"\n⏱ Duró {num(hrs, 0)} h" if hrs < 48 else f"\n⏱ Duró {num(hrs / 24, 1)} días"
             except Exception:
-                tramo = ""
-        return (f"{head}\n{icon} Operación cerrada · {bl} · {a}\nResultado: {euros(pnl) if pnl is not None else '?'}"
-                + tramo
-                + (f" (de ello, funding cobrado: {euros(fund)})" if fund is not None else "")
-                + (f"\nMotivo: {motivos.get(why, why)}" if why and not why.startswith("pnl") else ""))
+                pass
+        if why and not why.startswith("pnl"):
+            msg += f"\n📝 Motivo: {motivos.get(why, why)}"
+        return msg
 
     if event == "ampliacion" and q is not None:
         if sleeve == "B_corto_alt_btc":

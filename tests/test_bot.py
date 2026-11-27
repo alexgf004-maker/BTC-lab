@@ -116,7 +116,7 @@ def test_telegram_sin_configurar_no_falla_y_registra():
     d = tempfile.mkdtemp(); j = Journal(f"{d}/j.csv", "paper", t)
     j.log("D_tendencia", "entrada", "BTCUSDT", "BUY", 0.01, 65000.0, "R=1000")
     j.log("D_tendencia", "detalle_menor", "BTCUSDT")                     # no importante: no se avisa
-    assert len(t.sent) == 2 and "Nueva operación" in t.sent[1] and "BTC" in t.sent[1]
+    assert len(t.sent) == 2 and "NUEVA OPERACIÓN" in t.sent[1] and "LARGO en BTC" in t.sent[1]
 
 
 def test_comparacion_detecta_descuadre_y_bloquea():
@@ -418,7 +418,8 @@ def test_aviso_de_cierre_con_entrada_y_duracion():
     from bot.mensajes import formatear, tras
     pos = {"qty": 0.01, "entry": 60000.0, "entry_time": "2026-11-20 08:00:00+00:00"}
     m = formatear("paper", "D_tendencia", "salida", "BTCUSDT", "SELL", 0.01, 63000, "pnl=29.50" + tras(pos), ts="2026-11-23T08:00:00+00:00")
-    assert "Entró el 20/11 08:00 UTC a 60.000,00 $ y salió a 63.000,00 $" in m and "duró 3,0 días" in m and "+29,50 $" in m
+    assert "Entró: 20/11 08:00 UTC a 60.000,00 $" in m and "Salió: 23/11 08:00 UTC a 63.000,00 $ (+5,0 %)" in m
+    assert "Duró 3,0 días" in m and "+29,50 $" in m and "Era LARGO" in m and "CERRADA CON GANANCIA" in m
 
 
 def test_detector_doble_techo():
