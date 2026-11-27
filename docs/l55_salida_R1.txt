@@ -1,0 +1,3 @@
+
+=== R1 — Capitulación con volumen spot → largo (puestos 31–100; 271 monedas con señales)
+  R1 capitulación spot (largo)                 | desarrollo: n   392, -0.517 %, t -0.86, acierto 32 % | examen: n  1075, -0.122 %, t -0.49, acierto 36 % | total t -0.93

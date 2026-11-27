@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (115 pruebas más; ≈ 535 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (120 pruebas más; ≈ 540 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -83,6 +83,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 42 Ampliar lo que funciona | Motor A en 20 altcoins, su espejo bajista, filtro anticapitulación para B | Los tres rechazados: el motor A solo funciona en BTC/ETH/SOL; el corto espejo no tiene ventaja; el filtro de B mejora un periodo y empeora otro. |
 | 43 Pensar como gestor | Paridad de riesgo, volatilidad objetivo, momentum de estrategias; piramidación y filtro de euforia en D; D en altcoins | Cartera: nada supera a pesos iguales. **D mejora con piramidación + filtro de euforia** (Sharpe 1,04→1,19 y 0,49→0,60; caída 19,8→12,7 % y 27,5→24,5 %): activado en el bot. |
 | 44 Mejoras del bloque B | Filtro de cortos saturados, piramidación, stop a cero, salida por tiempo | Las cuatro rechazadas. La piramidación parecía mejorar, pero era un efecto de suponer añadidos al precio exacto; con ejecución realista empeora. |
+| 55 Réplicas en monedas nunca usadas (puestos 31–100) + momentum intradía | Capitulación con volumen spot, bloque J, doble techo; primera hora → última hora en BTC/ETH | **J no se replica (≈ 0); el doble techo sí repite el signo** (+1,4 % y +1,1 %, t 1,5; junto con la L52, z ≈ 2,3); capitulación y momentum intradía rechazados. |
 | 54 Stop del bloque J | Siguiente redondo (actual) frente a 2 ATR, 3 ATR, extremo de la ruptura + 1 ATR y sin stop | **2 ATR adoptado en J** (+0,19 % y +0,16 % por operación frente a +0,06 % y −0,05 %; acierto 71 %). J sigue sin ser claramente rentable y continúa en seguimiento. |
 | 53 Patrones chartistas como filtro | Salida o no entrada de D tras doble techo/HCH; B sin cortos tras figura alcista o con más riesgo tras figura bajista; G sin compras tras figura bajista | D y B: rechazados. **G sin compras tras un doble techo o HCH reciente: aprobado y activado** (+0,71→+0,74R y +0,83→+0,89R, quita ~5 % de las operaciones con el mismo beneficio total). |
 | 52 Patrones chartistas | HCH, HCH invertido, doble techo/suelo, triángulos ascendente/descendente/simétrico detectados por ordenador (cripto 2020–26; oro y 10 divisas 2012–26) | **Rechazados los siete.** El doble techo es el más cercano (+0,07R y +0,05R, mejor que el placebo, t 1,8); las figuras alcistas pierden. |

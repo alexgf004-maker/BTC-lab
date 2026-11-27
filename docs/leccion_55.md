@@ -24,3 +24,23 @@ máximo de los dos techos; objetivo − h; máximo 60 velas.
 primera hora 14:00–15:00 UTC → posición en 20:00–21:00 UTC. Costes 0,07 % por lado + funding. Desarrollo 2020–2022, examen
 2023 → 2026-10. Placebo: la hora 12:00–13:00 como "primera hora".
 (R4 cuenta como 2 pruebas; total de la lección: 5.)
+
+## 2. Resultados — `l55_salida_R2_R3_R4.txt`, `l55_salida_R1.txt`
+Universo nuevo: 525 monedas pasaron por los puestos 31–100 entre 2020 y 2026 (403 con par spot para R1).
+
+| Prueba | Desarrollo | Examen | Total t | ¿Pasa? |
+|---|---|---|---|---|
+| R1 Capitulación con volumen spot (largo) | −0,52 % (n 392) | −0,12 % (n 1075) | −0,93 | No |
+| R2 Bloque J actual | −0,07 % (n 4847) | −0,04 % (n 8810) | −0,18 | **No se replica** |
+| R3 Doble techo (corto) | **+1,42 %** (n 503) | **+1,07 %** (n 1092) | **+1,51** | No (t), pero mismo signo |
+| R4 Momentum intradía 00–01 → 23–24 | −0,13 % | −0,13 % | −8,96 | No |
+| R4b Momentum intradía EE. UU. 14–15 → 20–21 | −0,16 % | −0,16 % | −11,78 | No |
+| Placebo R4 (12–13 → 23–24) | −0,10 % | −0,14 % | −10,75 | — |
+
+- **R1:** la capitulación no da ventaja en ningún sentido (la L50 vio que el corto perdía; el largo también pierde).
+- **R2:** el bloque J no se sostiene fuera del top 30: lo visto en la L46/L54 fue, muy probablemente, suerte. Se mantiene en
+  seguimiento solo como experimento, sin expectativa de pasar a la cartera.
+- **R3:** el doble techo es la única observación que se repite en monedas nuevas: positivo en los dos periodos, como en el top 30
+  (L52: +0,07R y +0,05R, t 1,82). Las dos pruebas juntas, independientes, se acercan al listón (z combinado ≈ 2,3). **Candidato a
+  seguimiento.**
+- **R4:** la primera hora no anticipa la última en BTC/ETH (bruto ≈ 0; el placebo da lo mismo). Los costes lo hunden.
