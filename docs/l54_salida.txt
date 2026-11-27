@@ -1,0 +1,6 @@
+Bloque J (apostar a que la ruptura de un redondo falla), top 30, 2020 → 2026-10. Neto por operación.
+  S0 siguiente redondo (actual)      | desarrollo: n 3233, +0.06 %, t +0.26, acierto 50 % | examen: n 4450, -0.05 %, t -0.27, acierto 51 % | peor -51.3 % | stop mediano 7.1 % (p10 2.1 %, p90 24.2 %)
+  S1 2 ATR                           | desarrollo: n 2691, +0.19 %, t +0.42, acierto 71 % | examen: n 3764, +0.16 %, t +0.51, acierto 71 % | peor -98.5 % | stop mediano 18.5 % (p10 10.1 %, p90 34.9 %)
+  S2 3 ATR                           | desarrollo: n 2514, -0.01 %, t -0.01, acierto 75 % | examen: n 3554, +0.21 %, t +0.58, acierto 76 % | peor -125.8 % | stop mediano 27.6 % (p10 15.2 %, p90 52.1 %)
+  S3 extremo de la ruptura + 1 ATR   | desarrollo: n 2864, +0.48 %, t +1.29, acierto 64 % | examen: n 4026, +0.01 %, t +0.05, acierto 63 % | peor -303.1 % | stop mediano 11.7 % (p10 6.4 %, p90 23.8 %)
+  S4 sin stop                        | desarrollo: n 2292, -0.35 %, t -0.39, acierto 78 % | examen: n 3246, +0.13 %, t +0.24, acierto 78 % | peor -466.4 % | stop mediano nan % (p10 nan %, p90 nan %)

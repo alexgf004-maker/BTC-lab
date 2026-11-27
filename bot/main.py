@@ -41,7 +41,7 @@ G_DEFAULT = {"activo": True, "seguimiento": False, "fraccion": 0.20, "risk": 0.0
 
 
 I_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10}
-J_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "max_dias": 20, "K": 30}
+J_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "max_dias": 20, "K": 30, "stop_atr": 2.0}
 K_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25, "max_pos": 4, "entrada": 0.005, "salida": 0.001,
              "max_horas": 24}
 EXTRA = {"G_rafaga": G_DEFAULT, "H_prima": H_DEFAULT, "I_coinbase": I_DEFAULT, "J_redondos": J_DEFAULT, "K_tokenizadas": K_DEFAULT}

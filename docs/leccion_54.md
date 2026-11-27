@@ -22,3 +22,22 @@ Variantes de stop:
 
 Criterio para cambiar el stop de J: una variante con media neta por operación mayor que S0 en desarrollo **y** examen, y peor
 operación no más de 2 veces peor que la de S0. Si varias cumplen, la de mayor media en el examen. Si ninguna cumple, J se queda igual.
+
+## 2. Resultados — `l54_salida.txt`
+| Stop | Desarrollo: media / acierto | Examen: media / acierto | Peor operación | Distancia mediana del stop (p10–p90) |
+|---|---|---|---|---|
+| S0 siguiente redondo (actual) | +0,06 % / 50 % | −0,05 % / 51 % | −51 % | 7,1 % (2,1–24,2 %) |
+| **S1 2 ATR** | **+0,19 % / 71 %** | **+0,16 % / 71 %** | −99 % | 18,5 % (10,1–34,9 %) |
+| S2 3 ATR | −0,01 % / 75 % | +0,21 % / 76 % | −126 % | 27,6 % |
+| S3 extremo de la ruptura + 1 ATR | +0,48 % / 64 % | +0,01 % / 63 % | −303 % | 11,7 % |
+| S4 sin stop | −0,35 % / 78 % | +0,13 % / 78 % | −466 % | — |
+
+Las peores operaciones son reales, no errores de datos: el colapso de LUNA (2022) y lanzamientos muy volátiles (LAB, RIVER, SIREN en
+2026) con movimientos diarios del 50–90 %.
+
+**Decisión según el criterio:** solo **S1 (2 ATR)** mejora en los dos periodos (+0,19 % y +0,16 % frente a +0,06 % y −0,05 %) con
+una peor operación dentro del límite (−99 % frente al tope de −103 %). **J pasa a usar stop de 2 ATR** en las operaciones nuevas.
+
+**Lo que no cambia:** ninguna variante hace que J sea claramente rentable (t entre −0,4 y +1,3). El usuario tenía razón en que el
+stop del redondo era arbitrario y demasiado justo a menudo (en el 10 % de los casos, a menos del 2,1 %); con 2 ATR se acierta el 71 %
+de las veces, pero las pérdidas, cuando llegan, son mayores. J sigue en seguimiento.

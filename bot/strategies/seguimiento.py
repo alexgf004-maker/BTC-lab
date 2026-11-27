@@ -3,7 +3,7 @@
 I_coinbase   — Lección 47, CP4: prima de Coinbase a 4 h. z > +1 → largo BTC; z < −1 → corto; si no, fuera.
 J_redondos   — Lección 46 (observación posterior): apostar a que la ruptura de un número redondo falla. Es la operación
                contraria a la de la lección, con sus mismas salidas: se cierra con beneficio cuando el cierre diario vuelve al
-               otro lado del nivel; stop en el siguiente número redondo; máximo 20 días.
+               otro lado del nivel; stop a 2 ATR(14) diario desde la entrada (Lección 54); máximo 20 días.
 K_tokenizadas — Lección 37, K3: si el token spot de una acción se separa > 0,5 % de su perpetuo, comprar el barato y vender el
                caro; salida cuando la diferencia baja de 0,1 % o a las 24 h.
 
@@ -145,7 +145,7 @@ class RedondoFalla(_Seguimiento):
                 side, stop = pos["lado"], pos["stop"]
                 if (side > 0 and bar.low <= stop) or (side < 0 and bar.high >= stop):
                     px = min(bar.open, stop) if side > 0 else max(bar.open, stop)
-                    self._perp_close(sym, float(px), t + pd.Timedelta("1h"), "stop en el siguiente número redondo")
+                    self._perp_close(sym, float(px), t + pd.Timedelta("1h"), "saltó el stop")
                     break
 
     def run(self, now):
@@ -183,7 +183,15 @@ class RedondoFalla(_Seguimiento):
             if not px > 0:
                 continue
             q = side * self.cfg.get("slot", 0.10) * self.sl["balance"] / px
-            stop = L - step if side > 0 else L + step
+            stop = L - step if side > 0 else L + step                    # stop antiguo (siguiente redondo), si no hay ATR
+            k_atr = self.cfg.get("stop_atr", 2.0)                        # Lección 54: stop a 2 ATR(14) diario desde la entrada
+            if k_atr:
+                dd = daily(self.m.candles(sym, 24 * 20), now)
+                prev = dd["close"].shift(1)
+                tr = pd.concat([dd["high"] - dd["low"], (dd["high"] - prev).abs(), (dd["low"] - prev).abs()], axis=1).max(axis=1)
+                atr = tr.rolling(14).mean()
+                if len(atr) and atr.iloc[-1] > 0:
+                    stop = px - side * k_atr * float(atr.iloc[-1])
             from ..mensajes import precio as _p
             nivel = _p(L)
             self.sl["positions"][sym] = {"qty": q, "entry": px, "fees": abs(q) * px * PERP_COST, "entry_time": str(now),
@@ -196,7 +204,7 @@ class RedondoFalla(_Seguimiento):
                        + (f"{sym[:-4]} estuvo 3 días por encima de {nivel} $ y ayer cerró por debajo; "
                           if brk < 0 else f"{sym[:-4]} estuvo 3 días por debajo de {nivel} $ sin poder superarlo y ayer cerró por encima; ")
                        + f"se apuesta a que la ruptura es falsa.\nGana si un cierre diario vuelve al otro lado de {nivel} $. "
-                       f"Stop en {_p(stop)} $ (siguiente número redondo). Máximo 20 días. stop={stop:.10g}", ts=str(now))
+                       f"Stop en {_p(stop)} $ ({'2 ATR' if k_atr else 'siguiente número redondo'}). Máximo 20 días. stop={stop:.10g}", ts=str(now))
 
 
 # ------------------------------------------------------------------------------------------------ K · arbitraje de tokenizadas

@@ -453,3 +453,29 @@ def test_bloque_j_stop_horario(tmp_path):
     J.run(idx[2] + pd.Timedelta("1h"))                     # la vela de las 02:00 toca 1,004 → stop a 1,00 a las 03:00, sin esperar a las 00:00
     assert "BTWUSDT" not in J.sl["positions"] and J.sl["trades"][-1]["exit"] == 1.0
     assert J.sl["trades"][-1]["exit_time"].startswith("2026-11-27 03:00")
+
+
+def test_bloque_j_stop_a_2_atr(tmp_path):
+    import numpy as np
+    import pandas as pd
+    from bot.journal import Journal
+    from bot.state import State
+    from bot.strategies.seguimiento import RedondoFalla
+    # 20 días: oscila alrededor de 60.400 (rango diario ~800), defiende 60.000 tres días y cierra en 59.500 → largo con stop a 2 ATR
+    days = 20
+    idx = pd.date_range("2026-11-01", periods=24 * days, freq="1h", tz="UTC")
+    c = np.full(len(idx), 60400.0); c[-24:] = 59500.0
+    hi = c + 400; lo = c - 400; lo[24 * (days - 3) + 5] = 60050
+    df = pd.DataFrame({"open": c, "high": hi, "low": lo, "close": c}, index=idx)
+    now = idx[-1] + pd.Timedelta("1h")
+
+    class M:
+        def candles(self, sym, n): return df
+        def price(self, sym): return 59500.0
+        def funding(self, sym, since, until=None): return pd.Series(dtype=float, index=pd.DatetimeIndex([], tz="UTC"))
+    st = State(str(tmp_path / "s.json")); j = Journal(tmp_path / "d.csv", "paper")
+    J = RedondoFalla({"capital": 1000.0, "slot": 0.10, "stop_atr": 2.0}, st, M(), j, lambda now: ["BTCUSDT"])
+    J.run(now)
+    pos = J.sl["positions"]["BTCUSDT"]
+    assert pos["lado"] == 1 and 57500 < pos["stop"] < 59000          # ~2 × ATR (≈ 800–1.700) por debajo de 59.500, no en 55.000
+    assert "2 ATR" in open(tmp_path / "d.csv").read()
