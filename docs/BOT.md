@@ -134,6 +134,11 @@ Sirven para medir hacia adelante, con datos nuevos, tres ideas que no llegaron a
 Se configuran en `config.yaml` (`I_coinbase`, `J_redondos`, `K_tokenizadas`; `activo: false` para apagarlos). Aunque no aparezcan
 en el `config.yaml`, vienen activos por defecto.
 
+## 5h. Bloque L — doble techo, solo en seguimiento (Lecciones 52 y 55)
+Cada 4 h, en las 100 monedas más líquidas: si la vela de 4 h recién cerrada rompe un doble techo (giros de 3 ATR, techos a ≤ 0,15 de
+la altura), corto; stop en el techo más alto; objetivo = entrada − altura de la figura; máximo 10 días. 10 % del bloque por operación,
+máximo 10. Es la única observación que se repitió en monedas nunca usadas (top 30: t 1,8; puestos 31–100: t 1,5).
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

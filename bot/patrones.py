@@ -86,3 +86,35 @@ def recent_bear(df1h: pd.DataFrame, now, bars=30) -> bool:
     d4 = d4[d4.index + W4 <= now]
     b = bear_breaks(d4)
     return bool(len(b) and ((b > now - bars * W4) & (b <= now)).any())
+
+
+def double_top_at_last(df4h: pd.DataFrame, k=3.0):
+    """Si la última vela cerrada de 4 h rompe un doble techo, devuelve (stop, objetivo, altura); si no, None.
+    Mismas reglas que la L52 (corto al cerrar bajo el valle; stop en el techo más alto; objetivo = entrada − altura)."""
+    c = df4h.close.to_numpy(float)
+    by_conf = {}
+    for p in zigzag(df4h, k):
+        by_conf.setdefault(p[3], []).append(p)
+    confirmed, pending, last = [], [], len(df4h) - 1
+    for i in range(len(df4h)):
+        for p in by_conf.get(i, []):
+            confirmed.append(p)
+            pending = []
+            if len(confirmed) >= 3 and "".join(q[0] for q in confirmed[-3:]) == "HLH":
+                E1, E2, E3 = (q[1] for q in confirmed[-3:])
+                hgt = (E1 + E3) / 2 - E2
+                if hgt > 0 and abs(E1 - E3) <= 0.15 * hgt:
+                    pending = [(E2, max(E1, E3), hgt, i)]
+        keep = []
+        for L, stop, hgt, born in pending:
+            if i <= born:
+                keep.append((L, stop, hgt, born)); continue
+            if i - born > 30:
+                continue
+            if c[i] < L:
+                if i == last:
+                    return stop, c[i] - hgt, hgt
+            else:
+                keep.append((L, stop, hgt, born))
+        pending = keep
+    return None

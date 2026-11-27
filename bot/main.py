@@ -26,7 +26,7 @@ from .state import State
 from .strategies.carry import Carry
 from .strategies.momentum import Rafaga
 from .strategies.premium import PrimaRapida
-from .strategies.seguimiento import ArbitrajeTokenizadas, PrimaCoinbase, RedondoFalla
+from .strategies.seguimiento import ArbitrajeTokenizadas, DobleTecho, PrimaCoinbase, RedondoFalla
 from .strategies.trend import Trend
 from .strategies.weak_alts import WeakAlts
 from .strategies.weekend import Weekend
@@ -44,7 +44,9 @@ I_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10}
 J_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "max_dias": 20, "K": 30, "stop_atr": 2.0}
 K_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25, "max_pos": 4, "entrada": 0.005, "salida": 0.001,
              "max_horas": 24}
-EXTRA = {"G_rafaga": G_DEFAULT, "H_prima": H_DEFAULT, "I_coinbase": I_DEFAULT, "J_redondos": J_DEFAULT, "K_tokenizadas": K_DEFAULT}
+L_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "K": 100}
+EXTRA = {"G_rafaga": G_DEFAULT, "H_prima": H_DEFAULT, "I_coinbase": I_DEFAULT, "J_redondos": J_DEFAULT, "K_tokenizadas": K_DEFAULT,
+         "L_doble_techo": L_DEFAULT}
 
 
 def build(cfg):
@@ -92,8 +94,12 @@ def build(cfg):
     cfgI = {**I_DEFAULT, **B.get("I_coinbase", {}), "seguimiento": True}       # I, J y K solo existen en seguimiento
     cfgJ = {**J_DEFAULT, **B.get("J_redondos", {}), "seguimiento": True}
     cfgK = {**K_DEFAULT, **B.get("K_tokenizadas", {}), "seguimiento": True}
+    cfgL = {**L_DEFAULT, **B.get("L_doble_techo", {}), "seguimiento": True}
     state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG, "H_prima": cfgH, "I_coinbase": cfgI, "J_redondos": cfgJ,
-                                             "K_tokenizadas": cfgK}.items() if v.get("seguimiento")]
+                                             "K_tokenizadas": cfgK, "L_doble_techo": cfgL}.items() if v.get("seguimiento")]
+    if cfgL.get("activo", True):
+        strategies.append(DobleTecho({**cfgL, "capital": total * cfgL["fraccion"]}, state, market, journal,
+                                     lambda now: uni.top(now, cfgL["K"])))
     if cfgI.get("activo", True) and spot_ok:
         strategies.append(PrimaCoinbase({**cfgI, "capital": total * cfgI["fraccion"]}, state, market, journal))
     if cfgJ.get("activo", True):
@@ -118,7 +124,7 @@ def initial_capital(cfg):
     fr = sum(float(v.get("fraccion", 0)) for k, v in B.items() if v.get("activo") and k not in EXTRA)
     for name, dflt in EXTRA.items():
         g = {**dflt, **B.get(name, {})}
-        if name in ("I_coinbase", "J_redondos", "K_tokenizadas"):
+        if name in ("I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo"):
             continue
         if g.get("activo", True) and not g.get("seguimiento"):
             fr += float(g["fraccion"])

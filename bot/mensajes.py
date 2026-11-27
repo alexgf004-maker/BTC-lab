@@ -8,11 +8,12 @@ BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_
            "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
            "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida (EN PRUEBA)",
            "I_coinbase": "I · Prima de Coinbase (EN PRUEBA)", "J_redondos": "J · Ruptura falsa de redondos (EN PRUEBA)",
-           "K_tokenizadas": "K · Arbitraje de tokenizadas (EN PRUEBA)", "cartera": "Cartera"}
+           "K_tokenizadas": "K · Arbitraje de tokenizadas (EN PRUEBA)",
+           "L_doble_techo": "L · Doble techo (EN PRUEBA)", "cartera": "Cartera"}
 
 
 LINEA = "━━━━━━━━━━━━━━"
-EN_PRUEBA = {"H_prima", "I_coinbase", "J_redondos", "K_tokenizadas"}
+EN_PRUEBA = {"H_prima", "I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo"}
 
 
 def pct(x):
@@ -159,7 +160,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
             W = _f(r"W=([\+\-]?[\d\.]+)%", detail)
             return (msg + "🚪 Salida: el lunes a las 03:00 UTC.\n"
                     f"💡 Por qué: la acción se movió {num(W or 0, 2)} % el fin de semana con la bolsa cerrada; se apuesta a que devuelve parte.")
-        if sleeve in ("I_coinbase", "J_redondos"):
+        if sleeve in ("I_coinbase", "J_redondos", "L_doble_techo"):
             extra = "\n".join(x for x in (detail or "").split("\n")[1:] if x.strip()) or detail
             extra = re.sub(r"\s*stop=\S+", "", extra)
             return msg + f"💡 {extra}" + pie
@@ -167,7 +168,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
 
     if event == "salida":
         pnl = _f(r"pnl=([\-\d\.]+)", detail)
-        why = (detail or "").split(" pnl=")[0] if sleeve in ("G_rafaga", "H_prima", "I_coinbase", "J_redondos", "K_tokenizadas") else (
+        why = (detail or "").split(" pnl=")[0] if sleeve in ("G_rafaga", "H_prima", "I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo") else (
             (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc") else "")
         motivos = {"stop": "saltó el stop", "stop_horario": "saltó el stop (comprobación horaria)",
                    "sin_datos": "la moneda dejó de tener datos (posible deslistado)", "rendimiento": "el funding dejó de compensar"}

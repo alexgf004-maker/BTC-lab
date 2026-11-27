@@ -46,7 +46,8 @@ NAMES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_co
          "D_tendencia": "D · Tendencia BTC/ETH", "F_fin_de_semana": "F · Fin de semana (acciones)",
          "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida 🧪 en prueba",
          "I_coinbase": "I · Prima de Coinbase 🧪 en prueba", "J_redondos": "J · Ruptura falsa de redondos 🧪 en prueba",
-         "K_tokenizadas": "K · Arbitraje de tokenizadas 🧪 en prueba"}
+         "K_tokenizadas": "K · Arbitraje de tokenizadas 🧪 en prueba",
+         "L_doble_techo": "L · Doble techo 🧪 en prueba"}
 
 
 # ------------------------------------------------------------------ lectura de datos
@@ -309,7 +310,7 @@ def render(s):
     rows = ""
     for name, v in sl.items():
         bal = v.get("balance", 0) + open_by.get(name, 0.0)
-        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", {"G_rafaga": 0.20}.get(name, 0.10 if name[:2] in ("H_", "I_", "J_", "K_") else 0)) or 0)
+        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", {"G_rafaga": 0.20}.get(name, 0.10 if name[:2] in ("H_", "I_", "J_", "K_", "L_") else 0)) or 0)
         r = (bal / cap_b - 1) if cap_b else 0
         rows += (f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td class="n">{money(bal)}</td>'
                  f'<td class="n {"pos" if r >= 0 else "neg"}">{pct(r)}</td><td class="n">{len(v.get("positions", {}))}</td>'

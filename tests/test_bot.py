@@ -479,3 +479,30 @@ def test_bloque_j_stop_a_2_atr(tmp_path):
     pos = J.sl["positions"]["BTCUSDT"]
     assert pos["lado"] == 1 and 57500 < pos["stop"] < 59000          # ~2 × ATR (≈ 800–1.700) por debajo de 59.500, no en 55.000
     assert "2 ATR" in open(tmp_path / "d.csv").read()
+
+
+def test_bloque_l_doble_techo(tmp_path):
+    import numpy as np
+    import pandas as pd
+    from bot.journal import Journal
+    from bot.patrones import double_top_at_last
+    from bot.state import State
+    from bot.strategies.seguimiento import DobleTecho
+    path = np.r_[np.linspace(90, 110, 40), np.linspace(110, 100, 25), np.linspace(100, 110, 25), np.linspace(110, 98, 25)]
+    idx4 = pd.date_range("2026-08-01", periods=len(path), freq="4h", tz="UTC")
+    d4 = pd.DataFrame({"open": path, "high": path + 0.3, "low": path - 0.3, "close": path}, index=idx4)
+    cut = next(i for i in range(91, len(d4)) if double_top_at_last(d4.iloc[:i + 1]))   # primera vela que rompe el valle
+    d4 = d4.iloc[:cut + 1]
+    h = d4.loc[d4.index.repeat(4)].copy()                                              # velas de 1 h a partir de las de 4 h
+    h.index = pd.date_range(d4.index[0], periods=len(h), freq="1h", tz="UTC")
+    now = d4.index[-1] + pd.Timedelta("4h")
+
+    class M:
+        def candles(self, sym, n): return h
+        def price(self, sym): return float(d4.close.iloc[-1])
+        def funding(self, sym, since, until=None): return pd.Series(dtype=float, index=pd.DatetimeIndex([], tz="UTC"))
+    st = State(str(tmp_path / "s.json")); j = Journal(tmp_path / "d.csv", "paper")
+    L = DobleTecho({"capital": 1000.0}, st, M(), j, lambda now: ["ETHUSDT"])
+    L.run(now)
+    pos = L.sl["positions"]["ETHUSDT"]
+    assert pos["qty"] < 0 and pos["stop"] > 109 and pos["objetivo"] < pos["entry"] < 100

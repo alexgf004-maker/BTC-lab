@@ -264,3 +264,65 @@ class ArbitrajeTokenizadas(_Seguimiento):
         pnl = n * (side * (b - b0) / (1 + b0) - 2 * (SPOT_COST + PERP_COST) + side * float(f.sum()))
         self._book(sym, pnl, now, why, {"b_entrada": b0, "b_salida": b})
         self.j.log(self.NAME, "salida", sym, "SELL" if side > 0 else "BUY", n, 0, f"{why} pnl={pnl:.2f}" + tras(pos), ts=str(now))
+
+
+# ------------------------------------------------------------------------------------------------ L · doble techo
+class DobleTecho(_Seguimiento):
+    """L — Doble techo en corto (Lecciones 52 y 55): positivo en el top 30 y en los puestos 31–100, sin llegar al listón.
+    Cada 4 h, en las 100 monedas más líquidas: si la vela de 4 h recién cerrada rompe un doble techo (giros de 3 ATR), corto;
+    stop en el techo más alto, objetivo = entrada − altura de la figura, máximo 60 velas de 4 h (10 días)."""
+    NAME = "L_doble_techo"
+
+    def due(self, now):
+        return now.hour % 4 == 0
+
+    @staticmethod
+    def _bars4(df, now):
+        d4 = df[["open", "high", "low", "close"]].resample("4h").agg({"open": "first", "high": "max", "low": "min", "close": "last"}).dropna()
+        return d4[d4.index + pd.Timedelta("4h") <= now]
+
+    def run(self, now):
+        from ..patrones import double_top_at_last
+        for sym, pos in list(self.sl["positions"].items()):
+            d4 = self._bars4(self.m.candles(sym, 24 * 60), now)
+            done = pd.Timestamp(pos.get("checked") or pos["entry_time"])
+            closed = False
+            for t, bar in d4[d4.index >= done].iterrows():
+                pos["checked"] = str(t + pd.Timedelta("4h"))
+                if bar.high >= pos["stop"]:
+                    self._perp_close(sym, float(max(bar.open, pos["stop"])), t + pd.Timedelta("4h"), "saltó el stop"); closed = True; break
+                if bar.low <= pos["objetivo"]:
+                    self._perp_close(sym, float(min(bar.open, pos["objetivo"])), t + pd.Timedelta("4h"), "objetivo alcanzado"); closed = True; break
+            if not closed and (now - pd.Timestamp(pos["entry_time"])) >= pd.Timedelta("240h"):
+                px = self.m.price(sym)
+                if px > 0:
+                    self._perp_close(sym, px, now, "tiempo (10 días)")
+        if not self.universe_fn:
+            return
+        for sym in self.universe_fn(now):
+            if len(self.sl["positions"]) >= self.cfg.get("max_pos", 10):
+                break
+            if sym in self.sl["positions"]:
+                continue
+            d4 = self._bars4(self.m.candles(sym, 24 * 60), now)
+            if len(d4) < 60 or d4.index[-1] + pd.Timedelta("4h") != now:
+                continue
+            sig = double_top_at_last(d4)
+            if not sig:
+                continue
+            stop, tgt, hgt = sig
+            px = self.m.price(sym)
+            if not (px > 0) or px >= stop:
+                continue
+            tgt = px - hgt
+            from ..mensajes import pct as _pct, precio as _p
+            q = -self.cfg.get("slot", 0.10) * self.sl["balance"] / px
+            self.sl["positions"][sym] = {"qty": q, "entry": px, "fees": abs(q) * px * PERP_COST, "entry_time": str(now), "lado": -1,
+                                         "stop": stop, "objetivo": tgt,
+                                         "texto": f"Corto a {_p(px)} $ tras romper un doble techo. Objetivo {_p(tgt)} $; stop {_p(stop)} $; "
+                                                  f"máximo 10 días."}
+            self.j.log(self.NAME, "entrada", sym, "SELL", abs(q), px,
+                       f"Corto en el futuro de {sym[:-4]} a {_p(px)} $ (≈ {abs(q) * px:,.0f} $).\n"
+                       f"{sym[:-4]} hizo dos techos casi iguales y acaba de cerrar por debajo del valle entre ambos (doble techo).\n"
+                       f"🎯 Objetivo: {_p(tgt)} $ ({_pct(tgt / px - 1)}, la altura de la figura). Máximo 10 días. stop={stop:.10g}",
+                       ts=str(now))
