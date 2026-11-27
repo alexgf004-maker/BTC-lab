@@ -1,0 +1,16 @@
+=== Diagnóstico de B actual (todas las operaciones candidatas)
+  operaciones 17182 | acierto 42 % | media +0.117R
+  llegaron a +1R en algún momento: 39.6 % | de ellas terminaron en pérdida:  7.8 % | resultado final medio de esas: +1.13R
+  llegaron a +2R en algún momento: 17.3 % | de ellas terminaron en pérdida:  0.3 % | resultado final medio de esas: +2.06R
+  llegaron a +3R en algún momento:  8.6 % | de ellas terminaron en pérdida:  0.0 % | resultado final medio de esas: +2.84R
+  llegaron a +5R en algún momento:  1.9 % | de ellas terminaron en pérdida:  0.0 % | resultado final medio de esas: +4.62R
+  operaciones que terminaron en ≥ +5R: 0.6 % del total, y aportan 33 % del beneficio neto total
+  devolución media: las que llegaron a +2R cerraron, de media, en +2.06R con una ganancia latente máxima media de +3.37R
+
+=== Cartera B (riesgo 1 %, máximo 10 posiciones)
+  B actual                                   | 2020–22: Sharpe 1.56 | anual  +71.0 % | caída  30.4 % | 2023–26: Sharpe 0.82 | anual  +28.4 % | caída  33.8 % | operaciones 2091 | E +0.147R | acierto 44 %
+  T1 take profit +1R                         | 2020–22: Sharpe 1.19 | anual  +43.8 % | caída  32.9 % | 2023–26: Sharpe 0.36 | anual   +6.9 % | caída  46.2 % | operaciones 3293 | E +0.053R | acierto 45 %
+  T2 take profit +2R                         | 2020–22: Sharpe 1.35 | anual  +54.9 % | caída  31.3 % | 2023–26: Sharpe 0.68 | anual  +20.3 % | caída  38.8 % | operaciones 2462 | E +0.099R | acierto 43 %
+  T3 take profit +3R                         | 2020–22: Sharpe 1.52 | anual  +67.8 % | caída  30.0 % | 2023–26: Sharpe 0.92 | anual  +33.7 % | caída  33.3 % | operaciones 2264 | E +0.140R | acierto 44 %
+  T4 mitad en +2R, resto con stop dinámico   | 2020–22: Sharpe 1.36 | anual  +59.4 % | caída  30.8 % | 2023–26: Sharpe 0.83 | anual  +29.3 % | caída  33.4 % | operaciones 2091 | E +0.133R | acierto 44 %
+  T5 stop a 2,5 ATR tras +2R                 | 2020–22: Sharpe 1.68 | anual  +78.2 % | caída  29.2 % | 2023–26: Sharpe 0.97 | anual  +36.5 % | caída  32.7 % | operaciones 2253 | E +0.152R | acierto 44 %
