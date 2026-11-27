@@ -506,3 +506,15 @@ def test_bloque_l_doble_techo(tmp_path):
     L.run(now)
     pos = L.sl["positions"]["ETHUSDT"]
     assert pos["qty"] < 0 and pos["stop"] > 109 and pos["objetivo"] < pos["entry"] < 100
+
+
+def test_b_aprieta_el_stop_tras_2R():
+    import pandas as pd
+    from bot.strategies.common import chandelier_step
+    # corto en el ratio: entrada 100, R = 10 (5 ATR de 2). El ratio baja a 79 (+2,1R): el stop pasa a 79 + 2,5·2 = 84, no a 89.
+    pos = {"side": -1, "entry": 100.0, "R": 10.0, "stop": 110.0, "ext": 100.0}
+    bar = pd.Series({"open": 82.0, "high": 82.5, "low": 79.0, "close": 80.0})
+    assert chandelier_step(pos, bar, 2.0, 5.0, False, tighten=(2.0, 2.5)) is None and pos["stop"] == 84.0
+    pos2 = {"side": -1, "entry": 100.0, "R": 10.0, "stop": 110.0, "ext": 100.0}
+    chandelier_step(pos2, bar, 2.0, 5.0, False)
+    assert pos2["stop"] == 89.0

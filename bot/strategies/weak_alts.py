@@ -54,7 +54,9 @@ class WeakAlts:
             last = df.iloc[-1]
             if self.cfg.get("piramidar", False) and pos.get("adds"):
                 self._pyramid(sym, pos, last, now, risk)
-            px = chandelier_step(pos, last, float(last["atr"]), m, is_entry_bar=(str(df.index[-1]) == pos["entry_bar"]))
+            ase = self.cfg.get("asegurar_tras_R", 2.0)
+            px = chandelier_step(pos, last, float(last["atr"]), m, is_entry_bar=(str(df.index[-1]) == pos["entry_bar"]),
+                                 tighten=(ase, self.cfg.get("m_asegurado", 2.5)) if ase else None)
             if px is not None:
                 self._close(sym, pos, px, now, "stop")
         # 2) nuevas entradas, en orden alfabético como el backtest

@@ -39,7 +39,7 @@ def with_trend_signals(df: pd.DataFrame, N: int, direction: int) -> pd.DataFrame
     return df
 
 
-def chandelier_step(pos: dict, bar: pd.Series, atr_now: float, m: float, is_entry_bar: bool):
+def chandelier_step(pos: dict, bar: pd.Series, atr_now: float, m: float, is_entry_bar: bool, tighten=None):
     """Procesa una vela cerrada de una posición abierta. Devuelve (precio de salida o None).
     Orden idéntico al motor del backtest: hueco en la apertura → toque del stop → actualizar extremo y stop."""
     d, stop = pos["side"], pos["stop"]
@@ -48,6 +48,8 @@ def chandelier_step(pos: dict, bar: pd.Series, atr_now: float, m: float, is_entr
     if ((bar["low"] if d == 1 else bar["high"]) - stop) * d <= 0:
         return float(stop)
     pos["ext"] = max(pos["ext"], bar["high"]) if d == 1 else min(pos["ext"], bar["low"])
+    if tighten and d * (pos["ext"] - pos["entry"]) >= tighten[0] * pos["R"]:      # Lección 56: asegurar tras +kR
+        m = tighten[1]
     new = pos["ext"] - d * m * atr_now
     pos["stop"] = max(stop, new) if d == 1 else min(stop, new)
     return None

@@ -44,3 +44,18 @@ fijo las corta.
 **T5 aprobada:** mejor Sharpe en las dos mitades y menor caída. Los take profits fijos (T1–T4) empeoran B: cuanto más cerca el
 objetivo, peor. La solución a "devuelve ganancias" no es cerrar en un precio fijo, sino **apretar el stop cuando la operación ya va
 +2R**: se protege más ganancia sin cortar las operaciones enormes.
+
+**Robustez año por año** (cartera B completa, rentabilidad anual):
+| | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 |
+|---|---|---|---|---|---|---|---|
+| B actual | +113,6 % | −18,4 % | +160,1 % | +40,0 % | +96,6 % | +30,4 % | −27,3 % |
+| T5 | +116,2 % | −12,2 % | +168,1 % | +48,9 % | +123,7 % | +36,0 % | −27,3 % |
+Mejor en 6 de 7 años (2026 igual).
+
+**Doble comprobación con el código del bot** (repetición hora a hora de 2022, muestra de 25 monedas): las 157 operaciones (B actual)
+y las 172 (T5) del bot coinciden con el simulador en la entrada y en la hora de salida al 100 %. En esa muestra pequeña T5 ganó menos
+(+24 % frente a +32 %), pero en el universo completo de ese año ganó más (+168 % frente a +160 %): diferencia de muestra, no de
+mecánica.
+
+**Activado en el bot:** B aprieta su stop dinámico de 5 a 2,5 ATR cuando la operación llega a +2R (`asegurar_tras_R: 2.0`,
+`m_asegurado: 2.5`; se puede apagar con `asegurar_tras_R: 0`). No se añade take profit fijo.
