@@ -1,0 +1,11 @@
+
+=== R4 — Momentum intradía en BTC y ETH (la primera hora marca la dirección de la última)
+  R4 día UTC (00–01 → 23–24)                   | desarrollo: n  2190, -0.129 %, t -4.21, acierto 40 % | examen: n  2800, -0.134 %, t -12.64, acierto 31 % | total t -8.96
+  R4b sesión EE. UU. (14–15 → 20–21)           | desarrollo: n  2192, -0.162 %, t -6.57, acierto 37 % | examen: n  2800, -0.160 %, t -10.77, acierto 32 % | total t -11.78
+  placebo (12–13 → 23–24)                      | desarrollo: n  2189, -0.102 %, t -4.65, acierto 40 % | examen: n  2798, -0.136 %, t -13.21, acierto 32 % | total t -10.75
+
+=== R2 — Bloque J actual (ruptura falsa de redondos, stop 2 ATR) en los puestos 31–100
+  R2 bloque J                                  | desarrollo: n  4847, -0.067 %, t -0.12, acierto 70 % | examen: n  8810, -0.041 %, t -0.13, acierto 70 % | total t -0.18
+
+=== R3 — Doble techo (corto) en los puestos 31–100
+  R3 doble techo                               | desarrollo: n   503, +1.418 %, t +0.90, acierto 58 % | examen: n  1092, +1.069 %, t +1.21, acierto 57 % | total t +1.51
