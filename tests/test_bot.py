@@ -431,3 +431,24 @@ def test_detector_doble_techo():
     df = pd.DataFrame({"open": path, "high": path + 0.3, "low": path - 0.3, "close": path}, index=idx)
     b = bear_breaks(df)
     assert len(b) >= 1 and b[0] > idx[90]
+
+
+def test_bloque_j_stop_horario(tmp_path):
+    import pandas as pd
+    from bot.journal import Journal
+    from bot.state import State
+    from bot.strategies.seguimiento import RedondoFalla
+    idx = pd.date_range("2026-11-27", periods=6, freq="1h", tz="UTC")
+    h = pd.DataFrame({"open": [0.996, 0.998, 0.999, 1.003, 0.99, 0.98], "high": [0.998, 0.999, 1.004, 1.005, 0.99, 0.98],
+                      "low": [0.99, 0.99, 0.995, 0.99, 0.98, 0.97], "close": [0.998, 0.999, 1.002, 0.99, 0.98, 0.975]}, index=idx)
+
+    class M:
+        def candles(self, sym, n): return h
+        def funding(self, sym, since, until=None): return pd.Series(dtype=float, index=pd.DatetimeIndex([], tz="UTC"))
+    st = State(str(tmp_path / "s.json")); j = Journal(tmp_path / "d.csv", "paper")
+    J = RedondoFalla({"capital": 1000.0}, st, M(), j)
+    J.sl["positions"]["BTWUSDT"] = {"qty": -100.0, "entry": 0.996, "fees": 0.07, "entry_time": "2026-11-27 00:00:00+00:00",
+                                    "lado": -1, "L": 0.95, "stop": 1.0}
+    J.run(idx[2] + pd.Timedelta("1h"))                     # la vela de las 02:00 toca 1,004 → stop a 1,00 a las 03:00, sin esperar a las 00:00
+    assert "BTWUSDT" not in J.sl["positions"] and J.sl["trades"][-1]["exit"] == 1.0
+    assert J.sl["trades"][-1]["exit_time"].startswith("2026-11-27 03:00")

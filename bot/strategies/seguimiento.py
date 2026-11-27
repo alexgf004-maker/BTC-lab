@@ -128,9 +128,30 @@ class RedondoFalla(_Seguimiento):
     NAME = "J_redondos"
 
     def due(self, now):
-        return now.hour == 0
+        return True                                                     # stop cada hora; salidas diarias y entradas a las 00:00
+
+    def _stops(self, now):
+        """Revisa el stop con cada vela de 1 h cerrada desde la última revisión (como una orden stop en el exchange)."""
+        for sym, pos in list(self.sl["positions"].items()):
+            h = self.m.candles(sym, 72)
+            if h is None or h.empty:
+                continue
+            since = pd.Timestamp(pos.get("checked") or pos["entry_time"])
+            first = pd.Timestamp(pos["entry_time"])
+            for t, bar in h[(h.index >= first) & (h.index + pd.Timedelta("1h") <= now)].iterrows():
+                if pos.get("checked") and t <= since:
+                    continue
+                pos["checked"] = str(t)
+                side, stop = pos["lado"], pos["stop"]
+                if (side > 0 and bar.low <= stop) or (side < 0 and bar.high >= stop):
+                    px = min(bar.open, stop) if side > 0 else max(bar.open, stop)
+                    self._perp_close(sym, float(px), t + pd.Timedelta("1h"), "stop en el siguiente número redondo")
+                    break
 
     def run(self, now):
+        self._stops(now)
+        if now.hour != 0:
+            return
         for sym, pos in list(self.sl["positions"].items()):
             d = daily(self.m.candles(sym, 24 * 30), now)
             d = d[d.index >= pd.Timestamp(pos["entry_time"]).floor("1D")]
@@ -138,11 +159,8 @@ class RedondoFalla(_Seguimiento):
                 if (now - pd.Timestamp(pos["entry_time"])) > pd.Timedelta("22D"):
                     self._perp_close(sym, pos["entry"], now, "sin datos")
                 continue
-            bar, side, L, stop = d.iloc[-1], pos["lado"], pos["L"], pos["stop"]
-            if (side > 0 and bar.low <= stop) or (side < 0 and bar.high >= stop):
-                px = min(bar.open, stop) if side > 0 else max(bar.open, stop)
-                self._perp_close(sym, px, now, "stop en el siguiente número redondo")
-            elif (side > 0 and bar.close > L) or (side < 0 and bar.close < L):
+            bar, side, L = d.iloc[-1], pos["lado"], pos["L"]
+            if (side > 0 and bar.close > L) or (side < 0 and bar.close < L):
                 self._perp_close(sym, float(bar.close), now, "la ruptura falló: volvió al otro lado del nivel")
             elif len(d) >= self.cfg.get("max_dias", 20):
                 self._perp_close(sym, float(bar.close), now, "tiempo (20 días)")

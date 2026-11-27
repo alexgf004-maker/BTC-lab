@@ -123,7 +123,8 @@ Sirven para medir hacia adelante, con datos nuevos, tres ideas que no llegaron a
   Sharpe +0,52 / +0,82, t 2,13 (no aprobado).
 - **J · Ruptura falsa de redondos (L46):** a las 00:00 UTC, en las 30 monedas más líquidas, si el día cerró al otro lado de un
   número redondo defendido 3 días, se opera **en contra** de la ruptura. Ganancia si el cierre diario vuelve al otro lado del nivel;
-  stop en el siguiente número redondo; máximo 20 días; 10 % del bloque por operación, máximo 10. Es una observación posterior a la
+  stop en el siguiente número redondo (revisado cada hora con la vela de 1 h, como una orden stop en el exchange); máximo 20 días;
+  10 % del bloque por operación, máximo 10. Es una observación posterior a la
   lección (seguir la ruptura salía peor que con niveles cualquiera), por eso solo se mide hacia adelante.
 - **K · Arbitraje de tokenizadas (L37, K3):** cada hora, si el token spot de una acción (`xxxBUSDT`) se separa > 0,5 % de su
   perpetuo, se compra el barato y se vende el caro (25 % del bloque, máximo 4); salida cuando la diferencia baja de 0,1 % o a las
