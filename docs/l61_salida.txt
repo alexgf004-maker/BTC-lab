@@ -1,0 +1,5 @@
+Bloque I (prima de Coinbase 4 h) con y sin stop de emergencia
+  I sin stop (actual)    | desarrollo: Sharpe +0.51, anual +23.0 %, caída 48.6 % | examen: Sharpe +0.83, anual +24.6 %, caída 36.5 %
+  S2 stop −2 %           | desarrollo: Sharpe +0.31, anual +11.5 %, caída 59.5 % | examen: Sharpe +0.30, anual +7.9 %, caída 32.7 %
+  S3 stop −3 %           | desarrollo: Sharpe +0.15, anual +6.0 %, caída 56.9 % | examen: Sharpe +0.49, anual +13.8 %, caída 35.6 %
+  S5 stop −5 %           | desarrollo: Sharpe +0.19, anual +8.0 %, caída 53.4 % | examen: Sharpe +0.80, anual +23.8 %, caída 36.5 %
