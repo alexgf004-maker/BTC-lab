@@ -139,6 +139,9 @@ Cada 4 h, en las 100 monedas más líquidas: si la vela de 4 h recién cerrada r
 la altura), corto; stop en el techo más alto; objetivo = entrada − altura de la figura; máximo 10 días. 10 % del bloque por operación,
 máximo 10. Es la única observación que se repitió en monedas nunca usadas (top 30: t 1,8; puestos 31–100: t 1,5).
 
+**Tamaño en J y L (desde el 28-nov):** por riesgo, no por importe: cada operación pierde como máximo el 1 % del saldo del bloque
+(≈ 10 $) si salta el stop; el importe invertido = 10 $ / distancia al stop, con un tope del 30 % del bloque.
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

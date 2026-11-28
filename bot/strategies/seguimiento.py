@@ -38,6 +38,15 @@ class _Seguimiento:
                                                  "pnl": pnl, "motivo": why, **(extra or {})})
         return pos
 
+    def _qty_riesgo(self, side, px, stop):
+        """Tamaño por riesgo: perder como máximo `riesgo` del saldo del bloque si salta el stop (nocional con tope `max_nocional`)."""
+        dist = abs(px - stop)
+        bal = self.sl["balance"]
+        if not dist > 0:
+            return side * self.cfg.get("slot", 0.10) * bal / px
+        notional = min(self.cfg.get("riesgo", 0.01) * bal * px / dist, self.cfg.get("max_nocional", 0.30) * bal)
+        return side * notional / px
+
     def _perp_close(self, sym, px, now, why):
         pos = self.sl["positions"][sym]
         f = self.m.funding(sym, pd.Timestamp(pos["entry_time"]))
@@ -182,7 +191,6 @@ class RedondoFalla(_Seguimiento):
             px = self.m.price(sym)
             if not px > 0:
                 continue
-            q = side * self.cfg.get("slot", 0.10) * self.sl["balance"] / px
             stop = L - step if side > 0 else L + step                    # stop antiguo (siguiente redondo), si no hay ATR
             k_atr = self.cfg.get("stop_atr", 2.0)                        # Lección 54: stop a 2 ATR(14) diario desde la entrada
             if k_atr:
@@ -192,6 +200,7 @@ class RedondoFalla(_Seguimiento):
                 atr = tr.rolling(14).mean()
                 if len(atr) and atr.iloc[-1] > 0:
                     stop = px - side * k_atr * float(atr.iloc[-1])
+            q = self._qty_riesgo(side, px, stop)                         # arriesga una cantidad fija (1 % del bloque)
             from ..mensajes import precio as _p
             nivel = _p(L)
             self.sl["positions"][sym] = {"qty": q, "entry": px, "fees": abs(q) * px * PERP_COST, "entry_time": str(now),
@@ -316,7 +325,7 @@ class DobleTecho(_Seguimiento):
                 continue
             tgt = px - hgt
             from ..mensajes import pct as _pct, precio as _p
-            q = -self.cfg.get("slot", 0.10) * self.sl["balance"] / px
+            q = self._qty_riesgo(-1, px, stop)                           # arriesga una cantidad fija (1 % del bloque)
             self.sl["positions"][sym] = {"qty": q, "entry": px, "fees": abs(q) * px * PERP_COST, "entry_time": str(now), "lado": -1,
                                          "stop": stop, "objetivo": tgt,
                                          "texto": f"Corto a {_p(px)} $ tras romper un doble techo. Objetivo {_p(tgt)} $; stop {_p(stop)} $; "

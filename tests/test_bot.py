@@ -518,3 +518,15 @@ def test_b_aprieta_el_stop_tras_2R():
     pos2 = {"side": -1, "entry": 100.0, "R": 10.0, "stop": 110.0, "ext": 100.0}
     chandelier_step(pos2, bar, 2.0, 5.0, False)
     assert pos2["stop"] == 89.0
+
+
+def test_tamano_por_riesgo_en_bloques_en_prueba(tmp_path):
+    from bot.journal import Journal
+    from bot.state import State
+    from bot.strategies.seguimiento import RedondoFalla
+    st = State(str(tmp_path / "s.json")); j = Journal(tmp_path / "d.csv", "paper")
+    J = RedondoFalla({"capital": 1000.0, "riesgo": 0.01, "max_nocional": 0.30}, st, None, j)
+    q = J._qty_riesgo(-1, 1.18, 1.5382)                           # BTW: stop a +30 % → ~33 $ invertidos, pérdida máx. 10 $
+    assert q < 0 and abs(abs(q) * (1.5382 - 1.18) - 10.0) < 1e-6 and abs(q) * 1.18 < 40
+    q2 = J._qty_riesgo(1, 100.0, 99.6)                            # stop a 0,4 %: el tope del 30 % del bloque limita el importe
+    assert abs(abs(q2) * 100.0 - 300.0) < 1e-6
