@@ -1,0 +1,9 @@
+Filtro: quitar el tercil alto de 'rentabilidad 30 días' (corte fijo: 0.1794)
+
+(2) D real (BTC + ETH):
+  D actual      | desarrollo: Sharpe 1.23 | anual  +34.1 % | caída   5.8 % | MAR 5.86 | n 41 | examen: Sharpe 0.64 | anual  +12.2 % | caída  12.6 % | MAR 0.96 | n 55
+  D con filtro  | desarrollo: Sharpe 1.11 | anual  +27.5 % | caída   4.6 % | MAR 5.97 | n 25 | examen: Sharpe 0.68 | anual  +12.8 % | caída  12.0 % | MAR 1.07 | n 42
+
+(1) Validación: misma regla en las demás monedas del top 30:
+  sin filtro    | desarrollo: n 480, +0.215R | examen: n 556, +0.107R
+  con filtro    | desarrollo: n 237, +0.217R | examen: n 284, +0.153R

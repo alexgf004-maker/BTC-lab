@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (151 pruebas más; ≈ 571 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (158 pruebas más; ≈ 578 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -83,6 +83,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 42 Ampliar lo que funciona | Motor A en 20 altcoins, su espejo bajista, filtro anticapitulación para B | Los tres rechazados: el motor A solo funciona en BTC/ETH/SOL; el corto espejo no tiene ventaja; el filtro de B mejora un periodo y empeora otro. |
 | 43 Pensar como gestor | Paridad de riesgo, volatilidad objetivo, momentum de estrategias; piramidación y filtro de euforia en D; D en altcoins | Cartera: nada supera a pesos iguales. **D mejora con piramidación + filtro de euforia** (Sharpe 1,04→1,19 y 0,49→0,60; caída 19,8→12,7 % y 27,5→24,5 %): activado en el bot. |
 | 44 Mejoras del bloque B | Filtro de cortos saturados, piramidación, stop a cero, salida por tiempo | Las cuatro rechazadas. La piramidación parecía mejorar, pero era un efecto de suponer añadidos al precio exacto; con ejecución realista empeora. |
+| 60 Rasgos de las pérdidas de D | 7 variables; búsqueda en BTC/ETH, validación en el resto del top 30 | **No cambia D:** no comprar tras un mes muy alcista mejora 2023–26 y las otras monedas, pero empeora 2020–23 (Sharpe 1,23 → 1,11). |
 | 59 Rasgos de las pérdidas de G | 8 variables; búsqueda en BTC/ETH/SOL, validación en el resto del top 30 | **No cambia G:** no comprar con volatilidad alta mejora el resultado por operación (también en monedas nuevas) pero quita 24–49 % de las operaciones y baja el beneficio total. |
 | — Bloque en seguimiento M | Copia de B con el filtro de funding de la L58 | Añadido **solo en seguimiento**, en paralelo con B. |
 | 58 Rasgos de las pérdidas de B | 8 variables; búsqueda en el top 30, validación en los puestos 31–100 y en la cartera | **No cambia B por poco:** no abrir cortos con funding ya bajo mejora en monedas nuevas y el Sharpe (0,97→1,38 en 2023–26), pero sube la caída de 2020–22 (29,2 % → 32,7 %). |

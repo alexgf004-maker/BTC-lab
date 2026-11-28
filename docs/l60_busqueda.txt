@@ -1,0 +1,9 @@
+Búsqueda (D en BTC y ETH): 98 operaciones, acierto 41 %, media +0.622R
+
+  fuerza de la ruptura (ATR sobre el máximo)   | bajo: n 33, acierto  30 %, media +0.572R | medio: n 32, acierto  47 %, media +0.456R | alto: n 33, acierto  45 %, media +0.831R | cortes 0.3894 / 0.9048
+  volatilidad (ATR 4 h / precio)               | bajo: n 33, acierto  45 %, media +1.352R | medio: n 32, acierto  25 %, media +0.167R | alto: n 33, acierto  52 %, media +0.332R | cortes 0.01307 / 0.01846
+  funding 3 días                               | bajo: n 33, acierto  33 %, media +0.361R | medio: n 32, acierto  41 %, media +0.765R | alto: n 33, acierto  48 %, media +0.743R | cortes 5.076e-05 / 8.843e-05
+  extensión: cierre diario vs EMA50            | bajo: n 33, acierto  42 %, media +1.148R | medio: n 32, acierto  38 %, media +0.472R | alto: n 33, acierto  42 %, media +0.240R | cortes 0.04217 / 0.08575
+  rentabilidad 30 días                         | bajo: n 33, acierto  39 %, media +1.092R | medio: n 32, acierto  41 %, media +0.580R | alto: n 32, acierto  44 %, media +0.201R | cortes 0.07318 / 0.1794
+  volumen 24 h / media 20 días                 | bajo: n 33, acierto  36 %, media +0.719R | medio: n 32, acierto  47 %, media +0.950R | alto: n 33, acierto  39 %, media +0.206R | cortes 1.101 / 1.521
+  BTC vs su EMA50 diaria                       | bajo: n 34, acierto  50 %, media +1.249R | medio: n 31, acierto  35 %, media +0.334R | alto: n 33, acierto  36 %, media +0.245R | cortes 0.03278 / 0.08718
