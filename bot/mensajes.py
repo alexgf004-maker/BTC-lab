@@ -9,11 +9,12 @@ BLOQUES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_
            "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida (EN PRUEBA)",
            "I_coinbase": "I · Prima de Coinbase (EN PRUEBA)", "J_redondos": "J · Ruptura falsa de redondos (EN PRUEBA)",
            "K_tokenizadas": "K · Arbitraje de tokenizadas (EN PRUEBA)",
-           "L_doble_techo": "L · Doble techo (EN PRUEBA)", "cartera": "Cartera"}
+           "L_doble_techo": "L · Doble techo (EN PRUEBA)", "M_B_filtrado": "M · B con filtro de funding (EN PRUEBA)",
+           "cartera": "Cartera"}
 
 
 LINEA = "━━━━━━━━━━━━━━"
-EN_PRUEBA = {"H_prima", "I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo"}
+EN_PRUEBA = {"H_prima", "I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo", "M_B_filtrado"}
 
 
 def pct(x):
@@ -111,7 +112,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
         prueba = sleeve in EN_PRUEBA
         top = f"{head}\n📥 NUEVA OPERACIÓN{' · 🧪 EN PRUEBA' if prueba else ''}\n{bl.replace(' (EN PRUEBA)', '')}\n{LINEA}\n"
         pie = "\n🧪 Simulada aparte: no cuenta en tu capital." if prueba else ""
-        if sleeve == "B_corto_alt_btc":
+        if sleeve in ("B_corto_alt_btc", "M_B_filtrado"):
             ratio, R = _f(r"ratio=([\d\.e\-\+]+)", detail), _f(r"R=([\d\.e\-\+]+)", detail)
             btc = _f(r"BTC ([\+\-]?[\d\.e\-]+)", detail)
             pb = _f(r"@ ([\d\.]+)", detail) or (notional / btc if btc else None)
@@ -169,7 +170,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
     if event == "salida":
         pnl = _f(r"pnl=([\-\d\.]+)", detail)
         why = (detail or "").split(" pnl=")[0] if sleeve in ("G_rafaga", "H_prima", "I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo") else (
-            (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc") else "")
+            (detail or "").split(" ")[0] if sleeve in ("A_carry", "E_carry_inverso", "B_corto_alt_btc", "M_B_filtrado") else "")
         motivos = {"stop": "saltó el stop", "stop_horario": "saltó el stop (comprobación horaria)",
                    "sin_datos": "la moneda dejó de tener datos (posible deslistado)", "rendimiento": "el funding dejó de compensar"}
         gana = (pnl or 0) > 0
@@ -178,7 +179,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
         lado = _f(r"lado=(\w+)", detail, str)
         if sleeve in ("A_carry", "E_carry_inverso", "H_prima", "K_tokenizadas"):
             dl = "⚪ Era NEUTRAL (no apostaba a la dirección)"
-        elif sleeve == "B_corto_alt_btc":
+        elif sleeve in ("B_corto_alt_btc", "M_B_filtrado"):
             dl = f"🔴 Era CORTO en {a} contra BTC (ganaba si {a} lo hacía peor que BTC)"
         elif lado == "largo":
             dl = "🟢 Era LARGO (ganaba si subía)"
@@ -212,7 +213,7 @@ def formatear(mode, sleeve, event, symbol="", side="", qty="", price="", detail=
         return msg
 
     if event == "ampliacion" and q is not None:
-        if sleeve == "B_corto_alt_btc":
+        if sleeve in ("B_corto_alt_btc", "M_B_filtrado"):
             return (f"{head}\n➕ Amplía posición · {bl}\n{a} sigue debilitándose frente a BTC: amplía el corto en {cantidad(q)} {a} "
                     f"a {precio(p)} $ (con su cobertura en BTC).\n{detail}.\nTodo usa el mismo stop dinámico.")
         return (f"{head}\n➕ Amplía posición · {bl}\n{a} sigue subiendo: añade {cantidad(q)} {a} a {precio(p)} $.\n{detail}.\n"

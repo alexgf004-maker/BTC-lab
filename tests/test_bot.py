@@ -534,3 +534,16 @@ def test_tamano_por_riesgo_en_bloques_en_prueba(tmp_path):
     assert q < 0 and abs(abs(q) * (1.5382 - 1.18) - 10.0) < 1e-6 and abs(q) * 1.18 < 40
     q2 = J._qty_riesgo(1, 100.0, 99.6)                            # stop a 0,4 %: el tope del 30 % del bloque limita el importe
     assert abs(abs(q2) * 100.0 - 300.0) < 1e-6
+
+
+def test_copia_m_de_b_va_aparte(tmp_path):
+    from bot.journal import Journal
+    from bot.mensajes import formatear
+    from bot.state import State
+    from bot.strategies.weak_alts import WeakAlts
+    st = State(str(tmp_path / "s.json")); j = Journal(tmp_path / "d.csv", "paper")
+    b = WeakAlts({"capital": 2375.0}, st, None, None, j, lambda now: [])
+    m = WeakAlts({"capital": 2375.0, "nombre": "M_B_filtrado", "filtro_funding": 0.0000243}, st, None, None, j, lambda now: [])
+    assert b.name == "B_corto_alt_btc" and m.name == "M_B_filtrado" and set(st.d["sleeves"]) == {"B_corto_alt_btc", "M_B_filtrado"}
+    msg = formatear("paper", "M_B_filtrado", "entrada", "ENAUSDT", "SELL", -100, 0.09, "ratio=1.5e-06 R=1.2e-07 BTC +0.0002 @ 58000")
+    assert "EN PRUEBA" in msg and "CORTO en ENA" in msg and "LARGO en BTC" in msg

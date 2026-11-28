@@ -142,6 +142,11 @@ máximo 10. Es la única observación que se repitió en monedas nunca usadas (t
 **Tamaño en J y L (desde el 28-nov):** por riesgo, no por importe: cada operación pierde como máximo el 1 % del saldo del bloque
 (≈ 10 $) si salta el stop; el importe invertido = 10 $ / distancia al stop, con un tope del 30 % del bloque.
 
+## 5i. Bloque M — copia de B con filtro de funding, solo en seguimiento (Lección 58)
+Exactamente el bloque B (mismo capital, mismas reglas, stop que se aprieta tras +2R), pero **no abre el corto** si el funding medio
+de 3 días de la altcoin es ≤ 0,0024 % por 8 h (cortos ya amontonados). Mejoró en monedas nuevas y en el Sharpe de la cartera, pero
+subió la caída de 2020–22; se mide en paralelo con B para decidir con datos nuevos. Siempre simulado y fuera del capital.
+
 ## 6. Ejecución
 ```bash
 python -m bot.main --config bot/config.yaml            # bucle continuo: un ciclo cada hora en punto + 2 min

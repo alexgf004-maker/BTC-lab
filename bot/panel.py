@@ -47,7 +47,7 @@ NAMES = {"A_carry": "A · Carry", "E_carry_inverso": "E · Carry inverso", "B_co
          "G_rafaga": "G · Ráfaga de momentum", "H_prima": "H · Prima rápida 🧪 en prueba",
          "I_coinbase": "I · Prima de Coinbase 🧪 en prueba", "J_redondos": "J · Ruptura falsa de redondos 🧪 en prueba",
          "K_tokenizadas": "K · Arbitraje de tokenizadas 🧪 en prueba",
-         "L_doble_techo": "L · Doble techo 🧪 en prueba"}
+         "L_doble_techo": "L · Doble techo 🧪 en prueba", "M_B_filtrado": "M · B con filtro de funding 🧪 en prueba"}
 
 
 # ------------------------------------------------------------------ lectura de datos
@@ -219,7 +219,7 @@ def describe(name, sym, p, px):
     """(texto claro, resultado abierto en $ o None) de una posición."""
     a = _base(sym)
     now = px.get(sym)
-    if name == "B_corto_alt_btc":
+    if name in ("B_corto_alt_btc", "M_B_filtrado"):
         qa, qb = p.get("qty_alt", 0), p.get("qty_btc", 0)
         pa, pb = p.get("px_alt", 0), p.get("px_btc", 0)
         stop_pct = p["R"] / p["entry"] if p.get("entry") else 0
@@ -273,6 +273,8 @@ def event_text(r):
         return f"🔥 {_base(r.get('symbol', ''))}: señal omitida por euforia ({r.get('detalle', '')})"
     if e == "omitida_figura":
         return f"📉 {_base(r.get('symbol', ''))}: compra omitida por una figura bajista reciente ({r.get('detalle', '')})"
+    if e == "omitida_funding":
+        return f"🧊 {_base(r.get('symbol', ''))}: corto omitido por funding bajo ({r.get('detalle', '')})"
     if e == "omitida_minimo":
         return f"ℹ️ {_base(r.get('symbol', ''))}: señal omitida (por debajo del mínimo de Binance)"
     try:
@@ -310,7 +312,7 @@ def render(s):
     rows = ""
     for name, v in sl.items():
         bal = v.get("balance", 0) + open_by.get(name, 0.0)
-        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", {"G_rafaga": 0.20}.get(name, 0.10 if name[:2] in ("H_", "I_", "J_", "K_", "L_") else 0)) or 0)
+        cap_b = float(cfg.get("capital", 0) or 0) * float(cfg.get("bloques", {}).get(name, {}).get("fraccion", {"G_rafaga": 0.20, "M_B_filtrado": float(cfg.get("bloques", {}).get("B_corto_alt_btc", {}).get("fraccion", 0.2375))}.get(name, 0.10 if name[:2] in ("H_", "I_", "J_", "K_", "L_") else 0)) or 0)
         r = (bal / cap_b - 1) if cap_b else 0
         rows += (f'<tr><td>{html.escape(NAMES.get(name, name))}</td><td class="n">{money(bal)}</td>'
                  f'<td class="n {"pos" if r >= 0 else "neg"}">{pct(r)}</td><td class="n">{len(v.get("positions", {}))}</td>'

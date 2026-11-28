@@ -16,8 +16,8 @@ class WeakAlts:
     def __init__(self, cfg, state, broker, market, journal, universe_fn):
         self.cfg, self.st, self.b, self.m, self.j = cfg, state, broker, market, journal
         self.universe_fn = universe_fn               # (now) -> lista ordenada de símbolos miembros del mes
-        self.name = NAME
-        self.sl = state.sleeve(NAME, cfg["capital"])
+        self.name = cfg.get("nombre", NAME)                      # M_B_filtrado: copia en prueba con otro nombre
+        self.sl = state.sleeve(self.name, cfg["capital"])
 
     def due(self, now):
         return self.cfg.get("salidas_horarias", False) or now.hour % 4 in (0, 1)
@@ -68,6 +68,16 @@ class WeakAlts:
                 continue
             last = df.iloc[-1]
             if bool(last["signal"]):
+                fmin = self.cfg.get("filtro_funding")                  # Lección 58 (solo en la copia en prueba M)
+                if fmin is not None:
+                    t0 = df.index[-1]
+                    fz = self.m.funding(sym, t0 - pd.Timedelta("72h"), t0)
+                    fz = fz[fz.index <= t0]
+                    f3 = float(fz.sum()) / 9 if len(fz) else 0.0
+                    if f3 <= fmin:
+                        self.j.log(self.name, "omitida_funding", sym, "SELL", 0, float(last["close"]),
+                                   f"funding medio 3 días {100 * f3:.4f} % por 8 h (cortos amontonados)", ts=str(now))
+                        continue
                 n_pend = len(self.sl.setdefault("pending", {}))
                 if len(self.sl["positions"]) + n_pend < K:
                     self.sl["pending"][sym] = {"R": float(m * last["atr"]), "signal_bar": str(df.index[-1])}
@@ -82,20 +92,20 @@ class WeakAlts:
         notional = units * ratio_px                              # nocional por pata en USDT (aprox.)
         pa, pb = self.m.price(sym), self.m.price("BTCUSDT")
         if not (self.b.can_trade(sym, notional / pa, "perp") and self.b.can_trade("BTCUSDT", notional / pb, "perp")):
-            self.j.log(NAME, "omitida_minimo", sym, "SELL", notional / pa, pa, f"nocional {notional:.2f} por debajo del mínimo de una pata", ts=str(now))
+            self.j.log(self.name, "omitida_minimo", sym, "SELL", notional / pa, pa, f"nocional {notional:.2f} por debajo del mínimo de una pata", ts=str(now))
             return
         fa = self.b.execute(sym, -notional / pa, "perp", tag="B")
         if not (fa.ok or fa.msg == "simulacro"):
-            self.j.log(NAME, "error_entrada", sym, "SELL", notional / pa, pa, fa.msg, ts=str(now)); return
+            self.j.log(self.name, "error_entrada", sym, "SELL", notional / pa, pa, fa.msg, ts=str(now)); return
         fb = self.b.execute("BTCUSDT", notional / pb, "perp", tag="B")
         if not (fb.ok or fb.msg == "simulacro"):                     # la cobertura falló: deshacer la pata de la altcoin
             self.b.execute(sym, -fa.qty, "perp", tag="B")
-            self.j.log(NAME, "error_entrada", "BTCUSDT", "BUY", notional / pb, pb, f"cobertura fallida ({fb.msg}); altcoin deshecha", ts=str(now)); return
+            self.j.log(self.name, "error_entrada", "BTCUSDT", "BUY", notional / pb, pb, f"cobertura fallida ({fb.msg}); altcoin deshecha", ts=str(now)); return
         self.sl["positions"][sym] = {"side": -1, "entry": ratio_px, "R": R, "stop": ratio_px + R, "ext": ratio_px, "units": units,
                                      "qty_alt": fa.qty, "qty_btc": fb.qty, "px_alt": fa.price, "px_btc": fb.price,
                                      "fees": fa.fee + fb.fee, "entry_time": entry_bar, "entry_bar": entry_bar,
                                      "adds": [ratio_px - R / 5, ratio_px - 2 * R / 5] if frac < 1 else []}
-        self.j.log(NAME, "entrada", sym, "SELL", fa.qty, fa.price, f"ratio={ratio_px:.6g} R={R:.3g} BTC {fb.qty:+.5f} @ {fb.price:.2f}", ts=str(now))
+        self.j.log(self.name, "entrada", sym, "SELL", fa.qty, fa.price, f"ratio={ratio_px:.6g} R={R:.3g} BTC {fb.qty:+.5f} @ {fb.price:.2f}", ts=str(now))
 
     def _pyramid(self, sym, pos, bar, now, risk):
         """Amplía el corto un cuarto del riesgo cuando el ratio cae 1 ATR y otro cuando cae 2 ATR (mismo stop dinámico)."""
@@ -119,7 +129,7 @@ class WeakAlts:
             pos["entry"] = (pos["entry"] * pos["units"] + ratio * units) / (pos["units"] + units)
             pos["qty_alt"] += fa.qty; pos["qty_btc"] += fb.qty; pos["units"] += units; pos["fees"] += fa.fee + fb.fee
             pos["adds"].remove(trig)
-            self.j.log(NAME, "ampliacion", sym, "SELL", fa.qty, fa.price,
+            self.j.log(self.name, "ampliacion", sym, "SELL", fa.qty, fa.price,
                        f"corto total {abs(pos['qty_alt']):.6g} {sym.replace('USDT', '')} + BTC {pos['qty_btc']:.5f} · stop del ratio {pos['stop']:.6g}", ts=str(now))
 
     def _close(self, sym, pos, ratio_exit, now, why):
@@ -133,4 +143,4 @@ class WeakAlts:
         self.sl.setdefault("trades", []).append({"symbol": sym, "entry_time": pos["entry_time"], "exit_time": str(now), "entry": pos["entry"],
                                                  "exit": ratio_exit, "R": pos["R"], "pnl_ratio": pnl_ratio, "pnl_patas": legs - fees, "motivo": why})
         del self.sl["positions"][sym]
-        self.j.log(NAME, "salida", sym, "BUY", -pos["qty_alt"], fa.price, f"{why} ratio={ratio_exit:.6g} pnl={legs - fees:.2f}" + tras(pos), ts=str(now))
+        self.j.log(self.name, "salida", sym, "BUY", -pos["qty_alt"], fa.price, f"{why} ratio={ratio_exit:.6g} pnl={legs - fees:.2f}" + tras(pos), ts=str(now))

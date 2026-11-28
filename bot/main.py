@@ -47,7 +47,8 @@ K_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25
              "max_horas": 24}
 L_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "K": 100, "riesgo": 0.01,
              "max_nocional": 0.30}
-EXTRA = {"G_rafaga": G_DEFAULT, "H_prima": H_DEFAULT, "I_coinbase": I_DEFAULT, "J_redondos": J_DEFAULT, "K_tokenizadas": K_DEFAULT,
+M_DEFAULT = {"activo": True, "seguimiento": True, "filtro_funding": 0.0000243}    # copia de B con el filtro de la L58
+EXTRA = {"M_B_filtrado": M_DEFAULT, "G_rafaga": G_DEFAULT, "H_prima": H_DEFAULT, "I_coinbase": I_DEFAULT, "J_redondos": J_DEFAULT, "K_tokenizadas": K_DEFAULT,
          "L_doble_techo": L_DEFAULT}
 
 
@@ -97,8 +98,13 @@ def build(cfg):
     cfgJ = {**J_DEFAULT, **B.get("J_redondos", {}), "seguimiento": True}
     cfgK = {**K_DEFAULT, **B.get("K_tokenizadas", {}), "seguimiento": True}
     cfgL = {**L_DEFAULT, **B.get("L_doble_techo", {}), "seguimiento": True}
+    cfgM = {**B["B_corto_alt_btc"], **M_DEFAULT, **B.get("M_B_filtrado", {}), "seguimiento": True, "nombre": "M_B_filtrado"}
     state.d["seguimiento"] = [k for k, v in {"G_rafaga": cfgG, "H_prima": cfgH, "I_coinbase": cfgI, "J_redondos": cfgJ,
-                                             "K_tokenizadas": cfgK, "L_doble_techo": cfgL}.items() if v.get("seguimiento")]
+                                             "K_tokenizadas": cfgK, "L_doble_techo": cfgL, "M_B_filtrado": cfgM}.items()
+                              if v.get("seguimiento")]
+    if cfgM.get("activo", True):                             # misma B, mismo capital, con el bróker simulado
+        strategies.append(WeakAlts({**cfgM, "capital": total * cfgM["fraccion"], "salidas_horarias": True}, state, PaperBroker(market),
+                                   market, journal, lambda now: uni.top(now, cfgM["K"])))
     if cfgL.get("activo", True):
         strategies.append(DobleTecho({**cfgL, "capital": total * cfgL["fraccion"]}, state, market, journal,
                                      lambda now: uni.top(now, cfgL["K"])))
@@ -126,7 +132,7 @@ def initial_capital(cfg):
     fr = sum(float(v.get("fraccion", 0)) for k, v in B.items() if v.get("activo") and k not in EXTRA)
     for name, dflt in EXTRA.items():
         g = {**dflt, **B.get(name, {})}
-        if name in ("I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo"):
+        if name in ("I_coinbase", "J_redondos", "K_tokenizadas", "L_doble_techo", "M_B_filtrado"):
             continue
         if g.get("activo", True) and not g.get("seguimiento"):
             fr += float(g["fraccion"])
