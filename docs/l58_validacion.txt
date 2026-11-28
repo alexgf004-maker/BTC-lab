@@ -1,0 +1,9 @@
+Filtro: quitar el tercil bajo de 'funding 3 días de la altcoin' (corte fijo del top 30: 2.43e-05)
+
+(2) Cartera B real, top 30:
+  B actual       | 2020–22: Sharpe 1.68 | anual  +78.2 % | caída  29.2 % | 2023–26: Sharpe 0.97 | anual  +36.5 % | caída  32.7 % | operaciones 2253
+  B con filtro   | 2020–22: Sharpe 1.72 | anual  +72.1 % | caída  32.7 % | 2023–26: Sharpe 1.38 | anual  +56.2 % | caída  20.0 % | operaciones 1778
+
+(1) Validación en los puestos 31–100 (operaciones candidatas, resultado medio):
+  B sin filtro   | desarrollo: n 10938, +0.056R | examen: n 27164, +0.124R
+  B con filtro   | desarrollo: n 7564, +0.081R | examen: n 18686, +0.177R

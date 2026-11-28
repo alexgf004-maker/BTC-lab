@@ -63,7 +63,7 @@ Cartera recalculada (1/4 por bloque, conjuntos de parámetros): **+29,7 % anual 
 10 000 $ en 2020 → 56 734 $ (simulación) / 23 387 $ (con descuento).
 
 ## 9. Segunda ampliación (Lecciones 27–31): agotar scalping, swing y hold
-Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (135 pruebas más; ≈ 555 en total).
+Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los resultados (143 pruebas más; ≈ 563 en total).
 | Lección | Qué se probó | Resultado |
 |---|---|---|
 | 27 Hold | Gestión por volatilidad, filtro de 200 días, índice top-10, DCA (BTC desde 2013) | El filtro de 200 días + exposición por volatilidad **reduce la caída a la mitad** (67–85 % → 25–49 %) con el mismo Sharpe, pero no mejora el Sharpe en todos los periodos. Índice de altcoins y DCA peores que BTC de golpe. |
@@ -83,6 +83,7 @@ Cinco lecciones nuevas, cada una con pre-registro commiteado antes de los result
 | 42 Ampliar lo que funciona | Motor A en 20 altcoins, su espejo bajista, filtro anticapitulación para B | Los tres rechazados: el motor A solo funciona en BTC/ETH/SOL; el corto espejo no tiene ventaja; el filtro de B mejora un periodo y empeora otro. |
 | 43 Pensar como gestor | Paridad de riesgo, volatilidad objetivo, momentum de estrategias; piramidación y filtro de euforia en D; D en altcoins | Cartera: nada supera a pesos iguales. **D mejora con piramidación + filtro de euforia** (Sharpe 1,04→1,19 y 0,49→0,60; caída 19,8→12,7 % y 27,5→24,5 %): activado en el bot. |
 | 44 Mejoras del bloque B | Filtro de cortos saturados, piramidación, stop a cero, salida por tiempo | Las cuatro rechazadas. La piramidación parecía mejorar, pero era un efecto de suponer añadidos al precio exacto; con ejecución realista empeora. |
+| 58 Rasgos de las pérdidas de B | 8 variables; búsqueda en el top 30, validación en los puestos 31–100 y en la cartera | **No cambia B por poco:** no abrir cortos con funding ya bajo mejora en monedas nuevas y el Sharpe (0,97→1,38 en 2023–26), pero sube la caída de 2020–22 (29,2 % → 32,7 %). |
 | 57 Rasgos de las pérdidas de J | 10 variables al entrar; búsqueda en el top 30, validación en los puestos 31–100 | **J no opera monedas tranquilas (ATR ≤ 7,5 % diario)**: en datos nuevos pasa de −0,07 %/−0,04 % a +0,01 %/+0,25 % por operación. Activado; J sigue siendo marginal. |
 | 56 Take profit en B | Take profit en +1R, +2R, +3R, mitad en +2R; o apretar el stop a 2,5 ATR tras +2R | **Take profits fijos rechazados** (cortan las operaciones grandes: el 0,6 % que acaba en ≥ +5R aporta un tercio del beneficio). **Apretar el stop tras +2R: aprobado y activado** (Sharpe 1,56→1,68 y 0,82→0,97; mejor en 6 de 7 años). |
 | — Bloque en seguimiento L | Doble techo en corto, top 100 | Añadido **solo en seguimiento** para medirlo con datos nuevos (J se mantiene también). |

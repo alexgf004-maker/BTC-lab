@@ -1,0 +1,10 @@
+Búsqueda en el top 30: 17182 operaciones candidatas, acierto 42 %, media +0.130R
+
+  profundidad de la ruptura (ATR bajo el mínimo de 120) | bajo: acierto  45 %, media +0.172R | medio: acierto  43 %, media +0.166R | alto: acierto  38 %, media +0.052R | cortes 0.3101 / 0.803
+  volatilidad de la altcoin (ATR diario / precio)      | bajo: acierto  44 %, media +0.235R | medio: acierto  44 %, media +0.175R | alto: acierto  39 %, media -0.020R | cortes 0.06538 / 0.09854
+  funding 3 días de la altcoin                         | bajo: acierto  38 %, media -0.022R | medio: acierto  43 %, media +0.165R | alto: acierto  47 %, media +0.261R | cortes 2.43e-05 / 0.0001
+  caída del ratio en 30 días                           | bajo: acierto  43 %, media +0.179R | medio: acierto  42 %, media +0.138R | alto: acierto  41 %, media +0.073R | cortes 0.1231 / 0.2513
+  distancia bajo la media 50 del ratio                 | bajo: acierto  44 %, media +0.148R | medio: acierto  41 %, media +0.146R | alto: acierto  42 %, media +0.096R | cortes 0.09403 / 0.1687
+  BTC 7 días                                           | bajo: acierto  34 %, media -0.071R | medio: acierto  46 %, media +0.243R | alto: acierto  47 %, media +0.222R | cortes -0.01916 / 0.04141
+  volumen del día / media 20 días                      | bajo: acierto  42 %, media +0.159R | medio: acierto  43 %, media +0.160R | alto: acierto  41 %, media +0.071R | cortes 0.5936 / 0.9153
+  antigüedad de la moneda (días)                       | bajo: acierto  47 %, media +0.264R | medio: acierto  41 %, media +0.082R | alto: acierto  38 %, media +0.044R | cortes 341 / 884

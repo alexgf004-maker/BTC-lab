@@ -22,3 +22,29 @@ un tercil extremo de una variable con patrón ordenado), el de mayor mejora.
 **Criterio:** (1) en los puestos 31–100, con el corte fijo del top 30, el filtro mejora el resultado medio en desarrollo (2020–2022)
 **y** examen (2023 → 2026-10); y (2) en la cartera B real (top 30, riesgo 1 %, máximo 10), Sharpe mayor en las dos mitades y caída
 máxima no mayor (criterio de la L44). Si no cumple las dos, B no cambia.
+
+## 2. Resultados — `l58_busqueda.txt`, `l58_validacion.txt`
+**Búsqueda (top 30, 17.182 operaciones candidatas), resultado medio por tercil (R):**
+| Variable | Bajo | Medio | Alto | ¿Ordenado? |
+|---|---|---|---|---|
+| Profundidad de la ruptura | +0,172 | +0,166 | +0,052 | Sí |
+| Volatilidad de la altcoin | +0,235 | +0,175 | −0,020 | Sí |
+| **Funding 3 días de la altcoin** | **−0,022** | **+0,165** | **+0,261** | **Sí (mayor mejora)** |
+| Caída del ratio en 30 días | +0,179 | +0,138 | +0,073 | Sí |
+| Distancia bajo la media 50 | +0,148 | +0,146 | +0,096 | Sí |
+| BTC 7 días | −0,071 | +0,243 | +0,222 | No |
+| Volumen del día | +0,159 | +0,160 | +0,071 | No |
+| Antigüedad de la moneda | +0,264 | +0,082 | +0,044 | Sí |
+
+Filtro elegido: no abrir el corto si el funding medio de 3 días de la altcoin es ≤ 0,0024 % por 8 h (cortos ya amontonados).
+
+| Prueba | Sin filtro | Con filtro | ¿Cumple? |
+|---|---|---|---|
+| (1) Puestos 31–100, desarrollo | +0,056R (n 10.938) | +0,081R (n 7.564) | Sí |
+| (1) Puestos 31–100, examen | +0,124R (n 27.164) | +0,177R (n 18.686) | Sí |
+| (2) Cartera top 30, 2020–22 | Sharpe 1,68 · caída 29,2 % | Sharpe 1,72 · caída **32,7 %** | **No (caída mayor)** |
+| (2) Cartera top 30, 2023–26 | Sharpe 0,97 · caída 32,7 % | Sharpe 1,38 · caída 20,0 % | Sí |
+
+**No pasa el criterio** por la caída máxima de 2020–22 (+3,5 puntos), aunque mejora todo lo demás, incluida la validación en
+monedas nuevas. B no cambia. Es el mejor candidato encontrado para B hasta ahora; se puede medir en paralelo como variante en
+seguimiento. Observaciones secundarias: la volatilidad de la altcoin y BTC a la baja en 7 días también señalan cortos peores.
