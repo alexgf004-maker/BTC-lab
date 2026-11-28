@@ -1,0 +1,9 @@
+Filtro: quitar el tercil alto de 'volatilidad (ATR horario / precio)' (corte fijo: 0.01378)
+
+(2) G real (BTC, ETH, SOL):
+  G actual      | desarrollo: n 142 (100 %), +0.739R | examen: n 229 (100 %), +0.885R
+  G con filtro  | desarrollo: n 73 (51 %), +1.300R | examen: n 174 (76 %), +1.020R
+
+(1) Validación: misma regla en las demás monedas del top 30 (3992 operaciones):
+  sin filtro    | desarrollo: n 1567, -0.057R | examen: n 2425, +0.126R
+  con filtro    | desarrollo: n 375, +0.028R | examen: n 724, +0.474R

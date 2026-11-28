@@ -1,0 +1,10 @@
+Búsqueda (G en BTC, ETH, SOL): 371 operaciones, acierto 28 %, media +0.829R
+
+  subida de 3 h                        | bajo: n 124, acierto  37 %, media +1.768R | medio: n 123, acierto  21 %, media +0.156R | alto: n 124, acierto  27 %, media +0.558R | cortes 0.02769 / 0.04299
+  pico de operaciones (z)              | bajo: n 124, acierto  32 %, media +0.590R | medio: n 123, acierto  24 %, media +0.452R | alto: n 124, acierto  29 %, media +1.442R | cortes 4.663 / 6.164
+  distancia sobre la EMA200            | bajo: n 124, acierto  29 %, media +1.158R | medio: n 123, acierto  31 %, media +0.942R | alto: n 124, acierto  25 %, media +0.389R | cortes 0.04166 / 0.075
+  volatilidad (ATR horario / precio)   | bajo: n 124, acierto  31 %, media +1.607R | medio: n 123, acierto  30 %, media +0.594R | alto: n 124, acierto  23 %, media +0.284R | cortes 0.009138 / 0.01378
+  funding 3 días                       | bajo: n 124, acierto  27 %, media +0.751R | medio: n 123, acierto  33 %, media +0.967R | alto: n 124, acierto  26 %, media +0.771R | cortes 3.892e-05 / 9.698e-05
+  BTC frente a su media de 50 días     | bajo: n 124, acierto  27 %, media +0.503R | medio: n 123, acierto  25 %, media +0.986R | alto: n 124, acierto  32 %, media +1.000R | cortes 0.001971 / 0.08306
+  rentabilidad de las 24 h previas     | bajo: n 124, acierto  23 %, media +0.566R | medio: n 123, acierto  36 %, media +1.641R | alto: n 124, acierto  26 %, media +0.287R | cortes -8.806e-05 / 0.02352
+  volumen 24 h / media de 7 días       | bajo: n 124, acierto  31 %, media +0.903R | medio: n 123, acierto  26 %, media +0.529R | alto: n 124, acierto  28 %, media +1.053R | cortes 1.144 / 1.376
