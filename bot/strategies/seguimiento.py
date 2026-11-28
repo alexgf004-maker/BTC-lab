@@ -11,7 +11,7 @@ Ninguno usa el bróker: calculan su resultado con los precios reales y costes fi
 """
 from __future__ import annotations
 
-from ..mensajes import tras
+from ..mensajes import num as _num, tras
 
 import math
 
@@ -95,10 +95,10 @@ class PrimaCoinbase(_Seguimiento):
         if want:
             q = want * self.sl["balance"] / px
             self.sl["positions"][sym] = {"qty": q, "entry": px, "fees": abs(q) * px * PERP_COST, "entry_time": str(now),
-                                         "texto": f"{'Largo' if want > 0 else 'Corto'} en BTC a {px:,.0f} $ porque la prima de Coinbase "
+                                         "texto": f"{'Largo' if want > 0 else 'Corto'} en BTC a {_num(px, 0)} $ porque la prima de Coinbase "
                                                   f"está {'muy alta' if want > 0 else 'muy baja'} (z {z:+.2f}). Se revisa cada 4 h."}
             self.j.log(self.NAME, "entrada", sym, "BUY" if want > 0 else "SELL", abs(q), px,
-                       f"{'Largo' if want > 0 else 'Corto'} en el futuro de BTC (≈ {abs(q) * px:,.0f} $): los compradores de EE. UU. "
+                       f"{'Largo' if want > 0 else 'Corto'} en el futuro de BTC (≈ {_num(abs(q) * px, 0)} $): los compradores de EE. UU. "
                        f"pagan {'más' if want > 0 else 'menos'} de lo normal en Coinbase (z {z:+.2f}). Se revisa cada 4 h.", ts=str(now))
 
 
@@ -212,7 +212,7 @@ class RedondoFalla(_Seguimiento):
                                                   f"redondo {nivel} $ es falsa. Gana si un cierre diario vuelve al otro lado de {nivel} $; "
                                                   f"stop en {_p(stop)} $; máximo 20 días."}
             self.j.log(self.NAME, "entrada", sym, "BUY" if side > 0 else "SELL", abs(q), px,
-                       f"{'Largo' if side > 0 else 'Corto'} en el futuro de {sym[:-4]} a {_p(px)} $ (≈ {abs(q) * px:,.0f} $).\n"
+                       f"{'Largo' if side > 0 else 'Corto'} en el futuro de {sym[:-4]} a {_p(px)} $ (≈ {_num(abs(q) * px, 0)} $).\n"
                        + (f"{sym[:-4]} estuvo 3 días por encima de {nivel} $ y ayer cerró por debajo; "
                           if brk < 0 else f"{sym[:-4]} estuvo 3 días por debajo de {nivel} $ sin poder superarlo y ayer cerró por encima; ")
                        + f"se apuesta a que la ruptura es falsa.\nGana si un cierre diario vuelve al otro lado de {nivel} $. "
@@ -264,7 +264,7 @@ class ArbitrajeTokenizadas(_Seguimiento):
             txt = (f"El token spot de {a} está un {abs(100 * b):.2f} % {'por debajo' if side > 0 else 'por encima'} de su futuro. "
                    + (f"Compra el token a {s:,.2f} $ y corto en el futuro a {p:,.2f} $" if side > 0 else
                       f"Venta del token a {s:,.2f} $ (requeriría tenerlo o pedirlo prestado) y largo en el futuro a {p:,.2f} $")
-                   + f", ≈ {n:,.0f} $ por pata. Se cierra cuando la diferencia baja de 0,1 % o a las 24 h.")
+                   + f", ≈ {_num(n, 0)} $ por pata. Se cierra cuando la diferencia baja de 0,1 % o a las 24 h.")
             self.sl["positions"][sym] = {"b": b, "lado": side, "notional": n, "spot_px": s, "perp_px": p, "entry_time": str(now), "texto": txt}
             self.j.log(self.NAME, "entrada", sym, "BUY" if side > 0 else "SELL", n / s, s, txt, ts=str(now))
 
@@ -334,7 +334,7 @@ class DobleTecho(_Seguimiento):
                                          "texto": f"Corto a {_p(px)} $ tras romper un doble techo. Objetivo {_p(tgt)} $; stop {_p(stop)} $; "
                                                   f"máximo 10 días."}
             self.j.log(self.NAME, "entrada", sym, "SELL", abs(q), px,
-                       f"Corto en el futuro de {sym[:-4]} a {_p(px)} $ (≈ {abs(q) * px:,.0f} $).\n"
+                       f"Corto en el futuro de {sym[:-4]} a {_p(px)} $ (≈ {_num(abs(q) * px, 0)} $).\n"
                        f"{sym[:-4]} hizo dos techos casi iguales y acaba de cerrar por debajo del valle entre ambos (doble techo).\n"
                        f"🎯 Objetivo: {_p(tgt)} $ ({_pct(tgt / px - 1)}, la altura de la figura). Máximo 10 días. stop={stop:.10g}",
                        ts=str(now))
