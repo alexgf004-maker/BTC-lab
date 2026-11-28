@@ -1,0 +1,12 @@
+Búsqueda en el top 30: 6455 operaciones, acierto 71 %, media +0.17 %
+
+  tamaño de la ruptura (% más allá del nivel)      | bajo: acierto  78 %, media -0.35 %, pierde -14.9 % | medio: acierto  72 %, media -0.06 %, pierde -16.7 % | alto: acierto  63 %, media +0.93 %, pierde -19.8 %
+  tamaño de la ruptura (en ATR)                    | bajo: acierto  79 %, media -0.20 %, pierde -18.1 % | medio: acierto  73 %, media +0.44 %, pierde -17.7 % | alto: acierto  60 %, media +0.28 %, pierde -17.1 %
+  volatilidad (ATR / precio)                       | bajo: acierto  68 %, media -0.48 %, pierde -10.7 % | medio: acierto  70 %, media -0.30 %, pierde -17.6 % | alto: acierto  75 %, media +1.29 %, pierde -26.2 %
+  volumen del día de ruptura / media 20 días       | bajo: acierto  76 %, media +0.06 %, pierde -19.1 % | medio: acierto  73 %, media +0.48 %, pierde -17.0 % | alto: acierto  64 %, media -0.02 %, pierde -16.9 %
+  cierre vs media 50 días, a favor de la ruptura   | bajo: acierto  74 %, media +0.60 %, pierde -19.4 % | medio: acierto  70 %, media +0.05 %, pierde -13.9 % | alto: acierto  68 %, media -0.13 %, pierde -19.4 %
+  rentabilidad 30 días, a favor de la ruptura      | bajo: acierto  75 %, media +0.93 %, pierde -19.5 % | medio: acierto  70 %, media -0.11 %, pierde -14.0 % | alto: acierto  68 %, media -0.30 %, pierde -19.3 %
+  BTC 7 días, a favor de la ruptura                | bajo: acierto  72 %, media -0.11 %, pierde -19.4 % | medio: acierto  71 %, media -0.00 %, pierde -16.6 % | alto: acierto  70 %, media +0.63 %, pierde -16.7 %
+  antigüedad de la moneda (días)                   | bajo: acierto  70 %, media -0.14 %, pierde -20.4 % | medio: acierto  71 %, media +0.35 %, pierde -19.0 % | alto: acierto  72 %, media +0.31 %, pierde -13.0 %
+  funding 3 días, a favor de la ruptura            | bajo: acierto  72 %, media +0.09 %, pierde -19.5 % | medio: acierto  74 %, media +0.72 %, pierde -15.0 % | alto: acierto  67 %, media -0.26 %, pierde -17.9 %
+  ruptura alcista (1) o bajista (0)                | bajista: acierto  71 %, media +0.47 %, pierde -18.0 % | alcista: acierto  70 %, media -0.13 %, pierde -17.1 %

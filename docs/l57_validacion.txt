@@ -1,0 +1,12 @@
+
+top 30 (donde se buscó) — filtro: quitar el tercil bajo de 'volatilidad (ATR / precio)' (corte 0.07534)
+  J sin filtro   | desarrollo: n 2691, media +0.187 %, acierto 71 % | examen: n 3764, media +0.162 %, acierto 71 %
+  J con filtro   | desarrollo: n 2005, media +0.415 %, acierto 72 % | examen: n 2298, media +0.568 %, acierto 73 %
+
+puestos 31–100 (validación) — filtro: quitar el tercil bajo de 'volatilidad (ATR / precio)' (corte 0.08146)
+  J sin filtro   | desarrollo: n 4847, media -0.067 %, acierto 70 % | examen: n 8810, media -0.041 %, acierto 70 %
+  J con filtro   | desarrollo: n 3773, media +0.168 %, acierto 71 % | examen: n 5331, media +0.338 %, acierto 73 %
+
+puestos 31–100 con el corte FIJO del top 30 (volatilidad > 7,53 % diario):
+  J sin filtro       | desarrollo: n 4847, -0.067 % | examen: n 8810, -0.041 % | t total -0.18
+  J con filtro fijo  | desarrollo: n 4046, +0.006 % | examen: n 5974, +0.247 % | t total +0.43

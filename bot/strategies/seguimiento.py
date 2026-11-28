@@ -200,6 +200,9 @@ class RedondoFalla(_Seguimiento):
                 atr = tr.rolling(14).mean()
                 if len(atr) and atr.iloc[-1] > 0:
                     stop = px - side * k_atr * float(atr.iloc[-1])
+                    vmin = self.cfg.get("vol_min", 0.0753)                 # Lección 57: no operar monedas tranquilas
+                    if vmin and float(atr.iloc[-1]) / float(dd["close"].iloc[-1]) <= vmin:
+                        continue
             q = self._qty_riesgo(side, px, stop)                         # arriesga una cantidad fija (1 % del bloque)
             from ..mensajes import precio as _p
             nivel = _p(L)

@@ -42,7 +42,7 @@ G_DEFAULT = {"activo": True, "seguimiento": False, "fraccion": 0.20, "risk": 0.0
 
 I_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10}
 J_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "max_dias": 20, "K": 30, "stop_atr": 2.0,
-             "riesgo": 0.01, "max_nocional": 0.30}
+             "riesgo": 0.01, "max_nocional": 0.30, "vol_min": 0.0753}
 K_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.25, "max_pos": 4, "entrada": 0.005, "salida": 0.001,
              "max_horas": 24}
 L_DEFAULT = {"activo": True, "seguimiento": True, "fraccion": 0.10, "slot": 0.10, "max_pos": 10, "K": 100, "riesgo": 0.01,

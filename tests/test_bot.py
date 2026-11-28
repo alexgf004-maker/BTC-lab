@@ -474,11 +474,15 @@ def test_bloque_j_stop_a_2_atr(tmp_path):
         def price(self, sym): return 59500.0
         def funding(self, sym, since, until=None): return pd.Series(dtype=float, index=pd.DatetimeIndex([], tz="UTC"))
     st = State(str(tmp_path / "s.json")); j = Journal(tmp_path / "d.csv", "paper")
-    J = RedondoFalla({"capital": 1000.0, "slot": 0.10, "stop_atr": 2.0}, st, M(), j, lambda now: ["BTCUSDT"])
+    J = RedondoFalla({"capital": 1000.0, "slot": 0.10, "stop_atr": 2.0, "vol_min": 0}, st, M(), j, lambda now: ["BTCUSDT"])
     J.run(now)
     pos = J.sl["positions"]["BTCUSDT"]
     assert pos["lado"] == 1 and 57500 < pos["stop"] < 59000          # ~2 × ATR (≈ 800–1.700) por debajo de 59.500, no en 55.000
     assert "2 ATR" in open(tmp_path / "d.csv").read()
+    st2 = State(str(tmp_path / "s2.json"))                         # con el filtro de la L57: moneda tranquila (ATR ≈ 1–3 %) → no entra
+    J2 = RedondoFalla({"capital": 1000.0, "stop_atr": 2.0, "vol_min": 0.0753}, st2, M(), j, lambda now: ["BTCUSDT"])
+    J2.run(now)
+    assert "BTCUSDT" not in J2.sl["positions"]
 
 
 def test_bloque_l_doble_techo(tmp_path):
